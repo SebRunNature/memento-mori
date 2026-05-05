@@ -1,1 +1,755 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Montre de Vie — Seb Run Nature</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2d9e72;--green-dk:#1a6b4a;--green-lt:#a8f0d0;
+  --bg:#0a0f0c;--card:#131a16;--card2:#1a2620;
+  --text:#e8f5f0;--muted:#5a8a7a;--border:#243028;
+  --radius:14px;--amber:#c8873a;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text)}
+
+/* ── BG ── */
+.bg{position:fixed;inset:0;z-index:0}
+.bg svg{width:100%;height:100%;object-fit:cover}
+.bg-overlay{position:fixed;inset:0;z-index:1;
+  background:linear-gradient(to bottom,rgba(10,15,12,.6) 0%,rgba(10,15,12,.2) 40%,rgba(10,15,12,.75) 75%,rgba(10,15,12,.97) 100%)}
+
+/* ── LAYOUT ── */
+#app{position:relative;z-index:2;width:100%;max-width:640px;margin:0 auto;padding:48px 22px 80px;animation:fadeUp 1s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HEADER ── */
+.header{text-align:center;margin-bottom:44px}
+.header-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px}
+.header-logo span{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--green-lt)}
+.eyebrow{font-size:.82rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;margin-bottom:10px;font-weight:800}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,7vw,4rem);letter-spacing:2px;line-height:1;color:var(--text)}
+h1 em{color:var(--green-lt);font-style:normal}
+.sub{margin-top:12px;font-size:.98rem;color:var(--muted);font-weight:600;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6}
+
+/* ── WARNING ── */
+.warning{border:1px solid rgba(200,135,58,.4);background:rgba(200,135,58,.07);color:#e8b070;
+  font-size:.9rem;line-height:1.7;padding:13px 18px;border-radius:var(--radius);
+  letter-spacing:.03em;margin-bottom:32px;text-align:center;font-weight:700}
+
+/* ── SECTION TITLE ── */
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+  color:var(--green-lt);border-bottom:1px solid var(--border);padding-bottom:8px;margin:28px 0 18px}
+
+/* ── FORM CARDS ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.grid-2{grid-template-columns:1fr}}
+.input-group{margin-bottom:14px}
+label{display:block;font-size:.82rem;font-weight:800;letter-spacing:.05em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+
+input,select{
+  width:100%;padding:13px 15px;
+  background:var(--card);border:1px solid var(--border);
+  color:var(--text);border-radius:10px;
+  font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;
+  appearance:none;transition:border-color .2s,background .2s;
+}
+input:focus,select:focus{outline:none;border-color:var(--green);background:var(--card2)}
+input::placeholder{color:var(--muted)}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232d9e72' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+  padding-right:36px;cursor:pointer;
+}
+select option{background:var(--card)}
+
+/* ── HINT TEXT ── */
+.hint{font-size:.8rem;color:var(--muted);margin-top:4px;font-weight:600}
+
+/* ── BUTTON ── */
+.btn-wrap{text-align:center;margin-top:36px}
+.btn-start{
+  background:linear-gradient(135deg,var(--green-dk),var(--green));
+  color:#fff;border:none;padding:18px 56px;cursor:pointer;
+  font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;
+  border-radius:14px;transition:all .2s;
+  box-shadow:0 4px 24px rgba(45,158,114,.3);
+}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(45,158,114,.45)}
+.btn-start:active{transform:translateY(0)}
+
+/* ── DISPLAY ── */
+#display{text-align:center}
+.display-header{margin-bottom:40px}
+.display-header h1{font-size:clamp(2.1rem,5vw,3rem)}
+
+/* ── LIFE BAR ── */
+.life-bar-wrap{max-width:480px;margin:0 auto 8px}
+.life-bar-label{display:flex;justify-content:space-between;font-size:.78rem;font-weight:800;
+  letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.life-bar{height:6px;background:rgba(168,240,208,.1);border-radius:3px;overflow:hidden;position:relative}
+.life-bar-fill{height:100%;background:linear-gradient(to right,var(--green-dk),var(--green),var(--green-lt));
+  border-radius:3px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+/* Portion restante en pointillés */
+.life-bar-rest{position:absolute;top:0;right:0;height:100%;
+  border-top:2px dashed rgba(168,240,208,.25);pointer-events:none}
+
+/* ── ÉTIQUETTE RESTANT ── */
+.life-bar-sub{display:flex;justify-content:space-between;font-size:.76rem;font-weight:700;
+  color:rgba(168,240,208,.35);text-transform:uppercase;letter-spacing:.1em;margin-top:5px;max-width:480px;margin-left:auto;margin-right:auto;margin-bottom:20px}
+
+/* ── ESTIMATED LIFE PILL ── */
+.life-pill{display:inline-flex;align-items:center;gap:8px;
+  background:var(--card);border:1px solid var(--border);border-radius:30px;
+  padding:10px 22px;margin-bottom:16px;font-size:.88rem;font-weight:800;
+  color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.life-pill span{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--green-lt);letter-spacing:1px}
+
+/* ── MESSAGE PROFIL ── */
+.profile-msg{
+  max-width:460px;margin:0 auto 24px;
+  background:rgba(45,158,114,.07);border:1px solid rgba(45,158,114,.2);
+  border-left:4px solid var(--green);border-radius:0 10px 10px 0;
+  padding:14px 18px;font-size:.95rem;line-height:1.8;color:var(--green-lt);
+  font-weight:600;text-align:left;animation:fadeUp .8s ease both;animation-delay:.3s;opacity:0
+}
+
+/* ── COUNTDOWN GRID ── */
+.countdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:460px;margin:0 auto 16px}
+.cd-cell{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 10px;text-align:center;transition:border-color .3s}
+.cd-cell:hover{border-color:var(--green)}
+.cd-cell .val{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--green-lt);
+  line-height:1;display:block;letter-spacing:1px}
+.cd-cell .lbl{display:block;font-size:.72rem;font-weight:800;letter-spacing:.22em;
+  color:var(--muted);text-transform:uppercase;margin-top:5px}
+
+.cd-seconds{display:flex;justify-content:center;gap:10px;margin-bottom:32px}
+.cd-sec-cell{background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:12px 22px;text-align:center}
+.cd-sec-cell .val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--text);
+  display:block;letter-spacing:1px}
+.cd-sec-cell .lbl{display:block;font-size:.68rem;font-weight:800;letter-spacing:.2em;
+  color:var(--muted);text-transform:uppercase;margin-top:4px}
+
+/* ── QUOTE ── */
+.note-text{font-size:1rem;font-style:italic;color:rgba(168,240,208,.4);
+  margin-bottom:36px;font-weight:600;line-height:1.6}
+
+/* ── BLOG LINKS ── */
+.blog-section{margin-top:36px;padding:22px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
+.blog-section-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+  color:var(--green-lt);margin-bottom:14px}
+.blog-links{display:flex;flex-direction:column;gap:10px}
+.blog-link{display:flex;align-items:center;gap:12px;padding:13px 16px;
+  background:var(--card2);border:1px solid var(--border);border-radius:10px;
+  text-decoration:none;color:var(--text);font-size:.95rem;font-weight:700;
+  transition:border-color .2s,background .2s}
+.blog-link:hover{border-color:var(--green);background:rgba(45,158,114,.1)}
+.blog-link-icon{font-size:1.3rem;flex-shrink:0}
+.blog-link-text{flex:1}
+.blog-link-sub{font-size:.8rem;color:var(--muted);font-weight:600;margin-top:1px}
+.blog-link-arrow{color:var(--green);font-size:.95rem;opacity:.6}
+
+/* ── RESET ── */
+.reset-wrap{margin-top:28px}
+.btn-reset{background:none;border:1px solid var(--border);color:var(--muted);
+  padding:11px 26px;border-radius:10px;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:.88rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  transition:all .2s}
+.btn-reset:hover{border-color:var(--green);color:var(--green-lt)}
+
+/* ── HIDDEN ── */
+.hidden{display:none}
+
+/* ── ERREUR CHAMP ── */
+.field-error{border-color:#f87171!important}
+.error-msg{color:#f87171;font-size:.85rem;margin-top:4px;font-weight:700;display:none}
+.error-msg.visible{display:block}
+
+@media(max-width:480px){
+  #app{padding:32px 16px 60px}
+  .countdown-grid{grid-template-columns:repeat(2,1fr)}
+  .cd-cell .val{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- BG Trail SVG -->
+<div class="bg">
+<svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="sunGlow" cx="35%" cy="38%" r="30%">
+      <stop offset="0%" stop-color="#2d9e72" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#1a6b4a" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0a0f0c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060e09"/>
+      <stop offset="45%" stop-color="#0d1f15"/>
+      <stop offset="100%" stop-color="#0a0f0c"/>
+    </linearGradient>
+    <filter id="blur4"><feGaussianBlur stdDeviation="4"/></filter>
+  </defs>
+  <rect width="1440" height="900" fill="url(#skyGrad)"/>
+  <ellipse cx="504" cy="342" rx="430" ry="270" fill="url(#sunGlow)"/>
+  <g fill="#a8f0d0" opacity="0.35">
+    <circle cx="120" cy="60" r="0.8"/><circle cx="280" cy="30" r="1.1"/>
+    <circle cx="400" cy="90" r="0.7"/><circle cx="700" cy="40" r="0.9"/>
+    <circle cx="900" cy="70" r="0.6"/><circle cx="1100" cy="25" r="1"/>
+    <circle cx="1300" cy="85" r="0.8"/><circle cx="80" cy="150" r="0.7"/>
+    <circle cx="600" cy="120" r="0.9"/><circle cx="1200" cy="130" r="0.8"/>
+  </g>
+  <path d="M0,480 Q80,330 180,380 Q260,290 360,350 Q440,280 530,340 Q620,260 720,320 Q810,250 900,310 Q990,240 1080,295 Q1160,230 1250,280 Q1330,250 1440,290 L1440,900 L0,900 Z" fill="#0c1610" opacity="0.9"/>
+  <path d="M0,560 Q90,420 200,470 Q300,390 400,450 Q490,400 580,455 Q670,380 770,440 Q850,390 950,445 Q1040,395 1140,450 Q1220,400 1320,440 Q1380,415 1440,440 L1440,900 L0,900 Z" fill="#111e16" opacity="0.95"/>
+  <g fill="#0a1209">
+    <path d="M1100,520 L1115,480 L1130,520 Z"/><path d="M1120,530 L1140,475 L1160,530 Z"/>
+    <path d="M1155,525 L1172,478 L1190,525 Z"/><path d="M1185,535 L1205,482 L1225,535 Z"/>
+    <path d="M1215,520 L1230,479 L1248,520 Z"/><path d="M1240,530 L1258,477 L1278,530 Z"/>
+    <path d="M1270,525 L1285,483 L1303,525 Z"/><path d="M1295,535 L1315,478 L1335,535 Z"/>
+    <path d="M1325,520 L1345,480 L1363,520 Z"/><path d="M1355,530 L1372,483 L1390,530 Z"/>
+  </g>
+  <g fill="#0a1209">
+    <path d="M0,530 L18,483 L36,530 Z"/><path d="M28,525 L48,478 L68,525 Z"/>
+    <path d="M58,535 L78,479 L98,535 Z"/><path d="M85,520 L102,477 L120,520 Z"/>
+    <path d="M110,530 L130,480 L150,530 Z"/><path d="M140,525 L155,482 L172,525 Z"/>
+  </g>
+  <path d="M520,900 Q560,820 540,760 Q520,700 560,660 Q590,630 570,600 Q555,580 580,560"
+    stroke="#2d9e72" stroke-width="2.5" fill="none" stroke-opacity="0.4" stroke-dasharray="8 5"/>
+  <path d="M0,720 Q200,680 400,700 Q600,720 720,690 Q900,660 1100,680 Q1280,695 1440,670 L1440,900 L0,900 Z" fill="#0d1610" opacity="0.95"/>
+  <path d="M0,800 Q300,780 600,790 Q900,800 1200,785 Q1440,785 1440,785 L1440,900 L0,900 Z" fill="#090e0b"/>
+  <g opacity="0.05" filter="url(#blur4)">
+    <polygon points="504,342 420,650 588,650" fill="#2d9e72"/>
+    <polygon points="504,342 350,700 480,700" fill="#1a6b4a"/>
+  </g>
+  <ellipse cx="720" cy="500" rx="700" ry="80" fill="#2d9e72" opacity="0.04" filter="url(#blur4)"/>
+  <g transform="translate(555,590) scale(0.9)" fill="#0a1209" opacity="0.9">
+    <ellipse cx="0" cy="-28" rx="5" ry="8"/>
+    <circle cx="0" cy="-42" r="5.5"/>
+    <path d="M2,-24 Q15,-18 20,-10" stroke="#0a1209" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M-2,-24 Q-12,-28 -16,-20" stroke="#0a1209" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M0,-20 Q8,-8 12,4 Q10,12 8,18" stroke="#0a1209" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M0,-20 Q-8,-4 -10,6 Q-12,14 -16,20" stroke="#0a1209" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M3,-36 Q14,-32 13,-22 Q7,-20 2,-24" fill="#0a1209" opacity="0.9"/>
+  </g>
+</svg>
+</div>
+<div class="bg-overlay"></div>
+
+<div id="app">
+
+<!-- ══ ÉTAPE 1 : FORMULAIRE ══ -->
+<div id="setup">
+  <div class="header">
+    <div class="header-logo">
+      <svg width="34" height="34" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="22" fill="rgba(45,158,114,.2)"/>
+        <path d="M10 32 L18 18 L24 24 L30 14 L34 20" stroke="#a8f0d0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="30" cy="14" r="3" fill="#a8f0d0"/>
+      </svg>
+      <span>Run Nature</span>
+    </div>
+    <div class="eyebrow">Memento Mori</div>
+    <h1>Ta vie en <em>décompte</em></h1>
+    <p class="sub">Réponds honnêtement — le calcul ne triche pas, lui. Tu obtiens ton espérance de vie estimée et un décompte en temps réel. Jusqu'à la dernière seconde.</p>
+  </div>
+
+  <div class="warning">⚠ Outil indicatif, pas médical. Mais franchement, si ça te pousse à courir un peu plus souvent, c'est déjà gagné.</div>
+
+  <!-- PROFIL DE BASE -->
+  <div class="section-title">🧬 Profil de base</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Ton âge actuel</label>
+      <input type="number" id="currentAge" placeholder="Ex : 47" min="1" max="120">
+      <div class="error-msg" id="err-age">Entre un âge entre 1 et 120, s'il te plaît 🙏</div>
+    </div>
+    <div class="input-group">
+      <label>Genre</label>
+      <select id="gender">
+        <option value="0">Homme</option>
+        <option value="5">Femme — avantagée biologiquement 😏</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- TABAC & ALCOOL -->
+  <div class="section-title">🚬 Tabac & Alcool — sois honnête, personne ne regarde</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Tabac</label>
+      <select id="tobacco">
+        <option value="0">Non-fumeur ✓</option>
+        <option value="-3">Occasionnel — "juste en soirée"</option>
+        <option value="-8">Régulier — le classique</option>
+        <option value="-12">Lourd +10 cig/jour — courage 🫁</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Alcool (verres/semaine)</label>
+      <select id="alcohol">
+        <option value="2">Aucun ou très rare ✓</option>
+        <option value="0">Modéré — 1 à 7</option>
+        <option value="-5">Élevé — 8 à 14</option>
+        <option value="-10">Excessif — +14 🍺</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- SOMMEIL & CORPS -->
+  <div class="section-title">💤 Sommeil & Corps</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Sommeil / nuit</label>
+      <select id="sleep">
+        <option value="-6">Moins de 6 h — tu vis dangereusement</option>
+        <option value="-2">6 h — presque</option>
+        <option value="0" selected>7 à 8 h ✓</option>
+        <option value="-3">Plus de 9 h — ton corps essaie de te dire quelque chose</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>IMC</label>
+      <select id="bmi">
+        <option value="3">18,5–24,9 — Normal ✓</option>
+        <option value="0">25–29,9 — Surpoids</option>
+        <option value="-4">≥ 30 — Obésité</option>
+        <option value="-2">≤ 18,5 — Maigreur</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Hydratation / jour</label>
+      <select id="hydration">
+        <option value="2">2 L et plus ✓</option>
+        <option value="0">1,5 L — Correct</option>
+        <option value="-2">Moins de 1 L — le café ne compte pas</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Bilan médical régulier</label>
+      <select id="checkup">
+        <option value="2">Oui, chaque année ✓</option>
+        <option value="0">Tous les 2–3 ans</option>
+        <option value="-2">Jamais — "je me sens bien" 🙈</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- SPORT -->
+  <div class="section-title">🏔️ Sport & Activité physique</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Sport modéré (h/semaine)</label>
+      <input type="number" id="sportModerate" placeholder="Ex : 3" min="0" max="40" step="0.5">
+      <p class="hint">Marche, vélo, yoga…</p>
+    </div>
+    <div class="input-group">
+      <label>Sport intense (h/semaine)</label>
+      <input type="number" id="sportIntense" placeholder="Ex : 2" min="0" max="40" step="0.5">
+      <p class="hint">Trail, HIIT, fractionné…</p>
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Pratique du trail / plein air</label>
+    <select id="trail">
+      <option value="2">Régulier — plusieurs fois/semaine ✓</option>
+      <option value="1">Occasionnel — 1 à 2 fois/semaine</option>
+      <option value="0">Rare — quelques fois/mois</option>
+      <option value="-1">Jamais — mais tu lis ce blog, c'est un début 👀</option>
+    </select>
+  </div>
+
+  <!-- ALIMENTATION & MENTAL -->
+  <div class="section-title">🥗 Alimentation & Mental</div>
+  <div class="input-group">
+    <label>Alimentation</label>
+    <select id="diet">
+      <option value="5">Très équilibrée, riche en végétaux ✓</option>
+      <option value="2">Correcte — fruits & légumes réguliers</option>
+      <option value="0">Moyenne — ça dépend des semaines</option>
+      <option value="-5">Déséquilibrée / ultra-transformée — McDo n'est pas un groupe alimentaire 🍔</option>
+    </select>
+  </div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Stress chronique</label>
+      <select id="stress">
+        <option value="0">Faible ou bien géré ✓</option>
+        <option value="-3">Modéré — la vie quoi</option>
+        <option value="-7">Élevé et permanent — va courir 🏃</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Liens sociaux & famille</label>
+      <select id="social">
+        <option value="3">Forts — entourage soudé ✓</option>
+        <option value="0">Corrects — ça va</option>
+        <option value="-3">Isolement social 😔</option>
+      </select>
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Méditation / pleine conscience</label>
+    <select id="mindfulness">
+      <option value="0">Jamais — "j'ai pas le temps"</option>
+      <option value="1">Occasionnelle — quelques fois/semaine</option>
+      <option value="2">Pratique régulière ✓ — même 5 min/jour</option>
+    </select>
+  </div>
+  <div class="input-group">
+    <label>🌱 Tu prends du Moringa ?</label>
+    <select id="moringa" onchange="showMoringaMsg()">
+      <option value="1" selected>Oui — chaque jour ✓</option>
+      <option value="0">Non — pas encore</option>
+    </select>
+    <div id="moringa-msg" style="margin-top:8px;padding:10px 14px;border-radius:10px;font-size:.78rem;font-weight:700;line-height:1.6;transition:all .3s"></div>
+  </div>
+
+  <!-- ENVIRONNEMENT -->
+  <div class="section-title">🌿 Environnement & Antécédents</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Antécédents familiaux</label>
+      <select id="familyHistory">
+        <option value="4">Excellents — mes grands-parents courent encore ✓</option>
+        <option value="0">Neutres</option>
+        <option value="-5">Cardio ou cancers précoces</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Pollution atmosphérique</label>
+      <select id="pollution">
+        <option value="1">Faible — campagne, forêt ✓</option>
+        <option value="0">Moyenne — ville standard</option>
+        <option value="-2">Élevée — grande ville</option>
+        <option value="-4">Très élevée — zone industrielle</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="btn-wrap">
+    <button class="btn-start" onclick="startLifeClock()">🏔️ Lancer ma montre de vie</button>
+  </div>
+</div>
+
+<!-- ══ ÉTAPE 2 : DÉCOMPTE ══ -->
+<div id="display" class="hidden">
+  <div class="display-header">
+    <div class="header-logo" style="justify-content:center;margin-bottom:14px">
+      <svg width="30" height="30" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="22" fill="rgba(45,158,114,.2)"/>
+        <path d="M10 32 L18 18 L24 24 L30 14 L34 20" stroke="#a8f0d0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="30" cy="14" r="3" fill="#a8f0d0"/>
+      </svg>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--green-lt);letter-spacing:1px">Run Nature</span>
+    </div>
+    <div class="eyebrow">Memento Mori</div>
+    <h1>Ton <em>temps</em> restant</h1>
+  </div>
+
+  <!-- Barre de vie -->
+  <div class="life-bar-wrap">
+    <div class="life-bar-label">
+      <span>Naissance</span>
+      <span id="pct-label">0% vécu</span>
+    </div>
+    <div class="life-bar">
+      <div class="life-bar-fill" id="life-bar-fill" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="life-bar-sub">
+    <span id="years-lived-label">— ans vécus</span>
+    <span id="years-left-label">— ans restants estimés</span>
+  </div>
+
+  <!-- Espérance estimée -->
+  <div style="text-align:center;margin-bottom:16px">
+    <div class="life-pill">
+      Espérance de vie estimée &nbsp;<span id="estimated-life">--</span>&nbsp; ans
+    </div>
+  </div>
+
+  <!-- Message personnalisé -->
+  <div class="profile-msg" id="profile-msg"></div>
+
+  <!-- Countdown -->
+  <div class="countdown-grid">
+    <div class="cd-cell"><span class="val" id="cd-years">--</span><span class="lbl">Années</span></div>
+    <div class="cd-cell"><span class="val" id="cd-days">--</span><span class="lbl">Jours</span></div>
+    <div class="cd-cell"><span class="val" id="cd-hours">--</span><span class="lbl">Heures</span></div>
+  </div>
+  <div class="cd-seconds">
+    <div class="cd-sec-cell"><span class="val" id="cd-minutes">--</span><span class="lbl">Minutes</span></div>
+    <div class="cd-sec-cell"><span class="val" id="cd-seconds">--</span><span class="lbl">Secondes</span></div>
+  </div>
+
+  <p class="note-text">« Chaque foulée compte. Chaque seconde aussi. »<br><em style="font-size:.75rem;opacity:.6">— Sébastien Salomon</em></p>
+
+  <!-- Liens blog -->
+  <div class="blog-section">
+    <div class="blog-section-title">🌿 Prolonge ta vie sur les sentiers</div>
+    <div class="blog-links">
+      <a href="https://run-nature.com/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🏠</span>
+        <div class="blog-link-text">
+          <div>Run Nature — Blog trail & bien-être</div>
+          <div class="blog-link-sub">Conseils, récits et nutrition naturelle</div>
+        </div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://run-nature.com/2026/05/04/moringa-pour-coureurs-le-superaliment-naturel-qui-transforme-votre-endurance/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🌱</span>
+        <div class="blog-link-text">
+          <div>Le Moringa — carburant naturel du traileur</div>
+          <div class="blog-link-sub">Le superaliment qui soutient ta longévité</div>
+        </div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">📖</span>
+        <div class="blog-link-text">
+          <div>Télécharger l'ebook Moringa gratuit</div>
+          <div class="blog-link-sub">Le carburant naturel du traileur — PDF</div>
+        </div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://run-nature.com/mes-outils-trail-gratuits/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">📊</span>
+        <div class="blog-link-text">
+          <div>Dashboard Suivi Trail</div>
+          <div class="blog-link-sub">Suis ta préparation semaine par semaine</div>
+        </div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://www.tiktok.com/@seb.run.lux" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🎬</span>
+        <div class="blog-link-text">
+          <div>Suivre Sébastien sur TikTok</div>
+          <div class="blog-link-sub">Vidéo amateur mais vidéo tout de même 😄</div>
+        </div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://strava.app.link/DEw8pXyyl0b" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🟠</span>
+        <div class="blog-link-text">
+          <div>Suivre Sébastien sur Strava</div>
+          <div class="blog-link-sub">Trails, résultats et sorties en direct</div>
+        </div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Reset -->
+  <div class="reset-wrap" style="text-align:center;margin-top:28px">
+    <button class="btn-reset" onclick="resetAll()">↺ Réinitialiser et refaire le questionnaire</button>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<script>
+// ── MORINGA MESSAGE ───────────────────────────────────────────────────────
+function showMoringaMsg(){
+  var val = document.getElementById('moringa').value;
+  var el  = document.getElementById('moringa-msg');
+  if(val === '1'){
+    el.style.background = 'rgba(45,158,114,.12)';
+    el.style.border     = '1px solid rgba(45,158,114,.3)';
+    el.style.color      = '#a8f0d0';
+    el.innerHTML        = '✅ Parfait. Tu as clairement une longueur d\'avance sur les autres. Littéralement.';
+  } else {
+    el.style.background = 'rgba(200,135,58,.08)';
+    el.style.border     = '1px solid rgba(200,135,58,.3)';
+    el.style.color      = '#e8b070';
+    el.innerHTML        = '🌱 Pas encore ? Tu peux commencer — ton compteur te remercie. <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:#e8b070;text-decoration:underline">Ebook gratuit ici →</a>';
+  }
+}
+// Init au chargement
+window.addEventListener('DOMContentLoaded', showMoringaMsg);
+
+// ── STATE (en mémoire — pas de localStorage) ──────────────────────────────
+var _state = null; // { endTime, pct, totalLife, age }
+
+// ── AUTO-RESTORE au chargement (si déjà calculé) ──────────────────────────
+window.onload = function(){
+  // Plus de localStorage → formulaire toujours frais au rechargement.
+  // (L'état ne persiste que pendant la session en cours.)
+};
+
+// ── VALIDATION & CALCUL ───────────────────────────────────────────────────
+function startLifeClock(){
+  var ageEl = document.getElementById('currentAge');
+  var errEl = document.getElementById('err-age');
+  var age   = parseInt(ageEl.value);
+
+  // Reset erreur
+  ageEl.classList.remove('field-error');
+  errEl.classList.remove('visible');
+
+  if(!age || isNaN(age) || age < 1 || age > 120){
+    ageEl.classList.add('field-error');
+    errEl.classList.add('visible');
+    ageEl.focus();
+    return;
+  }
+
+  var gender      = parseInt(document.getElementById('gender').value);
+  var tobacco     = parseInt(document.getElementById('tobacco').value);
+  var alcohol     = parseInt(document.getElementById('alcohol').value);
+  var sleep       = parseInt(document.getElementById('sleep').value);
+  var bmi         = parseInt(document.getElementById('bmi').value);
+  var hydration   = parseInt(document.getElementById('hydration').value);
+  var checkup     = parseInt(document.getElementById('checkup').value);
+  var moderate    = parseFloat(document.getElementById('sportModerate').value) || 0;
+  var intense     = parseFloat(document.getElementById('sportIntense').value)  || 0;
+  var trail       = parseInt(document.getElementById('trail').value);
+  var diet        = parseInt(document.getElementById('diet').value);
+  var stress      = parseInt(document.getElementById('stress').value);
+  var social      = parseInt(document.getElementById('social').value);
+  var mindfulness = parseInt(document.getElementById('mindfulness').value);
+  var moringa     = parseInt(document.getElementById('moringa').value);
+  var family      = parseInt(document.getElementById('familyHistory').value);
+  var pollution   = parseInt(document.getElementById('pollution').value);
+
+  var baseLife   = (gender === 5) ? 83 : 78;
+  var sportBonus = Math.min((moderate * 0.8) + (intense * 1.5), 8);
+  var totalLife  = Math.round(
+    baseLife + tobacco + alcohol + sleep + bmi + hydration + checkup
+    + sportBonus + trail + diet + stress + social + mindfulness + moringa + family + pollution
+  );
+  totalLife = Math.max(totalLife, age + 1); // min 1 an restant
+
+  var yearsLeft = Math.max(totalLife - age, 1);
+  var pct       = Math.min(Math.round((age / totalLife) * 100), 99);
+
+  var endDate = new Date();
+  endDate.setFullYear(endDate.getFullYear() + Math.floor(yearsLeft));
+  var endTime = endDate.getTime();
+
+  _state = { endTime: endTime, pct: pct, totalLife: totalLife, age: age,
+             yearsLeft: yearsLeft, tobacco: tobacco, trail: trail,
+             stress: stress, alcohol: alcohol, sport: moderate + intense,
+             moringa: moringa };
+
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('display').classList.remove('hidden');
+  startPersistentCountdown();
+}
+
+// ── MESSAGES PERSONNALISÉS ────────────────────────────────────────────────
+function buildProfileMessage(s){
+  var msgs = [];
+
+  if(s.moringa === 1)
+    msgs.push("🌱 Moringa quotidien — tu es officiellement dans le top du peloton longévité. Continue.");
+  else
+    msgs.push("🌱 Pas de Moringa ? Un an de gagnés sur ton compteur, c'est dans l'<a href='https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/' target='_blank' style='color:var(--green-lt)'>ebook gratuit</a>.");
+
+  if(s.tobacco <= -8)
+    msgs.push("🚬 La cigarette te coûte plusieurs années. Ton nerf vague le sait déjà.");
+  else if(s.tobacco === -3)
+    msgs.push("🚬 \"Juste en soirée\" reste du tabac. Ton cardio trail aussi le sent.");
+
+  if(s.alcohol <= -5)
+    msgs.push("🍺 L'alcool réduit ta VFC la nuit — même un verre. Ta montre COROS ne ment pas.");
+
+  if(s.stress <= -7)
+    msgs.push("😰 Stress élevé et permanent : enfile tes chaussures. Vraiment. C'est médicalement prouvé.");
+
+  if(s.trail === -1)
+    msgs.push("🏔️ Tu lis Run Nature mais tu ne cours pas encore. C'est le bon moment de commencer.");
+  else if(s.trail >= 2)
+    msgs.push("🏔️ Trail régulier — tu es clairement sur la bonne piste. Littéralement.");
+
+  if(s.sport >= 6)
+    msgs.push("💪 " + s.sport + " h de sport par semaine — attention au surentraînement, pense à ta VFC.");
+
+  if(s.yearsLeft >= 40)
+    msgs.push("🌿 Tu as encore beaucoup de sentiers devant toi. Ne les gâche pas sur un canapé.");
+  else if(s.yearsLeft < 15)
+    msgs.push("⏱️ Chaque seconde compte encore plus. Quelles foulées veux-tu encore poser ?");
+
+  if(msgs.length === 0)
+    msgs.push("✅ Profil équilibré. Continue comme ça — et hydrate-toi.");
+
+  return msgs.join("<br>");
+}
+
+// ── COUNTDOWN ─────────────────────────────────────────────────────────────
+function startPersistentCountdown(){
+  if(!_state) return;
+
+  var pct       = _state.pct;
+  var totalLife = _state.totalLife;
+  var age       = _state.age;
+  var endDate   = new Date(_state.endTime);
+
+  document.getElementById('estimated-life').textContent = totalLife;
+
+  // Barre + sous-étiquettes
+  setTimeout(function(){
+    var fill = document.getElementById('life-bar-fill');
+    var lbl  = document.getElementById('pct-label');
+    var ll   = document.getElementById('years-lived-label');
+    var lr   = document.getElementById('years-left-label');
+    if(fill) fill.style.width = pct + '%';
+    if(lbl)  lbl.textContent  = pct + '% vécu';
+    if(ll)   ll.textContent   = age + ' ans vécus';
+    if(lr)   lr.textContent   = _state.yearsLeft + ' ans restants estimés';
+  }, 300);
+
+  // Message personnalisé
+  var msgEl = document.getElementById('profile-msg');
+  if(msgEl){
+    msgEl.innerHTML = buildProfileMessage(_state);
+    msgEl.style.opacity = '0';
+    setTimeout(function(){ msgEl.style.opacity = '1'; msgEl.style.transition = 'opacity .8s'; }, 600);
+  }
+
+  function tick(){
+    var now      = Date.now();
+    var distance = endDate.getTime() - now;
+    if(distance < 0){
+      ['cd-years','cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(function(id){
+        document.getElementById(id).textContent = '0';
+      });
+      return;
+    }
+    var years   = Math.floor(distance / (1000 * 60 * 60 * 24 * 365.25));
+    var days    = Math.floor((distance % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24));
+    var hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-years').textContent   = years.toLocaleString('fr-FR');
+    document.getElementById('cd-days').textContent    = days;
+    document.getElementById('cd-hours').textContent   = hours;
+    document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+// ── RESET ─────────────────────────────────────────────────────────────────
+function resetAll(){
+  if(confirm('Réinitialiser la montre ? Tu pourras refaire le questionnaire.')){
+    _state = null;
+    document.getElementById('display').classList.add('hidden');
+    document.getElementById('setup').classList.remove('hidden');
+    document.getElementById('currentAge').value = '';
+    document.getElementById('currentAge').classList.remove('field-error');
+    document.getElementById('err-age').classList.remove('visible');
+  }
+}
+</script>
+</body>
+</html>
 

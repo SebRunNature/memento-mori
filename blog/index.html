@@ -1,1 +1,38 @@
+---
+layout: default
+title: "Blog — Longévité, trail et art de vivre"
+description: "Articles sur la longévité, le trail running, la nutrition naturelle et l'art de vivre pleinement chaque seconde."
+---
 
+<style>
+  .page-header { margin-bottom: 40px; }
+  .page-eyebrow { font-size: .72rem; letter-spacing: .3em; color: var(--green); text-transform: uppercase; font-weight: 800; margin-bottom: 10px; }
+  .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem,5vw,3.2rem); letter-spacing: 2px; color: var(--text); }
+  .page-header h1 em { color: var(--green-lt); font-style: normal; }
+  .page-sub { font-size: .9rem; color: var(--muted); font-weight: 600; margin-top: 10px; line-height: 1.6; }
+</style>
+
+<div class="page-header">
+  <div class="page-eyebrow">Connaissance & Longévité</div>
+  <h1>Le <em>blog</em></h1>
+  <p class="page-sub">Trail, nutrition, bien-être, Moringa — tout ce qui rallonge le compteur.</p>
+</div>
+
+<div class="post-list">
+  {% for post in site.posts %}
+  <a class="post-card" href="{{ post.url }}">
+    <div class="post-card-date">{{ post.date | date: "%d %B %Y" }}</div>
+    <div class="post-card-title">{{ post.title }}</div>
+    <div class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</div>
+  </a>
+  {% endfor %}
+
+  {% if site.posts.size == 0 %}
+  <p style="color:var(--muted);font-weight:700;font-size:.9rem">Les premiers articles arrivent bientôt. 🏔️</p>
+  {% endif %}
+</div>
+
+<div class="cta-montre" style="margin-top:48px">
+  <p>En attendant, tu peux lancer ton décompte.</p>
+  <a href="/montre/">⏱ Lancer ma montre de vie</a>
+</div>

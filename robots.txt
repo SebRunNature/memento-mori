@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
 
+Sitemap: https://montre-de-vie.com/sitemap.xml

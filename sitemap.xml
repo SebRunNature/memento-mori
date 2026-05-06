@@ -41,4 +41,22 @@ layout: null
     <priority>0.7</priority>
   </url>
 
+  <url>
+  <loc>https://montre-de-vie.com/blog/2026/05/07/moringa-longevite-science/</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://montre-de-vie.com/blog/2026/05/07/trail-running-nature-longevite/</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://montre-de-vie.com/blog/2026/05/08/moringa-coureurs-trail-superaliment/</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
 </urlset>

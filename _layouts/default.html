@@ -131,5 +131,20 @@
   <p style="margin-top:8px;font-size:.65rem;opacity:.6">Outil indicatif, non médical. Chaque seconde compte — ne la gâche pas.</p>
 </footer>
 
+<!-- OneSignal Push Notifications -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "74f8002f-eafa-4b82-9942-48e3ec032bef",
+      safari_web_id: "web.onesignal.auto.01ea4289-b460-45e4-8d90-838752554827",
+      notifyButton: {
+        enable: true,
+      },
+    });
+  });
+</script>
+
 </body>
 </html>

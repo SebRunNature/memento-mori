@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Montre de Vie — Seb Run Nature</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -583,11 +583,11 @@ select option{background:var(--card)}
         <label>Cholestérol LDL <span class="info-btn" onclick="openPopup('popup-cholesterol')">?</span></label>
         <select id="ldl">
           <option value="0">Je ne sais pas — neutre</option>
-          <option value="3">&lt; 1,00 g/L — Optimal ✓</option>
-          <option value="1">1,00 – 1,29 g/L — Normal</option>
-          <option value="0">1,30 – 1,59 g/L — Limite haute</option>
+          <option value="1">&lt; 1,00 g/L — Optimal ✓</option>
+          <option value="0">1,00 – 1,29 g/L — Normal</option>
+          <option value="-1">1,30 – 1,59 g/L — Limite haute ⚠️</option>
           <option value="-3">1,60 – 1,89 g/L — Élevé ❌</option>
-          <option value="-6">≥ 1,90 g/L — Très élevé ❌</option>
+          <option value="-5">≥ 1,90 g/L — Très élevé ❌</option>
         </select>
       </div>
 
@@ -595,11 +595,11 @@ select option{background:var(--card)}
         <label>Tension artérielle <span class="info-btn" onclick="openPopup('popup-tension')">?</span></label>
         <select id="tension">
           <option value="0">Je ne sais pas — neutre</option>
-          <option value="3">&lt; 120/80 mmHg — Optimal ✓</option>
-          <option value="1">120–129 / 80–84 — Normale</option>
+          <option value="1">&lt; 120/80 mmHg — Optimal ✓</option>
+          <option value="0">120–129 / 80–84 — Normale</option>
           <option value="-1">130–139 / 85–89 — Normale haute ⚠️</option>
           <option value="-4">140–159 / 90–99 — Hypertension G1 ❌</option>
-          <option value="-8">≥ 160/100 — Hypertension G2 ❌</option>
+          <option value="-6">≥ 160/100 — Hypertension G2 ❌</option>
         </select>
       </div>
 
@@ -607,10 +607,10 @@ select option{background:var(--card)}
         <label>Glycémie à jeun <span class="info-btn" onclick="openPopup('popup-glycemie')">?</span></label>
         <select id="glycemie">
           <option value="0">Je ne sais pas — neutre</option>
-          <option value="3">0,70 – 1,00 g/L — Optimal ✓</option>
-          <option value="0">1,01 – 1,10 g/L — Limite</option>
+          <option value="1">0,70 – 1,00 g/L — Optimal ✓</option>
+          <option value="-1">1,01 – 1,10 g/L — Limite ⚠️</option>
           <option value="-4">1,11 – 1,25 g/L — Prédiabète ❌</option>
-          <option value="-8">≥ 1,26 g/L — Diabète ❌</option>
+          <option value="-7">≥ 1,26 g/L — Diabète ❌</option>
         </select>
       </div>
 
@@ -620,8 +620,8 @@ select option{background:var(--card)}
         <label>VO₂max (ml/kg/min)</label>
         <select id="vo2max">
           <option value="0">Je ne sais pas — neutre</option>
-          <option value="5">&gt; 50 — Excellent (ex: 54) ✓</option>
-          <option value="3">40 – 50 — Bon</option>
+          <option value="2">&gt; 50 — Excellent (ex: 54) ✓</option>
+          <option value="1">40 – 50 — Bon</option>
           <option value="0">30 – 40 — Moyen</option>
           <option value="-3">&lt; 30 — Faible ❌</option>
         </select>
@@ -632,10 +632,10 @@ select option{background:var(--card)}
         <label>Force de préhension <span class="info-btn" onclick="openPopup('popup-prehension')">?</span></label>
         <select id="prehension">
           <option value="0">Je ne sais pas — neutre</option>
-          <option value="2">Excellent (H &gt; 40kg / F &gt; 25kg) ✓</option>
+          <option value="1">Excellent (H &gt; 40kg / F &gt; 25kg) ✓</option>
           <option value="0">Normal (H 30-40kg / F 20-25kg)</option>
           <option value="-2">Faible (H 20-30kg / F 15-20kg) ⚠️</option>
-          <option value="-4">Très faible ❌</option>
+          <option value="-3">Très faible ❌</option>
         </select>
       </div>
 
@@ -643,10 +643,10 @@ select option{background:var(--card)}
         <label>Vitesse de marche <span class="info-btn" onclick="openPopup('popup-marche')">?</span></label>
         <select id="marcheVitesse">
           <option value="0">Je ne sais pas — neutre</option>
-          <option value="2">&gt; 1,4 m/s — Excellent ✓</option>
+          <option value="1">&gt; 1,4 m/s — Excellent ✓</option>
           <option value="0">1,2 – 1,4 m/s — Normal</option>
           <option value="-2">0,8 – 1,2 m/s — Vigilance ⚠️</option>
-          <option value="-5">&lt; 0,8 m/s — Alerte ❌</option>
+          <option value="-4">&lt; 0,8 m/s — Alerte ❌</option>
         </select>
       </div>
 
@@ -658,7 +658,7 @@ select option{background:var(--card)}
           <option value="1">Excellente — détartrage régulier ✓</option>
           <option value="0">Correcte — quelques caries traitées</option>
           <option value="-2">Problèmes ponctuels — soins en attente ⚠️</option>
-          <option value="-4">Parodontite / infections chroniques ❌</option>
+          <option value="-3">Parodontite / infections chroniques ❌</option>
         </select>
         <p class="hint">La parodontite est un facteur d'inflammation systémique sous-estimé</p>
       </div>
@@ -666,10 +666,10 @@ select option{background:var(--card)}
       <div class="input-group">
         <label>Santé intestinale</label>
         <select id="intestinal">
-          <option value="2">Très bonne — transit régulier, pas de troubles ✓</option>
+          <option value="1">Très bonne — transit régulier, pas de troubles ✓</option>
           <option value="0">Correcte — quelques inconforts occasionnels</option>
           <option value="-2">Troubles fréquents — ballonnements, transit irrégulier ⚠️</option>
-          <option value="-4">Maladie chronique (Crohn, SICI, RCH) ❌</option>
+          <option value="-3">Maladie chronique (Crohn, SICI, RCH) ❌</option>
         </select>
         <p class="hint">Le microbiome intestinal est directement lié à l'immunité et la longévité</p>
       </div>
@@ -736,6 +736,20 @@ select option{background:var(--card)}
   </div>
 
   <p class="note-text">« Chaque foulée compte. Chaque seconde aussi. »<br><em style="font-size:.75rem;opacity:.6">— Sébastien Salomon</em></p>
+
+  <!-- Bouton Grille -->
+  <div style="text-align:center;margin-bottom:32px">
+    <a id="btn-grille" href="/grille/" style="display:inline-flex;align-items:center;gap:10px;
+      background:var(--card);border:1px solid rgba(45,158,114,.4);color:var(--green-lt);
+      text-decoration:none;padding:15px 32px;border-radius:14px;
+      font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+      transition:all .2s;box-shadow:0 2px 16px rgba(45,158,114,.15)">
+      🟩 Voir ma vie en semaines
+    </a>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:8px;font-weight:700">
+      Ta vie représentée carré par carré — chaque carré = 1 semaine
+    </p>
+  </div>
 
   <div class="blog-section">
     <div class="blog-section-title">🌿 Prolonge ta vie sur les sentiers</div>
@@ -879,6 +893,9 @@ function startLifeClock(){
     intestinal=getVal('intestinal');
   }
   var niveau2Score=ldl+tension+glycemie+vo2+prehension+marche+dental+intestinal;
+  // Plafond dur : niveau 2 ne peut pas dépasser +8 ans ni descendre sous -20 ans
+  niveau2Score=Math.min(niveau2Score,8);
+  niveau2Score=Math.max(niveau2Score,-20);
 
   var baseLife=(gender===5)?83:78;
   var totalLife=Math.round(baseLife+niveau1+niveau2Score);
@@ -900,6 +917,12 @@ function startLifeClock(){
 
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('display').classList.remove('hidden');
+
+  // Mise à jour lien grille avec paramètres
+  var trailSorties = intense >= 2 ? intense : 2;
+  var grilleUrl = '/grille/?age='+age+'&esperance='+totalLife+'&trail='+trailSorties;
+  document.getElementById('btn-grille').href = grilleUrl;
+
   startCountdown();
 }
 

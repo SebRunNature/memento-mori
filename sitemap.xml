@@ -28,4 +28,17 @@ layout: null
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://montre-de-vie.com/blog/2026/05/06/tikker-watch-alternative-gratuite/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://montre-de-vie.com/blog/2026/05/06/courir-augmente-esperance-de-vie-combien-annees/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

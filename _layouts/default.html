@@ -2,8 +2,6 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" href="/favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
@@ -120,6 +118,7 @@
   <div class="nav-links">
     <a href="/montre/" {% if page.url contains '/montre' %}class="active"{% endif %}>La montre</a>
     <a href="/blog/" {% if page.url contains '/blog' %}class="active"{% endif %}>Blog</a>
+    <a href="/apropos/" {% if page.url contains '/apropos' %}class="active"{% endif %}>À propos</a>
     <a href="https://run-nature.com" target="_blank">Run Nature ↗</a>
   </div>
 </nav>
@@ -129,7 +128,7 @@
 </main>
 
 <footer>
-  <p>© {{ 'now' | date: '%Y' }} <a href="https://run-nature.com" target="_blank">Run Nature</a> — Sébastien Salomon &nbsp;·&nbsp; <a href="/montre/">Lancer la montre</a></p>
+  <p>© {{ 'now' | date: '%Y' }} <a href="https://run-nature.com" target="_blank">Run Nature</a> — Sébastien Salomon &nbsp;·&nbsp; <a href="/montre/">Lancer la montre</a> &nbsp;·&nbsp; <a href="/apropos/">À propos</a></p>
   <p style="margin-top:8px;font-size:.65rem;opacity:.6">Outil indicatif, non médical. Chaque seconde compte — ne la gâche pas.</p>
 </footer>
 

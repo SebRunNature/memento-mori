@@ -1,0 +1,65 @@
+<svg width="512" height="512" viewBox="0 0 512 512" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Montre de Vie</title>
+<desc>Sablier vert sur fond noir — Montre de Vie</desc>
+<defs>
+  <linearGradient id="sandGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#a8f0d0"/>
+    <stop offset="100%" stop-color="#2d9e72"/>
+  </linearGradient>
+  <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1a6b4a"/>
+    <stop offset="50%" stop-color="#2d9e72"/>
+    <stop offset="100%" stop-color="#1a6b4a"/>
+  </linearGradient>
+  <linearGradient id="rimGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#a8f0d0"/>
+    <stop offset="100%" stop-color="#2d9e72"/>
+  </linearGradient>
+</defs>
+
+<!-- Fond -->
+<rect width="512" height="512" rx="96" fill="#0a0f0c"/>
+
+<!-- Cercle minuteur extérieur -->
+<circle cx="256" cy="256" r="200" fill="none" stroke="#1a6b4a" stroke-width="4"/>
+
+<!-- Arc progression -->
+<circle cx="256" cy="256" r="200"
+  fill="none" stroke="url(#rimGrad)" stroke-width="7"
+  stroke-linecap="round"
+  stroke-dasharray="1257"
+  stroke-dashoffset="440"
+  transform="rotate(-90 256 256)"/>
+
+<!-- Graduations -->
+<g stroke="#2d9e72" stroke-width="2.5" opacity="0.5">
+  <line x1="256" y1="42" x2="256" y2="62"/>
+  <line x1="256" y1="450" x2="256" y2="470"/>
+  <line x1="468" y1="256" x2="448" y2="256"/>
+  <line x1="44" y1="256" x2="64" y2="256"/>
+  <line x1="406" y1="106" x2="392" y2="120"/>
+  <line x1="106" y1="106" x2="120" y2="120"/>
+  <line x1="406" y1="406" x2="392" y2="392"/>
+  <line x1="106" y1="406" x2="120" y2="392"/>
+</g>
+
+<!-- Cadre haut sablier -->
+<rect x="148" y="128" width="216" height="18" rx="9" fill="url(#rimGrad)"/>
+<!-- Cadre bas sablier -->
+<rect x="148" y="366" width="216" height="18" rx="9" fill="url(#rimGrad)"/>
+
+<!-- Verre haut -->
+<polygon points="155,146 256,238 357,146" fill="#131a16" stroke="url(#glassGrad)" stroke-width="2"/>
+<!-- Sable haut (partiellement écoulé) -->
+<polygon points="175,146 256,210 337,146" fill="url(#sandGrad)" opacity="0.65"/>
+
+<!-- Verre bas -->
+<polygon points="155,366 256,274 357,366" fill="#131a16" stroke="url(#glassGrad)" stroke-width="2"/>
+<!-- Sable bas accumulé -->
+<polygon points="185,366 256,308 327,366" fill="url(#sandGrad)" opacity="0.9"/>
+<polygon points="155,366 256,290 357,366" fill="url(#sandGrad)" opacity="0.25"/>
+
+<!-- Filet sable central -->
+<ellipse cx="256" cy="257" rx="5" ry="10" fill="url(#sandGrad)" opacity="0.9"/>
+<circle cx="256" cy="256" r="6" fill="#a8f0d0" opacity="0.95"/>
+</svg>

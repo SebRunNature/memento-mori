@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Fond arrondi -->
+  <rect width="100" height="100" rx="22" fill="#0a0f0c"/>
+  <!-- Bracelet haut -->
+  <rect x="38" y="4" width="24" height="12" rx="3" fill="#1a6b4a"/>
+  <!-- Bracelet bas -->
+  <rect x="38" y="84" width="24" height="12" rx="3" fill="#1a6b4a"/>
+  <!-- Cadran -->
+  <circle cx="50" cy="50" r="36" fill="#131a16" stroke="#2d9e72" stroke-width="2.5"/>
+  <!-- Ticks cardinaux -->
+  <line x1="50" y1="17" x2="50" y2="24" stroke="#2d9e72" stroke-width="2" stroke-linecap="round"/>
+  <line x1="50" y1="76" x2="50" y2="83" stroke="#2d9e72" stroke-width="2" stroke-linecap="round"/>
+  <line x1="17" y1="50" x2="24" y2="50" stroke="#2d9e72" stroke-width="2" stroke-linecap="round"/>
+  <line x1="76" y1="50" x2="83" y2="50" stroke="#2d9e72" stroke-width="2" stroke-linecap="round"/>
+  <!-- Aiguille minutes (vers le haut) -->
+  <line x1="50" y1="50" x2="50" y2="22" stroke="#a8f0d0" stroke-width="2" stroke-linecap="round"/>
+  <!-- Aiguille heures (vers 2h) -->
+  <line x1="50" y1="50" x2="66" y2="38" stroke="#a8f0d0" stroke-width="3" stroke-linecap="round"/>
+  <!-- Trotteuse (vers 7h) -->
+  <line x1="50" y1="50" x2="38" y2="68" stroke="#2d9e72" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Centre -->
+  <circle cx="50" cy="50" r="3.5" fill="#2d9e72"/>
+  <circle cx="50" cy="50" r="1.5" fill="#a8f0d0"/>
+  <!-- Couronne -->
+  <rect x="84" y="45" width="7" height="10" rx="2" fill="#1a6b4a" stroke="#2d9e72" stroke-width="1"/>
+</svg>

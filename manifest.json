@@ -1,1 +1,58 @@
-
+{
+  "name": "Montre de Vie",
+  "short_name": "Montre Vie",
+  "description": "Calcule ton espérance de vie et lance un décompte en temps réel — seconde par seconde. Memento Mori.",
+  "start_url": "/montre/",
+  "display": "standalone",
+  "background_color": "#0a0f0c",
+  "theme_color": "#0a0f0c",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Questionnaire Montre de Vie"
+    }
+  ],
+  "categories": ["health", "lifestyle", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Lancer la montre",
+      "short_name": "Montre",
+      "description": "Accéder directement au décompte",
+      "url": "/montre/",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Ma vie en semaines",
+      "short_name": "Grille",
+      "description": "Voir la grille de vie",
+      "url": "/grille/",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

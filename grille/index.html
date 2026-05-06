@@ -12,115 +12,116 @@
   --green:#2d9e72;--green-dk:#1a6b4a;--green-lt:#a8f0d0;
   --bg:#0a0f0c;--card:#131a16;--card2:#1a2620;
   --text:#e8f5f0;--muted:#5a8a7a;--border:#243028;
-  --radius:14px;--amber:#c8873a;
+  --radius:14px;--sq-size:9px;--sq-gap:2px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text)}
+html,body{min-height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
-/* ── BG ── */
 .bg{position:fixed;inset:0;z-index:0}
 .bg svg{width:100%;height:100%;object-fit:cover}
 .bg-overlay{position:fixed;inset:0;z-index:1;
-  background:linear-gradient(to bottom,rgba(10,15,12,.7) 0%,rgba(10,15,12,.4) 40%,rgba(10,15,12,.85) 75%,rgba(10,15,12,.98) 100%)}
+  background:linear-gradient(to bottom,rgba(10,15,12,.35) 0%,rgba(10,15,12,.1) 40%,rgba(10,15,12,.6) 75%,rgba(10,15,12,.92) 100%)}
 
-/* ── LAYOUT ── */
-#app{position:relative;z-index:2;width:100%;max-width:680px;margin:0 auto;padding:40px 20px 80px;animation:fadeUp .8s ease both}
+#app{position:relative;z-index:2;width:100%;max-width:700px;margin:0 auto;padding:36px 14px 80px;animation:fadeUp .8s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── BACK LINK ── */
-.back-link{display:inline-flex;align-items:center;gap:8px;
-  font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:2px;
-  color:rgba(168,240,208,.4);text-decoration:none;transition:color .2s;
-  margin-bottom:32px;padding:6px 0}
-.back-link:hover{color:#a8f0d0}
+/* NAV */
+.nav-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.nav-link{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:2px;
+  color:rgba(168,240,208,.4);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:#a8f0d0}
 
-/* ── HEADER ── */
-.header{text-align:center;margin-bottom:36px}
-.eyebrow{font-size:.78rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;margin-bottom:10px;font-weight:800}
-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,3.2rem);letter-spacing:2px;line-height:1;color:var(--text)}
+/* HEADER */
+.eyebrow{font-size:.75rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:800;margin-bottom:8px;text-align:center}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3rem);letter-spacing:2px;color:var(--text);text-align:center;margin-bottom:6px}
 h1 em{color:var(--green-lt);font-style:normal}
-.sub{margin-top:10px;font-size:.9rem;color:var(--muted);font-weight:600;line-height:1.6}
+.sub{font-size:.82rem;color:var(--muted);font-weight:600;line-height:1.6;text-align:center;margin-bottom:20px}
 
-/* ── STATS RAPIDES ── */
-.quick-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:32px}
-.qs-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center}
-.qs-val{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--green-lt);display:block;line-height:1;letter-spacing:1px}
-.qs-lbl{font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block}
+/* QUICK STATS */
+.quick-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.qs-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center}
+.qs-val{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--green-lt);display:block;line-height:1}
+.qs-lbl{font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block}
 
-/* ── LÉGENDE ── */
-.legend{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
-.legend-item{display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
-.legend-sq{width:12px;height:12px;border-radius:2px;flex-shrink:0}
-.sq-done{background:#1a6b4a}
-.sq-current{background:#a8f0d0}
-.sq-left{background:#131a16;border:1px solid #243028}
+/* LÉGENDE */
+.legend{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:.68rem;font-weight:800;color:var(--muted);text-transform:uppercase}
+.legend-sq{width:10px;height:10px;border-radius:1.5px;flex-shrink:0}
 
-/* ── GRILLE ── */
-.grid-section{margin-bottom:32px}
-.grid-year-row{display:flex;align-items:center;gap:6px;margin-bottom:3px}
-.grid-year-label{font-family:'Bebas Neue',sans-serif;font-size:.72rem;color:rgba(168,240,208,.25);
-  letter-spacing:1px;width:28px;flex-shrink:0;text-align:right}
-.grid-weeks{display:flex;flex-wrap:nowrap;gap:2px}
-.sq{
-  width:10px;height:10px;border-radius:1.5px;flex-shrink:0;
-  transition:transform .1s;cursor:default;
+/* GRILLE — centré, pas de débordement */
+.grid-wrapper{width:100%;margin-bottom:20px}
+.grid-section{display:flex;flex-direction:column;align-items:flex-start;width:fit-content;margin:0 auto}
+
+.grid-year-row{display:flex;align-items:center;gap:var(--sq-gap);height:calc(var(--sq-size) + 1px)}
+.grid-year-row.gap-5{margin-top:4px}
+
+.grid-year-label{
+  font-family:'Bebas Neue',sans-serif;font-size:.6rem;
+  color:rgba(168,240,208,.2);letter-spacing:.5px;
+  width:22px;flex-shrink:0;text-align:right;padding-right:3px;
 }
-.sq:hover{transform:scale(1.4)}
+.grid-year-label.visible{color:rgba(168,240,208,.55);font-size:.68rem}
+
+.grid-weeks{display:flex;flex-wrap:nowrap;gap:var(--sq-gap)}
+
+.sq{width:var(--sq-size);height:var(--sq-size);border-radius:1px;flex-shrink:0}
 .sq-done{background:#1a6b4a}
 .sq-current{background:#a8f0d0;box-shadow:0 0 4px rgba(168,240,208,.6)}
-.sq-left{background:#131a16;border:1px solid #1a2620}
-
-/* ── ANIMATION CURRENT ── */
+.sq-left{background:#131a16;border:1px solid #1e2b22}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .sq-current{animation:pulse 2s ease infinite}
 
-/* ── STATS DE VIE ── */
-.life-stats{margin-top:32px}
-.life-stats-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;
-  color:var(--green-lt);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:16px}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 14px}
-.stat-card .s-val{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--green-lt);
-  display:block;letter-spacing:1px;line-height:1}
-.stat-card .s-lbl{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);margin-top:5px;display:block}
-.stat-card .s-sub{font-size:.72rem;color:rgba(168,240,208,.4);font-weight:600;margin-top:3px}
+/* CITATION */
+.citation{background:rgba(45,158,114,.06);border-left:3px solid var(--green);
+  border-radius:0 10px 10px 0;padding:13px 16px;margin:20px 0;
+  font-style:italic;font-size:.86rem;color:rgba(168,240,208,.5);line-height:1.7;font-weight:600}
+
+/* STATS */
+.life-stats-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;
+  color:var(--green-lt);border-bottom:1px solid var(--border);padding-bottom:7px;margin-bottom:12px}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 11px}
+.stat-card .s-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--green-lt);display:block;letter-spacing:1px;line-height:1}
+.stat-card .s-lbl{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block}
+.stat-card .s-sub{font-size:.68rem;color:rgba(168,240,208,.35);font-weight:600;margin-top:2px}
 .stat-card-trail{border-color:rgba(45,158,114,.3);background:rgba(45,158,114,.05)}
 .stat-card-trail .s-val{color:#a8f0d0}
 
-/* ── CITATION ── */
-.citation{background:rgba(45,158,114,.06);border-left:3px solid var(--green);
-  border-radius:0 10px 10px 0;padding:14px 18px;margin:28px 0;
-  font-style:italic;font-size:.9rem;color:rgba(168,240,208,.5);line-height:1.7;font-weight:600}
-
-/* ── BOUTON RETOUR ── */
-.btn-retour{
-  display:block;width:100%;text-align:center;
+/* BOUTONS */
+.btns-wrap{display:flex;gap:10px}
+.btn-main{
+  flex:1;text-align:center;
   background:linear-gradient(135deg,var(--green-dk),var(--green));
-  color:#fff;text-decoration:none;padding:16px;
-  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:3px;
-  border-radius:14px;transition:all .2s;margin-top:32px;
-  box-shadow:0 4px 20px rgba(45,158,114,.3);
+  color:#fff;text-decoration:none;padding:14px 10px;
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;
+  border-radius:12px;transition:all .2s;box-shadow:0 4px 16px rgba(45,158,114,.3);
+  border:none;cursor:pointer;display:block;
 }
-.btn-retour:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(45,158,114,.45)}
+.btn-main:hover{transform:translateY(-2px)}
+.btn-secondary{
+  flex:1;text-align:center;
+  background:rgba(45,158,114,.15);border:1px solid rgba(45,158,114,.4);
+  color:var(--green-lt);text-decoration:none;padding:14px 10px;
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;
+  border-radius:12px;transition:all .2s;display:block;
+}
+.btn-secondary:hover{background:rgba(45,158,114,.3);border-color:var(--green);color:#fff}
 
-/* ── NO DATA ── */
+/* NO DATA */
 .no-data{text-align:center;padding:60px 20px;color:var(--muted)}
 .no-data h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--green-lt);margin-bottom:12px;letter-spacing:2px}
-.no-data p{font-size:.88rem;font-weight:600;line-height:1.7}
+.no-data p{font-size:.88rem;font-weight:600;line-height:1.7;margin-bottom:20px}
 
-@media(max-width:480px){
-  .sq{width:7px;height:7px}
-  .grid-year-label{width:22px;font-size:.6rem}
+@media(max-width:360px){
+  .stats-grid{grid-template-columns:1fr}
+  .btns-wrap{flex-direction:column}
   .quick-stats{grid-template-columns:1fr 1fr}
   .quick-stats .qs-card:last-child{grid-column:span 2}
-  .stats-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- BG Trail SVG -->
 <div class="bg">
 <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
   <defs>
@@ -144,188 +145,136 @@ h1 em{color:var(--green-lt);font-style:normal}
 <div class="bg-overlay"></div>
 
 <div id="app">
-  <a href="/montre/" class="back-link">← Retour à la montre</a>
+  <div class="nav-top">
+    <a href="https://montre-de-vie.com/montre/" class="nav-link">← Montre</a>
+    <a href="https://montre-de-vie.com/" class="nav-link">🏠 Accueil</a>
+  </div>
   <div id="content"></div>
 </div>
 
 <script>
-// ── LECTURE PARAMS URL ────────────────────────────────────────────────────
 function getParams(){
-  var params=new URLSearchParams(window.location.search);
-  return{
-    age:parseInt(params.get('age'))||0,
-    esperance:parseInt(params.get('esperance'))||0,
-    nom:params.get('nom')||'',
-    trail:parseFloat(params.get('trail'))||2
-  };
+  var p=new URLSearchParams(window.location.search);
+  return{age:parseInt(p.get('age'))||0,esperance:parseInt(p.get('esperance'))||0,trail:parseFloat(p.get('trail'))||2};
 }
-
-// ── FORMAT NOMBRE ─────────────────────────────────────────────────────────
 function fmt(n){return Math.round(n).toLocaleString('fr-FR')}
 
-// ── CITATIONS ALÉATOIRES ──────────────────────────────────────────────────
 var citations=[
-  {txt:'Tu pourrais quitter la vie l\'instant même. Laisse cela déterminer ce que tu fais, dis et penses.',aut:'Marc Aurèle — Pensées pour moi-même'},
-  {txt:'Ce n\'est pas que nous ayons peu de temps à vivre, c\'est que nous en perdons beaucoup.',aut:'Sénèque — De la brièveté de la vie'},
+  {txt:'Tu pourrais quitter la vie l\'instant même. Laisse cela déterminer ce que tu fais, dis et penses.',aut:'Marc Aurèle'},
+  {txt:'Ce n\'est pas que nous ayons peu de temps à vivre, c\'est que nous en perdons beaucoup.',aut:'Sénèque'},
   {txt:'Vis comme si tu mourais à chaque instant — parce que c\'est exactement ce qui se passe.',aut:'Marc Aurèle'},
   {txt:'La mort sourit à tout le monde. Tout ce qu\'un homme peut faire, c\'est lui sourire en retour.',aut:'Marc Aurèle'},
-  {txt:'Aucun vent n\'est favorable à celui qui ne sait pas où il va.',aut:'Sénèque'},
   {txt:'Pendant que tu repousses ta vie, elle passe.',aut:'Sénèque — Lettres à Lucilius'},
-  {txt:'Perds une heure le matin et tu passeras la journée à la chercher.',aut:'Richard Whately'},
   {txt:'La vie n\'est pas courte. C\'est nous qui la gaspillons.',aut:'Sénèque'},
-  {txt:'Il n\'y a qu\'une seule façon de vivre longtemps — décider dès maintenant de ne plus gaspiller une seule journée.',aut:'Épictète'},
+  {txt:'Il n\'y a qu\'une seule façon de vivre longtemps — ne plus gaspiller une seule journée.',aut:'Épictète'},
   {txt:'Chaque foulée compte. Chaque seconde aussi.',aut:'Sébastien Salomon — Run Nature'},
   {txt:'Le moment présent aura toujours été.',aut:'Philosophie stoïcienne'},
-  {txt:'N\'agis pas comme si tu avais dix mille ans devant toi.',aut:'Marc Aurèle — Pensées pour moi-même'},
+  {txt:'N\'agis pas comme si tu avais dix mille ans devant toi.',aut:'Marc Aurèle'},
 ];
-function randomCitation(){return citations[Math.floor(Math.random()*citations.length)];}
 
-// ── RENDU PRINCIPAL ───────────────────────────────────────────────────────
+function calcSqSize(){
+  var w=window.innerWidth;
+  var padding=28;
+  var labelW=25;
+  var gap=2;
+  var weeks=52;
+  var available=w-padding-labelW-(gap*weeks);
+  var sq=Math.floor(available/weeks);
+  return Math.max(4,Math.min(sq,11));
+}
+
 function render(){
   var p=getParams();
-  var content=document.getElementById('content');
-
-  if(!p.age||!p.esperance||p.age<1||p.esperance<1){
-    content.innerHTML=`
-      <div class="no-data">
-        <h2>Données manquantes</h2>
-        <p>Lance d'abord la montre de vie pour générer ta grille personnalisée.</p>
-        <a href="/montre/" class="btn-retour" style="margin-top:24px;display:inline-block;width:auto;padding:14px 36px">⏱ Lancer la montre</a>
-      </div>`;
+  var c=document.getElementById('content');
+  if(!p.age||!p.esperance){
+    c.innerHTML=`<div class="no-data"><h2>Données manquantes</h2><p>Lance d'abord la montre de vie pour générer ta grille personnalisée.</p><div class="btns-wrap" style="max-width:300px;margin:0 auto"><a href="https://montre-de-vie.com/montre/" class="btn-main">⏱ Lancer la montre</a><a href="https://montre-de-vie.com/" class="btn-secondary">🏠 Accueil</a></div></div>`;
     return;
   }
 
-  var totalWeeks=Math.round(p.esperance*52.18);
-  var livedWeeks=Math.round(p.age*52.18);
-  var leftWeeks=Math.max(totalWeeks-livedWeeks,0);
-  var pct=Math.round((livedWeeks/totalWeeks)*100);
+  var totalW=Math.round(p.esperance*52.18);
+  var livedW=Math.round(p.age*52.18);
+  var leftW=Math.max(totalW-livedW,0);
+  var pct=Math.round((livedW/totalW)*100);
+  var leftY=Math.max(p.esperance-p.age,0);
+  var joursV=Math.round(p.age*365.25);
+  var joursR=Math.round(leftW*7);
+  var weR=Math.round(leftY*52);
+  var etesR=Math.round(leftY);
+  var trailR=Math.round(leftW*p.trail);
+  var cite=citations[Math.floor(Math.random()*citations.length)];
 
-  // Stats de vie
-  var leftYears=Math.max(p.esperance-p.age,0);
-  var weekendsLeft=Math.round(leftWeeks/1);  // 1 weekend = 1 semaine quasi
-  var etesLeft=Math.round(leftYears);
-  var trailLeft=Math.round(leftWeeks*p.trail);
-  var joursVecus=Math.round(p.age*365.25);
-  var semainesVecues=Math.round(livedWeeks);
-  var joursRestants=Math.round(leftWeeks*7);
-  var weekendsRestants=Math.round(leftWeeks*2/7*7); // vrais weekends (sam+dim)
-  weekendsRestants=Math.round(leftYears*52);
-
-  // Citation
-  var cite=randomCitation();
-
-  // ── HTML ──
-  var html=`
-    <div class="header">
-      <div class="eyebrow">Memento Mori — Run Nature</div>
-      <h1>Ta vie en <em>semaines</em></h1>
-      <p class="sub">Chaque carré = 1 semaine · ${fmt(totalWeeks)} semaines au total · ${pct}% vécues</p>
-    </div>
+  c.innerHTML=`
+    <div class="eyebrow">Memento Mori — Run Nature</div>
+    <h1>Ta vie en <em>semaines</em></h1>
+    <p class="sub">Chaque carré = 1 semaine · ${fmt(totalW)} semaines au total · ${pct}% vécues</p>
 
     <div class="quick-stats">
-      <div class="qs-card">
-        <span class="qs-val">${fmt(livedWeeks)}</span>
-        <span class="qs-lbl">Semaines vécues</span>
-      </div>
-      <div class="qs-card">
-        <span class="qs-val">${fmt(leftWeeks)}</span>
-        <span class="qs-lbl">Semaines restantes</span>
-      </div>
-      <div class="qs-card">
-        <span class="qs-val">${pct}%</span>
-        <span class="qs-lbl">De vie vécue</span>
-      </div>
+      <div class="qs-card"><span class="qs-val">${fmt(livedW)}</span><span class="qs-lbl">Semaines vécues</span></div>
+      <div class="qs-card"><span class="qs-val">${fmt(leftW)}</span><span class="qs-lbl">Restantes</span></div>
+      <div class="qs-card"><span class="qs-val">${pct}%</span><span class="qs-lbl">Vie vécue</span></div>
     </div>
 
     <div class="legend">
-      <div class="legend-item"><div class="legend-sq sq-done"></div>Vécue</div>
-      <div class="legend-item"><div class="legend-sq sq-current"></div>En cours</div>
+      <div class="legend-item"><div class="legend-sq" style="background:#1a6b4a"></div>Vécue</div>
+      <div class="legend-item"><div class="legend-sq" style="background:#a8f0d0"></div>En cours</div>
       <div class="legend-item"><div class="legend-sq" style="background:#131a16;border:1px solid #243028"></div>Restante</div>
     </div>
 
-    <div class="grid-section" id="grid-container"></div>
+    <div class="grid-wrapper"><div class="grid-section" id="gc"></div></div>
 
-    <div class="citation">
-      "${cite.txt}"<br>
-      <span style="font-size:.7rem;opacity:.6;font-style:normal">— ${cite.aut}</span>
+    <div class="citation">"${cite.txt}"<br><span style="font-size:.68rem;opacity:.6;font-style:normal">— ${cite.aut}</span></div>
+
+    <div class="life-stats-title">📊 Ta vie en chiffres</div>
+    <div class="stats-grid">
+      <div class="stat-card"><span class="s-val">${fmt(joursV)}</span><span class="s-lbl">Jours vécus</span><span class="s-sub">${p.age} ans et quelques poussières</span></div>
+      <div class="stat-card"><span class="s-val">${fmt(joursR)}</span><span class="s-lbl">Jours restants</span><span class="s-sub">Si tu continues comme ça 🏔️</span></div>
+      <div class="stat-card"><span class="s-val">${fmt(weR)}</span><span class="s-lbl">Week-ends restants</span><span class="s-sub">Ça fait mal à lire 😅</span></div>
+      <div class="stat-card"><span class="s-val">${fmt(etesR)}</span><span class="s-lbl">Étés restants</span><span class="s-sub">Chaque saison compte</span></div>
+      <div class="stat-card stat-card-trail"><span class="s-val">${fmt(trailR)}</span><span class="s-lbl">Sorties trail restantes</span><span class="s-sub">À ${p.trail} sorties/semaine</span></div>
+      <div class="stat-card stat-card-trail"><span class="s-val">${fmt(Math.round(trailR*12))}</span><span class="s-lbl">Km de sentiers</span><span class="s-sub">~12km/sortie</span></div>
     </div>
 
-    <div class="life-stats">
-      <div class="life-stats-title">📊 Ta vie en chiffres</div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="s-val">${fmt(joursVecus)}</span>
-          <span class="s-lbl">Jours vécus</span>
-          <span class="s-sub">${p.age} ans et quelques poussières</span>
-        </div>
-        <div class="stat-card">
-          <span class="s-val">${fmt(joursRestants)}</span>
-          <span class="s-lbl">Jours restants estimés</span>
-          <span class="s-sub">Si tu continues comme ça 🏔️</span>
-        </div>
-        <div class="stat-card">
-          <span class="s-val">${fmt(weekendsRestants)}</span>
-          <span class="s-lbl">Week-ends restants</span>
-          <span class="s-sub">Ça fait mal à lire 😅</span>
-        </div>
-        <div class="stat-card">
-          <span class="s-val">${fmt(etesLeft)}</span>
-          <span class="s-lbl">Étés restants</span>
-          <span class="s-sub">Chaque saison compte</span>
-        </div>
-        <div class="stat-card stat-card-trail">
-          <span class="s-val">${fmt(trailLeft)}</span>
-          <span class="s-lbl">Sorties trail restantes</span>
-          <span class="s-sub">À ${p.trail} sorties/semaine estimées</span>
-        </div>
-        <div class="stat-card stat-card-trail">
-          <span class="s-val">${fmt(Math.round(trailLeft*12))}</span>
-          <span class="s-lbl">Km de sentiers restants</span>
-          <span class="s-sub">En estimant 12km/sortie</span>
-        </div>
-      </div>
+    <div class="btns-wrap">
+      <a href="https://montre-de-vie.com/montre/" class="btn-main">↺ Saisir à nouveau</a>
+      <a href="https://montre-de-vie.com/" class="btn-secondary">🏠 Accueil</a>
     </div>
-
-    <a href="/montre/" class="btn-retour">⏱ Retour à la montre</a>
   `;
 
-  content.innerHTML=html;
-
-  // ── GÉNÉRATION GRILLE ──
-  buildGrid(p.age, p.esperance, livedWeeks, totalWeeks);
+  buildGrid(p.esperance, livedW, totalW);
 }
 
-function buildGrid(age, esperance, livedWeeks, totalWeeks){
-  var container=document.getElementById('grid-container');
-  if(!container)return;
+function buildGrid(esperance, livedW, totalW){
+  var gc=document.getElementById('gc');
+  if(!gc)return;
+  var sq=calcSqSize();
+  document.documentElement.style.setProperty('--sq-size',sq+'px');
 
   var html='';
-  var weekCount=0;
-  var weeksPerYear=52;
-
-  for(var year=0;year<esperance;year++){
-    var labelAge=year===0?'0':(year%5===0?String(year):'');
-    html+='<div class="grid-year-row">';
-    html+='<div class="grid-year-label">'+labelAge+'</div>';
+  var wk=0;
+  for(var yr=0;yr<esperance;yr++){
+    var is5=(yr>0&&yr%5===0);
+    var showLbl=(yr===0||yr%5===0);
+    html+='<div class="grid-year-row'+(is5?' gap-5':'')+'">';
+    html+='<div class="grid-year-label'+(showLbl?' visible':'')+'">'+(showLbl?yr:'')+'</div>';
     html+='<div class="grid-weeks">';
-
-    for(var w=0;w<weeksPerYear;w++){
-      weekCount++;
+    for(var w=0;w<52;w++){
+      wk++;
       var cls='sq ';
-      if(weekCount<livedWeeks) cls+='sq-done';
-      else if(weekCount===livedWeeks) cls+='sq-current';
+      if(wk<livedW)cls+='sq-done';
+      else if(wk===livedW)cls+='sq-current';
       else cls+='sq-left';
-      html+='<div class="'+cls+'" title="Semaine '+weekCount+'"></div>';
+      html+='<div class="'+cls+'"></div>';
     }
-
     html+='</div></div>';
   }
-
-  container.innerHTML=html;
+  gc.innerHTML=html;
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', render);
+window.addEventListener('DOMContentLoaded',render);
+window.addEventListener('resize',function(){
+  var sq=calcSqSize();
+  document.documentElement.style.setProperty('--sq-size',sq+'px');
+});
 </script>
 </body>
 </html>

@@ -6,6 +6,15 @@
   <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
 
+  <!-- À ajouter dans _layouts/default.html dans le <head> -->
+ 
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0a0f0c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Montre Vie">
+<link rel="apple-touch-icon" href="/icon-512.svg">
+
   <!-- Open Graph -->
   <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
   <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
@@ -132,5 +141,14 @@
   <p style="margin-top:8px;font-size:.65rem;opacity:.6">Outil indicatif, non médical. Chaque seconde compte — ne la gâche pas.</p>
 </footer>
 
+  <script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(reg){ console.log('SW OK', reg.scope); })
+      .catch(function(err){ console.log('SW erreur', err); });
+  });
+}
+</script>
 </body>
 </html>

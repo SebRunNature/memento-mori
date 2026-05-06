@@ -742,6 +742,20 @@ select option{background:var(--card)}
     <div class="cd-sec-cell"><span class="val" id="cd-seconds">--</span><span class="lbl">Secondes</span></div>
   </div>
 
+  <!-- Bouton son -->
+  <div style="text-align:center;margin-bottom:8px">
+    <button id="btn-sound" onclick="toggleSound()"
+      style="background:rgba(45,158,114,.1);border:1px solid rgba(45,158,114,.3);
+      color:var(--muted);padding:8px 20px;border-radius:30px;cursor:pointer;
+      font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:800;
+      letter-spacing:.08em;text-transform:uppercase;transition:all .2s">
+      🔔 Activer le tick
+    </button>
+    <div style="font-size:.6rem;color:rgba(90,138,122,.5);margin-top:5px;font-weight:700">
+      Un son discret à chaque seconde
+    </div>
+  </div>
+
   <p class="note-text">« Chaque foulée compte. Chaque seconde aussi. »<br><em style="font-size:.75rem;opacity:.6">— Sébastien Salomon</em></p>
 
   <!-- Bouton Grille -->
@@ -1008,9 +1022,56 @@ function startCountdown(){
     document.getElementById('cd-hours').textContent=hours;
     document.getElementById('cd-minutes').textContent=String(minutes).padStart(2,'0');
     document.getElementById('cd-seconds').textContent=String(seconds).padStart(2,'0');
+    playTick();
   }
   tick();
   setInterval(tick,1000);
+}
+
+// ── SON TICK ─────────────────────────────────────────────────────────────
+var _audioCtx = null;
+var _soundOn = false;
+
+function initAudio(){
+  if(!_audioCtx){
+    _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if(_audioCtx.state === 'suspended') _audioCtx.resume();
+}
+
+function playTick(){
+  if(!_soundOn || !_audioCtx) return;
+  try {
+    var osc = _audioCtx.createOscillator();
+    var gain = _audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(_audioCtx.destination);
+    // Son bref et discret — fréquence basse type horloge mécanique
+    osc.frequency.setValueAtTime(420, _audioCtx.currentTime);
+    osc.type = 'sine';
+    gain.gain.setValueAtTime(0.08, _audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, _audioCtx.currentTime + 0.08);
+    osc.start(_audioCtx.currentTime);
+    osc.stop(_audioCtx.currentTime + 0.08);
+  } catch(e){}
+}
+
+function toggleSound(){
+  initAudio();
+  _soundOn = !_soundOn;
+  var btn = document.getElementById('btn-sound');
+  if(_soundOn){
+    btn.textContent = '🔕 Couper le tick';
+    btn.style.background = 'rgba(45,158,114,.2)';
+    btn.style.borderColor = 'rgba(45,158,114,.6)';
+    btn.style.color = 'var(--green-lt)';
+    playTick(); // test immédiat
+  } else {
+    btn.textContent = '🔔 Activer le tick';
+    btn.style.background = 'rgba(45,158,114,.1)';
+    btn.style.borderColor = 'rgba(45,158,114,.3)';
+    btn.style.color = 'var(--muted)';
+  }
 }
 
 // ── RESET ────────────────────────────────────────────────────────────────

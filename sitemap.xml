@@ -3,60 +3,13 @@ layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://montre-de-vie.com/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://montre-de-vie.com/montre/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://montre-de-vie.com/blog/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://montre-de-vie.com/blog/2026/05/05/pourquoi-compter-ses-secondes-change-tout/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://montre-de-vie.com/blog/2026/05/06/tikker-watch-alternative-gratuite/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-
-  <url>
-    <loc>https://montre-de-vie.com/blog/2026/05/06/courir-augmente-esperance-de-vie-combien-annees/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-  <loc>https://montre-de-vie.com/blog/2026/05/07/moringa-longevite-science/</loc>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://montre-de-vie.com/blog/2026/05/07/trail-running-nature-longevite/</loc>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://montre-de-vie.com/blog/2026/05/08/moringa-coureurs-trail-superaliment/</loc>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-
+  <url><loc>https://montre-de-vie.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://montre-de-vie.com/montre/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://montre-de-vie.com/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://montre-de-vie.com/blog/2026/05/05/pourquoi-compter-ses-secondes-change-tout/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://montre-de-vie.com/blog/2026/05/06/tikker-watch-alternative-gratuite/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://montre-de-vie.com/blog/2026/05/06/courir-augmente-esperance-de-vie-combien-annees/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://montre-de-vie.com/blog/2026/05/07/moringa-longevite-science/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://montre-de-vie.com/blog/2026/05/07/trail-running-nature-longevite/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://montre-de-vie.com/blog/2026/05/08/moringa-coureurs-trail-superaliment/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

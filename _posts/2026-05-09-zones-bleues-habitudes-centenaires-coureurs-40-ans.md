@@ -196,5 +196,3 @@ Commence par **l'alimentation végétale**. C'est le facteur le plus constant da
 - [Overtraining Syndrome — PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC12010411/)
 
 ---
-
-Outil indicatif, non médical. Chaque seconde compte — ne la gâche pas.

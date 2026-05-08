@@ -1,24 +1,14 @@
 ---
-title: "Les zones bleues dans le monde : 5 habitudes de centenaires pour les coureurs de 40+ ans — Montre de Vie"
-canonical: https://montre-de-vie.com/blog/2026/05/08/zones-bleues-habitudes-centenaires-coureurs-40-ans/
-meta-description: "Zones bleues longévité : découvre les 5 habitudes des centenaires que tout coureur de 40+ ans devrait adopter pour courir plus longtemps et vivre mieux."
-meta-og:description: "Zones bleues longévité : découvre les 5 habitudes des centenaires que tout coureur de 40+ ans devrait adopter pour courir plus longtemps et vivre mieux."
-meta-og:site_name: Montre de Vie
-meta-og:title: "Les zones bleues dans le monde : 5 habitudes de centenaires pour les coureurs de 40+ ans"
-meta-og:type: article
-meta-og:url: https://montre-de-vie.com/blog/2026/05/08/zones-bleues-habitudes-centenaires-coureurs-40-ans/
-meta-viewport: "width=device-width, initial-scale=1.0"
+layout: default
+title: "Les zones bleues : 5 habitudes de centenaires pour les coureurs de 40+ ans"
+description: "Zones bleues longévité : 5 habitudes des centenaires que tout coureur de 40+ ans devrait adopter pour courir plus longtemps et vivre mieux."
+date: 2026-05-09
+author: Sébastien Salomon
 ---
-
-[⏱ Montre de Vie](https://montre-de-vie.com/)
-
-[La montre](https://montre-de-vie.com/montre/) [Blog](https://montre-de-vie.com/blog/) [À propos](https://montre-de-vie.com/apropos/)
-
-[← Retour au blog](https://montre-de-vie.com/blog/)
 
 # Les zones bleues dans le monde : 5 habitudes de centenaires pour les coureurs de *40+ ans*
 
-8 mai 2026 · Sébastien Salomon · 8 min de lecture
+9 mai 2026 · Sébastien Salomon · 8 min de lecture
 
 Les centenaires des zones bleues ne s'entraînent pas comme des athlètes. Ils marchent, jardinent, dansent — et vivent souvent plus longtemps que la plupart des coureurs d'endurance. Voilà ce qu'on peut en retirer, concrètement, quand on a 40 ans et qu'on aime le trail.
 

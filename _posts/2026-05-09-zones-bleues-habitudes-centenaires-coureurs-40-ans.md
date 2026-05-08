@@ -197,6 +197,4 @@ Commence par **l'alimentation végétale**. C'est le facteur le plus constant da
 
 ---
 
-© 2026 [Run Nature](https://run-nature.com) — Sébastien Salomon · [Lancer la montre](https://montre-de-vie.com/montre/) · [À propos](https://montre-de-vie.com/apropos/)
-
 Outil indicatif, non médical. Chaque seconde compte — ne la gâche pas.

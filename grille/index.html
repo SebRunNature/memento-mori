@@ -210,9 +210,9 @@ function render(){
       <div class="legend-item"><div class="legend-sq" style="background:#131a16;border:1px solid #243028"></div>Restante</div>
     </div>
 
-    <div class="grid-wrapper"><div class="grid-section" id="gc"></div></div>
-
     <div class="citation">"${cite.txt}"<br><span style="font-size:.68rem;opacity:.6;font-style:normal">— ${cite.aut}</span></div>
+
+    <div class="grid-wrapper"><div class="grid-section" id="gc"></div></div>
 
     <div class="life-stats-title">📊 Ta vie en chiffres</div>
     <div class="stats-grid">
@@ -229,6 +229,8 @@ function render(){
       <a href="https://montre-de-vie.com/" class="btn-secondary">🏠 Accueil</a>
     </div>
   `;
+  // Bouton retour résultats — localStorage permet de retrouver les résultats directement
+  // Le lien "Saisir à nouveau" pointe vers la montre — le localStorage la ramènera aux résultats
 
   buildGrid(p.esperance, livedW, totalW);
 }
@@ -239,6 +241,7 @@ function buildGrid(esperance, livedW, totalW){
   var sq=calcSqSize();
   document.documentElement.style.setProperty('--sq-size',sq+'px');
 
+  // D'abord on génère tous les carrés en "left" (vide)
   var html='';
   var wk=0;
   for(var yr=0;yr<esperance;yr++){
@@ -249,15 +252,33 @@ function buildGrid(esperance, livedW, totalW){
     html+='<div class="grid-weeks">';
     for(var w=0;w<52;w++){
       wk++;
-      var cls='sq ';
-      if(wk<livedW)cls+='sq-done';
-      else if(wk===livedW)cls+='sq-current';
-      else cls+='sq-left';
-      html+='<div class="'+cls+'"></div>';
+      // Tous commencent vides — l'animation les allumera
+      var cls = wk===livedW ? 'sq sq-current' : 'sq sq-left';
+      html+='<div class="'+cls+'" data-week="'+wk+'"></div>';
     }
     html+='</div></div>';
   }
   gc.innerHTML=html;
+
+  // Animation : remplir les carrés vécus en 2 secondes
+  if(livedW > 0){
+    var delay = 2000 / livedW; // ms par carré
+    delay = Math.max(delay, 1); // minimum 1ms
+    var squares = gc.querySelectorAll('.sq-left, .sq-current');
+    var i = 0;
+    function fillNext(){
+      if(i >= squares.length) return;
+      var sq = squares[i];
+      var week = parseInt(sq.getAttribute('data-week'));
+      if(week < livedW){
+        sq.classList.remove('sq-left');
+        sq.classList.add('sq-done');
+        i++;
+        setTimeout(fillNext, delay);
+      }
+    }
+    setTimeout(fillNext, 300); // petit délai avant de démarrer
+  }
 }
 
 window.addEventListener('DOMContentLoaded',render);

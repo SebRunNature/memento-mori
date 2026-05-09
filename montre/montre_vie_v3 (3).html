@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Montre de Vie — Seb Run Nature</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2d9e72;--green-dk:#1a6b4a;--green-lt:#a8f0d0;
+  --bg:#0a0f0c;--card:#131a16;--card2:#1a2620;
+  --text:#e8f5f0;--muted:#5a8a7a;--border:#243028;
+  --radius:14px;--amber:#c8873a;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text)}
+
+/* ── BG ── */
+.bg{position:fixed;inset:0;z-index:0}
+.bg svg{width:100%;height:100%;object-fit:cover}
+.bg-overlay{position:fixed;inset:0;z-index:1;
+  background:linear-gradient(to bottom,rgba(10,15,12,.35) 0%,rgba(10,15,12,.1) 40%,rgba(10,15,12,.6) 75%,rgba(10,15,12,.92) 100%)}
+
+/* ── LAYOUT ── */
+#app{position:relative;z-index:2;width:100%;max-width:640px;margin:0 auto;padding:48px 22px 80px;animation:fadeUp 1s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HEADER ── */
+.header{text-align:center;margin-bottom:44px}
+.header-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px}
+.header-logo span{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--green-lt)}
+.eyebrow{font-size:.82rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;margin-bottom:10px;font-weight:800}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,7vw,4rem);letter-spacing:2px;line-height:1;color:var(--text)}
+h1 em{color:var(--green-lt);font-style:normal}
+.sub{margin-top:12px;font-size:.98rem;color:var(--muted);font-weight:600;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6}
+
+/* ── WARNING ── */
+.warning{border:1px solid rgba(200,135,58,.4);background:rgba(200,135,58,.07);color:#e8b070;
+  font-size:.9rem;line-height:1.7;padding:13px 18px;border-radius:var(--radius);
+  letter-spacing:.03em;margin-bottom:32px;text-align:center;font-weight:700}
+
+/* ── SECTION TITLE ── */
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+  color:var(--green-lt);border-bottom:1px solid var(--border);padding-bottom:8px;margin:28px 0 18px}
+
+/* ── NIVEAU BADGE ── */
+.niveau-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(45,158,114,.1);border:1px solid rgba(45,158,114,.3);
+  border-radius:30px;padding:6px 16px;margin-bottom:20px;
+  font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green-lt)}
+.niveau-badge-2{background:rgba(200,135,58,.1);border-color:rgba(200,135,58,.3);color:#e8b070}
+
+/* ── FORM ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.grid-2{grid-template-columns:1fr}}
+.input-group{margin-bottom:14px}
+label{display:block;font-size:.82rem;font-weight:800;letter-spacing:.05em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+label .info-btn{display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;background:rgba(45,158,114,.2);border:1px solid rgba(45,158,114,.4);
+  border-radius:50%;font-size:.65rem;color:var(--green-lt);cursor:pointer;margin-left:6px;
+  font-weight:800;transition:all .2s;vertical-align:middle}
+label .info-btn:hover{background:rgba(45,158,114,.4)}
+
+input,select{
+  width:100%;padding:13px 15px;
+  background:var(--card);border:1px solid var(--border);
+  color:var(--text);border-radius:10px;
+  font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;
+  appearance:none;transition:border-color .2s,background .2s;
+}
+input:focus,select:focus{outline:none;border-color:var(--green);background:var(--card2)}
+input::placeholder{color:var(--muted)}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232d9e72' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+  padding-right:36px;cursor:pointer;
+}
+select option{background:var(--card)}
+.hint{font-size:.8rem;color:var(--muted);margin-top:4px;font-weight:600}
+
+/* ── TOGGLE NIVEAU 2 ── */
+.toggle-niveau2{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(200,135,58,.07);border:1px solid rgba(200,135,58,.3);
+  border-radius:var(--radius);padding:16px 20px;cursor:pointer;
+  margin:28px 0 0;transition:all .2s;user-select:none;
+}
+.toggle-niveau2:hover{background:rgba(200,135,58,.12)}
+.toggle-niveau2-text strong{display:block;font-size:.95rem;color:#e8b070;font-weight:800}
+.toggle-niveau2-text span{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:2px;display:block}
+.toggle-arrow{font-size:1.2rem;color:#e8b070;transition:transform .3s}
+.toggle-arrow.open{transform:rotate(180deg)}
+
+#niveau2-content{display:none;margin-top:4px}
+#niveau2-content.visible{display:block;animation:fadeUp .4s ease both}
+
+/* ── POPUP OVERLAY ── */
+.popup-overlay{
+  display:none;position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.popup-overlay.active{display:flex}
+.popup-box{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  max-width:480px;width:100%;padding:28px 24px;position:relative;
+  max-height:85vh;overflow-y:auto;
+  animation:fadeUp .3s ease both;
+}
+.popup-close{
+  position:absolute;top:16px;right:16px;
+  background:rgba(255,255,255,.08);border:none;color:var(--muted);
+  width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.popup-close:hover{background:rgba(255,255,255,.15);color:var(--text)}
+.popup-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;
+  color:var(--green-lt);margin-bottom:16px}
+.popup-step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.popup-step-num{
+  width:26px;height:26px;background:var(--green-dk);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.78rem;color:#fff;flex-shrink:0;margin-top:2px;
+}
+.popup-step-text{font-size:.88rem;color:rgba(232,245,240,.8);line-height:1.6;font-weight:600}
+.popup-note{background:rgba(200,135,58,.08);border:1px solid rgba(200,135,58,.25);
+  border-radius:10px;padding:12px 14px;font-size:.78rem;color:#e8b070;
+  font-weight:700;line-height:1.6;margin-top:12px}
+.popup-seuils{margin-top:14px}
+.popup-seuil-row{display:flex;justify-content:space-between;align-items:center;
+  padding:8px 12px;border-radius:8px;margin-bottom:6px;font-size:.82rem;font-weight:700}
+.seuil-ok{background:rgba(45,158,114,.1);color:var(--green-lt)}
+.seuil-warn{background:rgba(200,135,58,.1);color:#e8b070}
+.seuil-bad{background:rgba(248,113,113,.1);color:#f87171}
+
+/* ── BUTTON ── */
+.btn-wrap{text-align:center;margin-top:36px}
+.btn-start{
+  background:linear-gradient(135deg,var(--green-dk),var(--green));
+  color:#fff;border:none;padding:18px 56px;cursor:pointer;
+  font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;
+  border-radius:14px;transition:all .2s;
+  box-shadow:0 4px 24px rgba(45,158,114,.3);
+}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(45,158,114,.45)}
+.btn-start:active{transform:translateY(0)}
+
+/* ── DISPLAY ── */
+#display{text-align:center}
+.display-header{margin-bottom:40px}
+.display-header h1{font-size:clamp(2.1rem,5vw,3rem)}
+
+/* ── LIFE BAR ── */
+.life-bar-wrap{max-width:480px;margin:0 auto 8px}
+.life-bar-label{display:flex;justify-content:space-between;font-size:.78rem;font-weight:800;
+  letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.life-bar{height:6px;background:rgba(168,240,208,.1);border-radius:3px;overflow:hidden}
+.life-bar-fill{height:100%;background:linear-gradient(to right,var(--green-dk),var(--green),var(--green-lt));
+  border-radius:3px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.life-bar-sub{display:flex;justify-content:space-between;font-size:.76rem;font-weight:700;
+  color:rgba(168,240,208,.35);text-transform:uppercase;letter-spacing:.1em;margin-top:5px;
+  max-width:480px;margin-left:auto;margin-right:auto;margin-bottom:20px}
+
+/* ── LIFE PILL ── */
+.life-pill{display:inline-flex;align-items:center;gap:8px;
+  background:var(--card);border:1px solid var(--border);border-radius:30px;
+  padding:10px 22px;margin-bottom:16px;font-size:.88rem;font-weight:800;
+  color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.life-pill span{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--green-lt);letter-spacing:1px}
+
+/* ── SCORE NIVEAU 2 ── */
+.bio-score{max-width:460px;margin:0 auto 20px;
+  background:rgba(200,135,58,.07);border:1px solid rgba(200,135,58,.25);
+  border-radius:var(--radius);padding:14px 18px;text-align:center}
+.bio-score-val{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#e8b070;letter-spacing:1px}
+.bio-score-lbl{font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-top:2px}
+
+/* ── PROFILE MSG ── */
+.profile-msg{
+  max-width:460px;margin:0 auto 24px;
+  background:rgba(45,158,114,.07);border:1px solid rgba(45,158,114,.2);
+  border-left:4px solid var(--green);border-radius:0 10px 10px 0;
+  padding:14px 18px;font-size:.95rem;line-height:1.8;color:var(--green-lt);
+  font-weight:600;text-align:left;
+}
+
+/* ── COUNTDOWN ── */
+.countdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:460px;margin:0 auto 16px}
+.cd-cell{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 10px;text-align:center;transition:border-color .3s}
+.cd-cell:hover{border-color:var(--green)}
+.cd-cell .val{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--green-lt);
+  line-height:1;display:block;letter-spacing:1px}
+.cd-cell .lbl{display:block;font-size:.72rem;font-weight:800;letter-spacing:.22em;
+  color:var(--muted);text-transform:uppercase;margin-top:5px}
+.cd-seconds{display:flex;justify-content:center;gap:10px;margin-bottom:32px}
+.cd-sec-cell{background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:12px 22px;text-align:center}
+.cd-sec-cell .val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--text);
+  display:block;letter-spacing:1px}
+.cd-sec-cell .lbl{display:block;font-size:.68rem;font-weight:800;letter-spacing:.2em;
+  color:var(--muted);text-transform:uppercase;margin-top:4px}
+
+/* ── QUOTE ── */
+.note-text{font-size:1rem;font-style:italic;color:rgba(168,240,208,.4);
+  margin-bottom:36px;font-weight:600;line-height:1.6}
+
+/* ── BLOG LINKS ── */
+.blog-section{margin-top:36px;padding:22px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
+.blog-section-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+  color:var(--green-lt);margin-bottom:14px}
+.blog-links{display:flex;flex-direction:column;gap:10px}
+.blog-link{display:flex;align-items:center;gap:12px;padding:13px 16px;
+  background:var(--card2);border:1px solid var(--border);border-radius:10px;
+  text-decoration:none;color:var(--text);font-size:.95rem;font-weight:700;
+  transition:border-color .2s,background .2s}
+.blog-link:hover{border-color:var(--green);background:rgba(45,158,114,.1)}
+.blog-link-icon{font-size:1.3rem;flex-shrink:0}
+.blog-link-text{flex:1}
+.blog-link-sub{font-size:.8rem;color:var(--muted);font-weight:600;margin-top:1px}
+.blog-link-arrow{color:var(--green);font-size:.95rem;opacity:.6}
+
+/* ── RESET ── */
+.btn-reset{background:rgba(45,158,114,.15);border:1px solid rgba(45,158,114,.4);color:var(--green-lt);
+  padding:11px 26px;border-radius:10px;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:.88rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn-reset:hover{background:rgba(45,158,114,.3);border-color:var(--green);color:#fff}
+
+/* ── MISC ── */
+.hidden{display:none}
+.field-error{border-color:#f87171!important}
+.error-msg{color:#f87171;font-size:.85rem;margin-top:4px;font-weight:700;display:none}
+.error-msg.visible{display:block}
+.moringa-msg{margin-top:8px;padding:10px 14px;border-radius:10px;font-size:.82rem;font-weight:700;line-height:1.6;transition:all .3s}
+
+@media(max-width:480px){
+  #app{padding:32px 16px 60px}
+  .countdown-grid{grid-template-columns:repeat(2,1fr)}
+  .cd-cell .val{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- BG Trail SVG -->
+<div class="bg">
+<svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="sunGlow" cx="35%" cy="38%" r="30%">
+      <stop offset="0%" stop-color="#2d9e72" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#1a6b4a" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0a0f0c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060e09"/>
+      <stop offset="45%" stop-color="#0d1f15"/>
+      <stop offset="100%" stop-color="#0a0f0c"/>
+    </linearGradient>
+    <filter id="blur4"><feGaussianBlur stdDeviation="4"/></filter>
+  </defs>
+  <rect width="1440" height="900" fill="url(#skyGrad)"/>
+  <ellipse cx="504" cy="342" rx="430" ry="270" fill="url(#sunGlow)"/>
+  <g fill="#a8f0d0" opacity="0.35">
+    <circle cx="120" cy="60" r="0.8"/><circle cx="280" cy="30" r="1.1"/>
+    <circle cx="400" cy="90" r="0.7"/><circle cx="700" cy="40" r="0.9"/>
+    <circle cx="900" cy="70" r="0.6"/><circle cx="1100" cy="25" r="1"/>
+    <circle cx="1300" cy="85" r="0.8"/><circle cx="80" cy="150" r="0.7"/>
+    <circle cx="600" cy="120" r="0.9"/><circle cx="1200" cy="130" r="0.8"/>
+  </g>
+  <path d="M0,480 Q80,330 180,380 Q260,290 360,350 Q440,280 530,340 Q620,260 720,320 Q810,250 900,310 Q990,240 1080,295 Q1160,230 1250,280 Q1330,250 1440,290 L1440,900 L0,900 Z" fill="#0c1610" opacity="0.9"/>
+  <path d="M0,560 Q90,420 200,470 Q300,390 400,450 Q490,400 580,455 Q670,380 770,440 Q850,390 950,445 Q1040,395 1140,450 Q1220,400 1320,440 Q1380,415 1440,440 L1440,900 L0,900 Z" fill="#111e16" opacity="0.95"/>
+  <path d="M0,720 Q200,680 400,700 Q600,720 720,690 Q900,660 1100,680 Q1280,695 1440,670 L1440,900 L0,900 Z" fill="#0d1610" opacity="0.95"/>
+  <path d="M0,800 Q300,780 600,790 Q900,800 1200,785 Q1440,785 1440,785 L1440,900 L0,900 Z" fill="#090e0b"/>
+</svg>
+</div>
+<div class="bg-overlay"></div>
+
+<!-- ══ POPUPS ══ -->
+
+<!-- Popup Force de préhension -->
+<div class="popup-overlay" id="popup-prehension">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popup-prehension')">✕</button>
+    <div class="popup-title">🤜 Test Force de Préhension</div>
+    <p style="font-size:.88rem;color:var(--muted);font-weight:600;margin-bottom:16px;line-height:1.6">La force de préhension est l'un des meilleurs prédicteurs de longévité — plus fiable que beaucoup de biomarqueurs. Voici comment la mesurer chez toi avec un simple pèse-personne.</p>
+    <div class="popup-step"><div class="popup-step-num">1</div><div class="popup-step-text"><strong style="color:var(--text)">Installation</strong> — Pose ton pèse-personne sur une table solide à hauteur de taille.</div></div>
+    <div class="popup-step"><div class="popup-step-num">2</div><div class="popup-step-text"><strong style="color:var(--text)">Position</strong> — Tiens-toi debout face à la balance. Pose ta main dominante à plat sur le plateau, doigts dépassant du bord.</div></div>
+    <div class="popup-step"><div class="popup-step-num">3</div><div class="popup-step-text"><strong style="color:var(--text)">Action</strong> — Referme tes doigts sur le bord et serre aussi fort que possible pendant 3 secondes.</div></div>
+    <div class="popup-step"><div class="popup-step-num">4</div><div class="popup-step-text"><strong style="color:var(--text)">Lecture</strong> — Note le poids maximal affiché en kg. C'est ton score de préhension.</div></div>
+    <div class="popup-note">⚠️ Marge d'erreur ~20% vs dynamomètre médical. Fais 3 essais et garde le meilleur.</div>
+    <div class="popup-seuils">
+      <div style="font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Seuils de référence</div>
+      <div class="popup-seuil-row seuil-ok"><span>Homme &gt; 40 kg / Femme &gt; 25 kg</span><span>Excellent ✓</span></div>
+      <div class="popup-seuil-row seuil-ok"><span>Homme 30–40 kg / Femme 20–25 kg</span><span>Normal ✓</span></div>
+      <div class="popup-seuil-row seuil-warn"><span>Homme 20–30 kg / Femme 15–20 kg</span><span>Faible ⚠️</span></div>
+      <div class="popup-seuil-row seuil-bad"><span>Homme &lt; 20 kg / Femme &lt; 15 kg</span><span>Très faible ❌</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup Vitesse de marche -->
+<div class="popup-overlay" id="popup-marche">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popup-marche')">✕</button>
+    <div class="popup-title">🚶 Test Vitesse de Marche</div>
+    <p style="font-size:.88rem;color:var(--muted);font-weight:600;margin-bottom:16px;line-height:1.6">La vitesse de marche est un marqueur de fragilité et de longévité utilisé en gériatrie. Elle reflète la coordination neuromusculaire, l'équilibre et la capacité cardiovasculaire.</p>
+    <div class="popup-step"><div class="popup-step-num">1</div><div class="popup-step-text"><strong style="color:var(--text)">Prépare</strong> — Mesure 10 mètres en ligne droite sur un sol plat. Marque le départ et l'arrivée.</div></div>
+    <div class="popup-step"><div class="popup-step-num">2</div><div class="popup-step-text"><strong style="color:var(--text)">Marche</strong> — Marche à ton rythme habituel (ni lent ni rapide) et chronomètre les 10 mètres.</div></div>
+    <div class="popup-step"><div class="popup-step-num">3</div><div class="popup-step-text"><strong style="color:var(--text)">Calcule</strong> — Vitesse (m/s) = 10 ÷ secondes. Ex : 10 mètres en 7s = 1,43 m/s</div></div>
+    <div class="popup-seuils">
+      <div style="font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Seuils de référence (adulte)</div>
+      <div class="popup-seuil-row seuil-ok"><span>&gt; 1,4 m/s</span><span>Excellent ✓</span></div>
+      <div class="popup-seuil-row seuil-ok"><span>1,2 – 1,4 m/s</span><span>Normal ✓</span></div>
+      <div class="popup-seuil-row seuil-warn"><span>0,8 – 1,2 m/s</span><span>Vigilance ⚠️</span></div>
+      <div class="popup-seuil-row seuil-bad"><span>&lt; 0,8 m/s</span><span>Alerte fragilité ❌</span></div>
+    </div>
+    <div class="popup-note">💡 En tant que traileur tu es probablement au-dessus de 1,4 m/s. Ce test est surtout révélateur pour les 60+.</div>
+  </div>
+</div>
+
+<!-- Popup Cholestérol -->
+<div class="popup-overlay" id="popup-cholesterol">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popup-cholesterol')">✕</button>
+    <div class="popup-title">🩸 Comprendre le Cholestérol LDL</div>
+    <p style="font-size:.88rem;color:var(--muted);font-weight:600;margin-bottom:16px;line-height:1.6">Le LDL (Low-Density Lipoprotein) est surnommé "mauvais cholestérol" — en excès, il se dépose sur les parois artérielles et augmente le risque cardiovasculaire. Il est mesuré lors d'un bilan sanguin standard.</p>
+    <div class="popup-seuils">
+      <div style="font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Seuils (g/L)</div>
+      <div class="popup-seuil-row seuil-ok"><span>&lt; 1,00 g/L</span><span>Optimal ✓</span></div>
+      <div class="popup-seuil-row seuil-ok"><span>1,00 – 1,29 g/L</span><span>Normal ✓</span></div>
+      <div class="popup-seuil-row seuil-warn"><span>1,30 – 1,59 g/L</span><span>Limite haute ⚠️</span></div>
+      <div class="popup-seuil-row seuil-bad"><span>1,60 – 1,89 g/L</span><span>Élevé ❌</span></div>
+      <div class="popup-seuil-row seuil-bad"><span>≥ 1,90 g/L</span><span>Très élevé ❌</span></div>
+    </div>
+    <div class="popup-note">💡 Tu ne connais pas ton LDL ? Sélectionne "Je ne sais pas" — on ne pénalise pas. Un bilan annuel suffit à le mesurer.</div>
+  </div>
+</div>
+
+<!-- Popup Tension -->
+<div class="popup-overlay" id="popup-tension">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popup-tension')">✕</button>
+    <div class="popup-title">❤️ Comprendre la Tension Artérielle</div>
+    <p style="font-size:.88rem;color:var(--muted);font-weight:600;margin-bottom:16px;line-height:1.6">La tension s'exprime en mmHg avec deux chiffres : systolique (cœur qui se contracte) / diastolique (cœur au repos). Ex : 12/8 = 120/80 mmHg.</p>
+    <div class="popup-seuils">
+      <div style="font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Seuils de référence</div>
+      <div class="popup-seuil-row seuil-ok"><span>&lt; 120 / 80 mmHg</span><span>Optimal ✓</span></div>
+      <div class="popup-seuil-row seuil-ok"><span>120–129 / 80–84</span><span>Normale ✓</span></div>
+      <div class="popup-seuil-row seuil-warn"><span>130–139 / 85–89</span><span>Normale haute ⚠️</span></div>
+      <div class="popup-seuil-row seuil-bad"><span>140–159 / 90–99</span><span>Hypertension G1 ❌</span></div>
+      <div class="popup-seuil-row seuil-bad"><span>≥ 160 / 100</span><span>Hypertension G2 ❌</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup Glycémie -->
+<div class="popup-overlay" id="popup-glycemie">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popup-glycemie')">✕</button>
+    <div class="popup-title">🍬 Comprendre la Glycémie</div>
+    <p style="font-size:.88rem;color:var(--muted);font-weight:600;margin-bottom:16px;line-height:1.6">La glycémie à jeun mesure le taux de sucre dans le sang après au moins 8 heures sans manger. C'est un marqueur clé du risque diabétique et cardiovasculaire.</p>
+    <div class="popup-seuils">
+      <div style="font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Seuils (g/L, à jeun)</div>
+      <div class="popup-seuil-row seuil-ok"><span>0,70 – 1,00 g/L</span><span>Optimal ✓</span></div>
+      <div class="popup-seuil-row seuil-warn"><span>1,01 – 1,10 g/L</span><span>Limite ⚠️</span></div>
+      <div class="popup-seuil-row seuil-bad"><span>1,11 – 1,25 g/L</span><span>Prédiabète ❌</span></div>
+      <div class="popup-seuil-row seuil-bad"><span>≥ 1,26 g/L</span><span>Diabète ❌</span></div>
+    </div>
+    <div class="popup-note">💡 85 mg/dL = 0,85 g/L. Pour convertir mg/dL en g/L : divise par 100.</div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="app">
+
+<!-- ══ ÉTAPE 1 : FORMULAIRE ══ -->
+<div id="setup">
+  <div class="header">
+    <div class="header-logo">
+      <a href="https://montre-de-vie.com/" style="position:absolute;left:0;top:0;
+        font-family:'Bebas Neue',sans-serif;font-size:.78rem;letter-spacing:2px;
+        color:rgba(168,240,208,.4);text-decoration:none;transition:color .2s;padding:4px 0"
+        onmouseover="this.style.color='#a8f0d0'" onmouseout="this.style.color='rgba(168,240,208,.4)'">
+        ← Accueil
+      </a>
+      <svg width="34" height="34" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="22" fill="rgba(45,158,114,.2)"/>
+        <path d="M10 32 L18 18 L24 24 L30 14 L34 20" stroke="#a8f0d0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="30" cy="14" r="3" fill="#a8f0d0"/>
+      </svg>
+      <span>Run Nature</span>
+    </div>
+    <div class="eyebrow">Memento Mori</div>
+    <h1>Ta vie en <em>décompte</em></h1>
+    <p class="sub">Réponds honnêtement — le calcul ne triche pas, lui.</p>
+  </div>
+
+  <div class="warning">⚠ Outil indicatif, pas médical. Mais si ça te pousse à courir un peu plus souvent, c'est déjà gagné.</div>
+
+  <!-- ── NIVEAU 1 ── -->
+  <div class="niveau-badge">⚡ Niveau 1 — Mode de vie</div>
+
+  <div class="section-title">🧬 Profil de base</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Ton âge actuel</label>
+      <input type="number" id="currentAge" placeholder="Ex : 47" min="1" max="120">
+      <div class="error-msg" id="err-age">Entre un âge entre 1 et 120 🙏</div>
+    </div>
+    <div class="input-group">
+      <label>Genre</label>
+      <select id="gender">
+        <option value="0">Homme</option>
+        <option value="5">Femme — avantagée biologiquement 😏</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section-title">🚬 Tabac & Alcool</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Tabac</label>
+      <select id="tobacco">
+        <option value="0">Non-fumeur ✓</option>
+        <option value="-3">Occasionnel — "juste en soirée"</option>
+        <option value="-8">Régulier</option>
+        <option value="-12">Lourd +10 cig/jour 🫁</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Alcool (verres/semaine)</label>
+      <select id="alcohol">
+        <option value="2">Aucun ou très rare ✓</option>
+        <option value="0">Modéré — 1 à 7</option>
+        <option value="-5">Élevé — 8 à 14</option>
+        <option value="-10">Excessif — +14 🍺</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section-title">💤 Sommeil & Corps</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Sommeil / nuit</label>
+      <select id="sleep">
+        <option value="-6">Moins de 6h — danger</option>
+        <option value="-2">6h — presque</option>
+        <option value="0" selected>7 à 8h ✓</option>
+        <option value="-3">Plus de 9h — ton corps parle</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>IMC</label>
+      <select id="bmi">
+        <option value="3">18,5–24,9 — Normal ✓</option>
+        <option value="0">25–29,9 — Surpoids</option>
+        <option value="-4">≥ 30 — Obésité</option>
+        <option value="-2">≤ 18,5 — Maigreur</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Hydratation / jour</label>
+      <select id="hydration">
+        <option value="2">2L et plus ✓</option>
+        <option value="0">1,5L — Correct</option>
+        <option value="-2">Moins de 1L — le café ne compte pas</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Bilan médical régulier</label>
+      <select id="checkup">
+        <option value="2">Oui, chaque année ✓</option>
+        <option value="0">Tous les 2–3 ans</option>
+        <option value="-2">Jamais — "je me sens bien" 🙈</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section-title">🏔️ Sport & Activité</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Sport modéré (h/semaine)</label>
+      <input type="number" id="sportModerate" placeholder="Ex : 3" min="0" max="40" step="0.5">
+      <p class="hint">Marche, vélo, yoga…</p>
+    </div>
+    <div class="input-group">
+      <label>Sport intense (h/semaine)</label>
+      <input type="number" id="sportIntense" placeholder="Ex : 2" min="0" max="40" step="0.5">
+      <p class="hint">Trail, HIIT, fractionné…</p>
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Pratique du trail / plein air</label>
+    <select id="trail">
+      <option value="2">Régulier — plusieurs fois/semaine ✓</option>
+      <option value="1">Occasionnel — 1 à 2 fois/semaine</option>
+      <option value="0">Rare — quelques fois/mois</option>
+      <option value="-1">Jamais — mais tu lis ce blog, c'est un début 👀</option>
+    </select>
+  </div>
+
+  <div class="section-title">🥗 Alimentation & Mental</div>
+  <div class="input-group">
+    <label>Alimentation</label>
+    <select id="diet">
+      <option value="5">Très équilibrée, riche en végétaux ✓</option>
+      <option value="2">Correcte — fruits & légumes réguliers</option>
+      <option value="0">Moyenne</option>
+      <option value="-5">Déséquilibrée — McDo n'est pas un groupe alimentaire 🍔</option>
+    </select>
+  </div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Stress chronique</label>
+      <select id="stress">
+        <option value="0">Faible ou bien géré ✓</option>
+        <option value="-3">Modéré — la vie quoi</option>
+        <option value="-7">Élevé et permanent — va courir 🏃</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Liens sociaux</label>
+      <select id="social">
+        <option value="3">Forts — entourage soudé ✓</option>
+        <option value="0">Corrects</option>
+        <option value="-3">Isolement social 😔</option>
+      </select>
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Méditation / pleine conscience</label>
+    <select id="mindfulness">
+      <option value="0">Jamais</option>
+      <option value="1">Occasionnelle</option>
+      <option value="2">Régulière ✓ — même 5 min/jour</option>
+    </select>
+  </div>
+  <div class="input-group">
+    <label>🌱 Tu prends du Moringa ?</label>
+    <select id="moringa" onchange="showMoringaMsg()">
+      <option value="1" selected>Oui — chaque jour ✓</option>
+      <option value="0">Non — pas encore</option>
+    </select>
+    <div id="moringa-msg" class="moringa-msg"></div>
+  </div>
+
+  <div class="section-title">🌿 Environnement & Antécédents</div>
+  <div class="grid-2">
+    <div class="input-group">
+      <label>Antécédents familiaux</label>
+      <select id="familyHistory">
+        <option value="4">Excellents ✓</option>
+        <option value="0">Neutres</option>
+        <option value="-5">Cardio ou cancers précoces</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Pollution atmosphérique</label>
+      <select id="pollution">
+        <option value="1">Faible — campagne ✓</option>
+        <option value="0">Moyenne — ville standard</option>
+        <option value="-2">Élevée — grande ville</option>
+        <option value="-4">Très élevée — zone industrielle</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ── TOGGLE NIVEAU 2 ── -->
+  <div class="toggle-niveau2" onclick="toggleNiveau2()">
+    <div class="toggle-niveau2-text">
+      <strong>🔬 Niveau 2 — Tu connais tes chiffres ?</strong>
+      <span>Biomarqueurs, capacités physiques, santé intestinale — optionnel mais plus précis</span>
+    </div>
+    <div class="toggle-arrow" id="toggle-arrow">▼</div>
+  </div>
+
+  <div id="niveau2-content">
+    <div style="margin-top:20px">
+      <div class="niveau-badge niveau-badge-2">🔬 Niveau 2 — Biomarqueurs</div>
+
+      <div class="section-title">🩸 Bilan sanguin</div>
+
+      <div class="input-group">
+        <label>Cholestérol LDL <span class="info-btn" onclick="openPopup('popup-cholesterol')">?</span></label>
+        <select id="ldl">
+          <option value="0">Je ne sais pas — neutre</option>
+          <option value="1">&lt; 1,00 g/L — Optimal ✓</option>
+          <option value="0">1,00 – 1,29 g/L — Normal</option>
+          <option value="-1">1,30 – 1,59 g/L — Limite haute ⚠️</option>
+          <option value="-3">1,60 – 1,89 g/L — Élevé ❌</option>
+          <option value="-5">≥ 1,90 g/L — Très élevé ❌</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Tension artérielle <span class="info-btn" onclick="openPopup('popup-tension')">?</span></label>
+        <select id="tension">
+          <option value="0">Je ne sais pas — neutre</option>
+          <option value="1">&lt; 120/80 mmHg — Optimal ✓</option>
+          <option value="0">120–129 / 80–84 — Normale</option>
+          <option value="-1">130–139 / 85–89 — Normale haute ⚠️</option>
+          <option value="-4">140–159 / 90–99 — Hypertension G1 ❌</option>
+          <option value="-6">≥ 160/100 — Hypertension G2 ❌</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Glycémie à jeun <span class="info-btn" onclick="openPopup('popup-glycemie')">?</span></label>
+        <select id="glycemie">
+          <option value="0">Je ne sais pas — neutre</option>
+          <option value="1">0,70 – 1,00 g/L — Optimal ✓</option>
+          <option value="-1">1,01 – 1,10 g/L — Limite ⚠️</option>
+          <option value="-4">1,11 – 1,25 g/L — Prédiabète ❌</option>
+          <option value="-7">≥ 1,26 g/L — Diabète ❌</option>
+        </select>
+      </div>
+
+      <div class="section-title">💪 Capacités physiques</div>
+
+      <div class="input-group">
+        <label>VO₂max (ml/kg/min)</label>
+        <select id="vo2max">
+          <option value="0">Je ne sais pas — neutre</option>
+          <option value="2">&gt; 50 — Excellent (ex: 54) ✓</option>
+          <option value="1">40 – 50 — Bon</option>
+          <option value="0">30 – 40 — Moyen</option>
+          <option value="-3">&lt; 30 — Faible ❌</option>
+        </select>
+        <p class="hint">Ta montre GPS te donne cette valeur. Seb : 54 ml/kg/min 🏔️</p>
+      </div>
+
+      <div class="input-group">
+        <label>Force de préhension <span class="info-btn" onclick="openPopup('popup-prehension')">?</span></label>
+        <select id="prehension">
+          <option value="0">Je ne sais pas — neutre</option>
+          <option value="1">Excellent (H &gt; 40kg / F &gt; 25kg) ✓</option>
+          <option value="0">Normal (H 30-40kg / F 20-25kg)</option>
+          <option value="-2">Faible (H 20-30kg / F 15-20kg) ⚠️</option>
+          <option value="-3">Très faible ❌</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Vitesse de marche <span class="info-btn" onclick="openPopup('popup-marche')">?</span></label>
+        <select id="marcheVitesse">
+          <option value="0">Je ne sais pas — neutre</option>
+          <option value="1">&gt; 1,4 m/s — Excellent ✓</option>
+          <option value="0">1,2 – 1,4 m/s — Normal</option>
+          <option value="-2">0,8 – 1,2 m/s — Vigilance ⚠️</option>
+          <option value="-4">&lt; 0,8 m/s — Alerte ❌</option>
+        </select>
+      </div>
+
+      <div class="section-title">🦷 Santé dentaire & intestinale</div>
+
+      <div class="input-group">
+        <label>Santé dentaire</label>
+        <select id="dental">
+          <option value="1">Excellente — détartrage régulier ✓</option>
+          <option value="0">Correcte — quelques caries traitées</option>
+          <option value="-2">Problèmes ponctuels — soins en attente ⚠️</option>
+          <option value="-3">Parodontite / infections chroniques ❌</option>
+        </select>
+        <p class="hint">La parodontite est un facteur d'inflammation systémique sous-estimé</p>
+      </div>
+
+      <div class="input-group">
+        <label>Santé intestinale</label>
+        <select id="intestinal">
+          <option value="1">Très bonne — transit régulier, pas de troubles ✓</option>
+          <option value="0">Correcte — quelques inconforts occasionnels</option>
+          <option value="-2">Troubles fréquents — ballonnements, transit irrégulier ⚠️</option>
+          <option value="-3">Maladie chronique (Crohn, SICI, RCH) ❌</option>
+        </select>
+        <p class="hint">Le microbiome intestinal est directement lié à l'immunité et la longévité</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="btn-wrap">
+    <button class="btn-start" onclick="startLifeClock()">🏔️ Lancer ma montre de vie</button>
+  </div>
+</div>
+
+<!-- ══ ÉTAPE 2 : DÉCOMPTE ══ -->
+<div id="display" class="hidden">
+  <div class="display-header">
+    <div class="header-logo" style="justify-content:center;margin-bottom:14px">
+      <svg width="30" height="30" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="22" fill="rgba(45,158,114,.2)"/>
+        <path d="M10 32 L18 18 L24 24 L30 14 L34 20" stroke="#a8f0d0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="30" cy="14" r="3" fill="#a8f0d0"/>
+      </svg>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--green-lt);letter-spacing:1px">Run Nature</span>
+    </div>
+    <div class="eyebrow">Memento Mori</div>
+    <h1>Ton <em>temps</em> restant</h1>
+  </div>
+
+  <div class="life-bar-wrap">
+    <div class="life-bar-label">
+      <span>Naissance</span>
+      <span id="pct-label">0% vécu</span>
+    </div>
+    <div class="life-bar">
+      <div class="life-bar-fill" id="life-bar-fill" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="life-bar-sub">
+    <span id="years-lived-label">— ans vécus</span>
+    <span id="years-left-label">— ans restants estimés</span>
+  </div>
+
+  <div style="text-align:center;margin-bottom:16px">
+    <div class="life-pill">
+      Espérance de vie estimée &nbsp;<span id="estimated-life">--</span>&nbsp; ans
+    </div>
+  </div>
+
+  <!-- Score biomarqueurs si niveau 2 rempli -->
+  <div class="bio-score hidden" id="bio-score-box">
+    <div class="bio-score-val" id="bio-score-val">+0 ans</div>
+    <div class="bio-score-lbl">Bonus / Malus biomarqueurs niveau 2</div>
+  </div>
+
+  <div class="profile-msg" id="profile-msg"></div>
+
+  <div class="countdown-grid">
+    <div class="cd-cell"><span class="val" id="cd-years">--</span><span class="lbl">Années</span></div>
+    <div class="cd-cell"><span class="val" id="cd-days">--</span><span class="lbl">Jours</span></div>
+    <div class="cd-cell"><span class="val" id="cd-hours">--</span><span class="lbl">Heures</span></div>
+  </div>
+  <div class="cd-seconds">
+    <div class="cd-sec-cell"><span class="val" id="cd-minutes">--</span><span class="lbl">Minutes</span></div>
+    <div class="cd-sec-cell"><span class="val" id="cd-seconds">--</span><span class="lbl">Secondes</span></div>
+  </div>
+
+  <!-- Bouton son -->
+  <div style="text-align:center;margin-bottom:8px">
+    <button id="btn-sound" onclick="toggleSound()"
+      style="background:rgba(45,158,114,.1);border:1px solid rgba(45,158,114,.3);
+      color:var(--muted);padding:8px 20px;border-radius:30px;cursor:pointer;
+      font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:800;
+      letter-spacing:.08em;text-transform:uppercase;transition:all .2s">
+      🔔 Activer le tick
+    </button>
+    <div style="font-size:.6rem;color:rgba(90,138,122,.5);margin-top:5px;font-weight:700">
+      Un son discret à chaque seconde
+    </div>
+  </div>
+
+  <p class="note-text">« Chaque foulée compte. Chaque seconde aussi. »<br><em style="font-size:.75rem;opacity:.6">— Sébastien Salomon</em></p>
+
+  <!-- Bouton Grille -->
+  <div style="text-align:center;margin-bottom:32px">
+    <a id="btn-grille" href="/grille/" style="display:inline-flex;align-items:center;gap:10px;
+      background:var(--card);border:1px solid rgba(45,158,114,.4);color:var(--green-lt);
+      text-decoration:none;padding:15px 32px;border-radius:14px;
+      font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+      transition:all .2s;box-shadow:0 2px 16px rgba(45,158,114,.15)">
+      🟩 Voir ma vie en semaines
+    </a>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:8px;font-weight:700">
+      Ta vie représentée carré par carré — chaque carré = 1 semaine
+    </p>
+  </div>
+
+  <div class="blog-section">
+    <div class="blog-section-title">🌿 Prolonge ta vie sur les sentiers</div>
+    <div class="blog-links">
+      <a href="https://run-nature.com/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🏠</span>
+        <div class="blog-link-text"><div>Run Nature — Blog trail & bien-être</div><div class="blog-link-sub">Conseils, récits et nutrition naturelle</div></div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://run-nature.com/2026/05/04/moringa-pour-coureurs-le-superaliment-naturel-qui-transforme-votre-endurance/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🌱</span>
+        <div class="blog-link-text"><div>Le Moringa — carburant naturel du traileur</div><div class="blog-link-sub">Le superaliment qui soutient ta longévité</div></div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">📖</span>
+        <div class="blog-link-text"><div>Télécharger l'ebook Moringa gratuit</div><div class="blog-link-sub">Le carburant naturel du traileur — PDF</div></div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://run-nature.com/mes-outils-trail-gratuits/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">📊</span>
+        <div class="blog-link-text"><div>Dashboard Suivi Trail</div><div class="blog-link-sub">Suis ta préparation semaine par semaine</div></div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://www.tiktok.com/@seb.run.lux" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🎬</span>
+        <div class="blog-link-text"><div>Suivre Sébastien sur TikTok</div><div class="blog-link-sub">Vidéo amateur mais vidéo tout de même 😄</div></div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://strava.app.link/DEw8pXyyl0b" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🟠</span>
+        <div class="blog-link-text"><div>Suivre Sébastien sur Strava</div><div class="blog-link-sub">Trails, résultats et sorties en direct</div></div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <button class="btn-reset" onclick="resetAll()">↺ Réinitialiser</button>
+    <a href="https://montre-de-vie.com/" class="btn-reset" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">🏠 Accueil</a>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<script>
+var _state = null;
+
+// ── LOCALSTORAGE ─────────────────────────────────────────────────────────
+function saveState(s){
+  try{ localStorage.setItem('mdv_state', JSON.stringify(s)); }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem('mdv_state');
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+function clearState(){
+  try{ localStorage.removeItem('mdv_state'); }catch(e){}
+}
+
+// ── POPUP ────────────────────────────────────────────────────────────────
+function openPopup(id){
+  document.getElementById(id).classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closePopup(id){
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('popup-overlay')){
+    e.target.classList.remove('active');
+    document.body.style.overflow='';
+  }
+});
+
+// ── TOGGLE NIVEAU 2 ──────────────────────────────────────────────────────
+function toggleNiveau2(){
+  var c=document.getElementById('niveau2-content');
+  var a=document.getElementById('toggle-arrow');
+  var visible=c.classList.contains('visible');
+  if(visible){c.classList.remove('visible');a.classList.remove('open');}
+  else{c.classList.add('visible');a.classList.add('open');}
+}
+
+// ── MORINGA MSG ──────────────────────────────────────────────────────────
+function showMoringaMsg(){
+  var val=document.getElementById('moringa').value;
+  var el=document.getElementById('moringa-msg');
+  if(val==='1'){
+    el.style.background='rgba(45,158,114,.12)';
+    el.style.border='1px solid rgba(45,158,114,.3)';
+    el.style.color='#a8f0d0';
+    el.innerHTML='✅ Parfait. Tu as clairement une longueur d\'avance. Littéralement.';
+  } else {
+    el.style.background='rgba(200,135,58,.08)';
+    el.style.border='1px solid rgba(200,135,58,.3)';
+    el.style.color='#e8b070';
+    el.innerHTML='🌱 Pas encore ? <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:#e8b070;text-decoration:underline">Ebook gratuit ici →</a>';
+  }
+}
+// ── CALCUL ───────────────────────────────────────────────────────────────
+function getVal(id){return parseInt(document.getElementById(id).value)||0;}
+function getFloat(id){return parseFloat(document.getElementById(id).value)||0;}
+
+function startLifeClock(){
+  var ageEl=document.getElementById('currentAge');
+  var errEl=document.getElementById('err-age');
+  var age=parseInt(ageEl.value);
+  ageEl.classList.remove('field-error');
+  errEl.classList.remove('visible');
+  if(!age||isNaN(age)||age<1||age>120){
+    ageEl.classList.add('field-error');
+    errEl.classList.add('visible');
+    ageEl.focus();
+    return;
+  }
+
+  // ── NIVEAU 1 ──
+  var gender=getVal('gender');
+  var tobacco=getVal('tobacco');
+  var alcohol=getVal('alcohol');
+  var sleep=getVal('sleep');
+  var bmi=getVal('bmi');
+  var hydration=getVal('hydration');
+  var checkup=getVal('checkup');
+  var moderate=getFloat('sportModerate');
+  var intense=getFloat('sportIntense');
+  var trail=getVal('trail');
+  var diet=getVal('diet');
+  var stress=getVal('stress');
+  var social=getVal('social');
+  var mindfulness=getVal('mindfulness');
+  var moringa=getVal('moringa');
+  var family=getVal('familyHistory');
+  var pollution=getVal('pollution');
+  var sportBonus=Math.min((moderate*0.8)+(intense*1.5),8);
+
+  var niveau1=gender+tobacco+alcohol+sleep+bmi+hydration+checkup+sportBonus+trail+diet+stress+social+mindfulness+moringa+family+pollution;
+
+  // ── NIVEAU 2 ──
+  var niveau2Actif=document.getElementById('niveau2-content').classList.contains('visible');
+  var ldl=0,tension=0,glycemie=0,vo2=0,prehension=0,marche=0,dental=0,intestinal=0;
+  if(niveau2Actif){
+    ldl=getVal('ldl');
+    tension=getVal('tension');
+    glycemie=getVal('glycemie');
+    vo2=getVal('vo2max');
+    prehension=getVal('prehension');
+    marche=getVal('marcheVitesse');
+    dental=getVal('dental');
+    intestinal=getVal('intestinal');
+  }
+  var niveau2Score=ldl+tension+glycemie+vo2+prehension+marche+dental+intestinal;
+  // Plafond dur : niveau 2 ne peut pas dépasser +8 ans ni descendre sous -20 ans
+  niveau2Score=Math.min(niveau2Score,8);
+  niveau2Score=Math.max(niveau2Score,-20);
+
+  var baseLife=(gender===5)?83:78;
+  var totalLife=Math.round(baseLife+niveau1+niveau2Score);
+  totalLife=Math.max(totalLife,age+1);
+
+  var yearsLeft=Math.max(totalLife-age,1);
+  var pct=Math.min(Math.round((age/totalLife)*100),99);
+
+  var endDate=new Date();
+  endDate.setFullYear(endDate.getFullYear()+Math.floor(yearsLeft));
+
+  _state={
+    endTime:endDate.getTime(),pct:pct,totalLife:totalLife,age:age,
+    yearsLeft:yearsLeft,tobacco:tobacco,trail:trail,stress:stress,
+    alcohol:alcohol,sport:moderate+intense,moringa:moringa,
+    niveau2Actif:niveau2Actif,niveau2Score:niveau2Score,
+    ldl:ldl,tension:tension,glycemie:glycemie,vo2:vo2
+  };
+  saveState(_state);
+
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('display').classList.remove('hidden');
+
+  // Mise à jour lien grille avec paramètres
+  var trailSorties = intense >= 2 ? intense : 2;
+  var grilleUrl = '/grille/?age='+age+'&esperance='+totalLife+'&trail='+trailSorties;
+  document.getElementById('btn-grille').href = grilleUrl;
+
+  startCountdown();
+}
+
+// ── MESSAGES PROFIL ──────────────────────────────────────────────────────
+function buildProfileMessage(s){
+  var msgs=[];
+  if(s.moringa===1) msgs.push('🌱 Moringa quotidien — tu es dans le top du peloton longévité.');
+  else msgs.push('🌱 Pas de Moringa ? <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:var(--green-lt)">Ebook gratuit →</a>');
+  if(s.tobacco<=-8) msgs.push('🚬 La cigarette te coûte plusieurs années. Ton nerf vague le sait déjà.');
+  if(s.alcohol<=-5) msgs.push('🍺 L\'alcool réduit ta VFC la nuit — même un verre. Ta montre GPS ne ment pas.');
+  if(s.stress<=-7) msgs.push('😰 Stress élevé : enfile tes chaussures. Vraiment. C\'est médicalement prouvé.');
+  if(s.trail===-1) msgs.push('🏔️ Tu lis Run Nature mais tu ne cours pas encore. C\'est le bon moment.');
+  else if(s.trail>=2) msgs.push('🏔️ Trail régulier — tu es clairement sur la bonne piste. Littéralement.');
+  if(s.niveau2Actif){
+    if(s.vo2>=5) msgs.push('💪 VO₂max excellent — ton capital cardiovasculaire est un atout majeur.');
+    if(s.ldl<=-3) msgs.push('⚠️ LDL élevé — alimentation et activité physique peuvent faire la différence.');
+    if(s.tension<=-4) msgs.push('❤️ Hypertension détectée — parles-en à ton médecin si ce n\'est pas fait.');
+    if(s.glycemie<=-4) msgs.push('🍬 Glycémie préoccupante — réduire les sucres rapides et augmenter l\'activité.');
+  }
+  if(s.yearsLeft>=40) msgs.push('🌿 Tu as encore beaucoup de sentiers devant toi. Ne les gâche pas sur un canapé.');
+  else if(s.yearsLeft<15) msgs.push('⏱️ Chaque seconde compte encore plus. Quelles foulées veux-tu encore poser ?');
+  if(msgs.length===0) msgs.push('✅ Profil équilibré. Continue — et hydrate-toi.');
+  return msgs.join('<br>');
+}
+
+// ── COUNTDOWN ────────────────────────────────────────────────────────────
+function startCountdown(){
+  if(!_state)return;
+  var s=_state;
+  var endDate=new Date(s.endTime);
+
+  document.getElementById('estimated-life').textContent=s.totalLife;
+
+  setTimeout(function(){
+    var fill=document.getElementById('life-bar-fill');
+    if(fill)fill.style.width=s.pct+'%';
+    document.getElementById('pct-label').textContent=s.pct+'% vécu';
+    document.getElementById('years-lived-label').textContent=s.age+' ans vécus';
+    document.getElementById('years-left-label').textContent=s.yearsLeft+' ans restants estimés';
+  },300);
+
+  // Score niveau 2
+  if(s.niveau2Actif && s.niveau2Score!==0){
+    var box=document.getElementById('bio-score-box');
+    var val=document.getElementById('bio-score-val');
+    box.classList.remove('hidden');
+    var sign=s.niveau2Score>0?'+':'';
+    val.textContent=sign+s.niveau2Score+' ans';
+    val.style.color=s.niveau2Score>0?'#a8f0d0':'#f87171';
+  }
+
+  var msgEl=document.getElementById('profile-msg');
+  if(msgEl){
+    msgEl.innerHTML=buildProfileMessage(s);
+    msgEl.style.opacity='0';
+    setTimeout(function(){msgEl.style.opacity='1';msgEl.style.transition='opacity .8s';},600);
+  }
+
+  function tick(){
+    var now=Date.now();
+    var distance=endDate.getTime()-now;
+    if(distance<0){
+      ['cd-years','cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(function(id){
+        document.getElementById(id).textContent='0';
+      });
+      return;
+    }
+    var years=Math.floor(distance/(1000*60*60*24*365.25));
+    var days=Math.floor((distance%(1000*60*60*24*365.25))/(1000*60*60*24));
+    var hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    var minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+    var seconds=Math.floor((distance%(1000*60))/1000);
+    document.getElementById('cd-years').textContent=years.toLocaleString('fr-FR');
+    document.getElementById('cd-days').textContent=days;
+    document.getElementById('cd-hours').textContent=hours;
+    document.getElementById('cd-minutes').textContent=String(minutes).padStart(2,'0');
+    document.getElementById('cd-seconds').textContent=String(seconds).padStart(2,'0');
+    playTick();
+  }
+  tick();
+  setInterval(tick,1000);
+}
+
+// ── SON TICK ─────────────────────────────────────────────────────────────
+var _audioCtx = null;
+var _soundOn = false;
+
+function initAudio(){
+  if(!_audioCtx){
+    _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if(_audioCtx.state === 'suspended') _audioCtx.resume();
+}
+
+function playTick(){
+  if(!_soundOn || !_audioCtx) return;
+  try {
+    var osc = _audioCtx.createOscillator();
+    var gain = _audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(_audioCtx.destination);
+    // Son bref et discret — fréquence basse type horloge mécanique
+    osc.frequency.setValueAtTime(420, _audioCtx.currentTime);
+    osc.type = 'sine';
+    gain.gain.setValueAtTime(0.08, _audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, _audioCtx.currentTime + 0.08);
+    osc.start(_audioCtx.currentTime);
+    osc.stop(_audioCtx.currentTime + 0.08);
+  } catch(e){}
+}
+
+function toggleSound(){
+  initAudio();
+  _soundOn = !_soundOn;
+  var btn = document.getElementById('btn-sound');
+  if(_soundOn){
+    btn.textContent = '🔕 Couper le tick';
+    btn.style.background = 'rgba(45,158,114,.2)';
+    btn.style.borderColor = 'rgba(45,158,114,.6)';
+    btn.style.color = 'var(--green-lt)';
+    playTick(); // test immédiat
+  } else {
+    btn.textContent = '🔔 Activer le tick';
+    btn.style.background = 'rgba(45,158,114,.1)';
+    btn.style.borderColor = 'rgba(45,158,114,.3)';
+    btn.style.color = 'var(--muted)';
+  }
+}
+
+// ── RESET ────────────────────────────────────────────────────────────────
+function resetAll(){
+  if(confirm('Réinitialiser la montre ?')){
+    _state=null;
+    clearState();
+    document.getElementById('display').classList.add('hidden');
+    document.getElementById('setup').classList.remove('hidden');
+    document.getElementById('currentAge').value='';
+    document.getElementById('currentAge').classList.remove('field-error');
+    document.getElementById('err-age').classList.remove('visible');
+    document.getElementById('bio-score-box').classList.add('hidden');
+    document.getElementById('niveau2-content').classList.remove('visible');
+    document.getElementById('toggle-arrow').classList.remove('open');
+  }
+}
+
+// ── AUTO-RESTORE ──────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  showMoringaMsg();
+  var saved = loadState();
+  if(saved && saved.endTime && saved.endTime > Date.now()){
+    _state = saved;
+    document.getElementById('setup').classList.add('hidden');
+    document.getElementById('display').classList.remove('hidden');
+    var trailSorties = saved.sport >= 2 ? saved.sport : 2;
+    var grilleUrl = '/grille/?age='+saved.age+'&esperance='+saved.totalLife+'&trail='+trailSorties;
+    document.getElementById('btn-grille').href = grilleUrl;
+    startCountdown();
+  }
+});
+</script>
+
+<!-- OneSignal Push Notifications -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "74f8002f-eafa-4b82-9942-48e3ec032bef",
+      safari_web_id: "web.onesignal.auto.01ea4289-b460-45e4-8d90-838752554827",
+      notifyButton: { enable: true },
+    });
+  });
+</script>
+</body>
+</html>

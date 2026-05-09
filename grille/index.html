@@ -262,7 +262,7 @@ function buildGrid(esperance, livedW, totalW){
 
   // Animation : remplir les carrés vécus en 2 secondes
   if(livedW > 0){
-    var delay = 800 / livedW; // 0.8 secondes au total
+    var delay = 400 / livedW; // 0.4 secondes au total
     delay = Math.max(delay, 0.5); // minimum 0.5ms
     var squares = gc.querySelectorAll('.sq-left, .sq-current');
     var i = 0;

@@ -225,7 +225,7 @@ function render(){
     </div>
 
     <div class="btns-wrap">
-      <a href="https://montre-de-vie.com/montre/" class="btn-main">↺ Saisir à nouveau</a>
+      <a href="https://montre-de-vie.com/montre/" class="btn-main">⏱ Voir mon décompte</a>
       <a href="https://montre-de-vie.com/" class="btn-secondary">🏠 Accueil</a>
     </div>
   `;
@@ -262,8 +262,8 @@ function buildGrid(esperance, livedW, totalW){
 
   // Animation : remplir les carrés vécus en 2 secondes
   if(livedW > 0){
-    var delay = 2000 / livedW; // ms par carré
-    delay = Math.max(delay, 1); // minimum 1ms
+    var delay = 800 / livedW; // 0.8 secondes au total
+    delay = Math.max(delay, 0.5); // minimum 0.5ms
     var squares = gc.querySelectorAll('.sq-left, .sq-current');
     var i = 0;
     function fillNext(){

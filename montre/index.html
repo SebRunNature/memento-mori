@@ -795,6 +795,16 @@ select option{background:var(--card)}
         <div class="blog-link-text"><div>Dashboard Suivi Trail</div><div class="blog-link-sub">Suis ta préparation semaine par semaine</div></div>
         <span class="blog-link-arrow">→</span>
       </a>
+      <a href="https://www.tiktok.com/@seb.run.lux" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🎬</span>
+        <div class="blog-link-text"><div>Suivre Sébastien sur TikTok</div><div class="blog-link-sub">Vidéo amateur mais vidéo tout de même 😄</div></div>
+        <span class="blog-link-arrow">→</span>
+      </a>
+      <a href="https://strava.app.link/DEw8pXyyl0b" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🟠</span>
+        <div class="blog-link-text"><div>Suivre Sébastien sur Strava</div><div class="blog-link-sub">Trails, résultats et sorties en direct</div></div>
+        <span class="blog-link-arrow">→</span>
+      </a>
     </div>
   </div>
 
@@ -808,6 +818,20 @@ select option{background:var(--card)}
 
 <script>
 var _state = null;
+
+// ── LOCALSTORAGE ─────────────────────────────────────────────────────────
+function saveState(s){
+  try{ localStorage.setItem('mdv_state', JSON.stringify(s)); }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem('mdv_state');
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+function clearState(){
+  try{ localStorage.removeItem('mdv_state'); }catch(e){}
+}
 
 // ── POPUP ────────────────────────────────────────────────────────────────
 function openPopup(id){
@@ -850,8 +874,6 @@ function showMoringaMsg(){
     el.innerHTML='🌱 Pas encore ? <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:#e8b070;text-decoration:underline">Ebook gratuit ici →</a>';
   }
 }
-window.addEventListener('DOMContentLoaded',showMoringaMsg);
-
 // ── CALCUL ───────────────────────────────────────────────────────────────
 function getVal(id){return parseInt(document.getElementById(id).value)||0;}
 function getFloat(id){return parseFloat(document.getElementById(id).value)||0;}
@@ -926,6 +948,7 @@ function startLifeClock(){
     niveau2Actif:niveau2Actif,niveau2Score:niveau2Score,
     ldl:ldl,tension:tension,glycemie:glycemie,vo2:vo2
   };
+  saveState(_state);
 
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('display').classList.remove('hidden');
@@ -1068,6 +1091,7 @@ function toggleSound(){
 function resetAll(){
   if(confirm('Réinitialiser la montre ?')){
     _state=null;
+    clearState();
     document.getElementById('display').classList.add('hidden');
     document.getElementById('setup').classList.remove('hidden');
     document.getElementById('currentAge').value='';
@@ -1078,6 +1102,21 @@ function resetAll(){
     document.getElementById('toggle-arrow').classList.remove('open');
   }
 }
+
+// ── AUTO-RESTORE ──────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  showMoringaMsg();
+  var saved = loadState();
+  if(saved && saved.endTime && saved.endTime > Date.now()){
+    _state = saved;
+    document.getElementById('setup').classList.add('hidden');
+    document.getElementById('display').classList.remove('hidden');
+    var trailSorties = saved.sport >= 2 ? saved.sport : 2;
+    var grilleUrl = '/grille/?age='+saved.age+'&esperance='+saved.totalLife+'&trail='+trailSorties;
+    document.getElementById('btn-grille').href = grilleUrl;
+    startCountdown();
+  }
+});
 </script>
 
 <!-- OneSignal Push Notifications -->

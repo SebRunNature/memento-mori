@@ -2,134 +2,11 @@
 layout: default
 title: "83 ans d'espérance de vie au Luxembourg : combien d'années es-tu vraiment vivant ?"
 description: "Espérance de vie au Luxembourg : 83,4 ans. Mais combien de ces années passes-tu vraiment à vivre, hors travail, sommeil et trajets ? Le calcul brutal."
+excerpt: "Le Luxembourg affiche 83,4 ans d'espérance de vie, 7ᵉ rang de l'OCDE. Mais sur ces 83 années, combien passes-tu réellement à vivre — éveillé, présent, libre ? Le calcul est cru. Et il change tout."
 date: 2026-05-10
 author: Sébastien Salomon
 ---
 
-<style>
-  .back-link { font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 36px; transition: color .2s; }
-  .back-link:hover { color: var(--green-lt); }
-
-  /* Stats rapides */
-  .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 28px 0; }
-  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 12px; text-align: center; }
-  .stat-box .val { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--green-lt); display: block; line-height: 1; letter-spacing: 1px; }
-  .stat-box .lbl { font-size: .62rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 6px; display: block; }
-
-  /* Tableau standard */
-  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: .85rem; }
-  .data-table th { background: var(--card2); padding: 11px 14px; text-align: left; font-family: 'Bebas Neue', sans-serif; font-size: .9rem; letter-spacing: 1px; color: var(--green-lt); border-bottom: 2px solid var(--border); }
-  .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.6; vertical-align: top; }
-  .data-table tr:nth-child(even) td { background: rgba(19,26,22,.5); }
-
-  /* Bloc citation / callout */
-  .callout { background: rgba(45,158,114,.07); border: 1px solid rgba(45,158,114,.25); border-left: 4px solid var(--green); border-radius: 0 14px 14px 0; padding: 18px 22px; margin: 28px 0; font-size: .92rem; line-height: 1.7; color: rgba(232,245,240,.9); font-weight: 600; }
-  .callout strong { color: var(--green-lt); }
-
-  /* Bloc personnel — récit perso */
-  .personal-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--green-lt); border-radius: 0 14px 14px 0; padding: 20px 22px; margin: 28px 0; position: relative; }
-  .personal-box::before { content: "✍︎"; position: absolute; top: -12px; left: 18px; background: var(--green-lt); color: var(--card); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; }
-  .personal-box p { font-size: .9rem; color: rgba(232,245,240,.85); font-weight: 600; line-height: 1.75; margin-bottom: 12px; text-align: justify; }
-  .personal-box p:last-child { margin-bottom: 0; }
-
-  /* Sections numérotées (leviers) */
-  .lever { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 0 14px 14px 0; padding: 20px 22px; margin-bottom: 16px; }
-  .lever-num { font-family: 'Bebas Neue', sans-serif; font-size: .75rem; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 6px; }
-  .lever h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1px; color: var(--green-lt); margin-bottom: 10px; }
-  .lever p { font-size: .9rem; color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.7; margin-bottom: 8px; text-align: justify; }
-  .lever p:last-child { margin-bottom: 0; }
-
-  /* Warning + OK boxes */
-  .warning-box { background: rgba(248,113,113,.06); border: 1px solid rgba(248,113,113,.25); border-left: 4px solid #f87171; border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 24px 0; }
-  .warning-box .w-title { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #f87171; margin-bottom: 10px; }
-  .warning-box ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .warning-box li { font-size: .85rem; color: rgba(248,113,113,.8); font-weight: 600; display: flex; gap: 8px; }
-  .warning-box li::before { content: "✗"; font-weight: 900; flex-shrink: 0; }
-
-  .ok-box { background: rgba(45,158,114,.07); border: 1px solid rgba(45,158,114,.25); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 16px 0 24px; }
-  .ok-box .w-title { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
-  .ok-box ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .ok-box li { font-size: .85rem; color: rgba(168,240,208,.8); font-weight: 600; display: flex; gap: 8px; }
-  .ok-box li::before { content: "✓"; color: var(--green); font-weight: 900; flex-shrink: 0; }
-
-  /* FAQ */
-  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 10px; }
-  .faq-q { font-size: .92rem; font-weight: 800; color: var(--green-lt); margin-bottom: 8px; }
-  .faq-a { font-size: .85rem; color: var(--muted); font-weight: 600; line-height: 1.7; text-align: justify; }
-
-  /* Liens articles complémentaires */
-  .related-articles { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; margin: 28px 0; }
-  .related-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--green-lt); margin-bottom: 14px; }
-  .related-articles ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .related-articles li { font-size: .88rem; color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.6; }
-  .related-articles a { color: var(--green); text-decoration: none; }
-  .related-articles a:hover { color: var(--green-lt); text-decoration: underline; }
-
-  /* Sources */
-  .sources { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-top: 32px; }
-  .sources-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--green-lt); margin-bottom: 12px; }
-  .sources ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .sources li { font-size: .8rem; font-weight: 600; }
-  .sources a { color: var(--green); text-decoration: none; }
-  .sources a:hover { color: var(--green-lt); text-decoration: underline; }
-
-  @media(max-width:600px) {
-    .stat-grid { grid-template-columns: 1fr 1fr; }
-    .stat-grid .stat-box:last-child { grid-column: span 2; }
-    .data-table { font-size: .78rem; }
-    .data-table th, .data-table td { padding: 7px 8px; }
-  }
-</style>
-
-<!-- Schema.org FAQPage -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Quelle est l'espérance de vie au Luxembourg en 2026 ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "L'espérance de vie au Luxembourg est de 83,4 ans selon les données OCDE 2023, ce qui place le pays au 7ᵉ rang des pays développés. Elle est de 80,3 ans pour les hommes et 84,7 ans pour les femmes."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Combien d'années un Luxembourgeois passe-t-il à travailler ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sur 40 ans de carrière à 40h/semaine, un actif au Luxembourg passe environ 9 années pleines en temps de travail effectif, sans compter les trajets. Les frontaliers ajoutent en moyenne 2 à 4 années supplémentaires en transport sur la même durée."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Pourquoi les Luxembourgeois arrêtent-ils de travailler tôt ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Moins de la moitié des 55-64 ans travaillent au Luxembourg, contre plus de 70% en moyenne dans les pays de l'OCDE. Le système de pensions luxembourgeois reste l'un des plus généreux d'Europe, ce qui permet une sortie précoce de la vie active."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Y a-t-il des inégalités d'espérance de vie selon le métier au Luxembourg ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui. Les écarts d'espérance de vie entre cadres et ouvriers au Luxembourg suivent la tendance européenne : un cadre vit en moyenne plusieurs années de plus qu'un ouvrier, à mode de vie comparable. Le type de travail, le stress chronique et l'exposition aux risques jouent un rôle direct."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Comment gagner du temps de vie quand on travaille au Luxembourg ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Trois leviers prouvés : réduire le temps de trajet (télétravail, déménagement, covoiturage), transformer le temps d'activité physique en temps de qualité (trail en forêt, marche, nature), et installer des rituels quotidiens de présence (lecture, silence, déconnexion)."
-      }
-    }
-  ]
-}
-</script>
 
 <a class="back-link" href="/blog/">← Retour au blog</a>
 
@@ -382,3 +259,128 @@ author: Sébastien Salomon
   </div>
 
 </article>
+
+<style>
+  .back-link { font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 36px; transition: color .2s; }
+  .back-link:hover { color: var(--green-lt); }
+
+  /* Stats rapides */
+  .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 28px 0; }
+  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 12px; text-align: center; }
+  .stat-box .val { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--green-lt); display: block; line-height: 1; letter-spacing: 1px; }
+  .stat-box .lbl { font-size: .62rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 6px; display: block; }
+
+  /* Tableau standard */
+  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: .85rem; }
+  .data-table th { background: var(--card2); padding: 11px 14px; text-align: left; font-family: 'Bebas Neue', sans-serif; font-size: .9rem; letter-spacing: 1px; color: var(--green-lt); border-bottom: 2px solid var(--border); }
+  .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.6; vertical-align: top; }
+  .data-table tr:nth-child(even) td { background: rgba(19,26,22,.5); }
+
+  /* Bloc citation / callout */
+  .callout { background: rgba(45,158,114,.07); border: 1px solid rgba(45,158,114,.25); border-left: 4px solid var(--green); border-radius: 0 14px 14px 0; padding: 18px 22px; margin: 28px 0; font-size: .92rem; line-height: 1.7; color: rgba(232,245,240,.9); font-weight: 600; }
+  .callout strong { color: var(--green-lt); }
+
+  /* Bloc personnel — récit perso */
+  .personal-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--green-lt); border-radius: 0 14px 14px 0; padding: 20px 22px; margin: 28px 0; position: relative; }
+  .personal-box::before { content: "✍︎"; position: absolute; top: -12px; left: 18px; background: var(--green-lt); color: var(--card); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; }
+  .personal-box p { font-size: .9rem; color: rgba(232,245,240,.85); font-weight: 600; line-height: 1.75; margin-bottom: 12px; text-align: justify; }
+  .personal-box p:last-child { margin-bottom: 0; }
+
+  /* Sections numérotées (leviers) */
+  .lever { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 0 14px 14px 0; padding: 20px 22px; margin-bottom: 16px; }
+  .lever-num { font-family: 'Bebas Neue', sans-serif; font-size: .75rem; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 6px; }
+  .lever h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1px; color: var(--green-lt); margin-bottom: 10px; }
+  .lever p { font-size: .9rem; color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.7; margin-bottom: 8px; text-align: justify; }
+  .lever p:last-child { margin-bottom: 0; }
+
+  /* Warning + OK boxes */
+  .warning-box { background: rgba(248,113,113,.06); border: 1px solid rgba(248,113,113,.25); border-left: 4px solid #f87171; border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 24px 0; }
+  .warning-box .w-title { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #f87171; margin-bottom: 10px; }
+  .warning-box ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .warning-box li { font-size: .85rem; color: rgba(248,113,113,.8); font-weight: 600; display: flex; gap: 8px; }
+  .warning-box li::before { content: "✗"; font-weight: 900; flex-shrink: 0; }
+
+  .ok-box { background: rgba(45,158,114,.07); border: 1px solid rgba(45,158,114,.25); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 16px 0 24px; }
+  .ok-box .w-title { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+  .ok-box ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .ok-box li { font-size: .85rem; color: rgba(168,240,208,.8); font-weight: 600; display: flex; gap: 8px; }
+  .ok-box li::before { content: "✓"; color: var(--green); font-weight: 900; flex-shrink: 0; }
+
+  /* FAQ */
+  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 10px; }
+  .faq-q { font-size: .92rem; font-weight: 800; color: var(--green-lt); margin-bottom: 8px; }
+  .faq-a { font-size: .85rem; color: var(--muted); font-weight: 600; line-height: 1.7; text-align: justify; }
+
+  /* Liens articles complémentaires */
+  .related-articles { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; margin: 28px 0; }
+  .related-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--green-lt); margin-bottom: 14px; }
+  .related-articles ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .related-articles li { font-size: .88rem; color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.6; }
+  .related-articles a { color: var(--green); text-decoration: none; }
+  .related-articles a:hover { color: var(--green-lt); text-decoration: underline; }
+
+  /* Sources */
+  .sources { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-top: 32px; }
+  .sources-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--green-lt); margin-bottom: 12px; }
+  .sources ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .sources li { font-size: .8rem; font-weight: 600; }
+  .sources a { color: var(--green); text-decoration: none; }
+  .sources a:hover { color: var(--green-lt); text-decoration: underline; }
+
+  @media(max-width:600px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .stat-grid .stat-box:last-child { grid-column: span 2; }
+    .data-table { font-size: .78rem; }
+    .data-table th, .data-table td { padding: 7px 8px; }
+  }
+</style>
+
+<!-- Schema.org FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelle est l'espérance de vie au Luxembourg en 2026 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'espérance de vie au Luxembourg est de 83,4 ans selon les données OCDE 2023, ce qui place le pays au 7ᵉ rang des pays développés. Elle est de 80,3 ans pour les hommes et 84,7 ans pour les femmes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien d'années un Luxembourgeois passe-t-il à travailler ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sur 40 ans de carrière à 40h/semaine, un actif au Luxembourg passe environ 9 années pleines en temps de travail effectif, sans compter les trajets. Les frontaliers ajoutent en moyenne 2 à 4 années supplémentaires en transport sur la même durée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi les Luxembourgeois arrêtent-ils de travailler tôt ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Moins de la moitié des 55-64 ans travaillent au Luxembourg, contre plus de 70% en moyenne dans les pays de l'OCDE. Le système de pensions luxembourgeois reste l'un des plus généreux d'Europe, ce qui permet une sortie précoce de la vie active."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Y a-t-il des inégalités d'espérance de vie selon le métier au Luxembourg ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Les écarts d'espérance de vie entre cadres et ouvriers au Luxembourg suivent la tendance européenne : un cadre vit en moyenne plusieurs années de plus qu'un ouvrier, à mode de vie comparable. Le type de travail, le stress chronique et l'exposition aux risques jouent un rôle direct."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment gagner du temps de vie quand on travaille au Luxembourg ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois leviers prouvés : réduire le temps de trajet (télétravail, déménagement, covoiturage), transformer le temps d'activité physique en temps de qualité (trail en forêt, marche, nature), et installer des rituels quotidiens de présence (lecture, silence, déconnexion)."
+      }
+    }
+  ]
+}
+</script>

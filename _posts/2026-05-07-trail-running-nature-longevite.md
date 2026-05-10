@@ -2,6 +2,7 @@
 layout: default
 title: "Trail running : pourquoi courir en nature est encore meilleur pour vivre plus longtemps"
 description: "Courir en forêt ou en montagne n'est pas juste plus beau. C'est biologiquement plus efficace. Cortisol, phytoncides, VFC — la science du trail et de la longévité."
+excerpt: "Courir 30 minutes en forêt vaut plus, pour ta longévité, qu'une heure sur tapis. La science est sans appel — voici pourquoi la nature change tout."
 date: 2026-05-07
 author: Sébastien Salomon
 ---

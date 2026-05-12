@@ -1,16 +1,17 @@
 title: "Montre de Vie"
 description: "Combien de temps te reste-t-il ? Lance ton décompte en temps réel et vis chaque seconde pleinement."
 url: "https://montre-de-vie.com"
+timezone: Europe/Luxembourg
 baseurl: ""
 lang: fr
-
+future: false
 author:
   name: "Sébastien Salomon"
-  url: "https://run-nature.com"
+  url: "https://montre-de-vie.com/apropos/"
 
 # SEO
 tagline: "Le décompte de ta vie, seconde par seconde."
-image: /assets/og-image.png
+image: "https://montre-de-vie.com/icon-512.png"
 twitter:
   username: sebrunnature
 

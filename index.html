@@ -173,19 +173,24 @@ description: "Lance ton décompte de vie en temps réel. Questionnaire, espéran
   padding-bottom: 10px; margin-bottom: 24px;
 }
 .how-paths {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 10px 20px;
   margin-bottom: 52px;
 }
 .how-path-label {
   font-family: 'Bebas Neue', sans-serif; font-size: .95rem;
   letter-spacing: 1.5px; color: var(--green-lt);
-  margin-bottom: 14px;
+  padding-bottom: 6px;
+  /* Les deux labels occupent chacun une cellule de la première ligne */
 }
-.steps { display: flex; flex-direction: column; gap: 10px; }
+.steps { display: contents; /* les cards entrent directement dans la grille parente */ }
 .step {
   display: flex; align-items: flex-start; gap: 14px;
   background: var(--card); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 16px 18px;
+  /* height: auto — la grille aligne par ligne automatiquement */
 }
 .step-num {
   font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
@@ -232,7 +237,14 @@ description: "Lance ton décompte de vie en temps réel. Questionnaire, espéran
   .home-stats { grid-template-columns: 1fr 1fr; }
   .home-stats .stat-card:last-child { grid-column: span 2; }
   .tools-grid  { grid-template-columns: 1fr; }
-  .how-paths   { grid-template-columns: 1fr; }
+  .how-paths   {
+    grid-template-columns: 1fr;
+    /* Sur mobile : réafficher les labels au-dessus de leur groupe */
+  }
+  /* Cacher le 2e label et les cards Score sur mobile si nécessaire — non,
+     on les affiche tous mais en colonne avec ordre logique */
+  .how-paths .how-path-label:nth-child(2) { display: none; }
+  .how-paths .step:nth-child(even) { order: 1; } /* les cards Score après */
   .cta-duo     { grid-template-columns: 1fr; }
   .hero-ctas   { flex-direction: column; }
   .hero-cta-main,
@@ -316,57 +328,55 @@ description: "Lance ton décompte de vie en temps réel. Questionnaire, espéran
 <div class="how-title">🏔️ Comment ça marche</div>
 <div class="how-paths">
 
-  <div>
-    <div class="how-path-label">⏱ Parcours Montre de Vie</div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">
-          <strong>Tu réponds au questionnaire</strong>
-          <span>Tabac, sport, sommeil, alimentation, Moringa… 15 questions sincères. Personne ne regarde.</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">
-          <strong>On calcule ton espérance de vie</strong>
-          <span>Un algorithme basé sur les grandes études épidémiologiques. Pas parfait, mais honnête.</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text">
-          <strong>Le décompte démarre</strong>
-          <span>Années, jours, heures, secondes. Chaque tick est une invitation à mieux choisir.</span>
-        </div>
-      </div>
+  <!-- Ligne 0 : labels -->
+  <div class="how-path-label">⏱ Parcours Montre de Vie</div>
+  <div class="how-path-label">🧬 Parcours Score de Vie</div>
+
+  <!-- Ligne 1 -->
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <strong>Tu réponds au questionnaire</strong>
+      <span>Tabac, sport, sommeil, alimentation, Moringa… 15 questions sincères. Personne ne regarde.</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <strong>Tu entres tes biomarqueurs</strong>
+      <span>LDL, tension, glycémie, VO₂max, IMC, sommeil, stress… les vrais chiffres de ton corps.</span>
     </div>
   </div>
 
-  <div>
-    <div class="how-path-label">🧬 Parcours Score de Vie</div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">
-          <strong>Tu entres tes biomarqueurs</strong>
-          <span>LDL, tension, glycémie, VO₂max, IMC, sommeil, stress… les vrais chiffres de ton corps.</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">
-          <strong>L'algorithme calcule ton âge biologique</strong>
-          <span>Basé sur PhenoAge (Levine 2018) et les méta-analyses INTERHEART. Résultat immédiat.</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text">
-          <strong>Tu suis ta progression</strong>
-          <span>Refais le test dans 3 mois. L'historique montre si ton âge bio avance ou recule.</span>
-        </div>
-      </div>
+  <!-- Ligne 2 -->
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <strong>On calcule ton espérance de vie</strong>
+      <span>Un algorithme basé sur les grandes études épidémiologiques. Pas parfait, mais honnête.</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <strong>L'algorithme calcule ton âge biologique</strong>
+      <span>Basé sur PhenoAge (Levine 2018) et les méta-analyses INTERHEART. Résultat immédiat.</span>
+    </div>
+  </div>
+
+  <!-- Ligne 3 -->
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <strong>Le décompte démarre</strong>
+      <span>Années, jours, heures, secondes. Chaque tick est une invitation à mieux choisir.</span>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <strong>Tu suis ta progression</strong>
+      <span>Refais le test dans 3 mois. L'historique montre si ton âge bio avance ou recule.</span>
     </div>
   </div>
 

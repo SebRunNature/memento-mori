@@ -215,11 +215,13 @@ nav {
 .result-ages {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 0;
   margin-bottom: 32px;
+  text-align: center;
 }
 
-.age-block { position: relative; }
+.age-block { position: relative; text-align: center; }
 
 .age-num {
   font-family: 'Bebas Neue', sans-serif;
@@ -939,6 +941,49 @@ input[type="number"]:focus { border-color: var(--green); }
   to   { opacity: 0; transform: translateX(-50%) translateY(20px); }
 }
 
+/* ─── MODAL PARTAGE ─── */
+.share-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.85);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  z-index: 9998; display: none; align-items: center; justify-content: center;
+  padding: 20px; animation: fadeIn .25s ease both;
+}
+.share-overlay.visible { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.share-modal {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+  max-width: 520px; width: 100%; max-height: 90vh; overflow: auto;
+  padding: 24px; animation: modalIn .3s ease both;
+}
+@keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.share-modal-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;
+}
+.share-modal-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+  letter-spacing: 1.5px; color: var(--green-lt);
+}
+.share-modal-close {
+  background: transparent; border: none; color: var(--ink3);
+  font-size: 26px; cursor: pointer; padding: 4px 10px; line-height: 1;
+  transition: color .2s;
+}
+.share-modal-close:hover { color: var(--ink); }
+.share-preview {
+  width: 100%; border-radius: 12px; border: 1px solid var(--border);
+  margin-bottom: 18px; display: block; background: var(--bg);
+}
+.share-modal-actions {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.share-modal-actions .result-action {
+  flex: 1; justify-content: center; min-width: 140px;
+}
+.share-modal-hint {
+  font-size: 13px; color: var(--ink3); text-align: center; margin-top: 14px;
+  font-weight: 600; line-height: 1.5;
+}
+
 /* ─── RECOMMANDATIONS ─── */
 .reco-section {
   margin-top: 40px;
@@ -1167,32 +1212,6 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
         Commence par renseigner ton âge, ta taille et ton poids.
       </div>
     </div>
-  </div>
-
-  <!-- Boutons d'action (visibles uniquement quand un résultat existe) -->
-  <div class="result-actions" id="resultActions" style="display:none">
-    <button class="result-action primary" onclick="shareResult()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-      </svg>
-      Partager mon score
-    </button>
-    <button class="result-action" onclick="saveAsJSON()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-        <polyline points="7 10 12 15 17 10"></polyline>
-        <line x1="12" y1="15" x2="12" y2="3"></line>
-      </svg>
-      Sauvegarder (JSON)
-    </button>
-    <button class="result-action" onclick="saveAsPDF()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-        <polyline points="14 2 14 8 20 8"></polyline>
-      </svg>
-      Sauvegarder (PDF)
-    </button>
   </div>
 
   <!-- ══════════════════════════════════
@@ -1928,6 +1947,37 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   <div class="montre-cta">
     <p>Ton âge biologique détermine combien de secondes il te reste vraiment.<br>Lance ta Montre de Vie pour le voir défiler en temps réel.</p>
     <a href="https://montre-de-vie.com/" target="_blank">⏱ Montre de Vie — voir mes secondes</a>
+  </div>
+
+  <!-- Boutons d'action en bas de page (Partager / Sauvegarder) -->
+  <div id="resultActions" style="display:none;margin-top:48px;padding-top:32px;border-top:1px solid var(--border)">
+    <div style="text-align:center;font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px">
+      ⤓ Garder une trace
+    </div>
+    <div class="result-actions">
+      <button class="result-action primary" onclick="shareResult()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Partager mon score
+      </button>
+      <button class="result-action" onclick="saveAsJSON()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Sauvegarder (JSON)
+      </button>
+      <button class="result-action" onclick="saveAsPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+        Sauvegarder (PDF)
+      </button>
+    </div>
   </div>
 
 </div>
@@ -2720,6 +2770,12 @@ function showToast(msg, duration) {
 // ════════════════════════════════════════════════════════════════
 // PARTAGER LE RÉSULTAT (texte presse-papier)
 // ════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════
+// PARTAGE : MODAL + IMAGE 1080x1080 + COPIE TEXTE
+// ════════════════════════════════════════════════════════════════
+
+let _sdvShareText = '';
+
 function shareResult() {
   const r = calcBio();
   if (!r || r.bioAge == null) {
@@ -2734,24 +2790,54 @@ function shareResult() {
               : delta >  2 ? 'Mon corps vieillit plus vite que prévu — j\'ai des leviers à activer.'
               : 'Mon âge biologique est proche de mon âge chronologique.';
 
-  const text = `${sign} Mon Score de Vie\n` +
-               `━━━━━━━━━━━━━━━━\n` +
-               `Âge réel : ${age} ans\n` +
-               `Âge biologique : ${bio} ans\n` +
-               `Écart : ${delta >= 0 ? '+' : ''}${delta.toFixed(1)} ans\n\n` +
-               `${interp}\n\n` +
-               `Calcule le tien → https://montre-de-vie.com/score/`;
+  _sdvShareText = `${sign} Mon Score de Vie\n` +
+                  `━━━━━━━━━━━━━━━━\n` +
+                  `Âge réel : ${age} ans\n` +
+                  `Âge biologique : ${bio} ans\n` +
+                  `Écart : ${delta >= 0 ? '+' : ''}${delta.toFixed(1)} ans\n\n` +
+                  `${interp}\n\n` +
+                  `Calcule le tien → https://montre-de-vie.com/score/`;
 
-  // Tentative clipboard moderne
+  // Génère l'image
+  drawSdvShareImage(age, parseFloat(bio), delta);
+
+  // Ouvre la modal
+  document.getElementById('shareOverlay').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeShareModal() {
+  document.getElementById('shareOverlay').classList.remove('visible');
+  document.body.style.overflow = '';
+}
+
+function downloadShareImage() {
+  const canvas = document.getElementById('sharePreview');
+  if (!canvas) return;
+  canvas.toBlob(function(blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'score-de-vie-' + new Date().toISOString().slice(0,10) + '.png';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+    showToast('✓ Image téléchargée');
+  }, 'image/png');
+}
+
+function copyShareText() {
+  if (!_sdvShareText) return;
   if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text).then(
-      () => showToast('✓ Copié dans le presse-papier'),
-      () => fallbackCopy(text)
+    navigator.clipboard.writeText(_sdvShareText).then(
+      () => showToast('✓ Texte copié'),
+      () => fallbackCopy(_sdvShareText)
     );
   } else {
-    fallbackCopy(text);
+    fallbackCopy(_sdvShareText);
   }
 }
+
 function fallbackCopy(text) {
   const ta = document.createElement('textarea');
   ta.value = text;
@@ -2761,12 +2847,194 @@ function fallbackCopy(text) {
   ta.select();
   try {
     document.execCommand('copy');
-    showToast('✓ Copié dans le presse-papier');
+    showToast('✓ Texte copié');
   } catch(e) {
     showToast('Impossible de copier — copie manuelle');
   }
   document.body.removeChild(ta);
 }
+
+// ────────────────────────────────────────────────────────────────
+// DESSIN DE L'IMAGE DE PARTAGE 1080×1080 (Canvas natif)
+// ────────────────────────────────────────────────────────────────
+function drawSdvShareImage(age, bio, delta) {
+  const canvas = document.getElementById('sharePreview');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = 1080, H = 1080;
+
+  // Fond dégradé
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+  bgGrad.addColorStop(0, '#0e1a14');
+  bgGrad.addColorStop(0.5, '#0a0f0c');
+  bgGrad.addColorStop(1, '#060a08');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Bordure verte
+  ctx.strokeStyle = 'rgba(0,152,98,0.5)';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(30, 30, W - 60, H - 60);
+
+  // Glow
+  const glowGrad = ctx.createRadialGradient(W/2, 100, 0, W/2, 100, 600);
+  glowGrad.addColorStop(0, 'rgba(0,152,98,0.3)');
+  glowGrad.addColorStop(1, 'rgba(0,152,98,0)');
+  ctx.fillStyle = glowGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Eyebrow
+  ctx.fillStyle = '#009862';
+  ctx.font = 'bold 28px "Nunito", sans-serif';
+  ctx.textAlign = 'center';
+  sdvFillTextWithSpacing(ctx, 'CALCULATEUR SCIENTIFIQUE', W/2, 160, 8);
+
+  // Titre principal — "SCORE DE VIE"
+  ctx.fillStyle = '#e8f5f0';
+  ctx.font = '700 96px "Bebas Neue", "Impact", sans-serif';
+  ctx.textAlign = 'center';
+  // "SCORE" en blanc, "DE VIE" en vert clair
+  const txtScore = 'SCORE';
+  const txtDeVie = 'DE VIE';
+  ctx.fillText(txtScore, W/2 - 90, 280);
+  ctx.fillStyle = '#a0facf';
+  ctx.fillText(txtDeVie, W/2 + 115, 280);
+
+  // Ligne sep
+  ctx.strokeStyle = 'rgba(0,152,98,0.5)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(W/2 - 120, 320);
+  ctx.lineTo(W/2 + 120, 320);
+  ctx.stroke();
+
+  // Comparateur d'âge — 2 cercles côte à côte
+  const cy = 540;
+  const r1 = 130;
+  const cx1 = W/2 - 200;
+  const cx2 = W/2 + 200;
+
+  // Cercle 1 : Âge chrono (gris/blanc)
+  ctx.beginPath();
+  ctx.arc(cx1, cy, r1, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(232,245,240,0.3)';
+  ctx.lineWidth = 6;
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(232,245,240,0.05)';
+  ctx.fill();
+  // Texte âge réel
+  ctx.fillStyle = '#5a8a7a';
+  ctx.font = 'bold 18px "Nunito", sans-serif';
+  ctx.textAlign = 'center';
+  sdvFillTextWithSpacing(ctx, 'ÂGE RÉEL', cx1, cy - 45, 3);
+  ctx.fillStyle = '#e8f5f0';
+  ctx.font = '700 96px "Bebas Neue", "Impact", sans-serif';
+  ctx.fillText(Math.round(age), cx1, cy + 30);
+  ctx.fillStyle = '#5a8a7a';
+  ctx.font = '600 18px "Nunito", sans-serif';
+  ctx.fillText('ans', cx1, cy + 65);
+
+  // VS au centre
+  ctx.fillStyle = '#5a8a7a';
+  ctx.font = 'bold 36px "Bebas Neue", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('VS', W/2, cy + 12);
+
+  // Cercle 2 : Âge bio (couleur selon delta)
+  const bioColor = delta < -1 ? '#a0facf' : (delta > 1 ? '#e8b070' : '#a0facf');
+  const bioColorBg = delta < -1 ? 'rgba(0,152,98,0.15)' : (delta > 1 ? 'rgba(232,176,112,0.1)' : 'rgba(0,152,98,0.15)');
+  ctx.beginPath();
+  ctx.arc(cx2, cy, r1, 0, Math.PI * 2);
+  ctx.strokeStyle = bioColor;
+  ctx.lineWidth = 6;
+  ctx.stroke();
+  ctx.fillStyle = bioColorBg;
+  ctx.fill();
+  ctx.fillStyle = '#5a8a7a';
+  ctx.font = 'bold 18px "Nunito", sans-serif';
+  ctx.textAlign = 'center';
+  sdvFillTextWithSpacing(ctx, 'ÂGE BIO', cx2, cy - 45, 3);
+  ctx.fillStyle = bioColor;
+  ctx.font = '700 96px "Bebas Neue", "Impact", sans-serif';
+  ctx.fillText(bio.toFixed(0), cx2, cy + 30);
+  ctx.fillStyle = '#5a8a7a';
+  ctx.font = '600 18px "Nunito", sans-serif';
+  ctx.fillText('ans', cx2, cy + 65);
+
+  // Bloc résultat écart
+  const statsY = 790;
+  ctx.fillStyle = 'rgba(19,26,22,0.7)';
+  sdvRoundRect(ctx, 100, statsY, W - 200, 150, 16);
+  ctx.fill();
+  ctx.strokeStyle = bioColor;
+  ctx.lineWidth = 2;
+  sdvRoundRect(ctx, 100, statsY, W - 200, 150, 16);
+  ctx.stroke();
+
+  // Label "ÉCART"
+  ctx.fillStyle = '#5a8a7a';
+  ctx.font = 'bold 20px "Nunito", sans-serif';
+  ctx.textAlign = 'center';
+  sdvFillTextWithSpacing(ctx, 'ÉCART AVEC TON ÂGE RÉEL', W/2, statsY + 38, 4);
+
+  // Valeur grosse
+  const deltaTxt = (delta >= 0 ? '+' : '') + delta.toFixed(1) + ' ans';
+  ctx.fillStyle = bioColor;
+  ctx.font = '700 72px "Bebas Neue", "Impact", sans-serif';
+  ctx.fillText(deltaTxt, W/2, statsY + 110);
+
+  // Interprétation
+  const interpShort = delta < -2 ? 'Plus jeune que mon âge réel ✓'
+                    : delta >  2 ? 'Vieillissement à surveiller ⚠'
+                    : 'Cohérent avec mon âge chrono';
+  ctx.fillStyle = '#5a8a7a';
+  ctx.font = '600 18px "Nunito", sans-serif';
+  ctx.fillText(interpShort, W/2, statsY + 138);
+
+  // URL footer
+  ctx.fillStyle = '#5a8a7a';
+  ctx.font = 'bold 22px "Nunito", sans-serif';
+  ctx.textAlign = 'center';
+  sdvFillTextWithSpacing(ctx, 'MONTRE-DE-VIE.COM/SCORE', W/2, 1010, 6);
+}
+
+function sdvRoundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function sdvFillTextWithSpacing(ctx, text, x, y, spacing) {
+  spacing = spacing || 0;
+  if (!spacing) { ctx.fillText(text, x, y); return; }
+  let totalW = 0;
+  for (let i = 0; i < text.length; i++) {
+    totalW += ctx.measureText(text[i]).width;
+    if (i < text.length - 1) totalW += spacing;
+  }
+  let startX = x;
+  if (ctx.textAlign === 'center') startX = x - totalW / 2;
+  else if (ctx.textAlign === 'right') startX = x - totalW;
+  ctx.save();
+  ctx.textAlign = 'left';
+  let curX = startX;
+  for (let j = 0; j < text.length; j++) {
+    ctx.fillText(text[j], curX, y);
+    curX += ctx.measureText(text[j]).width + spacing;
+  }
+  ctx.restore();
+}
+
+// Fermer modal avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const ov = document.getElementById('shareOverlay');
+    if (ov && ov.classList.contains('visible')) closeShareModal();
+  }
+});
 
 // ════════════════════════════════════════════════════════════════
 // SAUVEGARDER EN JSON
@@ -2975,6 +3243,35 @@ if (loadHistory().length >= 2) {
     </div>
     <div class="footer-copy">© 2026 Score de Vie — Outil indicatif, pas un diagnostic médical.</div>
   </footer>
+</div>
+
+<!-- ══ MODAL PARTAGE ══ -->
+<div class="share-overlay" id="shareOverlay" onclick="if(event.target===this)closeShareModal()">
+  <div class="share-modal">
+    <div class="share-modal-header">
+      <div class="share-modal-title">📸 Partager mon score</div>
+      <button class="share-modal-close" onclick="closeShareModal()" aria-label="Fermer">×</button>
+    </div>
+    <canvas class="share-preview" id="sharePreview" width="1080" height="1080"></canvas>
+    <div class="share-modal-actions">
+      <button class="result-action primary" onclick="downloadShareImage()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Télécharger l'image
+      </button>
+      <button class="result-action" onclick="copyShareText()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Copier le texte
+      </button>
+    </div>
+    <p class="share-modal-hint">Image carrée 1080×1080 — parfait pour Instagram, WhatsApp ou Stories.</p>
+  </div>
 </div>
 
 </body>

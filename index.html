@@ -395,7 +395,7 @@ description: "Lance ton décompte de vie en temps réel. Questionnaire, espéran
 </div>
 
 <!-- ═══════════ BLOG ═══════════ -->
-<section>
+<section class="reveal">
   <div class="section-title">📖 Du blog</div>
   <div class="post-list">
     {% for post in site.posts limit:3 %}
@@ -407,3 +407,84 @@ description: "Lance ton décompte de vie en temps réel. Questionnaire, espéran
     {% endfor %}
   </div>
 </section>
+
+<!-- ═══════════ MICRO-ANIMATIONS ═══════════ -->
+<style>
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Petite animation des stats au reveal */
+.home-stats .stat-card {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.home-stats.visible .stat-card { opacity: 1; transform: translateY(0); }
+.home-stats.visible .stat-card:nth-child(1) { transition-delay: 0s; }
+.home-stats.visible .stat-card:nth-child(2) { transition-delay: .12s; }
+.home-stats.visible .stat-card:nth-child(3) { transition-delay: .24s; }
+
+/* Tool cards en cascade */
+.tools-grid .tool-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.tools-grid.visible .tool-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+.tools-grid.visible .tool-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: .15s; }
+
+/* Step cards en cascade par ligne */
+.how-paths .step {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.how-paths.visible .step:nth-child(3),
+.how-paths.visible .step:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: .1s; }
+.how-paths.visible .step:nth-child(5),
+.how-paths.visible .step:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: .2s; }
+.how-paths.visible .step:nth-child(7),
+.how-paths.visible .step:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: .3s; }
+/* Si l'utilisateur préfère réduire les mouvements (accessibilité) */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .home-stats .stat-card, .tools-grid .tool-card, .how-paths .step,
+  .reveal.visible, .home-stats.visible .stat-card, .tools-grid.visible .tool-card, .how-paths.visible .step {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+</style>
+<script>
+(function() {
+  // Marquer toutes les sections à animer
+  var targets = document.querySelectorAll('.home-stats, .tools-grid, .how-paths, .cta-duo, .blog-section, .reveal');
+  // Ajouter .reveal aux sections génériques pour bénéficier de l'animation
+  document.querySelectorAll('.tools-header, .how-title').forEach(function(el){ el.classList.add('reveal'); });
+
+  if (!('IntersectionObserver' in window)) {
+    // Pas de support → on rend tout visible immédiatement
+    targets.forEach(function(t){ t.classList.add('visible'); });
+    document.querySelectorAll('.reveal').forEach(function(t){ t.classList.add('visible'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  targets.forEach(function(t){ observer.observe(t); });
+  document.querySelectorAll('.reveal').forEach(function(t){ observer.observe(t); });
+})();
+</script>

@@ -1175,6 +1175,34 @@ function startLifeClock(){
   };
   saveState(_state);
 
+  // ── PONT → SCORE DE VIE : sauvegarde des préférences brutes ──────────────
+  // Le Score peut lire mdv_prefs et pré-remplir ses champs sans redemander
+  // les mêmes infos à l'utilisateur.
+  try {
+    // Table de correspondance valeurs Montre → clés Score
+    var tobaccoMap = {'0':'non','-1':'ex','-3':'occ','-8':'oui','-12':'lourd'};
+    var alcoholMap = {'0':'non','0':'occ','-0.5':'mod','-2':'eleve','-5':'excessif'};
+    var stressMap  = {'0.5':'gere','0':'faible','-1':'mod','-3':'eleve'};
+    var ldlMap     = {'1':'<1.0','0':'1.0-1.29','-1':'1.3-1.59','-3':'1.6-1.89','-5':'>=1.9'};
+    var tensionMap = {'1':'<120','0':'120-129','-1':'130-139','-4':'140-159','-6':'>=160'};
+    var glycMap    = {'1':'opt','-1':'limite','-4':'prediabete','-7':'diabete'};
+
+    var prefs = {
+      sexe:    gender,
+      age:     age,
+      vo2max:  vo2Raw || null,
+      tabac:   tobaccoMap[String(tobacco)]   || null,
+      alcool:  alcoholMap[String(alcohol)]   || null,
+      stress:  stressMap[String(stress)]     || null,
+      ldl:     ldlMap[String(ldl)]           || null,
+      tension: tensionMap[String(tension)]   || null,
+      glycemie:glycMap[String(glycemie)]     || null,
+      timestamp: Date.now()
+    };
+    localStorage.setItem('mdv_prefs', JSON.stringify(prefs));
+  } catch(e) {}
+  // ─────────────────────────────────────────────────────────────────────────
+
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('display').classList.remove('hidden');
 

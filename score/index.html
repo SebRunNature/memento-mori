@@ -4,25 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Score de Vie — Âge Biologique</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #080c0a;
-  --surface: #0e1512;
-  --surface2: #131a17;
-  --surface3: #192119;
-  --green: #3ddc84;
-  --green-dim: rgba(61,220,132,0.12);
-  --green-glow: rgba(61,220,132,0.06);
+  /* Aligné sur montre-de-vie.com */
+  --bg: #0a0f0c;
+  --surface: #131a16;
+  --surface2: #1a2620;
+  --surface3: #1f2d24;
+  /* Verts demandés par Seb */
+  --green: #009862;
+  --green-dim: rgba(0,152,98,0.12);
+  --green-glow: rgba(0,152,98,0.06);
+  --green-lt: #a0facf;
+  --green-dk: #006b44;
   --amber: #f0a500;
   --amber-dim: rgba(240,165,0,0.1);
   --red: #e05555;
   --red-dim: rgba(224,85,85,0.1);
-  --ink: #e8ede9;
+  --ink: #e8f5f0;
   --ink2: #9bb09d;
-  --ink3: #5a7060;
-  --border: rgba(61,220,132,0.1);
-  --border2: rgba(61,220,132,0.05);
+  --ink3: #5a8a7a;
+  --border: rgba(0,152,98,0.18);
+  --border2: rgba(0,152,98,0.08);
   --border3: rgba(255,255,255,0.04);
 }
 
@@ -33,11 +37,13 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 15px;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  /* Padding-top pour compenser le header fixe (taille calculée dynamiquement) */
+  padding-top: 64px;
 }
 
 /* GRAIN */
@@ -57,8 +63,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(61,220,132,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(61,220,132,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0,152,98,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,152,98,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
@@ -74,45 +80,61 @@ body::before {
 
 /* ─── NAV ─── */
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 0 18px;
+  padding: 14px 24px;
+  background: rgba(10, 15, 12, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  margin-bottom: 64px;
 }
 .nav-left { display: flex; align-items: center; gap: 28px; }
-.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-right { display: flex; align-items: center; gap: 22px; }
 .nav-brand {
-  font-family: 'Space Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--green);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--green-lt);
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  transition: color 0.2s;
 }
+.nav-brand:hover { color: #fff; }
 .nav-brand-dot {
-  width: 7px; height: 7px;
+  width: 8px; height: 8px;
   border-radius: 50%;
   background: var(--green);
+  box-shadow: 0 0 8px var(--green);
   animation: pulse 2s infinite;
   flex-shrink: 0;
 }
 .nav-link {
-  font-size: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--ink3);
   text-decoration: none;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-family: 'Space Mono', monospace;
   transition: color 0.2s;
-  font-size: 10px;
 }
-.nav-link:hover { color: var(--ink2); }
+.nav-link:hover { color: var(--green-lt); }
+@media (max-width: 560px) {
+  nav { padding: 12px 16px; }
+  .nav-right { gap: 14px; }
+  .nav-link { font-size: 0.7rem; letter-spacing: 0.08em; }
+  /* On masque "À propos" et "Blog" sur très petit écran, on garde Montre de Vie */
+  .nav-link.nav-secondary { display: none; }
+}
 
 /* ─── HERO ─── */
 .hero { margin-bottom: 56px; }
@@ -120,21 +142,23 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--green);
   border: 1px solid var(--border);
-  padding: 6px 14px;
-  border-radius: 2px;
-  margin-bottom: 24px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  margin-bottom: 22px;
 }
 .hero-tag::before {
   content: '';
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--green);
+  box-shadow: 0 0 8px var(--green);
   animation: pulse 2s infinite;
 }
 @keyframes pulse {
@@ -143,25 +167,28 @@ nav {
 }
 
 .hero h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(52px, 11vw, 88px);
-  font-weight: 700;
-  line-height: 0.92;
-  letter-spacing: -0.01em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 9vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
   color: var(--ink);
-  margin-bottom: 20px;
+  margin-bottom: 22px;
+  text-transform: uppercase;
 }
 .hero h1 em {
-  font-style: italic;
-  color: var(--green);
+  font-style: normal;
+  color: var(--green-lt);
   font-weight: 400;
 }
 .hero-sub {
-  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
   color: var(--ink2);
-  max-width: 440px;
+  max-width: 480px;
   line-height: 1.7;
-  border-left: 2px solid var(--border);
+  border-left: 2px solid var(--green);
   padding-left: 16px;
 }
 
@@ -195,7 +222,7 @@ nav {
 .age-block { position: relative; }
 
 .age-num {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(80px, 16vw, 128px);
   font-weight: 700;
   line-height: 0.85;
@@ -210,7 +237,7 @@ nav {
 .age-num.placeholder { color: var(--surface3); }
 
 .age-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 9px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -219,7 +246,7 @@ nav {
 }
 
 .age-separator {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 48px;
   font-style: italic;
   color: var(--border);
@@ -242,7 +269,7 @@ nav {
   padding: 16px 20px;
 }
 .result-meta-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 9px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -250,7 +277,7 @@ nav {
   margin-bottom: 4px;
 }
 .result-meta-val {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 22px;
   font-weight: 600;
   color: var(--ink);
@@ -260,7 +287,7 @@ nav {
 .result-meta-val.r { color: var(--red); }
 
 .result-placeholder-text {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-style: italic;
   font-size: 20px;
   color: var(--ink3);
@@ -285,7 +312,7 @@ nav {
   color: var(--ink3);
   width: 120px;
   flex-shrink: 0;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
 }
 .fbar-track {
   flex: 1;
@@ -300,7 +327,7 @@ nav {
   transition: width 1s cubic-bezier(0.22,1,0.36,1);
 }
 .fbar-val {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 10px;
   width: 48px;
   text-align: right;
@@ -320,7 +347,7 @@ nav {
   border-bottom: 1px solid var(--border2);
 }
 .level-num {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 10px;
   letter-spacing: 0.15em;
   color: var(--green);
@@ -329,7 +356,7 @@ nav {
   border-radius: 2px;
 }
 .level-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 26px;
   font-weight: 700;
   color: var(--ink);
@@ -349,7 +376,7 @@ nav {
   overflow: hidden;
   transition: border-color 0.2s;
 }
-.qcard:has(.field-done) { border-color: rgba(61,220,132,0.2); }
+.qcard:has(.field-done) { border-color: rgba(0,152,98,0.2); }
 
 .qcard-header {
   display: flex;
@@ -378,7 +405,7 @@ nav {
 .qcard-right { display: flex; align-items: center; gap: 12px; }
 
 .qcard-badge {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 10px;
   padding: 3px 10px;
   border-radius: 2px;
@@ -387,7 +414,7 @@ nav {
   transition: all 0.2s;
 }
 .qcard-badge.done {
-  background: rgba(61,220,132,0.1);
+  background: rgba(0,152,98,0.1);
   color: var(--green);
 }
 .qcard-chevron {
@@ -416,7 +443,7 @@ nav {
 .field-group {}
 .field-label {
   display: block;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -437,7 +464,7 @@ input[type="number"] {
   border: 1px solid var(--border2);
   border-radius: 2px;
   padding: 10px 14px;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 15px;
   color: var(--ink);
   outline: none;
@@ -455,7 +482,7 @@ input[type="number"]:focus { border-color: var(--green); }
   border: 1px solid var(--border2);
   border-radius: 2px;
   padding: 7px 14px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: var(--ink2);
   cursor: pointer;
@@ -465,7 +492,7 @@ input[type="number"]:focus { border-color: var(--green); }
 .opt:hover { border-color: var(--border); color: var(--ink); }
 .opt.sel {
   background: var(--green-dim);
-  border-color: rgba(61,220,132,0.4);
+  border-color: rgba(0,152,98,0.4);
   color: var(--green);
   font-weight: 500;
 }
@@ -492,7 +519,7 @@ input[type="number"]:focus { border-color: var(--green); }
   border: 1px solid var(--border2);
 }
 .imc-num {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 18px;
   color: var(--ink);
   transition: color 0.3s;
@@ -519,7 +546,7 @@ input[type="number"]:focus { border-color: var(--green); }
   background: var(--surface2);
 }
 .grip-accordion-title {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 10px;
   letter-spacing: 0.1em;
   color: var(--green);
@@ -542,7 +569,7 @@ input[type="number"]:focus { border-color: var(--green); }
   line-height: 1.5;
 }
 .grip-step-n {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 10px;
   color: var(--green);
   background: var(--green-dim);
@@ -568,7 +595,7 @@ input[type="number"]:focus { border-color: var(--green); }
   border-radius: 2px;
   font-size: 11px;
 }
-.grip-th-label { color: var(--ink3); font-size: 10px; margin-bottom: 2px; font-family: 'Space Mono', monospace; letter-spacing: 0.08em; }
+.grip-th-label { color: var(--ink3); font-size: 10px; margin-bottom: 2px; font-family: 'Nunito', sans-serif; letter-spacing: 0.08em; }
 .grip-th-val { color: var(--ink2); }
 
 /* SEPARATOR */
@@ -589,7 +616,7 @@ input[type="number"]:focus { border-color: var(--green); }
   border: none;
   border-radius: 3px;
   padding: 18px 24px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.1em;
@@ -614,7 +641,7 @@ input[type="number"]:focus { border-color: var(--green); }
 
 .save-confirm {
   text-align: center;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 11px;
   color: var(--green);
   margin-top: 10px;
@@ -631,7 +658,7 @@ input[type="number"]:focus { border-color: var(--green); }
   border-top: 1px solid var(--border);
 }
 .history-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 24px;
@@ -655,14 +682,14 @@ input[type="number"]:focus { border-color: var(--green); }
 }
 .hrow:hover { border-color: var(--border); }
 .hrow-date {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 10px;
   color: var(--ink3);
   min-width: 72px;
 }
 .hrow-summary { flex: 1; font-size: 13px; color: var(--ink2); }
 .hrow-delta {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   font-weight: 700;
 }
@@ -685,7 +712,7 @@ input[type="number"]:focus { border-color: var(--green); }
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(61,220,132,0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,152,98,0.08) 0%, transparent 60%);
 }
 .montre-cta p {
   font-size: 13px;
@@ -699,7 +726,7 @@ input[type="number"]:focus { border-color: var(--green); }
   background: transparent;
   color: var(--green);
   border: 1px solid var(--green);
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -716,7 +743,7 @@ input[type="number"]:focus { border-color: var(--green); }
 
 /* ─── OPTIONAL BADGE ─── */
 .optional-tag {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 9px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -740,9 +767,9 @@ input[type="number"]:focus { border-color: var(--green); }
 /* ─── SCORE LIVE BANNER ─── */
 .score-live {
   position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(8,12,10,0.92);
+  top: 64px;
+  z-index: 50;
+  background: rgba(10,15,12,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 10px 20px;
@@ -755,7 +782,7 @@ input[type="number"]:focus { border-color: var(--green); }
 }
 .score-live.visible { display: flex; }
 .score-live-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 10px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -767,7 +794,7 @@ input[type="number"]:focus { border-color: var(--green); }
   gap: 10px;
 }
 .score-live-num {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 28px;
   font-weight: 700;
   line-height: 1;
@@ -776,9 +803,9 @@ input[type="number"]:focus { border-color: var(--green); }
 .score-live-num.younger { color: var(--green); }
 .score-live-num.older { color: var(--red); }
 .score-live-num.same { color: var(--ink); }
-.score-live-sep { font-size: 14px; color: var(--ink3); font-style: italic; font-family: 'Cormorant Garamond', serif; }
+.score-live-sep { font-size: 14px; color: var(--ink3); font-style: italic; font-family: 'Bebas Neue', sans-serif; }
 .score-live-delta {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 11px;
   padding: 3px 10px;
   border-radius: 2px;
@@ -790,7 +817,7 @@ input[type="number"]:focus { border-color: var(--green); }
 .score-live-hint {
   font-size: 10px;
   color: var(--ink3);
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   letter-spacing: 0.05em;
 }
 
@@ -801,7 +828,7 @@ input[type="number"]:focus { border-color: var(--green); }
 }
 .reco-section.visible { display: block; }
 .reco-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 36px;
   font-weight: 700;
   color: var(--ink);
@@ -834,7 +861,7 @@ input[type="number"]:focus { border-color: var(--green); }
   to { opacity: 1; transform: translateY(0); }
 }
 .reco-rank {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 40px;
   font-weight: 700;
   line-height: 1;
@@ -847,7 +874,7 @@ input[type="number"]:focus { border-color: var(--green); }
 .reco-card:nth-child(3) .reco-rank { color: var(--green); opacity: 0.5; }
 .reco-body { flex: 1; }
 .reco-factor {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 9px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -867,7 +894,7 @@ input[type="number"]:focus { border-color: var(--green); }
   line-height: 1.6;
 }
 .reco-gain {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 11px;
   color: var(--green);
   margin-top: 8px;
@@ -884,7 +911,7 @@ input[type="number"]:focus { border-color: var(--green); }
 }
 .chart-section.visible { display: block; }
 .chart-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 36px;
   font-weight: 700;
   color: var(--ink);
@@ -933,7 +960,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   gap: 12px;
 }
 .footer-brand {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -947,7 +974,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   color: var(--ink3);
   text-decoration: none;
   letter-spacing: 0.08em;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   text-transform: uppercase;
   transition: color 0.2s;
 }
@@ -955,7 +982,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
 .footer-copy {
   font-size: 10px;
   color: var(--ink3);
-  font-family: 'Space Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   letter-spacing: 0.05em;
   width: 100%;
 }
@@ -975,11 +1002,12 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   <!-- NAV -->
   <nav>
     <div class="nav-left">
-      <a class="nav-brand" href="#"><span class="nav-brand-dot"></span>Score de Vie</a>
+      <a class="nav-brand" href="https://montre-de-vie.com/score/"><span class="nav-brand-dot"></span>Score de Vie</a>
     </div>
     <div class="nav-right">
-      <a class="nav-link" href="#">À propos</a>
-      <a class="nav-link" href="#">Blog</a>
+      <a class="nav-link nav-secondary" href="https://montre-de-vie.com/apropos/" target="_blank">À propos</a>
+      <a class="nav-link nav-secondary" href="https://montre-de-vie.com/blog/" target="_blank">Blog</a>
+      <a class="nav-link" href="https://montre-de-vie.com/" style="color:var(--green-lt)">⏱ Montre de Vie</a>
     </div>
   </nav>
 
@@ -997,7 +1025,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   <!-- HERO -->
   <div class="hero">
     <div class="hero-tag">Calculateur scientifique</div>
-    <h1>Score<br><em>de Vie</em></h1>
+    <h1>Score <em>de Vie</em></h1>
     <p class="hero-sub">Ton corps ne vieillit pas à la même vitesse que ton acte de naissance. Santé physique, mentale, biologie — tout compte. Réponds honnêtement.</p>
   </div>
 
@@ -2057,7 +2085,7 @@ function renderChart() {
   ctx.clearRect(0, 0, W, H);
 
   // Grid lines
-  ctx.strokeStyle = 'rgba(61,220,132,0.05)';
+  ctx.strokeStyle = 'rgba(0,152,98,0.05)';
   ctx.lineWidth = 1;
   for (let i = 0; i <= 4; i++) {
     const y = PAD.top + (i/4) * innerH;
@@ -2075,8 +2103,8 @@ function renderChart() {
 
   // Bio age line + fill
   const grad = ctx.createLinearGradient(0, PAD.top, 0, H);
-  grad.addColorStop(0, 'rgba(61,220,132,0.15)');
-  grad.addColorStop(1, 'rgba(61,220,132,0)');
+  grad.addColorStop(0, 'rgba(0,152,98,0.15)');
+  grad.addColorStop(1, 'rgba(0,152,98,0)');
   ctx.beginPath();
   hist.forEach((h,i) => { i===0 ? ctx.moveTo(xPos(i), yPos(h.bioAge)) : ctx.lineTo(xPos(i), yPos(h.bioAge)); });
   ctx.lineTo(xPos(n-1), H - PAD.bottom);
@@ -2085,7 +2113,7 @@ function renderChart() {
   ctx.fillStyle = grad;
   ctx.fill();
 
-  ctx.strokeStyle = '#3ddc84';
+  ctx.strokeStyle = '#009862';
   ctx.lineWidth = 2;
   ctx.beginPath();
   hist.forEach((h,i) => { i===0 ? ctx.moveTo(xPos(i), yPos(h.bioAge)) : ctx.lineTo(xPos(i), yPos(h.bioAge)); });
@@ -2096,25 +2124,25 @@ function renderChart() {
     // Dot
     ctx.beginPath();
     ctx.arc(xPos(i), yPos(h.bioAge), 4, 0, Math.PI*2);
-    ctx.fillStyle = '#3ddc84';
+    ctx.fillStyle = '#009862';
     ctx.fill();
     // Age label
-    ctx.fillStyle = '#3ddc84';
-    ctx.font = `bold 11px 'Space Mono', monospace`;
+    ctx.fillStyle = '#009862';
+    ctx.font = `bold 11px 'Nunito', sans-serif`;
     ctx.textAlign = 'center';
     ctx.fillText(h.bioAge, xPos(i), yPos(h.bioAge) - 9);
     // Date label
     ctx.fillStyle = 'rgba(90,112,96,0.8)';
-    ctx.font = `9px 'Space Mono', monospace`;
+    ctx.font = `9px 'Nunito', sans-serif`;
     ctx.fillText(h.date, xPos(i), H - PAD.bottom + 14);
   });
 
   // Legend
-  ctx.font = `9px 'Space Mono', monospace`;
+  ctx.font = `9px 'Nunito', sans-serif`;
   ctx.fillStyle = 'rgba(90,112,96,0.6)';
   ctx.textAlign = 'left';
   ctx.fillText('— âge réel', PAD.left, PAD.top - 6);
-  ctx.fillStyle = 'rgba(61,220,132,0.8)';
+  ctx.fillStyle = 'rgba(0,152,98,0.8)';
   ctx.fillText('— âge bio', PAD.left + 64, PAD.top - 6);
 }
 
@@ -2175,7 +2203,7 @@ function renderResult(result) {
       </div>
       <div class="result-meta-item">
         <div class="result-meta-label">Verdict</div>
-        <div class="result-meta-val" style="font-size:14px;line-height:1.4;font-family:'Space Grotesk',sans-serif;font-weight:400;color:var(--ink2)">${v.t}</div>
+        <div class="result-meta-val" style="font-size:14px;line-height:1.4;font-family:'Nunito',sans-serif;font-weight:400;color:var(--ink2)">${v.t}</div>
       </div>
     </div>
     <div class="factor-bars">
@@ -2381,6 +2409,82 @@ function renderHistory() {
   }).join('')+'</div>';
 }
 
+// ════════════════════════════════════════
+// PONT MONTRE DE VIE → pré-remplissage
+// ════════════════════════════════════════
+(function prefillFromMontre() {
+  try {
+    var raw = localStorage.getItem('mdv_prefs');
+    if (!raw) return;
+    var p = JSON.parse(raw);
+    if (!p || !p.timestamp) return;
+
+    // Ignorer si trop vieux (30 jours)
+    if (Date.now() - p.timestamp > 30 * 24 * 3600 * 1000) return;
+
+    var filled = 0;
+
+    // Pré-remplir les inputs numériques
+    function setInput(id, val) {
+      if (val == null) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.value = val;
+      D[id] = parseFloat(val) || null;
+      filled++;
+    }
+
+    // Pré-remplir un bouton (simule un pick())
+    function setBtn(key, val) {
+      if (!val) return;
+      // Cherche le bouton avec onclick="pick(this,'key','val')"
+      var btns = document.querySelectorAll('.opt');
+      for (var i = 0; i < btns.length; i++) {
+        var oc = btns[i].getAttribute('onclick') || '';
+        if (oc.indexOf("'" + key + "'") > -1 && oc.indexOf("'" + val + "'") > -1) {
+          // Désélectionner le groupe d'abord
+          btns[i].closest('.opts').querySelectorAll('.opt').forEach(function(b) {
+            b.classList.remove('sel');
+          });
+          btns[i].classList.add('sel');
+          D[key] = val;
+          filled++;
+          break;
+        }
+      }
+    }
+
+    setInput('age',    p.age);
+    setInput('vo2max', p.vo2max);
+    setBtn('sexe',    p.sexe);
+    setBtn('tabac',   p.tabac);
+    setBtn('alcool',  p.alcool);
+    setBtn('stress',  p.stress);
+    setBtn('ldl',     p.ldl);
+    setBtn('tension', p.tension);
+    setBtn('glycemie',p.glycemie);
+
+    if (filled > 0) {
+      updateBadges();
+      updateIMC();
+      var r = calcBio();
+      renderResult(r);
+
+      // Bannière discrète
+      var banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);' +
+        'background:#131a16;border:1px solid rgba(45,158,114,.4);color:#a8f0d0;' +
+        'padding:10px 20px;border-radius:30px;font-size:.78rem;font-weight:700;' +
+        'z-index:999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.4);' +
+        'animation:fadeUp .4s ease both;cursor:pointer';
+      banner.innerHTML = '⚡ ' + filled + ' champs pré-remplis depuis ta Montre de Vie &nbsp;✕';
+      banner.onclick = function() { banner.remove(); };
+      document.body.appendChild(banner);
+      setTimeout(function() { if (banner.parentNode) banner.remove(); }, 5000);
+    }
+  } catch(e) {}
+})();
+
 // INIT
 renderHistory();
 onInput();
@@ -2394,10 +2498,10 @@ if (loadHistory().length >= 2) {
 <!-- FOOTER -->
 <div class="wrap" style="padding-top:0;padding-bottom:40px">
   <footer class="site-footer">
-    <a class="footer-brand" href="#">Score de Vie</a>
+    <a class="footer-brand" href="https://montre-de-vie.com/score/">Score de Vie</a>
     <div class="footer-links">
-      <a class="footer-link" href="#">À propos</a>
-      <a class="footer-link" href="#">Blog</a>
+      <a class="footer-link" href="https://montre-de-vie.com/apropos/" target="_blank">À propos</a>
+      <a class="footer-link" href="https://montre-de-vie.com/blog/" target="_blank">Blog</a>
       <a class="footer-link" href="https://montre-de-vie.com/" target="_blank">Montre de Vie ↗</a>
     </div>
     <div class="footer-copy">© 2026 Score de Vie — Outil indicatif, pas un diagnostic médical.</div>

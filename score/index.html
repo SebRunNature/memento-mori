@@ -2350,8 +2350,8 @@ function computeFull() {
   if (!r) { alert('Renseigne au minimum ton âge, ton sexe, ta taille et ton poids.'); return; }
 
   // ── PONT MONTRE DE VIE ───────────────────────────────────────
-  // Sauvegarde le résultat pour que la Montre de Vie puisse le lire
-  // et recalculer l'espérance de vie avec le delta biologique.
+  // Sauvegarde le résultat ET les données de saisie pour que la Montre
+  // de Vie puisse pré-remplir son formulaire (taille, poids, biomarqueurs).
   // Format attendu par bridge.js / bioDeltaToLifeYears()
   try {
     localStorage.setItem('sdv_result', JSON.stringify({
@@ -2359,6 +2359,21 @@ function computeFull() {
       bioAge:    r.bioAge,
       age:       parseFloat(document.getElementById('age').value),
       sexe:      D.sexe || null,
+      // Données brutes pour pré-remplir le formulaire Montre :
+      taille:    D.taille || parseFloat(document.getElementById('taille').value) || null,
+      poids:     D.poids  || parseFloat(document.getElementById('poids').value)  || null,
+      vo2max:    D.vo2max || parseFloat(document.getElementById('vo2max').value) || null,
+      tabac:     D.tabac    || null,
+      alcool:    D.alcool   || null,
+      stress:    D.stress   || null,
+      sleep_dur: D.sleep_dur|| null,
+      sleep_qual:D.sleep_qual||null,
+      ldl:       D.ldl      || null,
+      tension:   D.tension  || null,
+      glycemie:  D.glycemie || null,
+      social:    D.social   || null,
+      pollution: D.pollution|| null,
+      antecedents:D.antecedents|| null,
       timestamp: Date.now()
     }));
   } catch(e) { /* localStorage indisponible — pas bloquant */ }

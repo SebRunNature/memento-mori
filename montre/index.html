@@ -404,6 +404,38 @@ select option{background:var(--card)}
 
   <div class="warning">⚠ Outil indicatif, pas médical. Mais si ça te pousse à courir un peu plus souvent, c'est déjà gagné.</div>
 
+  <!-- ── BANNIÈRE PONT SCORE DE VIE ── -->
+  <div id="sdv-bridge-banner" class="hidden" style="
+    border:1px solid rgba(45,158,114,.4); background:rgba(45,158,114,.08);
+    border-radius:var(--radius); padding:18px 20px; margin-bottom:24px;">
+    <div style="display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap">
+      <div style="font-size:1.6rem; line-height:1">🧬</div>
+      <div style="flex:1; min-width:200px">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.15rem; color:var(--green-lt); letter-spacing:1.5px; margin-bottom:4px">
+          Score de Vie détecté
+        </div>
+        <div id="sdv-bridge-info" style="font-size:.85rem; color:var(--muted); font-weight:600; line-height:1.5">
+          —
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+      <button onclick="startLifeClockFromSdv()" style="
+        flex:1; min-width:160px; background:linear-gradient(135deg,var(--green-dk),var(--green));
+        color:#fff; border:none; padding:11px 18px; border-radius:10px;
+        font-family:'Bebas Neue',sans-serif; font-size:.95rem; letter-spacing:1.5px;
+        cursor:pointer; transition:all .2s">
+        ⚡ Utiliser mon Score de Vie
+      </button>
+      <button onclick="dismissSdvBridge()" style="
+        background:transparent; color:var(--muted); border:1px solid var(--border);
+        padding:11px 16px; border-radius:10px; font-family:'Nunito',sans-serif;
+        font-size:.82rem; font-weight:700; cursor:pointer; transition:all .2s">
+        Remplir manuellement
+      </button>
+    </div>
+  </div>
+
   <!-- ── NIVEAU 1 ── -->
   <div class="niveau-badge">⚡ Niveau 1 — Mode de vie</div>
 
@@ -417,8 +449,8 @@ select option{background:var(--card)}
     <div class="input-group">
       <label>Genre</label>
       <select id="gender">
-        <option value="0">Homme</option>
-        <option value="5">Femme — avantagée biologiquement 😏</option>
+        <option value="H">Homme</option>
+        <option value="F">Femme — avantagée biologiquement 😏</option>
       </select>
     </div>
   </div>
@@ -429,18 +461,20 @@ select option{background:var(--card)}
       <label>Tabac</label>
       <select id="tobacco">
         <option value="0">Non-fumeur ✓</option>
+        <option value="-1">Ex-fumeur — arrêté depuis &gt; 1 an</option>
         <option value="-3">Occasionnel — "juste en soirée"</option>
-        <option value="-8">Régulier</option>
-        <option value="-12">Lourd +10 cig/jour 🫁</option>
+        <option value="-8">Régulier — &lt;10 cig/jour</option>
+        <option value="-12">Lourd — &gt;10 cig/jour 🫁</option>
       </select>
     </div>
     <div class="input-group">
       <label>Alcool (verres/semaine)</label>
       <select id="alcohol">
-        <option value="2">Aucun ou très rare ✓</option>
-        <option value="0">Modéré — 1 à 7</option>
-        <option value="-5">Élevé — 8 à 14</option>
-        <option value="-10">Excessif — +14 🍺</option>
+        <option value="0">Aucun ou très rare</option>
+        <option value="0">Occasionnel — 1 à 3</option>
+        <option value="-0.5">Modéré — 4 à 7</option>
+        <option value="-2">Élevé — 8 à 14</option>
+        <option value="-5">Excessif — +14 🍺</option>
       </select>
     </div>
   </div>
@@ -450,20 +484,16 @@ select option{background:var(--card)}
     <div class="input-group">
       <label>Sommeil / nuit</label>
       <select id="sleep">
-        <option value="-6">Moins de 6h — danger</option>
-        <option value="-2">6h — presque</option>
-        <option value="0" selected>7 à 8h ✓</option>
-        <option value="-3">Plus de 9h — ton corps parle</option>
+        <option value="-3">Moins de 6h — danger</option>
+        <option value="-1.5">6h — presque</option>
+        <option value="2" selected>7 à 8h ✓</option>
+        <option value="-1.5">Plus de 9h — ton corps parle</option>
       </select>
     </div>
     <div class="input-group">
       <label>IMC</label>
-      <select id="bmi">
-        <option value="3">18,5–24,9 — Normal ✓</option>
-        <option value="0">25–29,9 — Surpoids</option>
-        <option value="-4">≥ 30 — Obésité</option>
-        <option value="-2">≤ 18,5 — Maigreur</option>
-      </select>
+      <input type="number" id="bmi" placeholder="Ex : 22.5" min="10" max="60" step="0.1">
+      <p class="hint">Poids (kg) ÷ taille² (m). Sweet spot : ~22</p>
     </div>
   </div>
   <div class="grid-2">
@@ -522,17 +552,19 @@ select option{background:var(--card)}
     <div class="input-group">
       <label>Stress chronique</label>
       <select id="stress">
-        <option value="0">Faible ou bien géré ✓</option>
-        <option value="-3">Modéré — la vie quoi</option>
-        <option value="-7">Élevé et permanent — va courir 🏃</option>
+        <option value="0.5">Bien géré — méditation, recul ✓</option>
+        <option value="0">Faible</option>
+        <option value="-1">Modéré — la vie quoi</option>
+        <option value="-3">Élevé et permanent — va courir 🏃</option>
       </select>
     </div>
     <div class="input-group">
       <label>Liens sociaux</label>
       <select id="social">
-        <option value="3">Forts — entourage soudé ✓</option>
-        <option value="0">Corrects</option>
-        <option value="-3">Isolement social 😔</option>
+        <option value="1">Forts — entourage soudé ✓</option>
+        <option value="0">Bons — quelques amis proches</option>
+        <option value="-0.5">Superficiels — connaissances surtout</option>
+        <option value="-2">Isolement social 😔</option>
       </select>
     </div>
   </div>
@@ -558,18 +590,19 @@ select option{background:var(--card)}
     <div class="input-group">
       <label>Antécédents familiaux</label>
       <select id="familyHistory">
-        <option value="4">Excellents ✓</option>
+        <option value="1">Excellents — parents/grands-parents 85+ ✓</option>
         <option value="0">Neutres</option>
-        <option value="-5">Cardio ou cancers précoces</option>
+        <option value="-1">Cardio ou cancers (âge normal)</option>
+        <option value="-2">Précoces — &lt; 60 ans ❌</option>
       </select>
     </div>
     <div class="input-group">
       <label>Pollution atmosphérique</label>
       <select id="pollution">
-        <option value="1">Faible — campagne ✓</option>
-        <option value="0">Moyenne — ville standard</option>
-        <option value="-2">Élevée — grande ville</option>
-        <option value="-4">Très élevée — zone industrielle</option>
+        <option value="0">Faible — campagne ✓</option>
+        <option value="-0.5">Moyenne — ville standard</option>
+        <option value="-1.5">Élevée — grande ville</option>
+        <option value="-2.5">Très élevée — zone industrielle</option>
       </select>
     </div>
   </div>
@@ -628,14 +661,8 @@ select option{background:var(--card)}
 
       <div class="input-group">
         <label>VO₂max (ml/kg/min)</label>
-        <select id="vo2max">
-          <option value="0">Je ne sais pas — neutre</option>
-          <option value="2">&gt; 50 — Excellent (ex: 54) ✓</option>
-          <option value="1">40 – 50 — Bon</option>
-          <option value="0">30 – 40 — Moyen</option>
-          <option value="-3">&lt; 30 — Faible ❌</option>
-        </select>
-        <p class="hint">Ta montre GPS te donne cette valeur. Seb : 54 ml/kg/min 🏔️</p>
+        <input type="number" id="vo2max" placeholder="Ex : 45" min="10" max="90" step="0.1">
+        <p class="hint">Ta montre GPS te donne cette valeur. Normalisé selon âge & sexe. Laisse vide si inconnu. Seb : 54 🏔️</p>
       </div>
 
       <div class="input-group">
@@ -819,6 +846,93 @@ select option{background:var(--card)}
 
 </div><!-- #app -->
 
+<!-- ══ BRIDGE.JS — source de vérité partagée avec Score de Vie ══ -->
+<script>
+/**
+ * bridge.js — Pont entre Score de Vie et Montre de Vie
+ * Source de vérité unique pour coefficients & conversions.
+ */
+
+const BIO_AGE_CAPS = {
+  rejuvenation: -12,
+  aging:        +18
+};
+
+const CALIBRATION = {
+  tabac: { non: 0, ex: +1, occ: +3, oui: +8, lourd: +12 },
+  alcool: { non: 0, occ: 0, mod: +0.5, eleve: +2, excessif: +5 },
+  sommeil_duree: { "<6": +3, "6": +1.5, "7-8": -2, ">9": +1.5 },
+  sommeil_qualite: { mauvaise: +2, moyenne: +0.5, bonne: 0, excellente: -1.5 },
+  stress: { gere: -0.5, faible: 0, mod: +1, eleve: +3 },
+  ldl: { "<1.0": -2, "1.0-1.29": 0, "1.3-1.59": +1.5, "1.6-1.89": +4, ">=1.9": +6 },
+  tension: { "<120": -1, "120-129": 0, "130-139": +2, "140-159": +4, ">=160": +6 },
+  glycemie: { opt: -1, limite: +1.5, prediabete: +3.5, diabete: +5 },
+  antecedents: { excellents: -1, neutres: 0, cardio: +1, precoces: +2 },
+  pollution: { faible: 0, moyenne: +0.5, eleve: +1.5, tres_eleve: +2.5 },
+  social: { isole: +2, superficiel: +0.5, bons: 0, fort: -1 },
+  crp: { "<1": -1, "1-3": 0, "3-10": +2, ">10": +3 },
+  vitD: { "<20": +1, "20-29": +0.5, "30-60": -0.5, ">60": +0.5 },
+  ferritine: { basse: +1, normale: 0, haute: +0.5, tres_haute: +1.5 }
+};
+
+/**
+ * VO₂max — Mandsager 2018, normalisé par âge et sexe.
+ * Renvoie un delta d'âge BIOLOGIQUE (positif = vieillissement).
+ */
+function vo2maxToDelta(vo2, age, sexe /* 'H' | 'F' */) {
+  if (!vo2 || !age || !sexe) return 0;
+  const expected = sexe === 'H'
+    ? Math.max(22, 56.363 - 0.413 * age)
+    : Math.max(18, 44.232 - 0.356 * age);
+  const r = vo2 / expected;
+  if (r > 1.35) return -5;
+  if (r > 1.15) return -3.5;
+  if (r > 1.00) return -1.5;
+  if (r > 0.85) return 0;
+  if (r > 0.70) return +3;
+  return +6;
+}
+
+/**
+ * IMC continu — delta d'âge BIOLOGIQUE.
+ */
+function bmiToDelta(bmi) {
+  if (!bmi || bmi < 10) return 0;
+  if (bmi < 18.5) return +1;
+  if (bmi < 22)   return -1;
+  if (bmi < 25)   return 0;
+  if (bmi < 28)   return +1;
+  if (bmi < 32)   return +2;
+  return +3;
+}
+
+/**
+ * Convertit un delta d'âge biologique en delta d'espérance de vie.
+ * Coefficient dépend de l'âge chronologique (0.6 à 25 ans → 1.2 à 80 ans).
+ */
+function lifeExpectancyDeltaFromBio(deltaBio, chronoAge) {
+  if (chronoAge == null) return -deltaBio;
+  let coef;
+  if (chronoAge <= 25)      coef = 0.6;
+  else if (chronoAge <= 45) coef = 0.6 + (chronoAge - 25) * (0.2 / 20);
+  else if (chronoAge <= 65) coef = 0.8 + (chronoAge - 45) * (0.2 / 20);
+  else if (chronoAge <= 80) coef = 1.0 + (chronoAge - 65) * (0.2 / 15);
+  else                       coef = 1.2;
+  return -deltaBio * coef;
+}
+
+function bioDeltaToLifeYears(deltaBio, chronoAge) {
+  return lifeExpectancyDeltaFromBio(deltaBio, chronoAge);
+}
+
+/**
+ * Espérance de vie de base — INSEE 2024 (France métropolitaine).
+ */
+function baseLifeExpectancy(sexe) {
+  return sexe === 'F' ? 85.7 : 80.0;
+}
+</script>
+
 <script>
 var _state = null;
 
@@ -877,6 +991,100 @@ function showMoringaMsg(){
     el.innerHTML='🌱 Pas encore ? <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:#e8b070;text-decoration:underline">Ebook gratuit ici →</a>';
   }
 }
+// ── PONT SCORE DE VIE ────────────────────────────────────────────────────
+var _sdvData = null;     // résultat sdv_result en cache si frais
+var SDV_MAX_AGE_DAYS = 30;
+
+function loadSdvResult(){
+  try {
+    var raw = localStorage.getItem('sdv_result');
+    if (!raw) return null;
+    var d = JSON.parse(raw);
+    if (!d || typeof d.delta !== 'number' || !d.age || !d.sexe) return null;
+    // Périmé ?
+    var ageMs = Date.now() - (d.timestamp || 0);
+    if (ageMs > SDV_MAX_AGE_DAYS * 24 * 3600 * 1000) return null;
+    return d;
+  } catch(e){ return null; }
+}
+
+function showSdvBridge(){
+  var d = loadSdvResult();
+  if (!d) return;
+  _sdvData = d;
+  var days = Math.floor((Date.now() - d.timestamp) / (24*3600*1000));
+  var ageDesc = days <= 0 ? "aujourd'hui" : (days === 1 ? "hier" : "il y a " + days + " jours");
+  var deltaStr = (d.delta >= 0 ? '+' : '') + d.delta.toFixed(1);
+  var sign = d.delta < 0 ? '🌱 rajeunissement' : (d.delta > 0 ? '⚠️ vieillissement' : '⚖️ neutre');
+  document.getElementById('sdv-bridge-info').innerHTML =
+    'Tu as calculé ton score ' + ageDesc + '.<br>' +
+    'Delta âge biologique : <strong style="color:var(--green-lt)">' + deltaStr + ' ans</strong> ' + sign + '.<br>' +
+    'Utilise-le directement plutôt que de tout re-remplir.';
+  document.getElementById('sdv-bridge-banner').classList.remove('hidden');
+  // Pré-remplir âge/sexe pour cohérence si l'utilisateur clique manuellement après
+  if (d.age && !document.getElementById('currentAge').value) {
+    document.getElementById('currentAge').value = Math.round(d.age);
+  }
+  if (d.sexe) {
+    document.getElementById('gender').value = d.sexe;
+  }
+}
+
+function dismissSdvBridge(){
+  document.getElementById('sdv-bridge-banner').classList.add('hidden');
+}
+
+/**
+ * Démarre la Montre depuis le résultat du Score de Vie.
+ * Court-circuite le formulaire : on utilise directement
+ * delta_bio → delta_EV via bridge.js, puis on ajoute à baseLifeExpectancy.
+ */
+function startLifeClockFromSdv(){
+  if (!_sdvData) _sdvData = loadSdvResult();
+  if (!_sdvData) { alert('Score de Vie introuvable. Re-calcule ton score d\'abord.'); return; }
+
+  var d = _sdvData;
+  var age = Math.round(d.age);
+  if (!age || age < 1 || age > 120) { alert('Âge invalide dans le Score de Vie.'); return; }
+
+  var gender = d.sexe;  // 'H' ou 'F'
+
+  // Conversion delta bio → delta EV (avec coefficient d'âge chrono)
+  var deltaEV = bioDeltaToLifeYears(d.delta, age);
+
+  var baseLife = baseLifeExpectancy(gender);
+  var totalLife = Math.round(baseLife + deltaEV);
+  totalLife = Math.max(totalLife, age + 1);
+
+  var yearsLeft = Math.max(totalLife - age, 1);
+  var pct = Math.min(Math.round((age/totalLife)*100), 99);
+
+  var endDate = new Date();
+  endDate.setFullYear(endDate.getFullYear() + Math.floor(yearsLeft));
+
+  _state = {
+    endTime: endDate.getTime(), pct: pct, totalLife: totalLife, age: age,
+    yearsLeft: yearsLeft,
+    // Valeurs neutres pour buildProfileMessage (pas d'info Niveau 1 dispo)
+    tobacco: 0, trail: 0, stress: 0, alcohol: 0, sport: 0, moringa: 0,
+    niveau2Actif: true,
+    niveau2Score: Math.round(deltaEV * 10) / 10,  // pour affichage encart bio
+    ldl: 0, tension: 0, glycemie: 0, vo2: 0, vo2Raw: 0,
+    fromSdv: true,
+    sdvDelta: d.delta,
+    sdvBioAge: d.bioAge
+  };
+  saveState(_state);
+
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('display').classList.remove('hidden');
+
+  var grilleUrl = '/grille/?age='+age+'&esperance='+totalLife+'&trail=2';
+  document.getElementById('btn-grille').href = grilleUrl;
+
+  startCountdown();
+}
+
 // ── CALCUL ───────────────────────────────────────────────────────────────
 function getVal(id){return parseInt(document.getElementById(id).value)||0;}
 function getFloat(id){return parseFloat(document.getElementById(id).value)||0;}
@@ -895,46 +1103,59 @@ function startLifeClock(){
   }
 
   // ── NIVEAU 1 ──
-  var gender=getVal('gender');
-  var tobacco=getVal('tobacco');
-  var alcohol=getVal('alcohol');
-  var sleep=getVal('sleep');
-  var bmi=getVal('bmi');
-  var hydration=getVal('hydration');
-  var checkup=getVal('checkup');
+  // NB : getFloat partout (coefficients alignés sur bridge.js peuvent être à virgule, ex -0.5)
+  var gender=document.getElementById('gender').value;  // 'H' ou 'F'
+  var tobacco=getFloat('tobacco');
+  var alcohol=getFloat('alcohol');
+  var sleep=getFloat('sleep');
+  var hydration=getFloat('hydration');
+  var checkup=getFloat('checkup');
   var moderate=getFloat('sportModerate');
   var intense=getFloat('sportIntense');
-  var trail=getVal('trail');
-  var diet=getVal('diet');
-  var stress=getVal('stress');
-  var social=getVal('social');
-  var mindfulness=getVal('mindfulness');
-  var moringa=getVal('moringa');
-  var family=getVal('familyHistory');
-  var pollution=getVal('pollution');
+  var trail=getFloat('trail');
+  var diet=getFloat('diet');
+  var stress=getFloat('stress');
+  var social=getFloat('social');
+  var mindfulness=getFloat('mindfulness');
+  var moringa=getFloat('moringa');
+  var family=getFloat('familyHistory');
+  var pollution=getFloat('pollution');
   var sportBonus=Math.min((moderate*0.8)+(intense*1.5),8);
 
-  var niveau1=gender+tobacco+alcohol+sleep+bmi+hydration+checkup+sportBonus+trail+diet+stress+social+mindfulness+moringa+family+pollution;
+  // IMC continu via bridge.js (delta bio → delta EV approx via -coef d'âge)
+  var bmiRaw=parseFloat(document.getElementById('bmi').value);
+  var bmi=0;
+  if (!isNaN(bmiRaw) && bmiRaw>=10) {
+    // bmiToDelta renvoie delta âge BIO ; on convertit en delta EV (signe inversé × coef)
+    bmi = lifeExpectancyDeltaFromBio(bmiToDelta(bmiRaw), age);
+  }
+
+  var niveau1=tobacco+alcohol+sleep+bmi+hydration+checkup+sportBonus+trail+diet+stress+social+mindfulness+moringa+family+pollution;
 
   // ── NIVEAU 2 ──
   var niveau2Actif=document.getElementById('niveau2-content').classList.contains('visible');
-  var ldl=0,tension=0,glycemie=0,vo2=0,prehension=0,marche=0,dental=0,intestinal=0;
+  var ldl=0,tension=0,glycemie=0,vo2=0,vo2Raw=0,prehension=0,marche=0,dental=0,intestinal=0;
   if(niveau2Actif){
-    ldl=getVal('ldl');
-    tension=getVal('tension');
-    glycemie=getVal('glycemie');
-    vo2=getVal('vo2max');
-    prehension=getVal('prehension');
-    marche=getVal('marcheVitesse');
-    dental=getVal('dental');
-    intestinal=getVal('intestinal');
+    ldl=getFloat('ldl');
+    tension=getFloat('tension');
+    glycemie=getFloat('glycemie');
+    // VO₂max : input numérique → normalisation âge/sexe via bridge.js
+    vo2Raw=parseFloat(document.getElementById('vo2max').value);
+    if (!isNaN(vo2Raw) && vo2Raw>=10) {
+      vo2 = lifeExpectancyDeltaFromBio(vo2maxToDelta(vo2Raw, age, gender), age);
+    }
+    prehension=getFloat('prehension');
+    marche=getFloat('marcheVitesse');
+    dental=getFloat('dental');
+    intestinal=getFloat('intestinal');
   }
   var niveau2Score=ldl+tension+glycemie+vo2+prehension+marche+dental+intestinal;
   // Plafond dur : niveau 2 ne peut pas dépasser +8 ans ni descendre sous -20 ans
   niveau2Score=Math.min(niveau2Score,8);
   niveau2Score=Math.max(niveau2Score,-20);
 
-  var baseLife=(gender===5)?83:78;
+  // Base = INSEE 2024 via bridge.js (85.7 F / 80.0 H)
+  var baseLife=baseLifeExpectancy(gender);
   var totalLife=Math.round(baseLife+niveau1+niveau2Score);
   totalLife=Math.max(totalLife,age+1);
 
@@ -949,7 +1170,8 @@ function startLifeClock(){
     yearsLeft:yearsLeft,tobacco:tobacco,trail:trail,stress:stress,
     alcohol:alcohol,sport:moderate+intense,moringa:moringa,
     niveau2Actif:niveau2Actif,niveau2Score:niveau2Score,
-    ldl:ldl,tension:tension,glycemie:glycemie,vo2:vo2
+    ldl:ldl,tension:tension,glycemie:glycemie,vo2:vo2,vo2Raw:vo2Raw,
+    fromSdv:false
   };
   saveState(_state);
 
@@ -967,15 +1189,31 @@ function startLifeClock(){
 // ── MESSAGES PROFIL ──────────────────────────────────────────────────────
 function buildProfileMessage(s){
   var msgs=[];
+
+  // Mode "depuis Score de Vie" — on ne connaît pas les détails du Niveau 1
+  if (s.fromSdv) {
+    var d = s.sdvDelta;
+    if (d <= -5)       msgs.push('🌱 Ton corps est <strong>plus jeune que ton âge réel</strong> de plusieurs années. Continue.');
+    else if (d <= -2)  msgs.push('🌱 Bon profil — ton âge biologique est inférieur à ton âge chrono.');
+    else if (d <  2)   msgs.push('⚖️ Profil équilibré — ton âge bio est proche de ton âge réel.');
+    else if (d <  5)   msgs.push('⚠️ Léger vieillissement biologique. Quelques leviers à activer.');
+    else               msgs.push('⚠️ Vieillissement biologique marqué. Le Score de Vie a identifié des leviers — applique-les.');
+    msgs.push('🔬 Calcul issu de ton <a href="https://score-de-vie.com" target="_blank" style="color:var(--green-lt)">Score de Vie</a>. Re-fais le test régulièrement pour mesurer tes progrès.');
+    if(s.yearsLeft>=40) msgs.push('🌿 Tu as encore beaucoup de sentiers devant toi. Ne les gâche pas sur un canapé.');
+    else if(s.yearsLeft<15) msgs.push('⏱️ Chaque seconde compte encore plus. Quelles foulées veux-tu encore poser ?');
+    return msgs.join('<br>');
+  }
+
+  // Mode normal (formulaire rempli)
   if(s.moringa===1) msgs.push('🌱 Moringa quotidien — tu es dans le top du peloton longévité.');
   else msgs.push('🌱 Pas de Moringa ? <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:var(--green-lt)">Ebook gratuit →</a>');
   if(s.tobacco<=-8) msgs.push('🚬 La cigarette te coûte plusieurs années. Ton nerf vague le sait déjà.');
-  if(s.alcohol<=-5) msgs.push('🍺 L\'alcool réduit ta VFC la nuit — même un verre. Ta montre GPS ne ment pas.');
-  if(s.stress<=-7) msgs.push('😰 Stress élevé : enfile tes chaussures. Vraiment. C\'est médicalement prouvé.');
+  if(s.alcohol<=-2) msgs.push('🍺 L\'alcool réduit ta VFC la nuit — même un verre. Ta montre GPS ne ment pas.');
+  if(s.stress<=-3) msgs.push('😰 Stress élevé : enfile tes chaussures. Vraiment. C\'est médicalement prouvé.');
   if(s.trail===-1) msgs.push('🏔️ Tu lis Run Nature mais tu ne cours pas encore. C\'est le bon moment.');
   else if(s.trail>=2) msgs.push('🏔️ Trail régulier — tu es clairement sur la bonne piste. Littéralement.');
   if(s.niveau2Actif){
-    if(s.vo2>=5) msgs.push('💪 VO₂max excellent — ton capital cardiovasculaire est un atout majeur.');
+    if(s.vo2>=2) msgs.push('💪 VO₂max excellent — ton capital cardiovasculaire est un atout majeur.');
     if(s.ldl<=-3) msgs.push('⚠️ LDL élevé — alimentation et activité physique peuvent faire la différence.');
     if(s.tension<=-4) msgs.push('❤️ Hypertension détectée — parles-en à ton médecin si ce n\'est pas fait.');
     if(s.glycemie<=-4) msgs.push('🍬 Glycémie préoccupante — réduire les sucres rapides et augmenter l\'activité.');
@@ -1002,14 +1240,23 @@ function startCountdown(){
     document.getElementById('years-left-label').textContent=s.yearsLeft+' ans restants estimés';
   },300);
 
-  // Score niveau 2
+  // Score niveau 2 / Pont Score de Vie
   if(s.niveau2Actif && s.niveau2Score!==0){
     var box=document.getElementById('bio-score-box');
     var val=document.getElementById('bio-score-val');
+    var lbl=box.querySelector('.bio-score-lbl');
     box.classList.remove('hidden');
     var sign=s.niveau2Score>0?'+':'';
     val.textContent=sign+s.niveau2Score+' ans';
     val.style.color=s.niveau2Score>0?'#a8f0d0':'#f87171';
+    if (lbl) {
+      if (s.fromSdv) {
+        var dStr = (s.sdvDelta >= 0 ? '+' : '') + s.sdvDelta.toFixed(1);
+        lbl.innerHTML = 'Calculé depuis ton Score de Vie (delta bio : ' + dStr + ' ans)';
+      } else {
+        lbl.textContent = 'Bonus / Malus biomarqueurs niveau 2';
+      }
+    }
   }
 
   var msgEl=document.getElementById('profile-msg');
@@ -1118,6 +1365,9 @@ window.addEventListener('DOMContentLoaded', function(){
     var grilleUrl = '/grille/?age='+saved.age+'&esperance='+saved.totalLife+'&trail='+trailSorties;
     document.getElementById('btn-grille').href = grilleUrl;
     startCountdown();
+  } else {
+    // Pas de session active → on regarde si un sdv_result frais existe
+    showSdvBridge();
   }
 });
 </script>

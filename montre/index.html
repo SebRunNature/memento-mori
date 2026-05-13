@@ -390,6 +390,12 @@ select option{background:var(--card)}
         onmouseover="this.style.color='#a8f0d0'" onmouseout="this.style.color='rgba(168,240,208,.4)'">
         ← Accueil
       </a>
+      <a href="https://montre-de-vie.com/score/" style="position:absolute;right:0;top:0;
+        font-family:'Bebas Neue',sans-serif;font-size:.78rem;letter-spacing:2px;
+        color:rgba(168,240,208,.4);text-decoration:none;transition:color .2s;padding:4px 0"
+        onmouseover="this.style.color='#a8f0d0'" onmouseout="this.style.color='rgba(168,240,208,.4)'">
+        🧬 Score de Vie →
+      </a>
       <svg width="34" height="34" viewBox="0 0 44 44" fill="none">
         <circle cx="22" cy="22" r="22" fill="rgba(45,158,114,.2)"/>
         <path d="M10 32 L18 18 L24 24 L30 14 L34 20" stroke="#a8f0d0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -425,7 +431,7 @@ select option{background:var(--card)}
         color:#fff; border:none; padding:11px 18px; border-radius:10px;
         font-family:'Bebas Neue',sans-serif; font-size:.95rem; letter-spacing:1.5px;
         cursor:pointer; transition:all .2s">
-        ⚡ Utiliser mon Score de Vie
+        ⚡ Pré-remplir le formulaire
       </button>
       <button onclick="dismissSdvBridge()" style="
         background:transparent; color:var(--muted); border:1px solid var(--border);
@@ -491,13 +497,6 @@ select option{background:var(--card)}
       </select>
     </div>
     <div class="input-group">
-      <label>IMC</label>
-      <input type="number" id="bmi" placeholder="Ex : 22.5" min="10" max="60" step="0.1">
-      <p class="hint">Poids (kg) ÷ taille² (m). Sweet spot : ~22</p>
-    </div>
-  </div>
-  <div class="grid-2">
-    <div class="input-group">
       <label>Hydratation / jour</label>
       <select id="hydration">
         <option value="2">2L et plus ✓</option>
@@ -505,6 +504,21 @@ select option{background:var(--card)}
         <option value="-2">Moins de 1L — le café ne compte pas</option>
       </select>
     </div>
+    <div class="input-group">
+      <label>Taille (cm)</label>
+      <input type="number" id="taille" placeholder="Ex : 175" min="140" max="220" step="1" oninput="updateBmiAuto()">
+    </div>
+    <div class="input-group">
+      <label>Poids (kg)</label>
+      <input type="number" id="poids" placeholder="Ex : 70" min="40" max="200" step="0.5" oninput="updateBmiAuto()">
+    </div>
+    <div class="input-group" style="grid-column:1/-1">
+      <label>IMC <span id="bmi-feedback" style="color:var(--green-lt);font-size:.78rem;font-weight:700;margin-left:8px"></span></label>
+      <input type="number" id="bmi" placeholder="Calculé automatiquement" min="10" max="60" step="0.1" readonly style="background:var(--card2);color:var(--green-lt);cursor:not-allowed">
+      <p class="hint">Calculé à partir de ta taille et ton poids. Sweet spot : ~22</p>
+    </div>
+  </div>
+  <div class="grid-2">
     <div class="input-group">
       <label>Bilan médical régulier</label>
       <select id="checkup">
@@ -938,7 +952,10 @@ var _state = null;
 
 // ── LOCALSTORAGE ─────────────────────────────────────────────────────────
 function saveState(s){
-  try{ localStorage.setItem('mdv_state', JSON.stringify(s)); }catch(e){}
+  try{
+    s.savedAt = Date.now();  // pour comparer avec sdv_result.timestamp
+    localStorage.setItem('mdv_state', JSON.stringify(s));
+  }catch(e){}
 }
 function loadState(){
   try{
@@ -991,6 +1008,29 @@ function showMoringaMsg(){
     el.innerHTML='🌱 Pas encore ? <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:#e8b070;text-decoration:underline">Ebook gratuit ici →</a>';
   }
 }
+
+// ── CALCUL AUTO DE L'IMC ────────────────────────────────────────────────
+function updateBmiAuto(){
+  var taille = parseFloat(document.getElementById('taille').value);
+  var poids  = parseFloat(document.getElementById('poids').value);
+  var bmiEl  = document.getElementById('bmi');
+  var fbEl   = document.getElementById('bmi-feedback');
+  if (!taille || !poids || taille < 140 || taille > 220 || poids < 40 || poids > 200) {
+    bmiEl.value = '';
+    if (fbEl) fbEl.textContent = '';
+    return;
+  }
+  var bmi = poids / Math.pow(taille / 100, 2);
+  bmiEl.value = bmi.toFixed(1);
+  if (!fbEl) return;
+  if (bmi < 18.5)      { fbEl.textContent = '· Maigreur'; fbEl.style.color = '#e8b070'; }
+  else if (bmi < 22)   { fbEl.textContent = '· Optimal ✓'; fbEl.style.color = 'var(--green-lt)'; }
+  else if (bmi < 25)   { fbEl.textContent = '· Normal'; fbEl.style.color = 'var(--green-lt)'; }
+  else if (bmi < 28)   { fbEl.textContent = '· Surpoids léger'; fbEl.style.color = '#e8b070'; }
+  else if (bmi < 32)   { fbEl.textContent = '· Surpoids'; fbEl.style.color = '#e8b070'; }
+  else                 { fbEl.textContent = '· Obésité'; fbEl.style.color = '#f87171'; }
+}
+
 // ── PONT SCORE DE VIE ────────────────────────────────────────────────────
 var _sdvData = null;     // résultat sdv_result en cache si frais
 var SDV_MAX_AGE_DAYS = 30;
@@ -1019,7 +1059,7 @@ function showSdvBridge(){
   document.getElementById('sdv-bridge-info').innerHTML =
     'Tu as calculé ton score ' + ageDesc + '.<br>' +
     'Delta âge biologique : <strong style="color:var(--green-lt)">' + deltaStr + ' ans</strong> ' + sign + '.<br>' +
-    'Utilise-le directement plutôt que de tout re-remplir.';
+    'On peut pré-remplir le formulaire avec tes données pour gagner du temps.';
   document.getElementById('sdv-bridge-banner').classList.remove('hidden');
   // Pré-remplir âge/sexe pour cohérence si l'utilisateur clique manuellement après
   if (d.age && !document.getElementById('currentAge').value) {
@@ -1035,54 +1075,140 @@ function dismissSdvBridge(){
 }
 
 /**
- * Démarre la Montre depuis le résultat du Score de Vie.
- * Court-circuite le formulaire : on utilise directement
- * delta_bio → delta_EV via bridge.js, puis on ajoute à baseLifeExpectancy.
+ * Toast discret affiché quand l'utilisateur a déjà un décompte actif
+ * MAIS qu'un sdv_result plus récent existe. Propose de recalculer.
+ */
+function showSdvBridgeOverDisplay(){
+  if (!_sdvData) _sdvData = loadSdvResult();
+  if (!_sdvData) return;
+  // Évite de réafficher si déjà dismissed cette session
+  if (sessionStorage.getItem('sdvToastDismissed') === '1') return;
+
+  var toast = document.createElement('div');
+  toast.id = 'sdv-refresh-toast';
+  toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);' +
+    'background:#131a16;border:1px solid rgba(45,158,114,.5);' +
+    'border-radius:14px;padding:14px 18px;z-index:999;max-width:92%;' +
+    'box-shadow:0 8px 32px rgba(0,0,0,.5);font-family:Nunito,sans-serif;';
+  var deltaStr = (_sdvData.delta >= 0 ? '+' : '') + _sdvData.delta.toFixed(1);
+  toast.innerHTML =
+    '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">' +
+      '<div style="flex:1;min-width:180px">' +
+        '<div style="font-family:Bebas Neue,sans-serif;font-size:.95rem;letter-spacing:1.5px;color:#a8f0d0;margin-bottom:3px">' +
+          '🧬 NOUVEAU SCORE DE VIE' +
+        '</div>' +
+        '<div style="font-size:.78rem;color:#5a8a7a;font-weight:600">' +
+          'Delta âge bio : <strong style="color:#a8f0d0">' + deltaStr + ' ans</strong>. Recalculer ?' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:6px">' +
+        '<button id="sdv-toast-yes" style="background:linear-gradient(135deg,#1a6b4a,#2d9e72);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:Bebas Neue,sans-serif;font-size:.78rem;letter-spacing:1.2px;cursor:pointer">⚡ OUI</button>' +
+        '<button id="sdv-toast-no" style="background:transparent;color:#5a8a7a;border:1px solid #243028;padding:8px 12px;border-radius:8px;font-size:.7rem;font-weight:700;cursor:pointer">×</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(toast);
+  document.getElementById('sdv-toast-yes').onclick = function(){
+    toast.remove();
+    clearState();
+    startLifeClockFromSdv();
+  };
+  document.getElementById('sdv-toast-no').onclick = function(){
+    sessionStorage.setItem('sdvToastDismissed', '1');
+    toast.remove();
+  };
+}
+
+/**
+ * Pré-remplit le formulaire Montre avec les données du Score de Vie.
+ * L'utilisateur peut ensuite compléter les champs propres à la Montre
+ * (hydratation, sport, trail, moringa, etc.) puis cliquer "Lancer".
  */
 function startLifeClockFromSdv(){
   if (!_sdvData) _sdvData = loadSdvResult();
   if (!_sdvData) { alert('Score de Vie introuvable. Re-calcule ton score d\'abord.'); return; }
 
   var d = _sdvData;
-  var age = Math.round(d.age);
-  if (!age || age < 1 || age > 120) { alert('Âge invalide dans le Score de Vie.'); return; }
+  var filled = 0;
 
-  var gender = d.sexe;  // 'H' ou 'F'
+  // ─── Champs simples (input numérique) ───
+  function setInput(id, val) {
+    if (val == null || val === '') return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.value = val;
+    filled++;
+  }
+  // ─── Selects via correspondance clé Score → value Montre ───
+  function setSelect(id, val) {
+    if (!val) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    // Cherche l'option matching
+    for (var i = 0; i < el.options.length; i++) {
+      if (String(el.options[i].value) === String(val)) {
+        el.selectedIndex = i;
+        filled++;
+        return;
+      }
+    }
+  }
 
-  // Conversion delta bio → delta EV (avec coefficient d'âge chrono)
-  var deltaEV = bioDeltaToLifeYears(d.delta, age);
+  // Tables de correspondance Score → Montre (delta EV en string, comme dans le <option value="X">)
+  var tobaccoMap = {non:'0', ex:'-1', occ:'-3', oui:'-8', lourd:'-12'};
+  var alcoholMap = {non:'0', occ:'0', mod:'-0.5', eleve:'-2', excessif:'-5'};
+  var stressMap  = {gere:'0.5', faible:'0', mod:'-1', eleve:'-3'};
+  var sleepMap   = {'<6':'-3', '6':'-1.5', '7-8':'2', '>9':'-1.5'};
+  var ldlMap     = {'<1.0':'1', '1.0-1.29':'0', '1.3-1.59':'-1', '1.6-1.89':'-3', '>=1.9':'-5'};
+  var tensionMap = {'<120':'1', '120-129':'0', '130-139':'-1', '140-159':'-4', '>=160':'-6'};
+  var glycMap    = {opt:'1', limite:'-1', prediabete:'-4', diabete:'-7'};
+  var socialMap  = {fort:'1', bons:'0', superficiel:'-0.5', isole:'-2'};
+  var pollMap    = {faible:'0', moyenne:'-0.5', eleve:'-1.5', tres_eleve:'-2.5'};
+  var antecMap   = {excellents:'1', neutres:'0', cardio:'-1', precoces:'-2'};
 
-  var baseLife = baseLifeExpectancy(gender);
-  var totalLife = Math.round(baseLife + deltaEV);
-  totalLife = Math.max(totalLife, age + 1);
+  // Pré-remplissage
+  setInput('currentAge', Math.round(d.age));
+  setSelect('gender',    d.sexe);
+  setInput('taille',     d.taille);
+  setInput('poids',      d.poids);
+  setInput('vo2max',     d.vo2max);
+  setSelect('tobacco',   tobaccoMap[d.tabac]);
+  setSelect('alcohol',   alcoholMap[d.alcool]);
+  setSelect('stress',    stressMap[d.stress]);
+  setSelect('sleep',     sleepMap[d.sleep_dur]);
+  setSelect('ldl',       ldlMap[d.ldl]);
+  setSelect('tension',   tensionMap[d.tension]);
+  setSelect('glycemie',  glycMap[d.glycemie]);
+  setSelect('social',    socialMap[d.social]);
+  setSelect('pollution', pollMap[d.pollution]);
+  setSelect('familyHistory', antecMap[d.antecedents]);
 
-  var yearsLeft = Math.max(totalLife - age, 1);
-  var pct = Math.min(Math.round((age/totalLife)*100), 99);
+  // Calcul IMC auto à partir de taille/poids
+  updateBmiAuto();
 
-  var endDate = new Date();
-  endDate.setFullYear(endDate.getFullYear() + Math.floor(yearsLeft));
+  // Ouvrir le Niveau 2 si on a au moins un biomarqueur
+  if (d.vo2max || d.ldl || d.tension || d.glycemie) {
+    var niv2 = document.getElementById('niveau2-content');
+    var arrow = document.getElementById('toggle-arrow');
+    if (niv2 && !niv2.classList.contains('visible')) {
+      niv2.classList.add('visible');
+      if (arrow) arrow.classList.add('open');
+    }
+  }
 
-  _state = {
-    endTime: endDate.getTime(), pct: pct, totalLife: totalLife, age: age,
-    yearsLeft: yearsLeft,
-    // Valeurs neutres pour buildProfileMessage (pas d'info Niveau 1 dispo)
-    tobacco: 0, trail: 0, stress: 0, alcohol: 0, sport: 0, moringa: 0,
-    niveau2Actif: true,
-    niveau2Score: Math.round(deltaEV * 10) / 10,  // pour affichage encart bio
-    ldl: 0, tension: 0, glycemie: 0, vo2: 0, vo2Raw: 0,
-    fromSdv: true,
-    sdvDelta: d.delta,
-    sdvBioAge: d.bioAge
-  };
-  saveState(_state);
+  // Masquer la bannière sdv et scroller en haut du formulaire
+  dismissSdvBridge();
+  // Message confirmation discret
+  var toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);' +
+    'background:rgba(45,158,114,.95);color:#fff;padding:12px 22px;border-radius:28px;' +
+    'font-family:Bebas Neue,sans-serif;font-size:.9rem;letter-spacing:1.5px;' +
+    'z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:opacity .3s';
+  toast.textContent = '✓ ' + filled + ' champs pré-remplis — complète le reste';
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.style.opacity = '0'; setTimeout(function(){ if(toast.parentNode) toast.remove(); }, 400); }, 3500);
 
-  document.getElementById('setup').classList.add('hidden');
-  document.getElementById('display').classList.remove('hidden');
-
-  var grilleUrl = '/grille/?age='+age+'&esperance='+totalLife+'&trail=2';
-  document.getElementById('btn-grille').href = grilleUrl;
-
-  startCountdown();
+  // Scroll vers le haut du formulaire en douceur
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── CALCUL ───────────────────────────────────────────────────────────────
@@ -1385,7 +1511,12 @@ function resetAll(){
 window.addEventListener('DOMContentLoaded', function(){
   showMoringaMsg();
   var saved = loadState();
-  if(saved && saved.endTime && saved.endTime > Date.now()){
+  var sdv = loadSdvResult();
+
+  // Cas 1 : session Montre active ET pas de sdv_result plus récent
+  // → on reprend le décompte existant
+  if(saved && saved.endTime && saved.endTime > Date.now()
+     && (!sdv || sdv.timestamp < (saved.savedAt || 0))){
     _state = saved;
     document.getElementById('setup').classList.add('hidden');
     document.getElementById('display').classList.remove('hidden');
@@ -1393,8 +1524,14 @@ window.addEventListener('DOMContentLoaded', function(){
     var grilleUrl = '/grille/?age='+saved.age+'&esperance='+saved.totalLife+'&trail='+trailSorties;
     document.getElementById('btn-grille').href = grilleUrl;
     startCountdown();
+    // On affiche quand même la bannière si un sdv_result existe
+    // → permet de basculer vers un calcul plus récent depuis le Score
+    if (sdv && sdv.timestamp > (saved.savedAt || 0)) {
+      // décalé pour ne pas perturber l'affichage du décompte
+      setTimeout(showSdvBridgeOverDisplay, 800);
+    }
   } else {
-    // Pas de session active → on regarde si un sdv_result frais existe
+    // Cas 2 : pas de session active → on montre la bannière sdv_result si dispo
     showSdvBridge();
   }
 });

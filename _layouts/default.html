@@ -5,162 +5,185 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-
-  <!-- Open Graph -->
   <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
   <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:site_name" content="{{ site.title }}">
-
-  <!-- Favicon & App Icons -->
-<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />
-
-  <!-- Canonical -->
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #2d9e72; --green-dk: #1a6b4a; --green-lt: #a8f0d0;
-      --bg: #0a0f0c; --card: #131a16; --card2: #1a2620;
-      --text: #e8f5f0; --muted: #5a8a7a; --border: #243028;
-      --radius: 14px; --amber: #c8873a;
+      --bg:       #09090b;
+      --surface:  #18181b;
+      --surface2: #27272a;
+      --border:   #27272a;
+      --border2:  #3f3f46;
+      --text:     #e4e4e7;
+      --muted:    #71717a;
+      --dim:      #52525b;
+      --green:    #009862;
+      --green-dk: #006b44;
+      --green-lt: #a0facf;
+      --amber:    #f59e0b;
+      --amber-dk: #d97706;
+      --amber-lt: #fde68a;
+      --radius:   14px;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { min-height: 100%; font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;
+      font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden;
+      -webkit-font-smoothing:antialiased}
 
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(10,15,12,.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px; display: flex; align-items: center; justify-content: space-between;
-      height: 56px;
+    /* NAV */
+    .site-nav{position:fixed;top:0;left:0;right:0;z-index:100;
+      background:rgba(9,9,11,.92);backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .site-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
+      display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
+      letter-spacing:-.02em;color:var(--text);text-decoration:none;transition:color .2s}
+    .nav-brand:hover{color:#fff}
+    .nav-brand-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nav-brand-icon svg{width:14px;height:14px;stroke:#000}
+    .nav-links{display:flex;align-items:center;gap:2px}
+    .nav-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;
+      padding:6px 12px;border-radius:8px;transition:all .2s}
+    .nav-link:hover{color:var(--text);background:var(--surface2)}
+    .nav-link.active{color:var(--text)}
+    .nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
+      border:1px solid rgba(0,152,98,.2);font-weight:600}
+    .nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+    @media(max-width:600px){
+      .site-nav-inner{padding:0 16px}
+      .nav-link{font-size:.78rem;padding:5px 8px}
+      .nav-link[href="/apropos/"]{display:none}
     }
-    .nav-brand {
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
-      letter-spacing: 2px; color: var(--green-lt); text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .nav-links { display: flex; gap: 24px; }
-    .nav-links a {
-      font-size: .8rem; font-weight: 800; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--muted); text-decoration: none;
-      transition: color .2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--green-lt); }
 
-    /* ── MAIN ── */
-    main { width: 100%; max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    /* MAIN */
+    main{padding-top:60px}
+    .content-wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px}
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border); text-align: center;
-      padding: 28px 24px; font-size: .72rem; color: var(--muted); font-weight: 700;
-    }
-    footer a { color: var(--green); text-decoration: none; }
-    footer a:hover { color: var(--green-lt); }
+    /* BLOG CARDS */
+    .post-list{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+    .post-card{background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--radius);padding:20px 22px;text-decoration:none;
+      color:var(--text);transition:border-color .2s,transform .15s;display:block}
+    .post-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+    .post-card-date{font-size:.72rem;font-weight:600;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--dim);margin-bottom:6px;display:none}
+    .post-card-title{font-size:1.05rem;font-weight:700;color:var(--text);
+      margin-bottom:5px;letter-spacing:-.01em;line-height:1.35}
+    .post-card-excerpt{font-size:.875rem;color:var(--muted);line-height:1.6}
 
-    /* ── BLOG LIST ── */
-    .post-list { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
-    .post-card {
-      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 22px 24px; text-decoration: none; color: var(--text);
-      transition: border-color .2s; display: block;
-    }
-    .post-card:hover { border-color: var(--green); }
-    .post-card-date { font-size: .65rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .post-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 1px; color: var(--green-lt); margin-bottom: 8px; }
-    .post-card-excerpt { font-size: .88rem; color: var(--muted); line-height: 1.6; font-weight: 600; }
+    /* ARTICLE */
+    article h1{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:800;
+      letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:16px}
+    article h1 em{color:var(--amber-lt);font-style:normal}
+    article .post-meta{display:none}
+    article h2{font-size:1.4rem;font-weight:700;letter-spacing:-.02em;
+      color:var(--text);margin:40px 0 12px}
+    article h3{font-size:1.1rem;font-weight:700;color:var(--text);margin:28px 0 8px}
+    article p{font-size:1rem;line-height:1.8;color:rgba(228,228,231,.85);margin-bottom:16px}
+    article a{color:var(--amber-lt);text-decoration:underline;text-underline-offset:3px}
+    article a:hover{color:#fff}
+    article ul,article ol{padding-left:20px;margin-bottom:16px}
+    article li{font-size:1rem;line-height:1.8;color:rgba(228,228,231,.85);margin-bottom:4px}
+    article blockquote{border-left:3px solid var(--amber);padding:12px 18px;
+      margin:24px 0;background:rgba(245,158,11,.06);border-radius:0 10px 10px 0}
+    article blockquote p{color:var(--amber-lt);font-style:italic;margin:0}
+    article strong{color:#fff;font-weight:700}
+    article em{color:var(--amber-lt)}
+    article hr{border:none;border-top:1px solid var(--border);margin:36px 0}
+    article table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem}
+    article thead tr{background:var(--surface)}
+    article th{padding:11px 14px;text-align:left;font-weight:600;font-size:.78rem;
+      letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+      border-bottom:1px solid var(--border)}
+    article td{padding:10px 14px;border-bottom:1px solid var(--border);
+      color:rgba(228,228,231,.85);line-height:1.6}
+    article tr:hover td{background:rgba(255,255,255,.02)}
+    article code{background:var(--surface2);border:1px solid var(--border);
+      border-radius:5px;padding:2px 6px;font-size:.84rem;color:var(--amber-lt)}
 
-    /* ── ARTICLE ── */
-    article h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem,5vw,3rem); letter-spacing: 2px; color: var(--text); margin-bottom: 12px; }
-    article h1 em { color: var(--green-lt); font-style: normal; }
-    article .post-meta { display: none; }
-    article h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--green-lt); margin: 36px 0 14px; }
-    article h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: var(--green-lt); margin: 24px 0 10px; }
-    article p { font-size: 1rem; line-height: 1.8; color: rgba(232,245,240,.8); margin-bottom: 18px; font-weight: 600; text-align: justify; }
-    article a { color: var(--green-lt); text-decoration: none; }
-    article a:hover { color: var(--green); text-decoration: underline; }
-    article ul, article ol { padding-left: 22px; margin-bottom: 18px; }
-    article li { font-size: 1rem; line-height: 1.8; color: rgba(232,245,240,.8); font-weight: 600; margin-bottom: 6px; }
-    article blockquote { border-left: 3px solid var(--green); padding: 12px 18px; margin: 24px 0; background: rgba(45,158,114,.06); border-radius: 0 10px 10px 0; }
-    article blockquote p { color: var(--green-lt); font-style: italic; margin: 0; text-align: left; }
-    article strong { color: var(--text); font-weight: 800; }
-    article em { color: var(--green-lt); font-style: italic; }
-    article hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+    /* CTA PARTAGÉ */
+    .cta-montre{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(217,119,6,.06));
+      border:1px solid rgba(245,158,11,.2);border-radius:var(--radius);
+      padding:28px 24px;text-align:center;margin:40px 0}
+    .cta-montre p{font-size:.9rem;color:var(--muted);margin-bottom:14px}
+    .cta-montre a{display:inline-block;background:var(--amber);color:#000;
+      text-decoration:none;padding:13px 30px;border-radius:10px;
+      font-size:.95rem;font-weight:700;letter-spacing:-.01em;
+      transition:all .2s;box-shadow:0 4px 16px rgba(245,158,11,.2)}
+    .cta-montre a:hover{background:var(--amber-dk);transform:translateY(-1px);
+      box-shadow:0 8px 24px rgba(245,158,11,.3);color:#000}
 
-    /* ── TABLES MARKDOWN ── */
-    article table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: .88rem; }
-    article thead tr { background: var(--card2); }
-    article th { padding: 11px 14px; text-align: left; font-family: 'Bebas Neue', sans-serif; font-size: .95rem; letter-spacing: 1px; color: var(--green-lt); border-bottom: 2px solid var(--border); }
-    article td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.6; }
-    article tr:nth-child(even) { background: rgba(19,26,22,.5); }
-    article tr:hover td { background: rgba(45,158,114,.04); }
+    /* FOOTER */
+    .site-footer{background:var(--surface);border-top:1px solid var(--border);
+      padding:36px 24px;text-align:center}
+    .site-footer-inner{max-width:1024px;margin:0 auto}
+    .footer-links{display:flex;align-items:center;justify-content:center;
+      gap:6px;flex-wrap:wrap;margin-bottom:14px}
+    .footer-link{font-size:.875rem;font-weight:500;color:var(--muted);
+      text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
+    .footer-link:hover{color:var(--text)}
+    .footer-sep{color:var(--dim);font-size:.75rem}
+    .footer-copy{font-size:.8rem;color:var(--dim);line-height:1.6}
+    .footer-copy a{color:var(--dim);text-decoration:none}
+    .footer-copy a:hover{color:var(--muted)}
 
-    /* ── CODE INLINE ── */
-    article code { background: var(--card2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; font-size: .85rem; color: var(--green-lt); }
-
-    /* ── SOURCES / LIENS EXTERNES ── */
-    article ul li a { color: var(--green); }
-
-    /* ── CTA MONTRE ── */
-    .cta-montre {
-      background: linear-gradient(135deg, rgba(26,107,74,.3), rgba(45,158,114,.15));
-      border: 1px solid rgba(45,158,114,.3); border-radius: var(--radius);
-      padding: 28px 24px; text-align: center; margin: 40px 0;
-    }
-    .cta-montre p { font-size: .9rem; color: var(--muted); margin-bottom: 16px; }
-    .cta-montre a {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--green-dk), var(--green));
-      color: #fff; text-decoration: none; padding: 14px 36px;
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 3px;
-      border-radius: 12px; transition: all .2s;
-      box-shadow: 0 4px 20px rgba(45,158,114,.3);
-    }
-    .cta-montre a:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,158,114,.45); }
-
-    /* ── DATE CACHÉE LISTING BLOG ── */
-    .post-card-date { display: none; }
-
-    @media(max-width: 600px) {
-      nav { padding: 0 16px; }
-      .nav-links { gap: 14px; }
-      main { padding: 32px 16px 60px; }
-    }
+    @media(max-width:600px){.content-wrap{padding:32px 16px 60px}}
   </style>
 </head>
 <body>
 
-<nav>
-  <a class="nav-brand" href="/">
-    ⏱ Montre de Vie
-  </a>
-  <div class="nav-links">
-    <a href="/montre/" {% if page.url contains '/montre' %}class="active"{% endif %}>La montre</a>
-    <a href="/blog/" {% if page.url contains '/blog' %}class="active"{% endif %}>Blog</a>
-    <a href="/apropos/" {% if page.url contains '/apropos' %}class="active"{% endif %}>À propos</a>
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a class="nav-brand" href="/">
+      <div class="nav-brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      Montre de Vie
+    </a>
+    <div class="nav-links">
+      <a href="/montre/"  class="nav-link {% if page.url contains '/montre'  %}active{% endif %}">La Montre</a>
+      <a href="/score/"   class="nav-link nav-link-score {% if page.url contains '/score' %}active{% endif %}">Score de Vie</a>
+      <a href="/blog/"    class="nav-link {% if page.url contains '/blog'    %}active{% endif %}">Blog</a>
+      <a href="/apropos/" class="nav-link {% if page.url contains '/apropos' %}active{% endif %}">À propos</a>
+    </div>
   </div>
 </nav>
 
-<main>
-  {{ content }}
-</main>
+<main>{{ content }}</main>
 
-<footer>
-  <p>© {{ 'now' | date: '%Y' }} <a href="https://run-nature.com" target="_blank">Run Nature</a> — Sébastien Salomon &nbsp;·&nbsp; <a href="/montre/">Lancer la montre</a> &nbsp;·&nbsp; <a href="/apropos/">À propos</a></p>
-  <p style="margin-top:8px;font-size:.65rem;opacity:.6">Outil indicatif, non médical. Chaque seconde compte — ne la gâche pas.</p>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-links">
+      <a class="footer-link" href="/">Accueil</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/montre/">La Montre</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/score/">Score de Vie</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/blog/">Blog</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/apropos/">À propos</a>
+    </div>
+    <p class="footer-copy">
+      Outil indicatif — pas un conseil médical ·
+      © {{ 'now' | date: '%Y' }} <a href="https://run-nature.com" target="_blank">Run Nature</a>
+    </p>
+  </div>
 </footer>
 
-<!-- OneSignal Push Notifications -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -168,12 +191,9 @@
     await OneSignal.init({
       appId: "74f8002f-eafa-4b82-9942-48e3ec032bef",
       safari_web_id: "web.onesignal.auto.01ea4289-b460-45e4-8d90-838752554827",
-      notifyButton: {
-        enable: true,
-      },
+      notifyButton: { enable: true },
     });
   });
 </script>
-
 </body>
 </html>

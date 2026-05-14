@@ -1,6 +1,6 @@
 // Montre de Vie — Service Worker
 // Version du cache — incrémente pour forcer la mise à jour
-var CACHE_VERSION = 'montre-vie-v6';
+var CACHE_VERSION = 'montre-vie-v7';
 
 // Fichiers à mettre en cache pour le mode offline
 var CACHE_FILES = [

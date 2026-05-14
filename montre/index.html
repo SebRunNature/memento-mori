@@ -434,6 +434,27 @@ select option{background:var(--card)}
 <!-- ══ APP ══ -->
 <div id="app">
 
+<!-- PROGRESS BAR STICKY (visible pendant le remplissage du formulaire) -->
+<div id="mdvStickyProgress" style="
+  position:sticky; top:0; z-index:98;
+  background:rgba(10,15,12,0.95); backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(45,158,114,0.2);
+  padding:8px 16px 10px;
+  margin:0 -14px 0;
+  transition:opacity .4s, max-height .4s;
+">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;max-width:700px;margin-left:auto;margin-right:auto">
+    <span style="font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Questionnaire</span>
+    <span id="mdvProgressPct" style="font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.05em;color:var(--green-lt)">0%</span>
+  </div>
+  <div style="max-width:700px;margin:0 auto">
+    <div style="height:3px;background:rgba(45,158,114,.12);border-radius:2px;overflow:hidden">
+      <div id="mdvProgressFill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--green-dk),var(--green) 60%,var(--green-lt));border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ ÉTAPE 1 : FORMULAIRE ══ -->
 <div id="setup">
   <div class="header">
@@ -463,17 +484,6 @@ select option{background:var(--card)}
   </div>
 
   <div class="warning">⚠ Outil indicatif, pas médical. Mais si ça te pousse à courir un peu plus souvent, c'est déjà gagné.</div>
-
-  <!-- PROGRESS BAR (formulaire Niveau 1) -->
-  <div class="mdv-progress-wrap" id="mdvProgressWrap">
-    <div class="mdv-progress-info">
-      <span class="mdv-progress-label">Progression du questionnaire</span>
-      <span class="mdv-progress-pct" id="mdvProgressPct">0%</span>
-    </div>
-    <div class="mdv-progress-track">
-      <div class="mdv-progress-fill" id="mdvProgressFill"></div>
-    </div>
-  </div>
 
   <!-- ── BANNIÈRE PONT SCORE DE VIE ── -->
   <div id="sdv-bridge-banner" class="hidden" style="
@@ -741,29 +751,19 @@ select option{background:var(--card)}
       <div class="input-group">
         <label>VO₂max (ml/kg/min)</label>
         <input type="number" id="vo2max" placeholder="Ex : 45" min="10" max="90" step="0.1">
-        <p class="hint">Ta montre GPS te donne cette valeur. Normalisé selon âge & sexe. Laisse vide si inconnu. Seb : 54 🏔️</p>
+        <p class="hint">Ta montre GPS (Garmin, COROS, Polar) te donne cette valeur. Normalisé selon âge & sexe. Laisse vide si inconnu.</p>
       </div>
 
       <div class="input-group">
-        <label>Force de préhension <span class="info-btn" onclick="openPopup('popup-prehension')">?</span></label>
-        <select id="prehension">
-          <option value="0">Je ne sais pas — neutre</option>
-          <option value="1">Excellent (H &gt; 40kg / F &gt; 25kg) ✓</option>
-          <option value="0">Normal (H 30-40kg / F 20-25kg)</option>
-          <option value="-2">Faible (H 20-30kg / F 15-20kg) ⚠️</option>
-          <option value="-3">Très faible ❌</option>
-        </select>
+        <label>Force de préhension (kg) <span class="info-btn" onclick="openPopup('popup-prehension')">?</span></label>
+        <input type="number" id="prehension" placeholder="Ex : 42" min="5" max="80" step="1">
+        <p class="hint">Dynamomètre ou test en salle de sport. Optimal : H &gt; 40 kg / F &gt; 25 kg. Laisse vide si inconnu.</p>
       </div>
 
       <div class="input-group">
-        <label>Vitesse de marche <span class="info-btn" onclick="openPopup('popup-marche')">?</span></label>
-        <select id="marcheVitesse">
-          <option value="0">Je ne sais pas — neutre</option>
-          <option value="1">&gt; 1,4 m/s — Excellent ✓</option>
-          <option value="0">1,2 – 1,4 m/s — Normal</option>
-          <option value="-2">0,8 – 1,2 m/s — Vigilance ⚠️</option>
-          <option value="-4">&lt; 0,8 m/s — Alerte ❌</option>
-        </select>
+        <label>Vitesse de marche (m/s) <span class="info-btn" onclick="openPopup('popup-marche')">?</span></label>
+        <input type="number" id="marcheVitesse" placeholder="Ex : 1.4" min="0.3" max="3" step="0.1">
+        <p class="hint">Marche sur 4m, mesure le temps. &gt; 1,4 m/s = excellent. Laisse vide si inconnu.</p>
       </div>
 
       <div class="section-title">🦷 Santé dentaire & intestinale</div>
@@ -1031,6 +1031,33 @@ function bmiToDelta(bmi) {
   return +3;
 }
 
+// Force de préhension → delta âge BIO (Leong et al., Lancet 2015)
+function gripToDelta(grip, sexe) {
+  if (!grip || grip < 5) return 0;
+  if (sexe === 'F') {
+    if (grip >= 30) return -2;
+    if (grip >= 25) return -1;
+    if (grip >= 20) return  0;
+    if (grip >= 15) return +2;
+    return +4;
+  } else {
+    if (grip >= 45) return -2;
+    if (grip >= 40) return -1;
+    if (grip >= 30) return  0;
+    if (grip >= 20) return +2;
+    return +4;
+  }
+}
+
+// Vitesse de marche → delta âge BIO (Studenski et al., JAMA 2011)
+function walkToDelta(walk) {
+  if (!walk || walk < 0.1) return 0;
+  if (walk >= 1.4) return -2;
+  if (walk >= 1.2) return -1;
+  if (walk >= 0.8) return +1;
+  return +3;
+}
+
 /**
  * Convertit un delta d'âge biologique en delta d'espérance de vie.
  * Coefficient dépend de l'âge chronologique (0.6 à 25 ans → 1.2 à 80 ans).
@@ -1127,6 +1154,8 @@ var MDV_PROGRESS_FIELDS = [
   {id: 'pollution',  type: 'sel'},
   {id: 'sportModerate', type: 'num'},
   {id: 'sportIntense',  type: 'num'},
+  {id: 'prehension',    type: 'num'},
+  {id: 'marcheVitesse', type: 'num'},
 ];
 
 // Set des champs où l'utilisateur a fait une interaction active
@@ -1364,6 +1393,8 @@ function startLifeClockFromSdv(){
   setInput('taille',     d.taille);
   setInput('poids',      d.poids);
   setInput('vo2max',     d.vo2max);
+  setInput('prehension', d.grip);
+  setInput('marcheVitesse', d.walk);
   setSelect('tobacco',   tobaccoMap[d.tabac]);
   setSelect('alcohol',   alcoholMap[d.alcool]);
   setSelect('stress',    stressMap[d.stress]);
@@ -1379,7 +1410,7 @@ function startLifeClockFromSdv(){
   updateBmiAuto();
 
   // Ouvrir le Niveau 2 si on a au moins un biomarqueur
-  if (d.vo2max || d.ldl || d.tension || d.glycemie) {
+  if (d.vo2max || d.grip || d.walk || d.ldl || d.tension || d.glycemie) {
     var niv2 = document.getElementById('niveau2-content');
     var arrow = document.getElementById('toggle-arrow');
     if (niv2 && !niv2.classList.contains('visible')) {
@@ -1459,7 +1490,7 @@ function startLifeClock(){
 
   // ── NIVEAU 2 ──
   var niveau2Actif=document.getElementById('niveau2-content').classList.contains('visible');
-  var ldl=0,tension=0,glycemie=0,vo2=0,vo2Raw=0,prehension=0,marche=0,dental=0,intestinal=0;
+  var ldl=0,tension=0,glycemie=0,vo2=0,vo2Raw=0,prehension=0,prehensionRaw=0,marche=0,marcheRaw=0,dental=0,intestinal=0;
   if(niveau2Actif){
     ldl=getFloat('ldl');
     tension=getFloat('tension');
@@ -1469,8 +1500,16 @@ function startLifeClock(){
     if (!isNaN(vo2Raw) && vo2Raw>=10) {
       vo2 = lifeExpectancyDeltaFromBio(vo2maxToDelta(vo2Raw, age, gender), age);
     }
-    prehension=getFloat('prehension');
-    marche=getFloat('marcheVitesse');
+    // Force de préhension : input numérique → gripToDelta → delta EV
+    prehensionRaw=parseFloat(document.getElementById('prehension').value);
+    if (!isNaN(prehensionRaw) && prehensionRaw>=5) {
+      prehension = lifeExpectancyDeltaFromBio(gripToDelta(prehensionRaw, gender), age);
+    }
+    // Vitesse de marche : input numérique → walkToDelta → delta EV
+    marcheRaw=parseFloat(document.getElementById('marcheVitesse').value);
+    if (!isNaN(marcheRaw) && marcheRaw>=0.1) {
+      marche = lifeExpectancyDeltaFromBio(walkToDelta(marcheRaw), age);
+    }
     dental=getFloat('dental');
     intestinal=getFloat('intestinal');
   }
@@ -1506,23 +1545,36 @@ function startLifeClock(){
   try {
     // Table de correspondance valeurs Montre → clés Score
     var tobaccoMap = {'0':'non','-1':'ex','-3':'occ','-8':'oui','-12':'lourd'};
-    var alcoholMap = {'0':'non','0':'occ','-0.5':'mod','-2':'eleve','-5':'excessif'};
+    var tobaccoMap = {'0':'non','-1':'ex','-3':'occ','-8':'oui','-12':'lourd'};
+    var alcoholMap = {'0':'occ','-0.5':'mod','-2':'eleve','-5':'excessif'};
     var stressMap  = {'0.5':'gere','0':'faible','-1':'mod','-3':'eleve'};
+    var sleepMap   = {'-3':'<6','-1.5':'6','2':'7-8'};  // '>9' ambiguë avec '-1.5', on laisse
     var ldlMap     = {'1':'<1.0','0':'1.0-1.29','-1':'1.3-1.59','-3':'1.6-1.89','-5':'>=1.9'};
     var tensionMap = {'1':'<120','0':'120-129','-1':'130-139','-4':'140-159','-6':'>=160'};
     var glycMap    = {'1':'opt','-1':'limite','-4':'prediabete','-7':'diabete'};
+    var socialMap  = {'1':'fort','0':'bons','-0.5':'superficiel','-2':'isole'};
+    var pollMap    = {'0':'faible','-0.5':'moyenne','-1.5':'eleve','-2.5':'tres_eleve'};
+    var antecMap   = {'1':'excellents','0':'neutres','-1':'cardio','-2':'precoces'};
 
     var prefs = {
-      sexe:    gender,
-      age:     age,
-      vo2max:  vo2Raw || null,
-      tabac:   tobaccoMap[String(tobacco)]   || null,
-      alcool:  alcoholMap[String(alcohol)]   || null,
-      stress:  stressMap[String(stress)]     || null,
-      ldl:     ldlMap[String(ldl)]           || null,
-      tension: tensionMap[String(tension)]   || null,
-      glycemie:glycMap[String(glycemie)]     || null,
-      timestamp: Date.now()
+      sexe:        gender,
+      age:         age,
+      taille:      parseFloat(document.getElementById('taille').value) || null,
+      poids:       parseFloat(document.getElementById('poids').value)  || null,
+      vo2max:      vo2Raw  || null,
+      grip:        prehensionRaw || null,
+      walk:        marcheRaw     || null,
+      tabac:       tobaccoMap[String(tobacco)]   || null,
+      alcool:      alcoholMap[String(alcohol)]   || null,
+      stress:      stressMap[String(stress)]     || null,
+      sleep_dur:   sleepMap[String(sleep)]       || null,
+      ldl:         ldlMap[String(ldl)]           || null,
+      tension:     tensionMap[String(tension)]   || null,
+      glycemie:    glycMap[String(glycemie)]     || null,
+      social:      socialMap[String(social)]     || null,
+      pollution:   pollMap[String(pollution)]    || null,
+      antecedents: antecMap[String(family)]      || null,
+      timestamp:   Date.now()
     };
     localStorage.setItem('mdv_prefs', JSON.stringify(prefs));
   } catch(e) {}
@@ -1530,6 +1582,9 @@ function startLifeClock(){
 
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('display').classList.remove('hidden');
+  // Masquer la progress bar sticky (plus utile sur l'écran décompte)
+  var sp = document.getElementById('mdvStickyProgress');
+  if (sp) sp.style.display = 'none';
 
   // Mise à jour lien grille avec paramètres
   var trailSorties = intense >= 2 ? intense : 2;
@@ -1701,6 +1756,11 @@ function resetAll(){
     document.getElementById('bio-score-box').classList.add('hidden');
     document.getElementById('niveau2-content').classList.remove('visible');
     document.getElementById('toggle-arrow').classList.remove('open');
+    // Réafficher la progress bar sticky + la remettre à 0
+    var sp = document.getElementById('mdvStickyProgress');
+    if (sp) sp.style.display = '';
+    _mdvTouched.clear();
+    updateMdvProgress();
   }
 }
 
@@ -2109,6 +2169,8 @@ window.addEventListener('DOMContentLoaded', function(){
     _state = saved;
     document.getElementById('setup').classList.add('hidden');
     document.getElementById('display').classList.remove('hidden');
+    var sp = document.getElementById('mdvStickyProgress');
+    if (sp) sp.style.display = 'none';
     var trailSorties = saved.sport >= 2 ? saved.sport : 2;
     var grilleUrl = '/grille/?age='+saved.age+'&esperance='+saved.totalLife+'&trail='+trailSorties;
     document.getElementById('btn-grille').href = grilleUrl;

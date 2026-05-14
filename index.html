@@ -1,490 +1,271 @@
 ---
 layout: default
 title: "Combien de temps te reste-t-il ?"
-description: "Lance ton décompte de vie en temps réel. Questionnaire, espérance de vie estimée, et compteur seconde par seconde. Gratuit."
+description: "Lance ton décompte de vie en temps réel. Calcule ton âge biologique. Deux outils gratuits, sans inscription."
 ---
 
 <style>
-/* ══ HERO ══════════════════════════════════════════════ */
-.home-hero {
-  text-align: center;
-  padding: 72px 0 56px;
-  animation: fadeUp .9s ease both;
-}
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(20px) }
-  to   { opacity:1; transform:translateY(0) }
-}
+.home{max-width:1024px;margin:0 auto;padding:80px 24px 100px}
 
-.home-eyebrow {
-  font-size: .72rem; letter-spacing: .35em; color: var(--green);
-  text-transform: uppercase; font-weight: 800; margin-bottom: 18px;
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-}
-.home-eyebrow::before,
-.home-eyebrow::after {
-  content: ''; height: 1px; width: 28px;
-  background: linear-gradient(to right, transparent, var(--green));
-}
-.home-eyebrow::after {
-  background: linear-gradient(to left, transparent, var(--green));
-}
+/* HERO */
+.home-hero{text-align:center;max-width:720px;margin:0 auto 80px}
+.home-hero h1{font-size:clamp(2.8rem,8vw,5.5rem);font-weight:800;letter-spacing:-.04em;
+  line-height:1.05;color:#fff;margin-bottom:20px}
+.home-hero h1 em{color:var(--amber-lt);font-style:normal}
+.home-hero>p{font-size:1.1rem;color:var(--muted);line-height:1.7;
+  margin-bottom:44px;max-width:480px;margin-left:auto;margin-right:auto}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--amber);
+  color:#000;text-decoration:none;padding:15px 30px;border-radius:12px;
+  font-size:.95rem;font-weight:700;letter-spacing:-.01em;transition:all .2s;
+  box-shadow:0 4px 20px rgba(245,158,11,.25)}
+.btn-primary:hover{background:var(--amber-dk);transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(245,158,11,.35);color:#000}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;
+  padding:15px 26px;border-radius:12px;font-size:.95rem;font-weight:600;
+  border:1px solid rgba(0,152,98,.25);transition:all .2s}
+.btn-secondary:hover{background:rgba(0,152,98,.18);border-color:rgba(0,152,98,.5);
+  transform:translateY(-2px);color:#fff}
+.hero-note{font-size:.78rem;color:var(--dim);font-weight:500}
 
-.home-hero h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, 9vw, 5.5rem);
-  letter-spacing: 2px; line-height: 1;
-  color: var(--text); margin-bottom: 22px;
-}
-.home-hero h1 em { color: var(--green-lt); font-style: normal; }
+/* STATS */
+.home-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:80px}
+.stat-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:28px 20px;text-align:center;transition:border-color .2s}
+.stat-card:hover{border-color:var(--border2)}
+.stat-val{font-size:2.4rem;font-weight:800;letter-spacing:-.04em;
+  display:block;line-height:1;margin-bottom:8px}
+.stat-val.amber{color:var(--amber)}
+.stat-val.green{color:var(--green-lt)}
+.stat-val.zinc{color:var(--text)}
+.stat-lbl{font-size:.82rem;color:var(--muted);font-weight:500;line-height:1.4}
 
-.home-sub {
-  font-size: .96rem; color: var(--muted); font-weight: 600;
-  max-width: 480px; margin: 0 auto 40px; line-height: 1.8;
-}
+/* OUTILS */
+.tools-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:20px;text-align:center}
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;
+  padding:32px 28px;text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+.tool-card:hover{transform:translateY(-3px)}
+.tool-card-montre:hover{border-color:rgba(245,158,11,.4)}
+.tool-card-score:hover{border-color:rgba(0,152,98,.4)}
+.tool-icon-wrap{width:48px;height:48px;border-radius:12px;display:flex;
+  align-items:center;justify-content:center;margin-bottom:22px;flex-shrink:0}
+.tool-icon-wrap svg{width:24px;height:24px}
+.tool-card-montre .tool-icon-wrap{background:rgba(245,158,11,.15);color:var(--amber)}
+.tool-card-score .tool-icon-wrap{background:rgba(0,152,98,.15);color:var(--green-lt)}
+.tool-name{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:10px;color:#fff}
+.tool-desc{font-size:.9rem;color:var(--muted);line-height:1.65;margin-bottom:20px;flex:1}
+.tool-features{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:7px}
+.tool-features li{display:flex;align-items:center;gap:9px;
+  font-size:.85rem;color:var(--muted);font-weight:500}
+.feat-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.tool-card-montre .feat-dot{background:var(--amber)}
+.tool-card-score .feat-dot{background:var(--green)}
+.tool-btn{display:block;text-align:center;text-decoration:none;padding:13px;
+  border-radius:10px;font-size:.9rem;font-weight:700;letter-spacing:-.01em;
+  transition:all .2s;margin-top:auto}
+.btn-amber{background:var(--amber);color:#000;box-shadow:0 2px 10px rgba(245,158,11,.2)}
+.btn-amber:hover{background:var(--amber-dk);color:#000}
+.btn-green{background:var(--green);color:#fff;box-shadow:0 2px 10px rgba(0,152,98,.2)}
+.btn-green:hover{background:var(--green-dk);color:#fff}
+.tools-bridge{display:flex;align-items:center;gap:12px;
+  font-size:.78rem;font-weight:500;color:var(--dim);margin-bottom:80px}
+.tools-bridge::before,.tools-bridge::after{content:'';flex:1;height:1px;background:var(--border)}
 
-.hero-ctas {
-  display: flex; flex-wrap: wrap;
-  gap: 12px; justify-content: center; align-items: center;
-  margin-bottom: 18px;
-}
-.hero-cta-main {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: linear-gradient(135deg, var(--green-dk), var(--green));
-  color: #fff; text-decoration: none;
-  padding: 17px 44px;
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 3px;
-  border-radius: 14px; transition: all .2s;
-  box-shadow: 0 4px 24px rgba(45,158,114,.35);
-}
-.hero-cta-main:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(45,158,114,.5);
-  color: #fff;
-}
-.hero-cta-ghost {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: transparent;
-  border: 1px solid rgba(168,240,208,.2);
-  color: var(--green-lt); text-decoration: none;
-  padding: 17px 36px;
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 3px;
-  border-radius: 14px; transition: all .2s;
-}
-.hero-cta-ghost:hover {
-  border-color: rgba(168,240,208,.5);
-  background: rgba(168,240,208,.05);
-  color: var(--green-lt);
-}
-.hero-note {
-  font-size: .7rem; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--muted);
-}
+/* COMMENT ÇA MARCHE */
+.section-heading{font-size:1.8rem;font-weight:700;letter-spacing:-.03em;
+  color:#fff;margin-bottom:36px;text-align:center}
+.how-sublabels{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
+.how-sublabel{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);display:flex;align-items:center;gap:6px}
+.how-sublabel svg{width:12px;height:12px}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-bottom:80px}
+.how-step{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px;display:flex;align-items:flex-start;gap:14px}
+.how-step-num{font-size:1.6rem;font-weight:800;letter-spacing:-.04em;
+  color:var(--border2);line-height:1;flex-shrink:0;width:26px}
+.how-step strong{display:block;font-size:.875rem;color:var(--text);
+  margin-bottom:3px;font-weight:600}
+.how-step span{font-size:.8rem;color:var(--muted);line-height:1.5}
 
-/* ══ STATS ═════════════════════════════════════════════ */
-.home-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-  margin: 52px 0;
-}
-.stat-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 24px 16px; text-align: center;
-  transition: border-color .2s;
-}
-.stat-card:hover { border-color: rgba(168,240,208,.2); }
-.stat-val {
-  font-family: 'Bebas Neue', sans-serif; font-size: 2.3rem;
-  color: var(--green-lt); display: block; letter-spacing: 1px; line-height: 1;
-  margin-bottom: 8px;
-}
-.stat-lbl {
-  font-size: .67rem; font-weight: 800; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--muted); display: block; line-height: 1.5;
-}
+/* CTA DUO */
+.cta-duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:80px}
+.cta-duo-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:22px;text-align:center;
+  text-decoration:none;display:block;transition:border-color .2s,transform .15s}
+.cta-duo-card:hover{transform:translateY(-1px)}
+.cta-duo-montre:hover{border-color:rgba(245,158,11,.3)}
+.cta-duo-score:hover{border-color:rgba(0,152,98,.3)}
+.cta-duo-hint{font-size:.7rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--dim);display:block;margin-bottom:8px}
+.lbl-amber{font-size:.95rem;font-weight:700;color:var(--amber-lt);letter-spacing:-.01em}
+.lbl-green{font-size:.95rem;font-weight:700;color:var(--green-lt);letter-spacing:-.01em}
 
-/* ══ LES DEUX OUTILS ═══════════════════════════════════ */
-.tools-header {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
-  letter-spacing: 2px; color: var(--green-lt);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 10px; margin-bottom: 24px;
-}
-.tools-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-  margin-bottom: 16px;
-}
-.tool-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 26px 22px;
-  text-decoration: none; color: inherit;
-  display: flex; flex-direction: column; gap: 12px;
-  transition: all .22s; position: relative; overflow: hidden;
-}
-.tool-card::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(45,158,114,.05) 0%, transparent 65%);
-  opacity: 0; transition: opacity .22s;
-}
-.tool-card:hover { border-color: rgba(168,240,208,.25); transform: translateY(-2px); }
-.tool-card:hover::after { opacity: 1; }
+/* BLOG */
+.blog-heading{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;color:#fff;margin-bottom:20px}
 
-.tool-icon { font-size: 1.8rem; line-height: 1; }
-.tool-name {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem;
-  letter-spacing: 2px; color: var(--green-lt); line-height: 1;
-}
-.tool-desc {
-  font-size: .82rem; font-weight: 600; color: var(--muted);
-  line-height: 1.65; margin: 0;
-}
-.tool-features {
-  list-style: none; margin: 0; padding: 0;
-  display: flex; flex-direction: column; gap: 5px;
-}
-.tool-features li {
-  font-size: .77rem; font-weight: 700; color: var(--muted);
-  display: flex; align-items: flex-start; gap: 7px; line-height: 1.4;
-}
-.tool-features li::before { content: '→'; color: var(--green); flex-shrink: 0; }
-.tool-link {
-  display: flex; align-items: center; gap: 6px;
-  font-family: 'Bebas Neue', sans-serif; font-size: .88rem;
-  letter-spacing: 2px; color: var(--green-lt);
-  padding-top: 10px; margin-top: auto;
-  border-top: 1px solid var(--border);
-}
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.16s}
+.reveal-d3{transition-delay:.24s}
 
-.tools-bridge {
-  display: flex; align-items: center; gap: 10px;
-  font-size: .7rem; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--muted);
-  margin: 20px 0 52px;
-}
-.tools-bridge::before,
-.tools-bridge::after {
-  content: ''; flex: 1; height: 1px; background: var(--border);
-}
-
-/* ══ COMMENT ÇA MARCHE ═════════════════════════════════ */
-.how-title {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
-  letter-spacing: 2px; color: var(--green-lt);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 10px; margin-bottom: 24px;
-}
-.how-paths {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  gap: 10px 20px;
-  margin-bottom: 52px;
-}
-.how-path-label {
-  font-family: 'Bebas Neue', sans-serif; font-size: .95rem;
-  letter-spacing: 1.5px; color: var(--green-lt);
-  padding-bottom: 6px;
-  /* Les deux labels occupent chacun une cellule de la première ligne */
-}
-.steps { display: contents; /* les cards entrent directement dans la grille parente */ }
-.step {
-  display: flex; align-items: flex-start; gap: 14px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 16px 18px;
-  /* height: auto — la grille aligne par ligne automatiquement */
-}
-.step-num {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
-  color: rgba(45,158,114,.25); line-height: 1; flex-shrink: 0; width: 28px;
-}
-.step-text strong {
-  display: block; font-size: .88rem; color: var(--text); margin-bottom: 3px;
-}
-.step-text span {
-  font-size: .78rem; color: var(--muted); font-weight: 600; line-height: 1.55;
-}
-
-/* ══ CTA DUO BAS ═══════════════════════════════════════ */
-.cta-duo {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-  margin: 0 0 52px;
-}
-.cta-duo-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 22px 18px;
-  text-align: center; text-decoration: none; display: block;
-  transition: all .2s;
-}
-.cta-duo-card:hover { border-color: rgba(168,240,208,.25); transform: translateY(-1px); }
-.cta-duo-hint {
-  font-size: .65rem; font-weight: 800; letter-spacing: .15em;
-  text-transform: uppercase; color: var(--muted);
-  display: block; margin-bottom: 10px;
-}
-.cta-duo-label {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem;
-  letter-spacing: 2px; color: var(--green-lt); display: block;
-}
-
-/* ══ BLOG ══════════════════════════════════════════════ */
-.section-title {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
-  letter-spacing: 2px; color: var(--green-lt);
-  border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 24px;
-}
-
-/* ══ RESPONSIVE ════════════════════════════════════════ */
-@media(max-width:620px) {
-  .home-stats { grid-template-columns: 1fr 1fr; }
-  .home-stats .stat-card:last-child { grid-column: span 2; }
-  .tools-grid  { grid-template-columns: 1fr; }
-  .how-paths   {
-    grid-template-columns: 1fr;
-    /* Sur mobile : réafficher les labels au-dessus de leur groupe */
-  }
-  /* Cacher le 2e label et les cards Score sur mobile si nécessaire — non,
-     on les affiche tous mais en colonne avec ordre logique */
-  .how-paths .how-path-label:nth-child(2) { display: none; }
-  .how-paths .step:nth-child(even) { order: 1; } /* les cards Score après */
-  .cta-duo     { grid-template-columns: 1fr; }
-  .hero-ctas   { flex-direction: column; }
-  .hero-cta-main,
-  .hero-cta-ghost { width: 100%; text-align: center; justify-content: center; }
+@media(max-width:680px){
+  .home{padding:40px 16px 72px}
+  .home-stats{grid-template-columns:1fr 1fr}
+  .home-stats .stat-card:last-child{grid-column:span 2}
+  .tools-grid,.how-grid,.how-sublabels,.cta-duo{grid-template-columns:1fr}
+  .hero-ctas{flex-direction:column}
+  .btn-primary,.btn-secondary{width:100%;justify-content:center}
+  .tool-card{padding:22px 18px}
+  .tools-bridge{margin-bottom:48px}
 }
 </style>
 
-<!-- ═══════════ HERO ═══════════ -->
-<section class="home-hero">
-  <div class="home-eyebrow">Memento Mori — Souviens-toi que tu vas mourir</div>
-  <h1>Combien de temps<br>te <em>reste-t-il</em> ?</h1>
-  <p class="home-sub">
-    Deux outils gratuits pour mesurer et visualiser ta longévité —
-    et décider de mieux vivre chaque seconde qui reste.
-  </p>
-  <div class="hero-ctas">
-    <a href="/montre/" class="hero-cta-main">⏱ Lancer ma montre de vie</a>
-    <a href="/score/"  class="hero-cta-ghost">🧬 Calculer mon âge biologique</a>
-  </div>
-  <p class="hero-note">Gratuit &nbsp;·&nbsp; Sans inscription &nbsp;·&nbsp; Sans bullshit</p>
-</section>
+<div class="home">
 
-<!-- ═══════════ STATS ═══════════ -->
-<div class="home-stats">
-  <div class="stat-card">
-    <span class="stat-val">2,5 Md</span>
-    <span class="stat-lbl">Secondes dans une vie de 80 ans</span>
-  </div>
-  <div class="stat-card">
-    <span class="stat-val">±12 ans</span>
-    <span class="stat-lbl">Écart possible entre âge réel et âge biologique</span>
-  </div>
-  <div class="stat-card">
-    <span class="stat-val">2</span>
-    <span class="stat-lbl">Outils connectés — remplis l'un, l'autre se pré-remplit</span>
-  </div>
-</div>
-
-<!-- ═══════════ LES DEUX OUTILS ═══════════ -->
-<div class="tools-header">⚡ Les deux outils</div>
-<div class="tools-grid">
-
-  <a href="/montre/" class="tool-card">
-    <div class="tool-icon">⏱</div>
-    <div class="tool-name">Montre de Vie</div>
-    <p class="tool-desc">
-      Ton espérance de vie estimée, qui s'égrène seconde par seconde.
-      En temps réel. Sans détour.
-    </p>
-    <ul class="tool-features">
-      <li>Questionnaire mode de vie (tabac, sport, sommeil…)</li>
-      <li>Espérance de vie calculée sur mesure</li>
-      <li>Décompte live : années, jours, secondes</li>
-      <li>Grille de vie en semaines</li>
-    </ul>
-    <div class="tool-link">⏱ Lancer maintenant →</div>
-  </a>
-
-  <a href="/score/" class="tool-card">
-    <div class="tool-icon">🧬</div>
-    <div class="tool-name">Score de Vie</div>
-    <p class="tool-desc">
-      Ton âge biologique réel, calculé à partir de tes biomarqueurs.
-      Ton corps a peut-être 38 ans. Ou 56.
-    </p>
-    <ul class="tool-features">
-      <li>Âge biologique vs âge chronologique</li>
-      <li>Basé sur PhenoAge &amp; études épidémiologiques</li>
-      <li>LDL, tension, glycémie, VO₂max, IMC…</li>
-      <li>Historique de progression dans le temps</li>
-    </ul>
-    <div class="tool-link">🧬 Calculer mon score →</div>
-  </a>
-
-</div>
-<div class="tools-bridge">
-  Les deux outils se parlent — remplis l'un, l'autre se pré-remplit automatiquement
-</div>
-
-<!-- ═══════════ COMMENT ÇA MARCHE ═══════════ -->
-<div class="how-title">🏔️ Comment ça marche</div>
-<div class="how-paths">
-
-  <!-- Ligne 0 : labels -->
-  <div class="how-path-label">⏱ Parcours Montre de Vie</div>
-  <div class="how-path-label">🧬 Parcours Score de Vie</div>
-
-  <!-- Ligne 1 -->
-  <div class="step">
-    <div class="step-num">1</div>
-    <div class="step-text">
-      <strong>Tu réponds au questionnaire</strong>
-      <span>Tabac, sport, sommeil, alimentation, Moringa… 15 questions sincères. Personne ne regarde.</span>
+  <!-- HERO -->
+  <div class="home-hero reveal">
+    <h1>Combien de temps<br>te <em>reste-t-il</em> ?</h1>
+    <p>Memento Mori — Deux outils gratuits pour mesurer ta longévité et décider de mieux vivre chaque seconde.</p>
+    <div class="hero-ctas">
+      <a href="/montre/" class="btn-primary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Lancer ma Montre de Vie
+      </a>
+      <a href="/score/" class="btn-secondary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22a10 10 0 1 1 10-10"/><path d="M12 8v4l3 3"/><circle cx="19" cy="5" r="3"/>
+        </svg>
+        Calculer mon âge biologique
+      </a>
     </div>
+    <p class="hero-note">Sans inscription · Sans données personnelles · 100% local</p>
   </div>
-  <div class="step">
-    <div class="step-num">1</div>
-    <div class="step-text">
-      <strong>Tu entres tes biomarqueurs</strong>
-      <span>LDL, tension, glycémie, VO₂max, IMC, sommeil, stress… les vrais chiffres de ton corps.</span>
+
+  <!-- STATS -->
+  <div class="home-stats">
+    <div class="stat-card reveal reveal-d1">
+      <span class="stat-val amber">2,5 Md</span>
+      <span class="stat-lbl">Secondes dans une vie de 80 ans</span>
+    </div>
+    <div class="stat-card reveal reveal-d2">
+      <span class="stat-val green">±12 ans</span>
+      <span class="stat-lbl">Écart possible entre âge réel et âge biologique</span>
+    </div>
+    <div class="stat-card reveal reveal-d3">
+      <span class="stat-val zinc">2</span>
+      <span class="stat-lbl">Outils connectés — remplis l'un, l'autre se pré-remplit</span>
     </div>
   </div>
 
-  <!-- Ligne 2 -->
-  <div class="step">
-    <div class="step-num">2</div>
-    <div class="step-text">
-      <strong>On calcule ton espérance de vie</strong>
-      <span>Un algorithme basé sur les grandes études épidémiologiques. Pas parfait, mais honnête.</span>
-    </div>
-  </div>
-  <div class="step">
-    <div class="step-num">2</div>
-    <div class="step-text">
-      <strong>L'algorithme calcule ton âge biologique</strong>
-      <span>Basé sur PhenoAge (Levine 2018) et les méta-analyses INTERHEART. Résultat immédiat.</span>
-    </div>
-  </div>
-
-  <!-- Ligne 3 -->
-  <div class="step">
-    <div class="step-num">3</div>
-    <div class="step-text">
-      <strong>Le décompte démarre</strong>
-      <span>Années, jours, heures, secondes. Chaque tick est une invitation à mieux choisir.</span>
-    </div>
-  </div>
-  <div class="step">
-    <div class="step-num">3</div>
-    <div class="step-text">
-      <strong>Tu suis ta progression</strong>
-      <span>Refais le test dans 3 mois. L'historique montre si ton âge bio avance ou recule.</span>
-    </div>
-  </div>
-
-</div>
-
-<!-- ═══════════ CTA DUO ═══════════ -->
-<div class="cta-duo">
-  <a href="/montre/" class="cta-duo-card">
-    <span class="cta-duo-hint">Par où commencer si tu n'as pas tes bilans</span>
-    <span class="cta-duo-label">⏱ Lancer mon décompte →</span>
-  </a>
-  <a href="/score/" class="cta-duo-card">
-    <span class="cta-duo-hint">Par où commencer si tu as tes analyses sanguines</span>
-    <span class="cta-duo-label">🧬 Calculer mon âge biologique →</span>
-  </a>
-</div>
-
-<!-- ═══════════ BLOG ═══════════ -->
-<section class="reveal">
-  <div class="section-title">📖 Du blog</div>
-  <div class="post-list">
-    {% for post in site.posts limit:3 %}
-    <a class="post-card" href="{{ post.url }}">
-      <div class="post-card-date">{{ post.date | date: "%d %B %Y" }}</div>
-      <div class="post-card-title">{{ post.title }}</div>
-      <div class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</div>
+  <!-- OUTILS -->
+  <p class="tools-label reveal">Les deux outils</p>
+  <div class="tools-grid">
+    <a href="/montre/" class="tool-card tool-card-montre reveal">
+      <div class="tool-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="tool-name">Montre de Vie</div>
+      <p class="tool-desc">Ton espérance de vie estimée, qui s'égrène seconde par seconde. En temps réel. Sans détour.</p>
+      <ul class="tool-features">
+        <li><span class="feat-dot"></span>Questionnaire mode de vie</li>
+        <li><span class="feat-dot"></span>Espérance de vie calculée sur mesure</li>
+        <li><span class="feat-dot"></span>Décompte live : années, jours, secondes</li>
+        <li><span class="feat-dot"></span>Grille de vie en semaines</li>
+      </ul>
+      <span class="tool-btn btn-amber">Lancer maintenant →</span>
     </a>
-    {% endfor %}
+    <a href="/score/" class="tool-card tool-card-score reveal reveal-d1">
+      <div class="tool-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M12 2C8.5 5 7 8.5 7 12s1.5 7 5 10"/>
+          <path d="M12 2c3.5 3 5 6.5 5 10s-1.5 7-5 10"/>
+          <path d="M2 12h20"/>
+        </svg>
+      </div>
+      <div class="tool-name">Score de Vie</div>
+      <p class="tool-desc">Ton âge biologique réel, calculé à partir de tes biomarqueurs. Ton corps a peut-être 38 ans. Ou 56.</p>
+      <ul class="tool-features">
+        <li><span class="feat-dot"></span>Âge biologique vs âge chronologique</li>
+        <li><span class="feat-dot"></span>PhenoAge &amp; études épidémiologiques</li>
+        <li><span class="feat-dot"></span>LDL, tension, glycémie, VO₂max…</li>
+        <li><span class="feat-dot"></span>Historique de progression</li>
+      </ul>
+      <span class="tool-btn btn-green">Calculer mon score →</span>
+    </a>
   </div>
-</section>
+  <div class="tools-bridge reveal">Les deux outils se parlent — remplis l'un, l'autre se pré-remplit automatiquement</div>
 
-<!-- ═══════════ MICRO-ANIMATIONS ═══════════ -->
-<style>
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .8s ease, transform .8s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* Petite animation des stats au reveal */
-.home-stats .stat-card {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity .5s ease, transform .5s ease;
-}
-.home-stats.visible .stat-card { opacity: 1; transform: translateY(0); }
-.home-stats.visible .stat-card:nth-child(1) { transition-delay: 0s; }
-.home-stats.visible .stat-card:nth-child(2) { transition-delay: .12s; }
-.home-stats.visible .stat-card:nth-child(3) { transition-delay: .24s; }
+  <!-- COMMENT ÇA MARCHE -->
+  <h2 class="section-heading reveal">Comment ça marche</h2>
+  <div class="how-sublabels reveal">
+    <div class="how-sublabel" style="color:var(--amber)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Montre de Vie
+    </div>
+    <div class="how-sublabel" style="color:var(--green-lt)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/></svg>
+      Score de Vie
+    </div>
+  </div>
+  <div class="how-grid">
+    <div class="how-step reveal"><div class="how-step-num">1</div><div><strong>Tu réponds au questionnaire</strong><span>Tabac, sport, sommeil, alimentation… 15 questions sincères.</span></div></div>
+    <div class="how-step reveal reveal-d1"><div class="how-step-num">1</div><div><strong>Tu entres tes biomarqueurs</strong><span>LDL, tension, glycémie, VO₂max… les vrais chiffres de ton corps.</span></div></div>
+    <div class="how-step reveal"><div class="how-step-num">2</div><div><strong>On calcule ton espérance de vie</strong><span>Algorithme basé sur les grandes études épidémiologiques.</span></div></div>
+    <div class="how-step reveal reveal-d1"><div class="how-step-num">2</div><div><strong>L'algorithme calcule ton âge biologique</strong><span>Basé sur PhenoAge (Levine 2018) et les méta-analyses INTERHEART.</span></div></div>
+    <div class="how-step reveal"><div class="how-step-num">3</div><div><strong>Le décompte démarre</strong><span>Années, jours, heures, secondes. Chaque tick est une invitation.</span></div></div>
+    <div class="how-step reveal reveal-d1"><div class="how-step-num">3</div><div><strong>Tu suis ta progression</strong><span>Refais le test dans 3 mois. L'historique montre si ton âge bio recule.</span></div></div>
+  </div>
 
-/* Tool cards en cascade */
-.tools-grid .tool-card {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.tools-grid.visible .tool-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
-.tools-grid.visible .tool-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: .15s; }
+  <!-- CTA DUO -->
+  <div class="cta-duo">
+    <a href="/montre/" class="cta-duo-card cta-duo-montre reveal">
+      <span class="cta-duo-hint">Si tu n'as pas tes bilans sanguins</span>
+      <span class="lbl-amber">Lancer mon décompte →</span>
+    </a>
+    <a href="/score/" class="cta-duo-card cta-duo-score reveal reveal-d1">
+      <span class="cta-duo-hint">Si tu as tes analyses récentes</span>
+      <span class="lbl-green">Calculer mon âge biologique →</span>
+    </a>
+  </div>
 
-/* Step cards en cascade par ligne */
-.how-paths .step {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity .5s ease, transform .5s ease;
-}
-.how-paths.visible .step:nth-child(3),
-.how-paths.visible .step:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: .1s; }
-.how-paths.visible .step:nth-child(5),
-.how-paths.visible .step:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: .2s; }
-.how-paths.visible .step:nth-child(7),
-.how-paths.visible .step:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: .3s; }
-/* Si l'utilisateur préfère réduire les mouvements (accessibilité) */
-@media (prefers-reduced-motion: reduce) {
-  .reveal, .home-stats .stat-card, .tools-grid .tool-card, .how-paths .step,
-  .reveal.visible, .home-stats.visible .stat-card, .tools-grid.visible .tool-card, .how-paths.visible .step {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-</style>
+  <!-- BLOG -->
+  <div class="reveal">
+    <h2 class="blog-heading">Derniers articles</h2>
+    <div class="post-list">
+      {% for post in site.posts limit:3 %}
+      <a class="post-card" href="{{ post.url }}">
+        <div class="post-card-date">{{ post.date | date: "%d %B %Y" }}</div>
+        <div class="post-card-title">{{ post.title }}</div>
+        <div class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
 <script>
-(function() {
-  // Marquer toutes les sections à animer
-  var targets = document.querySelectorAll('.home-stats, .tools-grid, .how-paths, .cta-duo, .blog-section, .reveal');
-  // Ajouter .reveal aux sections génériques pour bénéficier de l'animation
-  document.querySelectorAll('.tools-header, .how-title').forEach(function(el){ el.classList.add('reveal'); });
-
-  if (!('IntersectionObserver' in window)) {
-    // Pas de support → on rend tout visible immédiatement
-    targets.forEach(function(t){ t.classList.add('visible'); });
-    document.querySelectorAll('.reveal').forEach(function(t){ t.classList.add('visible'); });
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('visible');});
     return;
   }
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-  targets.forEach(function(t){ observer.observe(t); });
-  document.querySelectorAll('.reveal').forEach(function(t){ observer.observe(t); });
+  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  els.forEach(function(e){obs.observe(e);});
 })();
 </script>

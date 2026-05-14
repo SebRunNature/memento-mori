@@ -3,22 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Montre de Vie — Seb Run Nature</title>
+<title>Montre de Vie — Combien de temps te reste-t-il ?</title>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/site.webmanifest" />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#2d9e72;--green-dk:#1a6b4a;--green-lt:#a8f0d0;
-  --bg:#0a0f0c;--card:#131a16;--card2:#1a2620;
-  --text:#e8f5f0;--muted:#5a8a7a;--border:#243028;
-  --radius:14px;--amber:#c8873a;
+  /* Palette aligned with new design system */
+  --bg:#09090b;--card:#18181b;--card2:#27272a;
+  --text:#e4e4e7;--muted:#71717a;--border:#27272a;--border2:#3f3f46;
+  --radius:14px;
+
+  /* Amber — couleur principale Montre */
+  --amber:#f59e0b;--amber-dk:#d97706;--amber-lt:#fde68a;
+
+  /* Vert — conservé pour le pont Score + Niveau 2 biomarqueurs */
+  --green:#009862;--green-dk:#006b44;--green-lt:#a0facf;
+
+  /* Legacy aliases pour le JS existant (ne pas supprimer) */
+  --green-lt-legacy:#a8f0d0;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text)}
+html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
 
 /* ── BG ── */
 .bg{position:fixed;inset:0;z-index:0}
@@ -33,10 +43,10 @@ html,body{min-height:100%;font-family:'Nunito',sans-serif;background:var(--bg);c
 /* ── HEADER ── */
 .header{text-align:center;margin-bottom:44px}
 .header-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px}
-.header-logo span{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--green-lt)}
+.header-logo span{font-family:'Inter',system-ui,sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--amber-lt)}
 .eyebrow{font-size:.82rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;margin-bottom:10px;font-weight:800}
-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,7vw,4rem);letter-spacing:2px;line-height:1;color:var(--text)}
-h1 em{color:var(--green-lt);font-style:normal}
+h1{font-family:'Inter',system-ui,sans-serif;font-size:clamp(2.6rem,7vw,4rem);letter-spacing:2px;line-height:1;color:var(--text)}
+h1 em{color:var(--amber-lt);font-style:normal}
 .sub{margin-top:12px;font-size:.98rem;color:var(--muted);font-weight:600;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6}
 
 /* ── WARNING ── */
@@ -51,26 +61,26 @@ h1 em{color:var(--green-lt);font-style:normal}
 .mdv-progress-wrap.complete{opacity:.55}
 .mdv-progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .mdv-progress-label{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.mdv-progress-pct{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.05em;color:var(--green-lt)}
+.mdv-progress-pct{font-family:'Inter',system-ui,sans-serif;font-size:.95rem;letter-spacing:.05em;color:var(--amber-lt)}
 .mdv-progress-track{height:4px;background:rgba(45,158,114,.1);border-radius:2px;overflow:hidden}
-.mdv-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--green-dk),var(--green) 60%,var(--green-lt));border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.mdv-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--amber-dk),var(--amber) 60%,var(--amber-lt));border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)}
 
 /* ── BOUTONS RÉSULTAT (Partager / Sauvegarder) ── */
 .result-actions{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0;justify-content:center}
 .result-action{display:inline-flex;align-items:center;gap:8px;
   background:transparent;border:1px solid var(--border);color:var(--green-lt);
-  font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;
+  font-family:'Inter',system-ui,sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;
   padding:11px 18px;border-radius:10px;cursor:pointer;transition:all .2s}
 .result-action:hover{border-color:var(--green);background:rgba(45,158,114,.08);color:#fff}
 .result-action svg{width:16px;height:16px;flex-shrink:0}
-.result-action.primary{background:linear-gradient(135deg,var(--green-dk),var(--green));border-color:var(--green);color:#fff}
+.result-action.primary{background:linear-gradient(135deg,var(--amber-dk),var(--amber));border-color:var(--green);color:#fff}
 .result-action.primary:hover{box-shadow:0 4px 16px rgba(45,158,114,.3);transform:translateY(-1px)}
 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
   background:var(--card);border:1px solid var(--green);color:var(--green-lt);
   padding:12px 22px;border-radius:28px;
-  font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;
+  font-family:'Inter',system-ui,sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;
   z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);
   animation:toastIn .3s ease both}
 @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
@@ -88,7 +98,7 @@ h1 em{color:var(--green-lt);font-style:normal}
   padding:24px;animation:modalIn .3s ease both}
 @keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .share-modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.share-modal-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--green-lt)}
+.share-modal-title{font-family:'Inter',system-ui,sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--green-lt)}
 .share-modal-close{background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;padding:4px 10px;line-height:1;transition:color .2s}
 .share-modal-close:hover{color:var(--text)}
 .share-preview{width:100%;border-radius:12px;border:1px solid var(--border);margin-bottom:18px;display:block;background:var(--bg)}
@@ -97,7 +107,7 @@ h1 em{color:var(--green-lt);font-style:normal}
 .share-modal-hint{font-size:.75rem;color:var(--muted);text-align:center;margin-top:14px;font-weight:600;line-height:1.5}
 
 /* ── SECTION TITLE ── */
-.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+.section-title{font-family:'Inter',system-ui,sans-serif;font-size:1.2rem;letter-spacing:2px;
   color:var(--green-lt);border-bottom:1px solid var(--border);padding-bottom:8px;margin:28px 0 18px}
 
 /* ── NIVEAU BADGE ── */
@@ -122,7 +132,7 @@ input,select{
   width:100%;padding:13px 15px;
   background:var(--card);border:1px solid var(--border);
   color:var(--text);border-radius:10px;
-  font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;
+  font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:700;
   appearance:none;transition:border-color .2s,background .2s;
 }
 input:focus,select:focus{outline:none;border-color:var(--green);background:var(--card2)}
@@ -171,7 +181,7 @@ select option{background:var(--card)}
   display:flex;align-items:center;justify-content:center;transition:all .2s;
 }
 .popup-close:hover{background:rgba(255,255,255,.15);color:var(--text)}
-.popup-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;
+.popup-title{font-family:'Inter',system-ui,sans-serif;font-size:1.4rem;letter-spacing:2px;
   color:var(--green-lt);margin-bottom:16px}
 .popup-step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
 .popup-step-num{
@@ -193,9 +203,9 @@ select option{background:var(--card)}
 /* ── BUTTON ── */
 .btn-wrap{text-align:center;margin-top:36px}
 .btn-start{
-  background:linear-gradient(135deg,var(--green-dk),var(--green));
+  background:linear-gradient(135deg,var(--amber-dk),var(--amber));
   color:#fff;border:none;padding:18px 56px;cursor:pointer;
-  font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;
+  font-family:'Inter',system-ui,sans-serif;font-size:1.5rem;letter-spacing:3px;
   border-radius:14px;transition:all .2s;
   box-shadow:0 4px 24px rgba(45,158,114,.3);
 }
@@ -223,13 +233,13 @@ select option{background:var(--card)}
   background:var(--card);border:1px solid var(--border);border-radius:30px;
   padding:10px 22px;margin-bottom:16px;font-size:.88rem;font-weight:800;
   color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
-.life-pill span{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--green-lt);letter-spacing:1px}
+.life-pill span{font-family:'Inter',system-ui,sans-serif;font-size:1.4rem;color:var(--amber-lt);letter-spacing:1px}
 
 /* ── SCORE NIVEAU 2 ── */
 .bio-score{max-width:460px;margin:0 auto 20px;
   background:rgba(200,135,58,.07);border:1px solid rgba(200,135,58,.25);
   border-radius:var(--radius);padding:14px 18px;text-align:center}
-.bio-score-val{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#e8b070;letter-spacing:1px}
+.bio-score-val{font-family:'Inter',system-ui,sans-serif;font-size:1.8rem;color:#e8b070;letter-spacing:1px}
 .bio-score-lbl{font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
   color:var(--muted);margin-top:2px}
 
@@ -247,14 +257,14 @@ select option{background:var(--card)}
 .cd-cell{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
   padding:18px 10px;text-align:center;transition:border-color .3s}
 .cd-cell:hover{border-color:var(--green)}
-.cd-cell .val{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--green-lt);
+.cd-cell .val{font-family:'Inter',system-ui,sans-serif;font-size:3rem;color:var(--amber-lt);
   line-height:1;display:block;letter-spacing:1px}
 .cd-cell .lbl{display:block;font-size:.72rem;font-weight:800;letter-spacing:.22em;
   color:var(--muted);text-transform:uppercase;margin-top:5px}
 .cd-seconds{display:flex;justify-content:center;gap:10px;margin-bottom:32px}
 .cd-sec-cell{background:var(--card);border:1px solid var(--border);border-radius:10px;
   padding:12px 22px;text-align:center}
-.cd-sec-cell .val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--text);
+.cd-sec-cell .val{font-family:'Inter',system-ui,sans-serif;font-size:2.2rem;color:var(--text);
   display:block;letter-spacing:1px}
 .cd-sec-cell .lbl{display:block;font-size:.68rem;font-weight:800;letter-spacing:.2em;
   color:var(--muted);text-transform:uppercase;margin-top:4px}
@@ -265,7 +275,7 @@ select option{background:var(--card)}
 
 /* ── BLOG LINKS ── */
 .blog-section{margin-top:36px;padding:22px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
-.blog-section-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+.blog-section-title{font-family:'Inter',system-ui,sans-serif;font-size:1.2rem;letter-spacing:2px;
   color:var(--green-lt);margin-bottom:14px}
 .blog-links{display:flex;flex-direction:column;gap:10px}
 .blog-link{display:flex;align-items:center;gap:12px;padding:13px 16px;
@@ -280,7 +290,7 @@ select option{background:var(--card)}
 
 /* ── RESET ── */
 .btn-reset{background:rgba(45,158,114,.15);border:1px solid rgba(45,158,114,.4);color:var(--green-lt);
-  padding:11px 26px;border-radius:10px;cursor:pointer;font-family:'Nunito',sans-serif;
+  padding:11px 26px;border-radius:10px;cursor:pointer;font-family:'Inter',system-ui,sans-serif;
   font-size:.88rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
   transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .btn-reset:hover{background:rgba(45,158,114,.3);border-color:var(--green);color:#fff}
@@ -446,11 +456,11 @@ select option{background:var(--card)}
 ">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;max-width:700px;margin-left:auto;margin-right:auto">
     <span style="font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Questionnaire</span>
-    <span id="mdvProgressPct" style="font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.05em;color:var(--green-lt)">0%</span>
+    <span id="mdvProgressPct" style="font-family:'Inter',system-ui,sans-serif;font-size:.9rem;letter-spacing:.05em;color:var(--amber-lt)">0%</span>
   </div>
   <div style="max-width:700px;margin:0 auto">
     <div style="height:3px;background:rgba(45,158,114,.12);border-radius:2px;overflow:hidden">
-      <div id="mdvProgressFill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--green-dk),var(--green) 60%,var(--green-lt));border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)"></div>
+      <div id="mdvProgressFill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--amber-dk),var(--amber) 60%,var(--amber-lt));border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)"></div>
     </div>
   </div>
 </div>
@@ -460,13 +470,13 @@ select option{background:var(--card)}
   <div class="header">
     <div class="header-logo">
       <a href="https://montre-de-vie.com/" style="position:absolute;left:0;top:0;
-        font-family:'Bebas Neue',sans-serif;font-size:.78rem;letter-spacing:2px;
+        font-family:'Inter',system-ui,sans-serif;font-size:.78rem;letter-spacing:2px;
         color:rgba(168,240,208,.4);text-decoration:none;transition:color .2s;padding:4px 0"
         onmouseover="this.style.color='#a8f0d0'" onmouseout="this.style.color='rgba(168,240,208,.4)'">
         ← Accueil
       </a>
       <a href="https://montre-de-vie.com/score/" style="position:absolute;right:0;top:0;
-        font-family:'Bebas Neue',sans-serif;font-size:.78rem;letter-spacing:2px;
+        font-family:'Inter',system-ui,sans-serif;font-size:.78rem;letter-spacing:2px;
         color:rgba(168,240,208,.4);text-decoration:none;transition:color .2s;padding:4px 0"
         onmouseover="this.style.color='#a8f0d0'" onmouseout="this.style.color='rgba(168,240,208,.4)'">
         🧬 Score de Vie →
@@ -492,7 +502,7 @@ select option{background:var(--card)}
     <div style="display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap">
       <div style="font-size:1.6rem; line-height:1">🧬</div>
       <div style="flex:1; min-width:200px">
-        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.15rem; color:var(--green-lt); letter-spacing:1.5px; margin-bottom:4px">
+        <div style="font-family:'Inter',system-ui,sans-serif; font-size:1.15rem; color:var(--green-lt); letter-spacing:1.5px; margin-bottom:4px">
           Score de Vie détecté
         </div>
         <div id="sdv-bridge-info" style="font-size:.85rem; color:var(--muted); font-weight:600; line-height:1.5">
@@ -502,15 +512,15 @@ select option{background:var(--card)}
     </div>
     <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
       <button onclick="startLifeClockFromSdv()" style="
-        flex:1; min-width:160px; background:linear-gradient(135deg,var(--green-dk),var(--green));
+        flex:1; min-width:160px; background:linear-gradient(135deg,var(--amber-dk),var(--amber));
         color:#fff; border:none; padding:11px 18px; border-radius:10px;
-        font-family:'Bebas Neue',sans-serif; font-size:.95rem; letter-spacing:1.5px;
+        font-family:'Inter',system-ui,sans-serif; font-size:.95rem; letter-spacing:1.5px;
         cursor:pointer; transition:all .2s">
         ⚡ Pré-remplir le formulaire
       </button>
       <button onclick="dismissSdvBridge()" style="
         background:transparent; color:var(--muted); border:1px solid var(--border);
-        padding:11px 16px; border-radius:10px; font-family:'Nunito',sans-serif;
+        padding:11px 16px; border-radius:10px; font-family:'Inter',system-ui,sans-serif;
         font-size:.82rem; font-weight:700; cursor:pointer; transition:all .2s">
         Remplir manuellement
       </button>
@@ -807,7 +817,7 @@ select option{background:var(--card)}
         <path d="M10 32 L18 18 L24 24 L30 14 L34 20" stroke="#a8f0d0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         <circle cx="30" cy="14" r="3" fill="#a8f0d0"/>
       </svg>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--green-lt);letter-spacing:1px">Run Nature</span>
+      <span style="font-family:'Inter',system-ui,sans-serif;font-size:1.1rem;color:var(--green-lt);letter-spacing:1px">Run Nature</span>
     </div>
     <div class="eyebrow">Memento Mori</div>
     <h1>Ton <em>temps</em> restant</h1>
@@ -854,7 +864,7 @@ select option{background:var(--card)}
     <button id="btn-sound" onclick="toggleSound()"
       style="background:rgba(45,158,114,.1);border:1px solid rgba(45,158,114,.3);
       color:var(--muted);padding:8px 20px;border-radius:30px;cursor:pointer;
-      font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:800;
+      font-family:'Inter',system-ui,sans-serif;font-size:.75rem;font-weight:800;
       letter-spacing:.08em;text-transform:uppercase;transition:all .2s">
       🔔 Activer le tick
     </button>
@@ -870,7 +880,7 @@ select option{background:var(--card)}
     <a id="btn-grille" href="/grille/" style="display:inline-flex;align-items:center;gap:10px;
       background:var(--card);border:1px solid rgba(45,158,114,.4);color:var(--green-lt);
       text-decoration:none;padding:15px 32px;border-radius:14px;
-      font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;
+      font-family:'Inter',system-ui,sans-serif;font-size:1.2rem;letter-spacing:2px;
       transition:all .2s;box-shadow:0 2px 16px rgba(45,158,114,.15)">
       🟩 Voir ma vie en semaines
     </a>
@@ -1311,12 +1321,12 @@ function showSdvBridgeOverDisplay(){
   toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);' +
     'background:#131a16;border:1px solid rgba(45,158,114,.5);' +
     'border-radius:14px;padding:14px 18px;z-index:999;max-width:92%;' +
-    'box-shadow:0 8px 32px rgba(0,0,0,.5);font-family:Nunito,sans-serif;';
+    'box-shadow:0 8px 32px rgba(0,0,0,.5);font-family:Inter,sans-serif;';
   var deltaStr = (_sdvData.delta >= 0 ? '+' : '') + _sdvData.delta.toFixed(1);
   toast.innerHTML =
     '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">' +
       '<div style="flex:1;min-width:180px">' +
-        '<div style="font-family:Bebas Neue,sans-serif;font-size:.95rem;letter-spacing:1.5px;color:#a8f0d0;margin-bottom:3px">' +
+        '<div style="font-family:Inter,system-ui,sans-serif;font-size:.95rem;letter-spacing:1.5px;color:#a8f0d0;margin-bottom:3px">' +
           '🧬 NOUVEAU SCORE DE VIE' +
         '</div>' +
         '<div style="font-size:.78rem;color:#5a8a7a;font-weight:600">' +
@@ -1324,7 +1334,7 @@ function showSdvBridgeOverDisplay(){
         '</div>' +
       '</div>' +
       '<div style="display:flex;gap:6px">' +
-        '<button id="sdv-toast-yes" style="background:linear-gradient(135deg,#1a6b4a,#2d9e72);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:Bebas Neue,sans-serif;font-size:.78rem;letter-spacing:1.2px;cursor:pointer">⚡ OUI</button>' +
+        '<button id="sdv-toast-yes" style="background:linear-gradient(135deg,#1a6b4a,#2d9e72);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:Inter,system-ui,sans-serif;font-size:.78rem;letter-spacing:1.2px;cursor:pointer">⚡ OUI</button>' +
         '<button id="sdv-toast-no" style="background:transparent;color:#5a8a7a;border:1px solid #243028;padding:8px 12px;border-radius:8px;font-size:.7rem;font-weight:700;cursor:pointer">×</button>' +
       '</div>' +
     '</div>';
@@ -1425,7 +1435,7 @@ function startLifeClockFromSdv(){
   var toast = document.createElement('div');
   toast.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);' +
     'background:rgba(45,158,114,.95);color:#fff;padding:12px 22px;border-radius:28px;' +
-    'font-family:Bebas Neue,sans-serif;font-size:.9rem;letter-spacing:1.5px;' +
+    'font-family:Inter,system-ui,sans-serif;font-size:.9rem;letter-spacing:1.5px;' +
     'z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:opacity .3s';
   toast.textContent = '✓ ' + filled + ' champs pré-remplis — complète le reste';
   document.body.appendChild(toast);
@@ -1897,7 +1907,7 @@ function drawMdvShareImage() {
 
   // Titre principal
   ctx.fillStyle = '#e8f5f0';
-  ctx.font = '700 88px "Bebas Neue", "Impact", sans-serif';
+  ctx.font = '700 88px Inter, system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('MA MONTRE DE VIE', W/2, 270);
 
@@ -1925,7 +1935,7 @@ function drawMdvShareImage() {
   ctx.stroke();
   // % au centre
   ctx.fillStyle = '#a8f0d0';
-  ctx.font = '700 110px "Bebas Neue", "Impact", sans-serif';
+  ctx.font = '700 110px Inter, system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(s.pct + '%', cx, cy - 12);
@@ -1955,7 +1965,7 @@ function drawMdvShareImage() {
     ctx.textAlign = 'center';
     fillTextWithSpacing(ctx, labels[i], x, statsY + 34, 3);
     ctx.fillStyle = '#a8f0d0';
-    ctx.font = '700 56px "Bebas Neue", "Impact", sans-serif';
+    ctx.font = '700 56px Inter, system-ui, sans-serif';
     ctx.fillText(values[i], x, statsY + 88);
     ctx.fillStyle = '#5a8a7a';
     ctx.font = '600 16px "Nunito", sans-serif';

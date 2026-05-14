@@ -81,42 +81,33 @@ nav {
 .nav-left { display: flex; align-items: center; gap: 28px; }
 .nav-right { display: flex; align-items: center; gap: 22px; }
 .nav-brand {
-  font-family: 'Inter',system-ui,sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  color: var(--green-lt);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: color 0.2s;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1rem; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink); text-decoration: none; transition: color .2s;
 }
 .nav-brand:hover { color: #fff; }
 .nav-brand-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
+  width: 26px; height: 26px;
+  border-radius: 7px;
   background: var(--green);
-  box-shadow: 0 0 8px var(--green);
-  animation: pulse 2s infinite;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
+.nav-brand-dot svg { width: 14px; height: 14px; stroke: #fff; }
 .nav-link {
-  font-family: 'Inter',system-ui,sans-serif;
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  text-decoration: none;
-  transition: color 0.2s;
+  font-size: .875rem; font-weight: 500;
+  color: var(--ink3); text-decoration: none;
+  padding: 6px 12px; border-radius: 8px; transition: all .2s;
 }
-.nav-link:hover { color: var(--green-lt); }
+.nav-link:hover { color: var(--ink); background: var(--surface2); }
+.nav-link-montre {
+  background: rgba(245,158,11,.1); color: var(--amber-lt);
+  border: 1px solid rgba(245,158,11,.2); font-weight: 600;
+}
+.nav-link-montre:hover { background: rgba(245,158,11,.18); color: #fff; }
 @media (max-width: 560px) {
-  nav { padding: 12px 16px; }
-  .nav-right { gap: 14px; }
-  .nav-link { font-size: 0.82rem; letter-spacing: 0.08em; }
-  /* On masque "À propos" et "Blog" sur très petit écran, on garde Montre de Vie */
+  nav { padding: 0 16px; }
+  .nav-link { font-size: .78rem; padding: 5px 8px; }
   .nav-link.nav-secondary { display: none; }
 }
 
@@ -1151,12 +1142,21 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   <!-- NAV -->
   <nav>
     <div class="nav-left">
-      <a class="nav-brand" href="https://montre-de-vie.com/score/"><span class="nav-brand-dot"></span>Score de Vie</a>
+      <a class="nav-brand" href="https://montre-de-vie.com/score/">
+        <div class="nav-brand-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/>
+            <path d="M12 2C8.5 5 7 8.5 7 12s1.5 7 5 10"/>
+            <path d="M12 2c3.5 3 5 6.5 5 10s-1.5 7-5 10"/>
+          </svg>
+        </div>
+        Score de Vie
+      </a>
     </div>
     <div class="nav-right">
-      <a class="nav-link nav-secondary" href="https://montre-de-vie.com/apropos/" target="_blank">À propos</a>
-      <a class="nav-link nav-secondary" href="https://montre-de-vie.com/blog/" target="_blank">Blog</a>
-      <a class="nav-link" href="https://montre-de-vie.com/" style="color:var(--green-lt)">⏱ Montre de Vie</a>
+      <a class="nav-link nav-secondary" href="https://montre-de-vie.com/blog/">Blog</a>
+      <a class="nav-link nav-secondary" href="https://montre-de-vie.com/apropos/">À propos</a>
+      <a class="nav-link nav-link-montre" href="https://montre-de-vie.com/">Montre de Vie</a>
     </div>
   </nav>
 

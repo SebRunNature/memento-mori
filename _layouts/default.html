@@ -66,9 +66,13 @@
       .nav-link[href="/apropos/"]{display:none}
     }
 
-    /* MAIN */
+    /* MAIN WRAP — s'applique aux pages sans wrapper propre (blog, à propos, articles) */
     main{padding-top:60px}
     .content-wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+    /* Les pages avec leur propre structure (accueil) annulent le padding du wrap */
+    .content-wrap:has(.home){max-width:none;padding:0}
+    /* Fallback sans :has() */
+    .home{max-width:1024px;margin:0 auto;padding:80px 24px 100px}
 
     /* BLOG CARDS */
     .post-list{display:flex;flex-direction:column;gap:12px;margin-top:20px}
@@ -162,7 +166,11 @@
   </div>
 </nav>
 
-<main>{{ content }}</main>
+<main>
+  <div class="content-wrap">
+    {{ content }}
+  </div>
+</main>
 
 <footer class="site-footer">
   <div class="site-footer-inner">

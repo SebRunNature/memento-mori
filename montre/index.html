@@ -839,8 +839,6 @@ select option{background:var(--card)}
     <div class="bio-score-lbl">Bonus / Malus biomarqueurs niveau 2</div>
   </div>
 
-  <div class="profile-msg" id="profile-msg"></div>
-
   <div class="countdown-grid">
     <div class="cd-cell"><span class="val" id="cd-years">--</span><span class="lbl">Années</span></div>
     <div class="cd-cell"><span class="val" id="cd-days">--</span><span class="lbl">Jours</span></div>
@@ -882,6 +880,7 @@ select option{background:var(--card)}
   </div>
 
   <div class="blog-section">
+    <div class="profile-msg" id="profile-msg" style="margin-bottom:20px"></div>
     <div class="blog-section-title">🌿 Prolonge ta vie sur les sentiers</div>
     <div class="blog-links">
       <a href="https://run-nature.com/" target="_blank" class="blog-link">
@@ -889,29 +888,14 @@ select option{background:var(--card)}
         <div class="blog-link-text"><div>Run Nature — Blog trail & bien-être</div><div class="blog-link-sub">Conseils, récits et nutrition naturelle</div></div>
         <span class="blog-link-arrow">→</span>
       </a>
-      <a href="https://run-nature.com/2026/05/04/moringa-pour-coureurs-le-superaliment-naturel-qui-transforme-votre-endurance/" target="_blank" class="blog-link">
-        <span class="blog-link-icon">🌱</span>
-        <div class="blog-link-text"><div>Le Moringa — carburant naturel du traileur</div><div class="blog-link-sub">Le superaliment qui soutient ta longévité</div></div>
-        <span class="blog-link-arrow">→</span>
-      </a>
-      <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" class="blog-link">
+      <a href="https://montre-de-vie.com/blog/" target="_blank" class="blog-link">
         <span class="blog-link-icon">📖</span>
-        <div class="blog-link-text"><div>Télécharger l'ebook Moringa gratuit</div><div class="blog-link-sub">Le carburant naturel du traileur — PDF</div></div>
+        <div class="blog-link-text"><div>Blog — Montre de Vie</div><div class="blog-link-sub">Longévité, mode de vie et Memento Mori</div></div>
         <span class="blog-link-arrow">→</span>
       </a>
-      <a href="https://run-nature.com/mes-outils-trail-gratuits/" target="_blank" class="blog-link">
-        <span class="blog-link-icon">📊</span>
-        <div class="blog-link-text"><div>Dashboard Suivi Trail</div><div class="blog-link-sub">Suis ta préparation semaine par semaine</div></div>
-        <span class="blog-link-arrow">→</span>
-      </a>
-      <a href="https://www.tiktok.com/@seb.run.lux" target="_blank" class="blog-link">
-        <span class="blog-link-icon">🎬</span>
-        <div class="blog-link-text"><div>Suivre Sébastien sur TikTok</div><div class="blog-link-sub">Vidéo amateur mais vidéo tout de même 😄</div></div>
-        <span class="blog-link-arrow">→</span>
-      </a>
-      <a href="https://strava.app.link/DEw8pXyyl0b" target="_blank" class="blog-link">
-        <span class="blog-link-icon">🟠</span>
-        <div class="blog-link-text"><div>Suivre Sébastien sur Strava</div><div class="blog-link-sub">Trails, résultats et sorties en direct</div></div>
+      <a href="https://montre-de-vie.com/score/" target="_blank" class="blog-link">
+        <span class="blog-link-icon">🧬</span>
+        <div class="blog-link-text"><div>Score de Vie</div><div class="blog-link-sub">Calcule ton âge biologique réel</div></div>
         <span class="blog-link-arrow">→</span>
       </a>
     </div>
@@ -1213,7 +1197,8 @@ function showMoringaMsg(){
     el.style.background='rgba(200,135,58,.08)';
     el.style.border='1px solid rgba(200,135,58,.3)';
     el.style.color='#e8b070';
-    el.innerHTML='🌱 Pas encore ? <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:#e8b070;text-decoration:underline">Ebook gratuit ici →</a>';
+    el.innerHTML='🌱 Pas encore intégré à ta routine ? Ça peut changer la donne.';
+    el.style.color='#e8b070';
   }
 }
 
@@ -1574,12 +1559,10 @@ function buildProfileMessage(s){
 
   // Mode normal (formulaire rempli)
   if(s.moringa===1) msgs.push('🌱 Moringa quotidien — tu es dans le top du peloton longévité.');
-  else msgs.push('🌱 Pas de Moringa ? <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" style="color:var(--green-lt)">Ebook gratuit →</a>');
   if(s.tobacco<=-8) msgs.push('🚬 La cigarette te coûte plusieurs années. Ton nerf vague le sait déjà.');
   if(s.alcohol<=-2) msgs.push('🍺 L\'alcool réduit ta VFC la nuit — même un verre. Ta montre GPS ne ment pas.');
   if(s.stress<=-3) msgs.push('😰 Stress élevé : enfile tes chaussures. Vraiment. C\'est médicalement prouvé.');
-  if(s.trail===-1) msgs.push('🏔️ Tu lis Run Nature mais tu ne cours pas encore. C\'est le bon moment.');
-  else if(s.trail>=2) msgs.push('🏔️ Trail régulier — tu es clairement sur la bonne piste. Littéralement.');
+  if(s.trail>=2) msgs.push('🏔️ Trail régulier — tu es clairement sur la bonne piste. Littéralement.');
   if(s.niveau2Actif){
     if(s.vo2>=2) msgs.push('💪 VO₂max excellent — ton capital cardiovasculaire est un atout majeur.');
     if(s.ldl<=-3) msgs.push('⚠️ LDL élevé — alimentation et activité physique peuvent faire la différence.');

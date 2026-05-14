@@ -5,172 +5,372 @@ description: "Qui est derrière la Montre de Vie ? L'histoire du Memento Mori, l
 ---
 
 <style>
-  .apropos-hero { text-align: center; padding: 48px 0 40px; }
-  .apropos-eyebrow { font-size: .75rem; letter-spacing: .35em; color: var(--green); text-transform: uppercase; font-weight: 800; margin-bottom: 12px; }
-  .apropos-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem,6vw,3.6rem); letter-spacing: 2px; color: var(--text); margin-bottom: 14px; }
-  .apropos-hero h1 em { color: var(--green-lt); font-style: normal; }
-  .apropos-hero p { font-size: .95rem; color: var(--muted); font-weight: 600; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+/* ══ PAGE À PROPOS ══════════════════════════════════════════════
+   Le layout default.html fournit déjà .content-wrap (max-width 720px,
+   marges auto, padding 48px 24px). On n'a pas à redéfinir les marges.
+══════════════════════════════════════════════════════════════ */
 
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--green-lt); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin: 40px 0 18px; }
+/* HERO */
+.ap-hero {
+  text-align: center;
+  padding: 48px 0 44px;
+}
+.ap-eyebrow {
+  font-size: .72rem;
+  letter-spacing: .3em;
+  color: var(--green);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.ap-hero h1 {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.ap-hero h1 em { color: var(--amber-lt); font-style: normal; }
+.ap-hero p {
+  font-size: .95rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
 
-  .prose { font-size: .97rem; color: rgba(232,245,240,.8); line-height: 1.85; font-weight: 600; margin-bottom: 18px; text-align: justify; }
-  .prose strong { color: var(--text); }
-  .prose em { color: var(--green-lt); font-style: italic; }
+/* CITATION LATINE */
+.latin-quote {
+  text-align: center;
+  padding: 32px 24px;
+  margin: 32px 0;
+  background: linear-gradient(135deg, rgba(245,158,11,.08), rgba(217,119,6,.04));
+  border: 1px solid rgba(245,158,11,.2);
+  border-radius: 16px;
+}
+.latin-quote .lat {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--amber-lt);
+  display: block;
+  margin-bottom: 8px;
+}
+.latin-quote .trad {
+  font-size: .95rem;
+  font-style: italic;
+  color: rgba(253,230,138,.6);
+  font-weight: 500;
+}
+.latin-quote .source {
+  font-size: .68rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  display: block;
+}
 
-  /* Citation latine */
-  .latin-quote { text-align: center; padding: 32px 24px; margin: 32px 0; background: linear-gradient(135deg, rgba(26,107,74,.15), rgba(45,158,114,.06)); border: 1px solid rgba(45,158,114,.2); border-radius: var(--radius); }
-  .latin-quote .lat { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: var(--green-lt); display: block; margin-bottom: 8px; }
-  .latin-quote .trad { font-size: .95rem; font-style: italic; color: rgba(168,240,208,.6); font-weight: 600; }
-  .latin-quote .source { font-size: .68rem; color: var(--muted); font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-top: 10px; display: block; }
+/* SECTION TITLE */
+.ap-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin: 44px 0 20px;
+}
 
-  /* Timeline stoïcienne */
-  .timeline { display: flex; flex-direction: column; gap: 0; margin: 24px 0; position: relative; }
-  .timeline::before { content: ''; position: absolute; left: 17px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--green), transparent); opacity: .3; }
-  .tl-item { display: flex; gap: 18px; padding-bottom: 22px; position: relative; }
-  .tl-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--card); border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: .85rem; flex-shrink: 0; z-index: 1; }
-  .tl-content { padding-top: 5px; }
-  .tl-content strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: .95rem; letter-spacing: 1px; color: var(--green-lt); margin-bottom: 3px; }
-  .tl-content span { font-size: .82rem; color: var(--muted); font-weight: 600; line-height: 1.6; }
+/* PROSE */
+.prose {
+  font-size: .96rem;
+  color: rgba(228,228,231,.82);
+  line-height: 1.85;
+  margin-bottom: 18px;
+}
+.prose strong { color: #fff; font-weight: 700; }
+.prose em { color: var(--amber-lt); font-style: italic; }
 
-  /* Profil Seb */
-  .seb-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin: 28px 0; display: flex; gap: 20px; align-items: flex-start; }
-  .seb-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--green-dk), var(--green)); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
-  .seb-info strong { display: block; font-size: 1rem; color: var(--text); font-weight: 800; margin-bottom: 4px; }
-  .seb-info p { font-size: .82rem; color: var(--muted); font-weight: 600; line-height: 1.65; }
-  .seb-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .seb-stat { background: rgba(45,158,114,.1); border: 1px solid rgba(45,158,114,.25); border-radius: 20px; padding: 4px 12px; font-size: .68rem; font-weight: 800; color: var(--green-lt); letter-spacing: .05em; }
+/* BLOCKQUOTE */
+.ap-quote {
+  background: rgba(9,9,11,.4);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 22px;
+  margin: 28px 0;
+  font-style: italic;
+  font-size: .95rem;
+  color: rgba(253,230,138,.7);
+  line-height: 1.75;
+}
+.ap-quote-author {
+  display: block;
+  font-size: .72rem;
+  color: var(--muted);
+  margin-top: 10px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: .05em;
+}
 
-  /* FAQ */
-  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 10px; }
-  .faq-q { font-size: .92rem; font-weight: 800; color: var(--green-lt); margin-bottom: 8px; }
-  .faq-a { font-size: .84rem; color: var(--muted); font-weight: 600; line-height: 1.7; text-align: justify; }
-  .tl-content span { font-size: .82rem; color: var(--muted); font-weight: 600; line-height: 1.6; text-align: justify; display: block; }
+/* TIMELINE */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 24px 0;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--amber), transparent);
+  opacity: .3;
+}
+.tl-item {
+  display: flex;
+  gap: 18px;
+  padding-bottom: 24px;
+  position: relative;
+}
+.tl-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.tl-content { padding-top: 6px; }
+.tl-year {
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 3px;
+}
+.tl-title {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  display: block;
+}
+.tl-body {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.65;
+  display: block;
+}
 
-  /* CTA */
-  .cta-wrap { text-align: center; margin: 40px 0; }
-  .cta-wrap a { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--green-dk), var(--green)); color: #fff; text-decoration: none; padding: 16px 40px; border-radius: 14px; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 3px; box-shadow: 0 4px 20px rgba(45,158,114,.3); transition: all .2s; }
-  .cta-wrap a:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,158,114,.45); }
+/* CARTE AUTEUR */
+.author-card {
+  background: var(--surface);
+  border: 1px solid var(--border-lt, var(--border));
+  border-radius: 16px;
+  padding: 24px;
+  margin: 28px 0;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.author-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--amber-dk), var(--amber));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.author-avatar svg { width: 28px; height: 28px; color: #000; }
+.author-name {
+  display: block;
+  font-size: .95rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.author-bio {
+  font-size: .84rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.author-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.author-tag {
+  background: rgba(0,152,98,.08);
+  border: 1px solid rgba(0,152,98,.2);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--green-lt);
+  letter-spacing: .04em;
+}
 
-  @media(max-width:600px) {
-    .apropos-hero { padding: 28px 0 24px; }
-    .apropos-hero h1 { font-size: 2rem; }
-    .apropos-hero p { font-size: .88rem; }
-    .latin-quote { padding: 22px 16px; margin: 20px 0; }
-    .latin-quote .lat { font-size: 1.4rem; letter-spacing: 2px; }
-    .latin-quote .trad { font-size: .85rem; }
-    .section-title { font-size: 1.15rem; margin: 28px 0 14px; }
-    .prose { font-size: .9rem; }
-    .timeline::before { left: 14px; }
-    .tl-dot { width: 30px; height: 30px; font-size: .75rem; flex-shrink: 0; }
-    .tl-item { gap: 12px; padding-bottom: 18px; }
-    .tl-content strong { font-size: .85rem; }
-    .tl-content span { font-size: .78rem; }
-    .seb-card { flex-direction: column; gap: 14px; padding: 18px; }
-    .seb-avatar { width: 52px; height: 52px; font-size: 1.4rem; }
-    .seb-info strong { font-size: .92rem; }
-    .seb-info p { font-size: .78rem; }
-    .seb-stat { font-size: .64rem; padding: 3px 10px; }
-    .faq-item { padding: 14px 16px; }
-    .faq-q { font-size: .85rem; }
-    .faq-a { font-size: .78rem; }
-    .cta-wrap a { padding: 14px 24px; font-size: 1.1rem; letter-spacing: 2px; width: 100%; justify-content: center; }
-  }
+/* FAQ */
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  transition: border-color .2s;
+}
+.faq-item:hover { border-color: var(--border2); }
+.faq-q {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.faq-a {
+  font-size: .84rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.faq-a strong { color: var(--text); font-weight: 600; }
+
+@media(max-width: 600px) {
+  .ap-hero { padding: 28px 0 24px; }
+  .latin-quote { padding: 22px 16px; }
+  .latin-quote .lat { font-size: 1.4rem; }
+  .author-card { flex-direction: column; gap: 14px; }
+  .timeline::before { left: 11px; }
+  .tl-dot { width: 24px; height: 24px; font-size: .7rem; }
+  .tl-item { gap: 12px; }
+}
 </style>
 
-<!-- HERO -->
-<div class="apropos-hero">
-  <div class="apropos-eyebrow">Memento Mori · Run Nature · Luxembourg</div>
+<!-- ══ HERO ══ -->
+<div class="ap-hero">
+  <div class="ap-eyebrow">Memento Mori · Luxembourg</div>
   <h1>À propos de la <em>Montre de Vie</em></h1>
   <p>Une philosophie vieille de 2 000 ans. Un traileur de 47 ans. Un outil gratuit pour ne plus jamais gaspiller une seconde.</p>
 </div>
 
-<!-- CITATION LATINE -->
+<!-- ══ CITATION ══ -->
 <div class="latin-quote">
   <span class="lat">Memento Mori</span>
   <span class="trad">« Souviens-toi que tu vas mourir »</span>
-  <span class="source">Latin · Rome Antique · IIe siècle av. J.-C.</span>
+  <span class="source">Latin · Rome Antique · II<sup>e</sup> siècle av. J.-C.</span>
 </div>
 
-<!-- C'EST QUOI -->
-<div class="section-title">🕐 C'est quoi la Montre de Vie ?</div>
+<!-- ══ C'EST QUOI ══ -->
+<h2 class="ap-section-title">C'est quoi la Montre de Vie ?</h2>
 
 <p class="prose">La Montre de Vie est un outil gratuit qui calcule ton espérance de vie estimée à partir de <strong>15 à 23 critères</strong> — mode de vie, biomarqueurs, capacités physiques — et lance un <strong>décompte en temps réel</strong> jusqu'à la dernière seconde.</p>
 
 <p class="prose">Ce n'est pas un outil médical. Ce n'est pas une prédiction. C'est un <strong>miroir</strong> — il te montre la direction que prennent tes habitudes actuelles, et t'invite à choisir consciemment comment tu veux vivre le temps qu'il te reste.</p>
 
-<p class="prose">La page <strong>"Ta vie en semaines"</strong> va plus loin : chaque carré représente une semaine. Tu vois d'un coup d'œil combien tu en as déjà vécues — et combien il t'en reste estimées. C'est parfois inconfortable. C'est exactement le but.</p>
+<p class="prose">La page <strong>"Ta vie en semaines"</strong> va plus loin : chaque carré représente une semaine. Tu vois d'un coup d'œil combien tu en as déjà vécues — et combien il t'en reste. C'est parfois inconfortable. C'est exactement le but.</p>
 
-<!-- HISTOIRE -->
-<div class="section-title">📜 2 000 ans d'histoire en quelques dates</div>
+<!-- ══ HISTOIRE ══ -->
+<h2 class="ap-section-title">2 000 ans d'histoire en quelques dates</h2>
 
 <div class="timeline">
   <div class="tl-item">
-    <div class="tl-dot">🏛️</div>
+    <div class="tl-dot">I</div>
     <div class="tl-content">
-      <strong>IIIe siècle av. J.-C. — Le stoïcisme naît à Athènes</strong>
-      <span>Zénon de Citium fonde l'école du Portique. La méditation sur la mort devient une pratique philosophique structurée — non pour déprimer, mais pour clarifier.</span>
+      <span class="tl-year">III<sup>e</sup> siècle av. J.-C.</span>
+      <span class="tl-title">Le stoïcisme naît à Athènes</span>
+      <span class="tl-body">Zénon de Citium fonde l'école du Portique. La méditation sur la mort devient une pratique philosophique structurée — non pour déprimer, mais pour clarifier.</span>
     </div>
   </div>
   <div class="tl-item">
-    <div class="tl-dot">⚔️</div>
+    <div class="tl-dot">II</div>
     <div class="tl-content">
-      <strong>Ier siècle — Rome et la formule officielle</strong>
-      <span>Un esclave marche derrière le général victorieux et lui murmure : <em>"Memento mori"</em>. Pas pour humilier — pour garder les pieds sur terre au moment de la plus grande gloire.</span>
+      <span class="tl-year">I<sup>er</sup> siècle</span>
+      <span class="tl-title">Rome et la formule officielle</span>
+      <span class="tl-body">Un esclave marche derrière le général victorieux et lui murmure : <em>"Memento mori"</em>. Pas pour humilier — pour garder les pieds sur terre au moment de la plus grande gloire.</span>
     </div>
   </div>
   <div class="tl-item">
-    <div class="tl-dot">📖</div>
+    <div class="tl-dot">III</div>
     <div class="tl-content">
-      <strong>IIe siècle — Marc Aurèle et les Pensées</strong>
-      <span>L'empereur-philosophe pratique le Memento Mori chaque jour dans son journal intime. <em>"N'agis pas comme si tu avais dix mille ans devant toi."</em></span>
+      <span class="tl-year">II<sup>e</sup> siècle</span>
+      <span class="tl-title">Marc Aurèle et les Pensées</span>
+      <span class="tl-body">L'empereur-philosophe pratique le Memento Mori chaque jour dans son journal intime. <em>"N'agis pas comme si tu avais dix mille ans devant toi."</em></span>
     </div>
   </div>
   <div class="tl-item">
-    <div class="tl-dot">💻</div>
+    <div class="tl-dot">IV</div>
     <div class="tl-content">
-      <strong>2005 — Steve Jobs et le miroir</strong>
-      <span>Dans son discours à Stanford, Jobs révèle sa pratique quotidienne : chaque matin, il se demande si ce qu'il va faire ce jour-là vaut vraiment la peine d'être fait.</span>
+      <span class="tl-year">2005</span>
+      <span class="tl-title">Steve Jobs et le miroir</span>
+      <span class="tl-body">Dans son discours à Stanford, Jobs révèle sa pratique quotidienne : chaque matin, il se demande si ce qu'il va faire ce jour-là vaut vraiment la peine d'être fait.</span>
     </div>
   </div>
   <div class="tl-item">
-    <div class="tl-dot">⌚</div>
+    <div class="tl-dot">V</div>
     <div class="tl-content">
-      <strong>2013 — Tikker Watch</strong>
-      <span>Fredrik Colting, ex-fossoyeur suédois, crée une montre physique à 59$ qui affiche le décompte de l'espérance de vie. Succès mondial — puis fermeture faute de composants.</span>
+      <span class="tl-year">2013</span>
+      <span class="tl-title">Tikker Watch</span>
+      <span class="tl-body">Fredrik Colting, ex-fossoyeur suédois, crée une montre physique à 59$ qui affiche le décompte de l'espérance de vie. Succès mondial — puis fermeture faute de composants.</span>
     </div>
   </div>
   <div class="tl-item">
-    <div class="tl-dot">🌿</div>
+    <div class="tl-dot">VI</div>
     <div class="tl-content">
-      <strong>2026 — montre-de-vie.com</strong>
-      <span>Un traileur luxembourgeois crée la version gratuite, en français, accessible sur tous les écrans. Plus précise, plus personnalisée, et sans les 59 dollars.</span>
+      <span class="tl-year">2026</span>
+      <span class="tl-title">montre-de-vie.com</span>
+      <span class="tl-body">Un traileur luxembourgeois crée la version gratuite, en français, accessible sur tous les écrans. Plus précise, plus personnalisée, et sans les 59 dollars.</span>
     </div>
   </div>
 </div>
 
-<!-- SEB -->
-<div class="section-title">🏔️ Qui est derrière ce projet ?</div>
+<!-- ══ QUI ══ -->
+<h2 class="ap-section-title">Qui est derrière ce projet ?</h2>
 
-<div class="seb-card">
-  <div class="seb-avatar">🏃</div>
-  <div class="seb-info">
-    <strong>Sébastien Salomon — Run Nature · Luxembourg</strong>
-    <p>47 ans, M45, traileur luxembourgeois. Je cours les sentiers du Grand-Duché depuis des années — l'Uelzechtdalltrail, les crêtes de l'Ardenne, les forêts de la Petite Suisse luxembourgeoise. J'écris sur run-nature.com ce que je vis, ce que je teste, et ce que les données confirment.</p>
-    <p style="margin-top:8px">La Montre de Vie est née d'une conviction simple : les données sur la longévité existent, elles sont publiques, et elles devraient être accessibles à tous — pas seulement à ceux qui peuvent payer un coach de santé.</p>
-    <div class="seb-stats">
-      <span class="seb-stat">VO₂max 54</span>
-      <span class="seb-stat">Âge bio 37-38 ans</span>
-      <span class="seb-stat">CRP &lt; 1 mg/L</span>
-      <span class="seb-stat">VFC moy. 27ms</span>
-      <span class="seb-stat">Luxembourg 🇱🇺</span>
+<div class="author-card">
+  <div class="author-avatar">
+    <!-- Logo horloge SVG -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+    </svg>
+  </div>
+  <div>
+    <span class="author-name">Sébastien Salomon — Luxembourg</span>
+    <p class="author-bio">47 ans, traileur luxembourgeois. Je cours les sentiers du Grand-Duché — l'Uelzechtdalltrail, les crêtes de l'Ardenne, les forêts de la Petite Suisse luxembourgeoise. J'écris sur run-nature.com ce que je vis, ce que je teste, et ce que les données confirment.</p>
+    <p class="author-bio" style="margin-top:8px">La Montre de Vie est née d'une conviction simple : les données sur la longévité existent, elles sont publiques, et elles devraient être accessibles à tous — pas seulement à ceux qui peuvent payer un coach de santé.</p>
+    <div class="author-tags">
+      <span class="author-tag">Trail running</span>
+      <span class="author-tag">Luxembourg</span>
+      <span class="author-tag">Longévité</span>
+      <span class="author-tag">Stoïcisme</span>
+      <span class="author-tag">Run Nature</span>
     </div>
   </div>
 </div>
 
 <p class="prose">Ce projet est un <strong>défi personnel</strong> — créer une vraie app mobile à partir de zéro, sans être développeur, en apprenant sur le tas. La Montre de Vie est la première étape. La suite arrive.</p>
 
-<!-- PHILOSOPHIE -->
-<div class="section-title">🧠 Pourquoi le Memento Mori n'est pas morbide</div>
+<!-- ══ PHILOSOPHIE ══ -->
+<h2 class="ap-section-title">Pourquoi le Memento Mori n'est pas morbide</h2>
 
 <p class="prose">La première réaction quand on parle de Memento Mori, c'est souvent : <em>"C'est glauque."</em> C'est exactement l'opposé.</p>
 
@@ -178,13 +378,13 @@ description: "Qui est derrière la Montre de Vie ? L'histoire du Memento Mori, l
 
 <p class="prose">Les études le confirment : les personnes qui pensent régulièrement à leur mortalité font <strong>de meilleurs choix de santé</strong>, ont des <strong>relations plus profondes</strong>, et rapportent un <strong>niveau de bien-être plus élevé</strong>. Ce n'est pas de la philosophie abstraite — c'est de la psychologie comportementale.</p>
 
-<blockquote style="background:rgba(45,158,114,.06);border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:14px 20px;margin:24px 0;font-style:italic;font-size:.95rem;color:rgba(168,240,208,.6);line-height:1.7;font-weight:600">
+<div class="ap-quote">
   « À 47 ans, je ne cours plus pour battre des records absolus. Je cours pour durer. Pour rester solide. Pour continuer à prendre du plaisir sur les sentiers du Luxembourg, année après année. Ce décompte m'aide à garder le cap. »
-  <span style="display:block;font-size:.72rem;color:var(--muted);margin-top:8px;font-style:normal;font-weight:800">— Sébastien, Run Nature</span>
-</blockquote>
+  <span class="ap-quote-author">— Sébastien, Run Nature</span>
+</div>
 
-<!-- FAQ -->
-<div class="section-title">❓ Questions fréquentes</div>
+<!-- ══ FAQ ══ -->
+<h2 class="ap-section-title">Questions fréquentes</h2>
 
 <div class="faq-item">
   <div class="faq-q">L'espérance de vie calculée est-elle précise ?</div>
@@ -198,22 +398,10 @@ description: "Qui est derrière la Montre de Vie ? L'histoire du Memento Mori, l
 
 <div class="faq-item">
   <div class="faq-q">Pourquoi c'est gratuit ?</div>
-  <div class="faq-a">Parce que l'accès à ces informations ne devrait pas coûter 59 dollars. Tikker Watch était une belle idée mais un produit payant. La Montre de Vie est la version open et accessible — pour tout le monde, pas seulement ceux qui peuvent se payer un gadget.</div>
+  <div class="faq-a">Parce que l'accès à ces informations ne devrait pas coûter 59 dollars. Tikker Watch était une belle idée mais un produit payant. La Montre de Vie est la version ouverte et accessible — pour tout le monde, pas seulement ceux qui peuvent se payer un gadget.</div>
 </div>
 
 <div class="faq-item">
   <div class="faq-q">C'est quoi la suite du projet ?</div>
-  <div class="faq-a">Une vraie app mobile sur le Play Store et l'App Store — installable, avec notifications optionnelles et suivi dans le temps. Le développement est en cours. Si tu veux suivre l'évolution, rejoins Run Nature sur les réseaux.</div>
-</div>
-
-<!-- CTA -->
-<div class="cta-wrap">
-  <a href="https://montre-de-vie.com/montre/">⏱ Lancer ma Montre de Vie</a>
-</div>
-
-<!-- LIENS -->
-<div style="text-align:center;margin-top:16px">
-  <a href="https://run-nature.com/" target="_blank" style="color:var(--green);font-weight:800;font-size:.85rem;text-decoration:none;margin:0 12px">🌿 Run Nature</a>
-  <a href="https://www.tiktok.com/@seb.run.lux" target="_blank" style="color:var(--green);font-weight:800;font-size:.85rem;text-decoration:none;margin:0 12px">🎬 TikTok</a>
-  <a href="https://strava.app.link/DEw8pXyyl0b" target="_blank" style="color:var(--green);font-weight:800;font-size:.85rem;text-decoration:none;margin:0 12px">🟠 Strava</a>
+  <div class="faq-a">Une vraie app mobile sur le Play Store et l'App Store — installable, avec notifications optionnelles et suivi dans le temps. Le développement est en cours. Si tu veux suivre l'évolution, rejoins Run Nature.</div>
 </div>

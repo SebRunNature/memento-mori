@@ -37,13 +37,36 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
   background:linear-gradient(to bottom,rgba(10,15,12,.35) 0%,rgba(10,15,12,.1) 40%,rgba(10,15,12,.6) 75%,rgba(10,15,12,.92) 100%)}
 
 /* ── LAYOUT ── */
-#app{position:relative;z-index:2;width:100%;max-width:640px;margin:0 auto;padding:48px 22px 80px;animation:fadeUp 1s ease both}
+#app{position:relative;z-index:2;width:100%;max-width:640px;margin:0 auto;padding:84px 22px 80px;animation:fadeUp 1s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── HEADER ── */
-.header{text-align:center;margin-bottom:44px}
-.header-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px}
-.header-logo span{font-family:'Inter',system-ui,sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--amber-lt)}
+/* ── NAV FIXE ── */
+.mdv-nav{position:fixed;top:0;left:0;right:0;z-index:99;
+  background:rgba(9,9,11,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.mdv-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
+  display:flex;align-items:center;justify-content:space-between}
+.mdv-nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
+  letter-spacing:-.02em;color:var(--text);text-decoration:none;transition:color .2s}
+.mdv-nav-brand:hover{color:#fff}
+.mdv-nav-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mdv-nav-icon svg{width:14px;height:14px;stroke:#000}
+.mdv-nav-links{display:flex;align-items:center;gap:2px}
+.mdv-nav-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;
+  padding:6px 12px;border-radius:8px;transition:all .2s}
+.mdv-nav-link:hover{color:var(--text);background:var(--card2)}
+.mdv-nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
+  border:1px solid rgba(0,152,98,.2);font-weight:600}
+.mdv-nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+@media(max-width:600px){
+  .mdv-nav-inner{padding:0 16px}
+  .mdv-nav-link{font-size:.78rem;padding:5px 8px}
+  .mdv-nav-link:nth-child(3){display:none}
+}
+
+/* ── HEADER PAGE ── */
+.header{text-align:center;margin-bottom:40px;padding-top:12px}
 .eyebrow{font-size:.82rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;margin-bottom:10px;font-weight:800}
 h1{font-family:'Inter',system-ui,sans-serif;font-size:clamp(2.6rem,7vw,4rem);letter-spacing:2px;line-height:1;color:var(--text)}
 h1 em{color:var(--amber-lt);font-style:normal}
@@ -466,28 +489,27 @@ select option{background:var(--card)}
 </div>
 
 <!-- ══ ÉTAPE 1 : FORMULAIRE ══ -->
+<!-- ══ NAV FIXE ══ -->
+<nav class="mdv-nav">
+  <div class="mdv-nav-inner">
+    <a class="mdv-nav-brand" href="https://montre-de-vie.com/">
+      <div class="mdv-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      Montre de Vie
+    </a>
+    <div class="mdv-nav-links">
+      <a href="https://montre-de-vie.com/blog/" class="mdv-nav-link">Blog</a>
+      <a href="https://montre-de-vie.com/apropos/" class="mdv-nav-link">À propos</a>
+      <a href="https://montre-de-vie.com/score/" class="mdv-nav-link mdv-nav-link-score">Score de Vie</a>
+    </div>
+  </div>
+</nav>
+
 <div id="setup">
   <div class="header">
-    <div class="header-logo">
-      <a href="https://montre-de-vie.com/" style="position:absolute;left:0;top:0;
-        font-family:'Inter',system-ui,sans-serif;font-size:.78rem;letter-spacing:2px;
-        color:rgba(168,240,208,.4);text-decoration:none;transition:color .2s;padding:4px 0"
-        onmouseover="this.style.color='#a8f0d0'" onmouseout="this.style.color='rgba(168,240,208,.4)'">
-        ← Accueil
-      </a>
-      <a href="https://montre-de-vie.com/score/" style="position:absolute;right:0;top:0;
-        font-family:'Inter',system-ui,sans-serif;font-size:.78rem;letter-spacing:2px;
-        color:rgba(168,240,208,.4);text-decoration:none;transition:color .2s;padding:4px 0"
-        onmouseover="this.style.color='#a8f0d0'" onmouseout="this.style.color='rgba(168,240,208,.4)'">
-        🧬 Score de Vie →
-      </a>
-      <svg width="34" height="34" viewBox="0 0 44 44" fill="none">
-        <circle cx="22" cy="22" r="22" fill="rgba(45,158,114,.2)"/>
-        <path d="M10 32 L18 18 L24 24 L30 14 L34 20" stroke="#a8f0d0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <circle cx="30" cy="14" r="3" fill="#a8f0d0"/>
-      </svg>
-      <span>Run Nature</span>
-    </div>
     <div class="eyebrow">Memento Mori</div>
     <h1>Ta vie en <em>décompte</em></h1>
     <p class="sub">Réponds honnêtement — le calcul ne triche pas, lui.</p>
@@ -500,7 +522,11 @@ select option{background:var(--card)}
     border:1px solid rgba(45,158,114,.4); background:rgba(45,158,114,.08);
     border-radius:var(--radius); padding:18px 20px; margin-bottom:24px;">
     <div style="display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap">
-      <div style="font-size:1.6rem; line-height:1">🧬</div>
+      <div style="width:32px;height:32px;background:rgba(0,152,98,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a0facf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/><path d="M12 2C8.5 5 7 8.5 7 12s1.5 7 5 10"/><path d="M12 2c3.5 3 5 6.5 5 10s-1.5 7-5 10"/>
+        </svg>
+      </div>
       <div style="flex:1; min-width:200px">
         <div style="font-family:'Inter',system-ui,sans-serif; font-size:1.15rem; color:var(--green-lt); letter-spacing:1.5px; margin-bottom:4px">
           Score de Vie détecté
@@ -654,7 +680,7 @@ select option{background:var(--card)}
         <option value="0.5">Bien géré — méditation, recul ✓</option>
         <option value="0">Faible</option>
         <option value="-1">Modéré — la vie quoi</option>
-        <option value="-3">Élevé et permanent — va courir 🏃</option>
+        <option value="-3">Élevé et permanent — agis maintenant</option>
       </select>
     </div>
     <div class="input-group">
@@ -804,20 +830,20 @@ select option{background:var(--card)}
   </div>
 
   <div class="btn-wrap">
-    <button class="btn-start" onclick="startLifeClock()">🏔️ Lancer ma montre de vie</button>
+    <button class="btn-start" onclick="startLifeClock()">Lancer ma montre de vie</button>
   </div>
 </div>
 
 <!-- ══ ÉTAPE 2 : DÉCOMPTE ══ -->
 <div id="display" class="hidden">
   <div class="display-header">
-    <div class="header-logo" style="justify-content:center;margin-bottom:14px">
-      <svg width="30" height="30" viewBox="0 0 44 44" fill="none">
-        <circle cx="22" cy="22" r="22" fill="rgba(45,158,114,.2)"/>
-        <path d="M10 32 L18 18 L24 24 L30 14 L34 20" stroke="#a8f0d0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <circle cx="30" cy="14" r="3" fill="#a8f0d0"/>
-      </svg>
-      <span style="font-family:'Inter',system-ui,sans-serif;font-size:1.1rem;color:var(--green-lt);letter-spacing:1px">Run Nature</span>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px">
+      <div style="width:32px;height:32px;background:var(--amber);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <span style="font-size:1rem;font-weight:700;color:var(--text);letter-spacing:-.01em">Montre de Vie</span>
     </div>
     <div class="eyebrow">Memento Mori</div>
     <h1>Ton <em>temps</em> restant</h1>

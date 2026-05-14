@@ -2686,14 +2686,22 @@ function renderHistory() {
     }
 
     setInput('age',    p.age);
+    setInput('taille', p.taille);
+    setInput('poids',  p.poids);
     setInput('vo2max', p.vo2max);
-    setBtn('sexe',    p.sexe);
-    setBtn('tabac',   p.tabac);
-    setBtn('alcool',  p.alcool);
-    setBtn('stress',  p.stress);
-    setBtn('ldl',     p.ldl);
-    setBtn('tension', p.tension);
-    setBtn('glycemie',p.glycemie);
+    setInput('grip',   p.grip);
+    setInput('walk',   p.walk);
+    setBtn('sexe',       p.sexe);
+    setBtn('tabac',      p.tabac);
+    setBtn('alcool',     p.alcool);
+    setBtn('stress',     p.stress);
+    setBtn('sleep_dur',  p.sleep_dur);
+    setBtn('social',     p.social);
+    setBtn('pollution',  p.pollution);
+    setBtn('antecedents',p.antecedents);
+    setBtn('ldl',        p.ldl);
+    setBtn('tension',    p.tension);
+    setBtn('glycemie',   p.glycemie);
 
     if (filled > 0) {
       updateBadges();

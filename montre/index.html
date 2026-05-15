@@ -467,27 +467,6 @@ select option{background:var(--card)}
 <!-- ══ APP ══ -->
 <div id="app">
 
-<!-- PROGRESS BAR STICKY (visible pendant le remplissage du formulaire) -->
-<div id="mdvStickyProgress" style="
-  position:sticky; top:0; z-index:98;
-  background:rgba(10,15,12,0.95); backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(45,158,114,0.2);
-  padding:8px 16px 10px;
-  margin:0 -14px 0;
-  transition:opacity .4s, max-height .4s;
-">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;max-width:700px;margin-left:auto;margin-right:auto">
-    <span style="font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Questionnaire</span>
-    <span id="mdvProgressPct" style="font-family:'Inter',system-ui,sans-serif;font-size:.9rem;letter-spacing:.05em;color:var(--amber-lt)">0%</span>
-  </div>
-  <div style="max-width:700px;margin:0 auto">
-    <div style="height:3px;background:rgba(45,158,114,.12);border-radius:2px;overflow:hidden">
-      <div id="mdvProgressFill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--amber-dk),var(--amber) 60%,var(--amber-lt));border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)"></div>
-    </div>
-  </div>
-</div>
-
 <!-- ══ ÉTAPE 1 : FORMULAIRE ══ -->
 <!-- ══ NAV FIXE ══ -->
 <nav class="mdv-nav">
@@ -504,6 +483,17 @@ select option{background:var(--card)}
       <a href="https://montre-de-vie.com/blog/" class="mdv-nav-link">Blog</a>
       <a href="https://montre-de-vie.com/apropos/" class="mdv-nav-link">À propos</a>
       <a href="https://montre-de-vie.com/score/" class="mdv-nav-link mdv-nav-link-score">Score de Vie</a>
+      <!-- Bouton son -->
+      <button id="btn-sound" onclick="toggleSound()" title="Activer / désactiver le tick sonore"
+        style="background:transparent;border:1px solid var(--border2);color:var(--muted);
+        width:32px;height:32px;border-radius:8px;cursor:pointer;display:flex;align-items:center;
+        justify-content:center;transition:all .2s;flex-shrink:0;margin-left:4px;padding:0">
+        <svg id="sound-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+      </button>
     </div>
   </div>
 </nav>
@@ -618,10 +608,12 @@ select option{background:var(--card)}
     <div class="input-group">
       <label>Taille (cm)</label>
       <input type="number" id="taille" placeholder="Ex : 175" min="140" max="220" step="1" oninput="updateBmiAuto()">
+      <p class="hint">Optionnel — laisse vide si tu préfères ne pas répondre.</p>
     </div>
     <div class="input-group">
       <label>Poids (kg)</label>
       <input type="number" id="poids" placeholder="Ex : 70" min="40" max="200" step="0.5" oninput="updateBmiAuto()">
+      <p class="hint">Optionnel — laisse vide si tu préfères ne pas répondre.</p>
     </div>
     <div class="input-group" style="grid-column:1/-1">
       <label>IMC <span id="bmi-feedback" style="color:var(--green-lt);font-size:.78rem;font-weight:700;margin-left:8px"></span></label>
@@ -886,56 +878,56 @@ select option{background:var(--card)}
   </div>
 
   <!-- Bouton son -->
-  <div style="text-align:center;margin-bottom:8px">
-    <button id="btn-sound" onclick="toggleSound()"
-      style="background:rgba(45,158,114,.1);border:1px solid rgba(45,158,114,.3);
-      color:var(--muted);padding:8px 20px;border-radius:30px;cursor:pointer;
-      font-family:'Inter',system-ui,sans-serif;font-size:.75rem;font-weight:800;
-      letter-spacing:.08em;text-transform:uppercase;transition:all .2s">
-      🔔 Activer le tick
-    </button>
-    <div style="font-size:.6rem;color:rgba(90,138,122,.5);margin-top:5px;font-weight:700">
-      Un son discret à chaque seconde
-    </div>
-  </div>
+  <!-- tick déplacé dans la nav -->
 
   <p class="note-text">« Chaque foulée compte. Chaque seconde aussi. »<br><em style="font-size:.75rem;opacity:.6">— Sébastien Salomon</em></p>
 
-  <!-- Bouton Grille -->
-  <div style="text-align:center;margin-bottom:32px">
-    <a id="btn-grille" href="/grille/" style="display:inline-flex;align-items:center;gap:10px;
-      background:var(--card);border:1px solid rgba(45,158,114,.4);color:var(--green-lt);
-      text-decoration:none;padding:15px 32px;border-radius:14px;
-      font-family:'Inter',system-ui,sans-serif;font-size:1.2rem;letter-spacing:2px;
-      transition:all .2s;box-shadow:0 2px 16px rgba(45,158,114,.15)">
-      🟩 Voir ma vie en semaines
+  <!-- Boutons d'action principaux -->
+  <div style="text-align:center;margin-bottom:32px;display:flex;flex-direction:column;align-items:center;gap:14px">
+
+    <!-- Voir ma vie bio → Score de Vie -->
+    <a href="https://montre-de-vie.com/score/" id="btn-score-bio"
+      style="display:inline-flex;align-items:center;gap:10px;
+      background:linear-gradient(135deg,var(--green-dk),var(--green));
+      color:#fff;text-decoration:none;padding:15px 32px;border-radius:14px;
+      font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:700;
+      letter-spacing:-.01em;transition:all .2s;box-shadow:0 4px 20px rgba(0,152,98,.3);
+      width:fit-content">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="12" rx="4" ry="10"/>
+        <path d="M2 12h20"/>
+        <path d="M12 2C8.5 5 7 8.5 7 12s1.5 7 5 10"/>
+        <path d="M12 2c3.5 3 5 6.5 5 10s-1.5 7-5 10"/>
+      </svg>
+      Voir ma vie biologique
     </a>
-    <p style="font-size:.68rem;color:var(--muted);margin-top:8px;font-weight:700">
+    <p style="font-size:.72rem;color:var(--muted);margin-top:-6px;font-weight:500">
+      Calcule ton âge biologique réel — les données sont pré-remplies
+    </p>
+
+    <!-- Voir ma vie en semaines → Grille -->
+    <a id="btn-grille" href="/grille/"
+      style="display:inline-flex;align-items:center;gap:10px;
+      background:var(--card);border:1px solid var(--border2);color:var(--text);
+      text-decoration:none;padding:13px 28px;border-radius:14px;
+      font-family:'Inter',system-ui,sans-serif;font-size:.9rem;font-weight:600;
+      transition:all .2s;width:fit-content">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="4" height="4" rx="0.5"/><rect x="10" y="3" width="4" height="4" rx="0.5"/>
+        <rect x="17" y="3" width="4" height="4" rx="0.5"/><rect x="3" y="10" width="4" height="4" rx="0.5"/>
+        <rect x="10" y="10" width="4" height="4" rx="0.5"/><rect x="17" y="10" width="4" height="4" rx="0.5"/>
+        <rect x="3" y="17" width="4" height="4" rx="0.5"/><rect x="10" y="17" width="4" height="4" rx="0.5"/>
+        <rect x="17" y="17" width="4" height="4" rx="0.5"/>
+      </svg>
+      Voir ma vie en semaines
+    </a>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:-6px;font-weight:500">
       Ta vie représentée carré par carré — chaque carré = 1 semaine
     </p>
+
   </div>
 
-  <div class="blog-section">
-    <div class="profile-msg" id="profile-msg" style="margin-bottom:20px"></div>
-    <div class="blog-section-title">🌿 Prolonge ta vie sur les sentiers</div>
-    <div class="blog-links">
-      <a href="https://run-nature.com/" target="_blank" class="blog-link">
-        <span class="blog-link-icon">🏠</span>
-        <div class="blog-link-text"><div>Run Nature — Blog trail & bien-être</div><div class="blog-link-sub">Conseils, récits et nutrition naturelle</div></div>
-        <span class="blog-link-arrow">→</span>
-      </a>
-      <a href="https://montre-de-vie.com/blog/" target="_blank" class="blog-link">
-        <span class="blog-link-icon">📖</span>
-        <div class="blog-link-text"><div>Blog — Montre de Vie</div><div class="blog-link-sub">Longévité, mode de vie et Memento Mori</div></div>
-        <span class="blog-link-arrow">→</span>
-      </a>
-      <a href="https://montre-de-vie.com/score/" target="_blank" class="blog-link">
-        <span class="blog-link-icon">🧬</span>
-        <div class="blog-link-text"><div>Score de Vie</div><div class="blog-link-sub">Calcule ton âge biologique réel</div></div>
-        <span class="blog-link-arrow">→</span>
-      </a>
-    </div>
-  </div>
+  <div id="profile-msg" style="margin:20px 0;font-size:.88rem;color:var(--muted);font-weight:600;line-height:1.8;text-align:center;padding:0 12px"></div>
 
   </div>
 
@@ -1619,8 +1611,10 @@ function startLifeClock(){
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('display').classList.remove('hidden');
   // Masquer la progress bar sticky (plus utile sur l'écran décompte)
-  var sp = document.getElementById('mdvStickyProgress');
-  if (sp) sp.style.display = 'none';
+  // progress bar supprimée
+
+  // Scroll immédiat vers le haut — l'utilisateur voit le résultat directement
+  window.scrollTo({ top: 0, behavior: 'instant' });
 
   // Mise à jour lien grille avec paramètres
   var trailSorties = intense >= 2 ? intense : 2;
@@ -1765,17 +1759,18 @@ function toggleSound(){
   initAudio();
   _soundOn = !_soundOn;
   var btn = document.getElementById('btn-sound');
+  var icon = document.getElementById('sound-icon');
   if(_soundOn){
-    btn.textContent = '🔕 Couper le tick';
-    btn.style.background = 'rgba(45,158,114,.2)';
-    btn.style.borderColor = 'rgba(45,158,114,.6)';
-    btn.style.color = 'var(--green-lt)';
-    playTick(); // test immédiat
+    btn.style.background = 'rgba(245,158,11,.15)';
+    btn.style.borderColor = 'rgba(245,158,11,.5)';
+    btn.style.color = 'var(--amber)';
+    if(icon) icon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>';
+    playTick();
   } else {
-    btn.textContent = '🔔 Activer le tick';
-    btn.style.background = 'rgba(45,158,114,.1)';
-    btn.style.borderColor = 'rgba(45,158,114,.3)';
+    btn.style.background = 'transparent';
+    btn.style.borderColor = 'var(--border2)';
     btn.style.color = 'var(--muted)';
+    if(icon) icon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
   }
 }
 
@@ -1793,8 +1788,7 @@ function resetAll(){
     document.getElementById('niveau2-content').classList.remove('visible');
     document.getElementById('toggle-arrow').classList.remove('open');
     // Réafficher la progress bar sticky + la remettre à 0
-    var sp = document.getElementById('mdvStickyProgress');
-    if (sp) sp.style.display = '';
+    // progress bar supprimée
     _mdvTouched.clear();
     updateMdvProgress();
   }
@@ -2205,8 +2199,7 @@ window.addEventListener('DOMContentLoaded', function(){
     _state = saved;
     document.getElementById('setup').classList.add('hidden');
     document.getElementById('display').classList.remove('hidden');
-    var sp = document.getElementById('mdvStickyProgress');
-    if (sp) sp.style.display = 'none';
+    // progress bar supprimée
     var trailSorties = saved.sport >= 2 ? saved.sport : 2;
     var grilleUrl = '/grille/?age='+saved.age+'&esperance='+saved.totalLife+'&trail='+trailSorties;
     document.getElementById('btn-grille').href = grilleUrl;

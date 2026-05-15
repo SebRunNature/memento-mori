@@ -2,7 +2,6 @@
 layout: default
 title: "Moringa et longévité — ce que dit vraiment la science en 2026"
 description: "Antioxydants, inflammation, glycémie, neuroprotection... Le Moringa est-il vraiment un allié longévité ? On lit les études à ta place, sans bullshit."
-excerpt: "Le Moringa, on en entend parler partout. "Superaliment", "arbre miraculeux", "the most nutrient-dense plant on earth"... Internet est généreux avec les superlatifs. Mais qu'est-ce que la science dit vraiment — sans le marketing autour ?"
 date: 2026-05-07
 author: Sébastien Salomon
 ---

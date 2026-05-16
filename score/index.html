@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Score de Vie — Calculer mon âge biologique</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:       #09090b;
@@ -81,6 +82,7 @@ body::before {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
+  font-family: 'Inter', system-ui, sans-serif;
 }
 .site-nav-inner {
   max-width: 1024px; margin: 0 auto; padding: 0 24px; height: 60px;
@@ -147,19 +149,18 @@ body::before {
 }
 
 .hero h1 {
-  font-family: 'Nunito',system-ui,sans-serif;
-  font-size: clamp(2.8rem, 9vw, 5.5rem);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.04em;
+  color: #fff;
   margin-bottom: 22px;
-  text-transform: uppercase;
 }
 .hero h1 em {
   font-style: normal;
   color: var(--green-lt);
-  font-weight: 400;
+  font-weight: 800;
 }
 .hero-sub {
   font-family: 'Nunito',system-ui,sans-serif;
@@ -746,56 +747,6 @@ input[type="number"]:focus { border-color: var(--green); }
   font-style: italic;
 }
 
-/* ─── PROGRESS BAR ─── */
-.progress-wrap {
-  position: sticky;
-  top: 60px;
-  z-index: 49;
-  background: rgba(10, 15, 12, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 8px 20px 10px;
-  margin: 0 -20px 24px;
-  width: calc(100% + 40px);
-  transition: opacity .3s;
-}
-.progress-info {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 6px;
-}
-.progress-label {
-  font-family: 'Nunito',system-ui,sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink3);
-}
-.progress-pct {
-  font-family: 'Nunito',system-ui,sans-serif;
-  font-size: 15px;
-  letter-spacing: 0.05em;
-  color: var(--green-lt);
-}
-.progress-track {
-  height: 4px;
-  background: var(--surface3);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--green-dk), var(--green) 60%, var(--green-lt));
-  border-radius: 2px;
-  transition: width .4s cubic-bezier(.4,0,.2,1);
-}
-/* Quand complet, on cache la progress bar */
-.progress-wrap.complete {
-  opacity: 0; pointer-events: none;
-}
-
 /* ─── BOUTONS RÉSULTAT (Partager / Sauvegarder) ─── */
 .result-actions {
   display: flex; flex-wrap: wrap; gap: 10px;
@@ -1040,6 +991,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   border-top: 1px solid var(--border);
   padding: 36px 24px;
   text-align: center;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 .site-footer-inner { max-width: 1024px; margin: 0 auto; }
 .footer-links {
@@ -1050,17 +1002,11 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   font-size: .875rem; font-weight: 500; color: var(--muted);
   text-decoration: none; padding: 4px 8px; border-radius: 6px;
   transition: color .2s;
-  /* override : pas de uppercase ni letter-spacing comme le canonique */
-  text-transform: none;
-  letter-spacing: normal;
-  font-family: 'Nunito',system-ui,sans-serif;
 }
 .footer-link:hover { color: var(--text); }
 .footer-sep { color: var(--dim); font-size: .75rem; }
 .footer-copy {
   font-size: .8rem; color: var(--dim); line-height: 1.6;
-  font-family: 'Nunito',system-ui,sans-serif;
-  letter-spacing: normal;
   text-align: center;
 }
 .footer-copy a { color: var(--dim); text-decoration: none; }
@@ -1100,16 +1046,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
     </div>
   </nav>
 
-  <!-- PROGRESS BAR (sticky en haut sous le header) -->
-  <div class="progress-wrap" id="progressWrap">
-    <div class="progress-info">
-      <span class="progress-label">Progression du questionnaire</span>
-      <span class="progress-pct" id="progressPct">0%</span>
-    </div>
-    <div class="progress-track">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-  </div>
+  <!-- PROGRESS BAR (supprimée) -->
 
   <!-- HERO -->
   <div class="hero">
@@ -2632,38 +2569,11 @@ function renderHistory() {
 })();
 
 // ════════════════════════════════════════════════════════════════
-// PROGRESSION DU QUESTIONNAIRE
+// PROGRESSION DU QUESTIONNAIRE (barre supprimée — stub no-op
+// conservé pour ne pas casser les appels existants)
 // ════════════════════════════════════════════════════════════════
 function updateProgress() {
-  // Une qcard est "remplie" si :
-  //  - elle contient un input numérique avec valeur > 0, OU
-  //  - elle contient au moins un bouton .opt.sel choisi
-  const cards = document.querySelectorAll('.qcard');
-  let total = 0;
-  let filled = 0;
-  cards.forEach(card => {
-    // On ne compte pas les cartes optionnelles (Niveau 3 par ex.)
-    // Heuristique : on compte toutes les .qcard visibles dans le DOM
-    total++;
-    const numInputs = card.querySelectorAll('input[type=number]');
-    const opts = card.querySelectorAll('.opt.sel');
-    let cardFilled = false;
-    numInputs.forEach(i => { if (parseFloat(i.value) > 0) cardFilled = true; });
-    if (opts.length > 0) cardFilled = true;
-    if (cardFilled) filled++;
-  });
-  if (total === 0) return;
-  const pct = Math.round((filled / total) * 100);
-  const wrap = document.getElementById('progressWrap');
-  const fill = document.getElementById('progressFill');
-  const pctEl = document.getElementById('progressPct');
-  if (fill) fill.style.width = pct + '%';
-  if (pctEl) pctEl.textContent = pct + '%';
-  if (wrap) {
-    // Masquer quand 100% atteint pour ne pas encombrer l'écran de résultat
-    if (pct >= 100) wrap.classList.add('complete');
-    else wrap.classList.remove('complete');
-  }
+  /* Barre de progression supprimée — fonction conservée vide pour rétro-compatibilité */
 }
 
 // ════════════════════════════════════════════════════════════════

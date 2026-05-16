@@ -74,52 +74,46 @@ body::before {
   z-index: 1;
 }
 
-/* ─── NAV ─── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 24px;
-  background: rgba(9, 9, 11, 0.92);
+/* ─── NAV — Header de référence canonique ─── */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(9,9,11,.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
-.nav-left { display: flex; align-items: center; gap: 28px; }
-.nav-right { display: flex; align-items: center; gap: 22px; }
+.site-nav-inner {
+  max-width: 1024px; margin: 0 auto; padding: 0 24px; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
 .nav-brand {
   display: flex; align-items: center; gap: 10px;
-  font-size: 1rem; font-weight: 700; letter-spacing: -0.02em;
+  font-size: 1rem; font-weight: 700; letter-spacing: -.02em;
   color: var(--ink); text-decoration: none; transition: color .2s;
 }
 .nav-brand:hover { color: #fff; }
-.nav-brand-dot {
-  width: 26px; height: 26px;
-  border-radius: 7px;
-  background: var(--green);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+.nav-brand-icon {
+  width: 26px; height: 26px; background: var(--amber); border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.nav-brand-dot svg { width: 14px; height: 14px; stroke: #fff; }
+.nav-brand-icon svg { width: 14px; height: 14px; stroke: #000; }
+.nav-links { display: flex; align-items: center; gap: 2px; }
 .nav-link {
-  font-size: .875rem; font-weight: 500;
-  color: var(--ink3); text-decoration: none;
-  padding: 6px 12px; border-radius: 8px; transition: all .2s;
+  font-size: .875rem; font-weight: 500; color: var(--ink3);
+  text-decoration: none; padding: 6px 12px; border-radius: 8px;
+  transition: all .2s;
 }
 .nav-link:hover { color: var(--ink); background: var(--surface2); }
-.nav-link-montre {
-  background: rgba(245,158,11,.1); color: var(--amber-lt);
-  border: 1px solid rgba(245,158,11,.2); font-weight: 600;
+.nav-link.active { color: var(--ink); }
+.nav-link-score {
+  background: rgba(0,152,98,.1); color: var(--green-lt);
+  border: 1px solid rgba(0,152,98,.2); font-weight: 600;
 }
-.nav-link-montre:hover { background: rgba(245,158,11,.18); color: #fff; }
+.nav-link-score:hover { background: rgba(0,152,98,.18); color: #fff; }
 @media (max-width: 600px) {
-  nav { padding: 0 16px; }
+  .site-nav-inner { padding: 0 16px; }
   .nav-link { font-size: .78rem; padding: 5px 8px; }
-  .nav-link.nav-secondary { display: none; }
+  .nav-link[href="/apropos/"] { display: none; }
 }
 
 /* ─── HERO ─── */
@@ -752,63 +746,6 @@ input[type="number"]:focus { border-color: var(--green); }
   font-style: italic;
 }
 
-/* ─── SCORE LIVE BANNER ─── */
-.score-live {
-  position: sticky;
-  top: 64px;
-  z-index: 50;
-  background: rgba(10,15,12,0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 20px;
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin: 0 -20px;
-  width: calc(100% + 40px);
-}
-.score-live.visible { display: flex; }
-.score-live-label {
-  font-family: 'Nunito',system-ui,sans-serif;
-  font-size: 16px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ink3);
-}
-.score-live-ages {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.score-live-num {
-  font-family: 'Nunito',system-ui,sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1;
-  transition: color 0.4s;
-}
-.score-live-num.younger { color: var(--green); }
-.score-live-num.older { color: var(--red); }
-.score-live-num.same { color: var(--ink); }
-.score-live-sep { font-size: 16px; color: var(--ink3); font-style: italic; font-family: 'Nunito',system-ui,sans-serif; }
-.score-live-delta {
-  font-family: 'Nunito',system-ui,sans-serif;
-  font-size: 16px;
-  padding: 3px 10px;
-  border-radius: 2px;
-  font-weight: 700;
-}
-.score-live-delta.pos { background: var(--green-dim); color: var(--green); }
-.score-live-delta.neg { background: var(--red-dim); color: var(--red); }
-.score-live-delta.neu { background: var(--surface3); color: var(--ink3); }
-.score-live-hint {
-  font-size: 16px;
-  color: var(--ink3);
-  font-family: 'Nunito',system-ui,sans-serif;
-  letter-spacing: 0.05em;
-}
-
 /* ─── PROGRESS BAR ─── */
 .progress-wrap {
   position: sticky;
@@ -1097,44 +1034,37 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   animation: countUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
 }
 
-/* ─── FOOTER ─── */
+/* ─── FOOTER — Canonique ─── */
 .site-footer {
-  margin-top: 64px;
-  padding: 28px 0 20px;
-  border-top: 1px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 36px 24px;
+  text-align: center;
 }
-.footer-brand {
-  font-family: 'Nunito',system-ui,sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--green);
-  text-decoration: none;
+.site-footer-inner { max-width: 1024px; margin: 0 auto; }
+.footer-links {
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px; flex-wrap: wrap; margin-bottom: 14px;
 }
-.footer-links { display: flex; gap: 20px; }
 .footer-link {
-  font-size: 16px;
-  color: var(--ink3);
-  text-decoration: none;
-  letter-spacing: 0.08em;
+  font-size: .875rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; padding: 4px 8px; border-radius: 6px;
+  transition: color .2s;
+  /* override : pas de uppercase ni letter-spacing comme le canonique */
+  text-transform: none;
+  letter-spacing: normal;
   font-family: 'Nunito',system-ui,sans-serif;
-  text-transform: uppercase;
-  transition: color 0.2s;
 }
-.footer-link:hover { color: var(--ink2); }
+.footer-link:hover { color: var(--text); }
+.footer-sep { color: var(--dim); font-size: .75rem; }
 .footer-copy {
-  font-size: 16px;
-  color: var(--ink3);
+  font-size: .8rem; color: var(--dim); line-height: 1.6;
   font-family: 'Nunito',system-ui,sans-serif;
-  letter-spacing: 0.05em;
-  width: 100%;
+  letter-spacing: normal;
+  text-align: center;
 }
+.footer-copy a { color: var(--dim); text-decoration: none; }
+.footer-copy a:hover { color: var(--muted); }
 
 @media (max-width: 600px) {
   .result-hero { padding: 32px 20px; }
@@ -1150,39 +1080,27 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
 <body>
 <div class="wrap">
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-left">
-      <a class="nav-brand" href="/score/">
-        <div class="nav-brand-dot">
+  <!-- NAV — Header canonique -->
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a class="nav-brand" href="/">
+        <div class="nav-brand-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/>
-            <path d="M12 2C8.5 5 7 8.5 7 12s1.5 7 5 10"/>
-            <path d="M12 2c3.5 3 5 6.5 5 10s-1.5 7-5 10"/>
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
         </div>
-        Score de Vie
+        Montre de Vie
       </a>
-    </div>
-    <div class="nav-right">
-      <a class="nav-link nav-secondary" href="/blog/">Blog</a>
-      <a class="nav-link nav-secondary" href="/apropos/">À propos</a>
-      <a class="nav-link nav-link-montre" href="/montre/">Montre de Vie</a>
+      <div class="nav-links">
+        <a href="/montre/"  class="nav-link">La Montre</a>
+        <a href="/score/"   class="nav-link nav-link-score active">Score de Vie</a>
+        <a href="/blog/"    class="nav-link">Blog</a>
+        <a href="/apropos/" class="nav-link">À propos</a>
+      </div>
     </div>
   </nav>
 
-  <!-- SCORE LIVE BANNER -->
-  <div class="score-live" id="scoreLiveBanner">
-    <span class="score-live-label">Âge bio en cours</span>
-    <div class="score-live-ages">
-      <span class="score-live-num" id="liveBioNum">—</span>
-      <span class="score-live-sep">ans bio</span>
-      <span class="score-live-delta neu" id="liveDelta">—</span>
-    </div>
-    <span class="score-live-hint">Complète le formulaire et clique "Calculer" pour voir ton résultat</span>
-  </div>
-
-  <!-- PROGRESS BAR (sticky sous le score-live) -->
+  <!-- PROGRESS BAR (sticky en haut sous le header) -->
   <div class="progress-wrap" id="progressWrap">
     <div class="progress-info">
       <span class="progress-label">Progression du questionnaire</span>
@@ -2363,25 +2281,16 @@ function renderChart() {
 // ════════════════════════════════════════
 function renderResult(result) {
   const age = parseFloat(document.getElementById('age').value);
-  const banner = document.getElementById('scoreLiveBanner');
 
   if (!result || !age) {
     document.getElementById('resultContent').innerHTML = '<div class="result-placeholder-text">Commence par renseigner ton âge, ta taille et ton poids.</div>';
-    banner.classList.remove('visible');
     return;
   }
   const { bioAge, delta, factors } = result;
   const cls = delta < -1 ? 'younger' : delta > 1 ? 'older' : 'same';
   const sign = delta > 0 ? `+${delta.toFixed(1)}` : delta.toFixed(1);
 
-  // Live banner update
-  banner.classList.add('visible');
-  const livNum = document.getElementById('liveBioNum');
-  const livDelta = document.getElementById('liveDelta');
-  livNum.textContent = bioAge;
-  livNum.className = `score-live-num ${cls}`;
-  livDelta.textContent = sign + ' ans';
-  livDelta.className = `score-live-delta ${delta < -1 ? 'pos' : delta > 1 ? 'neg' : 'neu'}`;
+  // (Bandeau "score live" supprimé — l'âge bio est uniquement affiché dans le bloc résultat)
 
   const verdicts = [
     { max:-10, t:'Exceptionnel. Tu vieillis comme un athlète de 15 ans ta cadette.', c:'g' },
@@ -3301,18 +3210,26 @@ if (loadHistory().length >= 2) {
 }
 </script>
 
-<!-- FOOTER -->
-<div class="wrap" style="padding-top:0;padding-bottom:40px">
-  <footer class="site-footer">
-    <a class="footer-brand" href="/score/">Score de Vie</a>
+<!-- FOOTER — Canonique -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
     <div class="footer-links">
-      <a class="footer-link" href="/apropos/" target="_blank">À propos</a>
-      <a class="footer-link" href="/blog/" target="_blank">Blog</a>
-      <a class="footer-link" href="/montre/" target="_blank">Montre de Vie ↗</a>
+      <a class="footer-link" href="/">Accueil</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/montre/">La Montre</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/score/">Score de Vie</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/blog/">Blog</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/apropos/">À propos</a>
     </div>
-    <div class="footer-copy">© 2026 Score de Vie — Outil indicatif, pas un diagnostic médical.</div>
-  </footer>
-</div>
+    <p class="footer-copy">
+      Outil indicatif — pas un conseil médical ·
+      © 2026 <a href="https://run-nature.com" target="_blank">Run Nature</a>
+    </p>
+  </div>
+</footer>
 
 <!-- ══ MODAL PARTAGE ══ -->
 <div class="share-overlay" id="shareOverlay" onclick="if(event.target===this)closeShareModal()">

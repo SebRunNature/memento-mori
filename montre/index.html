@@ -331,7 +331,7 @@ select option{background:var(--card)}
 .moringa-msg{margin-top:8px;padding:10px 14px;border-radius:10px;font-size:.82rem;font-weight:700;line-height:1.6;transition:all .3s}
 
 @media(max-width:480px){
-  #app{padding:32px 16px 60px}
+  #app{padding:74px 16px 60px}  /* 60px nav + 14px d'espace */
   .countdown-grid{grid-template-columns:repeat(2,1fr)}
   .cd-cell .val{font-size:2rem}
 }
@@ -469,12 +469,7 @@ select option{background:var(--card)}
   </div>
 </div>
 
-<!-- ══ APP ══ -->
-<div id="app">
-
-<!-- ══ ÉTAPE 1 : FORMULAIRE ══ -->
-<!-- ══ NAV FIXE ══ -->
-<!-- NAV — Header canonique -->
+<!-- ══ NAV FIXE — Header canonique (HORS de #app pour rester fixed sur toute la largeur) ══ -->
 <nav class="site-nav">
   <div class="site-nav-inner">
     <a class="nav-brand" href="/">
@@ -493,6 +488,11 @@ select option{background:var(--card)}
     </div>
   </div>
 </nav>
+
+<!-- ══ APP ══ -->
+<div id="app">
+
+<!-- ══ ÉTAPE 1 : FORMULAIRE ══ -->
 
 <div id="setup">
   <div class="header">
@@ -2210,7 +2210,8 @@ window.addEventListener('DOMContentLoaded', function(){
 <!-- ══ FOOTER ══ -->
 <style>
 .site-footer{background:var(--card);border-top:1px solid var(--border);
-  padding:36px 24px;text-align:center;margin-top:60px}
+  padding:36px 24px;text-align:center;margin-top:60px;
+  position:relative;z-index:2}
 .site-footer-inner{max-width:1024px;margin:0 auto}
 .footer-links{display:flex;align-items:center;justify-content:center;
   gap:6px;flex-wrap:wrap;margin-bottom:14px}

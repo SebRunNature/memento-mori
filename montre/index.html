@@ -40,29 +40,30 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
 #app{position:relative;z-index:2;width:100%;max-width:640px;margin:0 auto;padding:84px 22px 80px;animation:fadeUp 1s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── NAV FIXE ── */
-.mdv-nav{position:fixed;top:0;left:0;right:0;z-index:99;
+/* ── NAV FIXE — Header de référence canonique ── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:100;
   background:rgba(9,9,11,.92);backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.mdv-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
+.site-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
   display:flex;align-items:center;justify-content:space-between}
-.mdv-nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
   letter-spacing:-.02em;color:var(--text);text-decoration:none;transition:color .2s}
-.mdv-nav-brand:hover{color:#fff}
-.mdv-nav-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
+.nav-brand:hover{color:#fff}
+.nav-brand-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mdv-nav-icon svg{width:14px;height:14px;stroke:#000}
-.mdv-nav-links{display:flex;align-items:center;gap:2px}
-.mdv-nav-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;
+.nav-brand-icon svg{width:14px;height:14px;stroke:#000}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;
   padding:6px 12px;border-radius:8px;transition:all .2s}
-.mdv-nav-link:hover{color:var(--text);background:var(--card2)}
-.mdv-nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
+.nav-link:hover{color:var(--text);background:var(--card2)}
+.nav-link.active{color:var(--text)}
+.nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
   border:1px solid rgba(0,152,98,.2);font-weight:600}
-.mdv-nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+.nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
 @media(max-width:600px){
-  .mdv-nav-inner{padding:0 16px}
-  .mdv-nav-link{font-size:.78rem;padding:5px 8px}
-  .mdv-nav-link:nth-child(3){display:none}
+  .site-nav-inner{padding:0 16px}
+  .nav-link{font-size:.78rem;padding:5px 8px}
+  .nav-link[href="/apropos/"]{display:none}
 }
 
 /* ── HEADER PAGE ── */
@@ -469,31 +470,22 @@ select option{background:var(--card)}
 
 <!-- ══ ÉTAPE 1 : FORMULAIRE ══ -->
 <!-- ══ NAV FIXE ══ -->
-<nav class="mdv-nav">
-  <div class="mdv-nav-inner">
-    <a class="mdv-nav-brand" href="/">
-      <div class="mdv-nav-icon">
+<!-- NAV — Header canonique -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a class="nav-brand" href="/">
+      <div class="nav-brand-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
         </svg>
       </div>
       Montre de Vie
     </a>
-    <div class="mdv-nav-links">
-      <a href="/blog/" class="mdv-nav-link">Blog</a>
-      <a href="/apropos/" class="mdv-nav-link">À propos</a>
-      <a href="/score/" class="mdv-nav-link mdv-nav-link-score">Score de Vie</a>
-      <!-- Bouton son -->
-      <button id="btn-sound" onclick="toggleSound()" title="Activer / désactiver le tick sonore"
-        style="background:transparent;border:1px solid var(--border2);color:var(--muted);
-        width:32px;height:32px;border-radius:8px;cursor:pointer;display:flex;align-items:center;
-        justify-content:center;transition:all .2s;flex-shrink:0;margin-left:4px;padding:0">
-        <svg id="sound-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-        </svg>
-      </button>
+    <div class="nav-links">
+      <a href="/montre/"  class="nav-link active">La Montre</a>
+      <a href="/score/"   class="nav-link nav-link-score">Score de Vie</a>
+      <a href="/blog/"    class="nav-link">Blog</a>
+      <a href="/apropos/" class="nav-link">À propos</a>
     </div>
   </div>
 </nav>
@@ -899,7 +891,7 @@ select option{background:var(--card)}
         <path d="M12 2C8.5 5 7 8.5 7 12s1.5 7 5 10"/>
         <path d="M12 2c3.5 3 5 6.5 5 10s-1.5 7-5 10"/>
       </svg>
-      Voir ma vie biologique
+      Voir mon âge biologique
     </a>
     <p style="font-size:.72rem;color:var(--muted);margin-top:-6px;font-weight:500">
       Calcule ton âge biologique réel — les données sont pré-remplies
@@ -1761,22 +1753,8 @@ function playTick(){
 }
 
 function toggleSound(){
-  initAudio();
-  _soundOn = !_soundOn;
-  var btn = document.getElementById('btn-sound');
-  var icon = document.getElementById('sound-icon');
-  if(_soundOn){
-    btn.style.background = 'rgba(245,158,11,.15)';
-    btn.style.borderColor = 'rgba(245,158,11,.5)';
-    btn.style.color = 'var(--amber)';
-    if(icon) icon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>';
-    playTick();
-  } else {
-    btn.style.background = 'transparent';
-    btn.style.borderColor = 'var(--border2)';
-    btn.style.color = 'var(--muted)';
-    if(icon) icon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
-  }
+  /* Bouton son retiré de l'interface. Fonction conservée vide pour rétro-compatibilité
+     d'éventuels handlers externes — le son reste désactivé (_soundOn = false). */
 }
 
 // ── RESET ────────────────────────────────────────────────────────────────
@@ -2227,33 +2205,33 @@ window.addEventListener('DOMContentLoaded', function(){
 
 <!-- ══ FOOTER ══ -->
 <style>
-.mdv-site-footer{background:var(--card);border-top:1px solid var(--border);
+.site-footer{background:var(--card);border-top:1px solid var(--border);
   padding:36px 24px;text-align:center;margin-top:60px}
-.mdv-site-footer-inner{max-width:1024px;margin:0 auto}
-.mdv-footer-links{display:flex;align-items:center;justify-content:center;
+.site-footer-inner{max-width:1024px;margin:0 auto}
+.footer-links{display:flex;align-items:center;justify-content:center;
   gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.mdv-footer-link{font-size:.875rem;font-weight:500;color:var(--muted);
+.footer-link{font-size:.875rem;font-weight:500;color:var(--muted);
   text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
-.mdv-footer-link:hover{color:var(--text)}
-.mdv-footer-sep{color:#52525b;font-size:.75rem}
-.mdv-footer-copy{font-size:.8rem;color:#52525b;line-height:1.6}
-.mdv-footer-copy a{color:#52525b;text-decoration:none}
-.mdv-footer-copy a:hover{color:var(--muted)}
+.footer-link:hover{color:var(--text)}
+.footer-sep{color:#52525b;font-size:.75rem}
+.footer-copy{font-size:.8rem;color:#52525b;line-height:1.6}
+.footer-copy a{color:#52525b;text-decoration:none}
+.footer-copy a:hover{color:var(--muted)}
 </style>
-<footer class="mdv-site-footer">
-  <div class="mdv-site-footer-inner">
-    <div class="mdv-footer-links">
-      <a class="mdv-footer-link" href="/">Accueil</a>
-      <span class="mdv-footer-sep">·</span>
-      <a class="mdv-footer-link" href="/montre/">La Montre</a>
-      <span class="mdv-footer-sep">·</span>
-      <a class="mdv-footer-link" href="/score/">Score de Vie</a>
-      <span class="mdv-footer-sep">·</span>
-      <a class="mdv-footer-link" href="/blog/">Blog</a>
-      <span class="mdv-footer-sep">·</span>
-      <a class="mdv-footer-link" href="/apropos/">À propos</a>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-links">
+      <a class="footer-link" href="/">Accueil</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/montre/">La Montre</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/score/">Score de Vie</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/blog/">Blog</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/apropos/">À propos</a>
     </div>
-    <p class="mdv-footer-copy">
+    <p class="footer-copy">
       Outil indicatif — pas un conseil médical ·
       © 2026 <a href="https://run-nature.com" target="_blank">Run Nature</a>
     </p>

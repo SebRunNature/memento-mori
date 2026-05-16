@@ -18,11 +18,19 @@
   --green-dk: #006b44;
   --amber:    #f59e0b;
   --amber-dim:rgba(245,158,11,0.1);
+  --amber-lt: #fde68a;
+  --amber-dk: #d97706;
   --red:      #e05555;
   --red-dim:  rgba(224,85,85,0.1);
   --ink:      #e4e4e7;
   --ink2:     #a1a1aa;
   --ink3:     #71717a;
+  /* Aliases pour cohérence avec layout, accueil, apropos, blog */
+  --text:     #e4e4e7;
+  --muted:    #71717a;
+  --dim:      #52525b;
+  --card:     #18181b;
+  --card2:    #27272a;
   --border:   rgba(0,152,98,0.18);
   --border2:  rgba(0,152,98,0.08);
   --border3:  rgba(255,255,255,0.04);
@@ -108,7 +116,7 @@ nav {
   border: 1px solid rgba(245,158,11,.2); font-weight: 600;
 }
 .nav-link-montre:hover { background: rgba(245,158,11,.18); color: #fff; }
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   nav { padding: 0 16px; }
   .nav-link { font-size: .78rem; padding: 5px 8px; }
   .nav-link.nav-secondary { display: none; }
@@ -1128,7 +1136,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   width: 100%;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 600px) {
   .result-hero { padding: 32px 20px; }
   .field-row { grid-template-columns: 1fr; }
   .result-meta { grid-template-columns: 1fr; }
@@ -1145,7 +1153,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   <!-- NAV -->
   <nav>
     <div class="nav-left">
-      <a class="nav-brand" href="https://montre-de-vie.com/score/">
+      <a class="nav-brand" href="/score/">
         <div class="nav-brand-dot">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/>
@@ -1157,9 +1165,9 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
       </a>
     </div>
     <div class="nav-right">
-      <a class="nav-link nav-secondary" href="https://montre-de-vie.com/blog/">Blog</a>
-      <a class="nav-link nav-secondary" href="https://montre-de-vie.com/apropos/">À propos</a>
-      <a class="nav-link nav-link-montre" href="https://montre-de-vie.com/montre/">Montre de Vie</a>
+      <a class="nav-link nav-secondary" href="/blog/">Blog</a>
+      <a class="nav-link nav-secondary" href="/apropos/">À propos</a>
+      <a class="nav-link nav-link-montre" href="/montre/">Montre de Vie</a>
     </div>
   </nav>
 
@@ -1458,6 +1466,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
             <button class="opt" onclick="pick(this,'pollution','faible')">Faible — nature ✓</button>
             <button class="opt mid" onclick="pick(this,'pollution','moyenne')">Moyenne — ville</button>
             <button class="opt bad" onclick="pick(this,'pollution','eleve')">Élevée — grande ville</button>
+            <button class="opt bad" onclick="pick(this,'pollution','tres_eleve')">Très élevée — zone industrielle</button>
           </div>
         </div>
       </div>
@@ -1942,7 +1951,7 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
   <!-- CTA MONTRE -->
   <div class="montre-cta">
     <p>Ton âge biologique détermine combien de secondes il te reste vraiment.<br>Lance ta Montre de Vie pour le voir défiler en temps réel.</p>
-    <a href="https://montre-de-vie.com/montre/" target="_blank">Montre de Vie — voir mes secondes</a>
+    <a href="/montre/" target="_blank">Montre de Vie — voir mes secondes</a>
   </div>
 
   <!-- Boutons d'action en bas de page (Partager / Sauvegarder) -->
@@ -2155,7 +2164,7 @@ function calcBio() {
   const frictionMap  = { tres_haute:+2, haute:+1, mod:+0.5, faible:-0.5 };
   const financeMap   = { stress:+1.5, incertain:+0.5, correct:0, serein:-0.5 };
   const socialMap    = { isole:+2, superficiel:+0.5, bons:0, fort:-1 };
-  const pollMap      = { faible:0, moyenne:+0.5, eleve:+1.5 };
+  const pollMap      = { faible:0, moyenne:+0.5, eleve:+1.5, tres_eleve:+2.5 };
   const ferritineMap = { neutre:0, basse:+1, normale:0, haute:+0.5, tres_haute:+1.5 };
   const vitDMap      = { neutre:0, '<20':+1, '20-29':+0.5, '30-60':-0.5, '>60':+0.5 };
   const dentsMap     = { excellente:0, correcte:0, problemes:+0.5, parodontite:+1.5 };
@@ -2566,6 +2575,8 @@ function computeFull() {
       taille:    D.taille || parseFloat(document.getElementById('taille').value) || null,
       poids:     D.poids  || parseFloat(document.getElementById('poids').value)  || null,
       vo2max:    D.vo2max || parseFloat(document.getElementById('vo2max').value) || null,
+      grip:      D.grip   || parseFloat(document.getElementById('grip').value)   || null,
+      walk:      D.walk   || parseFloat(document.getElementById('walk').value)   || null,
       tabac:     D.tabac    || null,
       alcool:    D.alcool   || null,
       stress:    D.stress   || null,
@@ -2699,7 +2710,7 @@ function renderHistory() {
       // Bannière discrète
       var banner = document.createElement('div');
       banner.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);' +
-        'background:#131a16;border:1px solid rgba(45,158,114,.4);color:#a8f0d0;' +
+        'background:var(--surface);border:1px solid rgba(0,152,98,.4);color:var(--green-lt);' +
         'padding:10px 20px;border-radius:30px;font-size:.78rem;font-weight:700;' +
         'z-index:999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.4);' +
         'animation:fadeUp .4s ease both;cursor:pointer';
@@ -3262,8 +3273,13 @@ function clearSdvData() {
   try {
     localStorage.removeItem('sdv_result');
     localStorage.removeItem('mdv_prefs');
-    localStorage.removeItem('sdv_history');
+    localStorage.removeItem('mdv-bio-v2'); // clé réelle de l'historique du Score
   } catch(e) {}
+
+  // Rafraîchir l'historique et le graph (vides maintenant)
+  if (typeof renderHistory === 'function') renderHistory();
+  const chartS = document.getElementById('chartSection');
+  if (chartS) chartS.classList.remove('visible');
 
   // Remettre la progress bar à 0
   updateProgress();
@@ -3288,11 +3304,11 @@ if (loadHistory().length >= 2) {
 <!-- FOOTER -->
 <div class="wrap" style="padding-top:0;padding-bottom:40px">
   <footer class="site-footer">
-    <a class="footer-brand" href="https://montre-de-vie.com/score/">Score de Vie</a>
+    <a class="footer-brand" href="/score/">Score de Vie</a>
     <div class="footer-links">
-      <a class="footer-link" href="https://montre-de-vie.com/apropos/" target="_blank">À propos</a>
-      <a class="footer-link" href="https://montre-de-vie.com/blog/" target="_blank">Blog</a>
-      <a class="footer-link" href="https://montre-de-vie.com/montre/" target="_blank">Montre de Vie ↗</a>
+      <a class="footer-link" href="/apropos/" target="_blank">À propos</a>
+      <a class="footer-link" href="/blog/" target="_blank">Blog</a>
+      <a class="footer-link" href="/montre/" target="_blank">Montre de Vie ↗</a>
     </div>
     <div class="footer-copy">© 2026 Score de Vie — Outil indicatif, pas un diagnostic médical.</div>
   </footer>

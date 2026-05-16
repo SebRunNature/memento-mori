@@ -25,29 +25,30 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
   background:var(--bg);color:var(--text);overflow-x:hidden;
   -webkit-font-smoothing:antialiased}
 
-/* NAV FIXE */
-.gr-nav{position:fixed;top:0;left:0;right:0;z-index:99;
+/* NAV FIXE — Header de référence canonique */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:100;
   background:rgba(9,9,11,.92);backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.gr-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
+.site-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
   display:flex;align-items:center;justify-content:space-between}
-.gr-nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
   letter-spacing:-.02em;color:var(--text);text-decoration:none;transition:color .2s}
-.gr-nav-brand:hover{color:#fff}
-.gr-nav-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
+.nav-brand:hover{color:#fff}
+.nav-brand-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.gr-nav-icon svg{width:14px;height:14px;stroke:#000}
-.gr-nav-links{display:flex;align-items:center;gap:2px}
-.gr-nav-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;
+.nav-brand-icon svg{width:14px;height:14px;stroke:#000}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;
   padding:6px 12px;border-radius:8px;transition:all .2s}
-.gr-nav-link:hover{color:var(--text);background:var(--card2)}
-.gr-nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
+.nav-link:hover{color:var(--text);background:var(--card2)}
+.nav-link.active{color:var(--text)}
+.nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
   border:1px solid rgba(0,152,98,.2);font-weight:600}
-.gr-nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+.nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
 @media(max-width:600px){
-  .gr-nav-inner{padding:0 16px}
-  .gr-nav-link{font-size:.78rem;padding:5px 8px}
-  .gr-nav-link:nth-child(2){display:none}
+  .site-nav-inner{padding:0 16px}
+  .nav-link{font-size:.78rem;padding:5px 8px}
+  .nav-link[href="/apropos/"]{display:none}
 }
 
 /* FOND SUBTIL — montagnes ambrées */
@@ -148,19 +149,19 @@ h1 em{color:var(--amber-lt);font-style:normal}
   color:#fff;margin-bottom:14px}
 .no-data p{font-size:.95rem;line-height:1.7;margin-bottom:24px}
 
-/* FOOTER */
-.gr-footer{background:var(--card);border-top:1px solid var(--border);
+/* FOOTER — Référence canonique */
+.site-footer{background:var(--card);border-top:1px solid var(--border);
   padding:36px 24px;text-align:center;margin-top:40px;position:relative;z-index:2}
-.gr-footer-inner{max-width:1024px;margin:0 auto}
-.gr-footer-links{display:flex;align-items:center;justify-content:center;
+.site-footer-inner{max-width:1024px;margin:0 auto}
+.footer-links{display:flex;align-items:center;justify-content:center;
   gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.gr-footer-link{font-size:.875rem;font-weight:500;color:var(--muted);
+.footer-link{font-size:.875rem;font-weight:500;color:var(--muted);
   text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
-.gr-footer-link:hover{color:var(--text)}
-.gr-footer-sep{color:var(--dim);font-size:.75rem}
-.gr-footer-copy{font-size:.8rem;color:var(--dim);line-height:1.6}
-.gr-footer-copy a{color:var(--dim);text-decoration:none}
-.gr-footer-copy a:hover{color:var(--muted)}
+.footer-link:hover{color:var(--text)}
+.footer-sep{color:var(--dim);font-size:.75rem}
+.footer-copy{font-size:.8rem;color:var(--dim);line-height:1.6}
+.footer-copy a{color:var(--dim);text-decoration:none}
+.footer-copy a:hover{color:var(--muted)}
 
 @media(max-width:600px){
   #app{padding:80px 14px 40px}
@@ -173,22 +174,22 @@ h1 em{color:var(--amber-lt);font-style:normal}
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="gr-nav">
-  <div class="gr-nav-inner">
-    <a class="gr-nav-brand" href="/">
-      <div class="gr-nav-icon">
+<!-- NAV — Header canonique -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a class="nav-brand" href="/">
+      <div class="nav-brand-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
         </svg>
       </div>
       Montre de Vie
     </a>
-    <div class="gr-nav-links">
-      <a href="/montre/" class="gr-nav-link">La Montre</a>
-      <a href="/blog/" class="gr-nav-link">Blog</a>
-      <a href="/apropos/" class="gr-nav-link">À propos</a>
-      <a href="/score/" class="gr-nav-link gr-nav-link-score">Score de Vie</a>
+    <div class="nav-links">
+      <a href="/montre/"  class="nav-link active">La Montre</a>
+      <a href="/score/"   class="nav-link nav-link-score">Score de Vie</a>
+      <a href="/blog/"    class="nav-link">Blog</a>
+      <a href="/apropos/" class="nav-link">À propos</a>
     </div>
   </div>
 </nav>
@@ -219,21 +220,21 @@ h1 em{color:var(--amber-lt);font-style:normal}
   <div id="content"></div>
 </div>
 
-<!-- FOOTER -->
-<footer class="gr-footer">
-  <div class="gr-footer-inner">
-    <div class="gr-footer-links">
-      <a class="gr-footer-link" href="/">Accueil</a>
-      <span class="gr-footer-sep">·</span>
-      <a class="gr-footer-link" href="/montre/">La Montre</a>
-      <span class="gr-footer-sep">·</span>
-      <a class="gr-footer-link" href="/score/">Score de Vie</a>
-      <span class="gr-footer-sep">·</span>
-      <a class="gr-footer-link" href="/blog/">Blog</a>
-      <span class="gr-footer-sep">·</span>
-      <a class="gr-footer-link" href="/apropos/">À propos</a>
+<!-- FOOTER — Canonique -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-links">
+      <a class="footer-link" href="/">Accueil</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/montre/">La Montre</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/score/">Score de Vie</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/blog/">Blog</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/apropos/">À propos</a>
     </div>
-    <p class="gr-footer-copy">
+    <p class="footer-copy">
       Outil indicatif — pas un conseil médical ·
       © 2026 <a href="https://run-nature.com" target="_blank">Run Nature</a>
     </p>

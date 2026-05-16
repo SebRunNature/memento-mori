@@ -4,136 +4,213 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Ta vie en semaines — Montre de Vie</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="description" content="Visualise ta vie semaine par semaine. Chaque carré = 7 jours. Voir combien il t'en reste.">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#2d9e72;--green-dk:#1a6b4a;--green-lt:#a8f0d0;
-  --bg:#0a0f0c;--card:#131a16;--card2:#1a2620;
-  --text:#e8f5f0;--muted:#5a8a7a;--border:#243028;
+  --bg:#09090b;--card:#18181b;--card2:#27272a;
+  --text:#e4e4e7;--muted:#71717a;--dim:#52525b;
+  --border:#27272a;--border2:#3f3f46;
+  --green:#009862;--green-dk:#006b44;--green-lt:#a0facf;
+  --amber:#f59e0b;--amber-dk:#d97706;--amber-lt:#fde68a;
   --radius:14px;--sq-size:9px;--sq-gap:2px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100%;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);overflow-x:hidden;
+  -webkit-font-smoothing:antialiased}
 
+/* NAV FIXE */
+.gr-nav{position:fixed;top:0;left:0;right:0;z-index:99;
+  background:rgba(9,9,11,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.gr-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
+  display:flex;align-items:center;justify-content:space-between}
+.gr-nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
+  letter-spacing:-.02em;color:var(--text);text-decoration:none;transition:color .2s}
+.gr-nav-brand:hover{color:#fff}
+.gr-nav-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gr-nav-icon svg{width:14px;height:14px;stroke:#000}
+.gr-nav-links{display:flex;align-items:center;gap:2px}
+.gr-nav-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;
+  padding:6px 12px;border-radius:8px;transition:all .2s}
+.gr-nav-link:hover{color:var(--text);background:var(--card2)}
+.gr-nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
+  border:1px solid rgba(0,152,98,.2);font-weight:600}
+.gr-nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+@media(max-width:600px){
+  .gr-nav-inner{padding:0 16px}
+  .gr-nav-link{font-size:.78rem;padding:5px 8px}
+  .gr-nav-link:nth-child(2){display:none}
+}
+
+/* FOND SUBTIL — montagnes ambrées */
 .bg{position:fixed;inset:0;z-index:0}
 .bg svg{width:100%;height:100%;object-fit:cover}
 .bg-overlay{position:fixed;inset:0;z-index:1;
-  background:linear-gradient(to bottom,rgba(10,15,12,.35) 0%,rgba(10,15,12,.1) 40%,rgba(10,15,12,.6) 75%,rgba(10,15,12,.92) 100%)}
+  background:linear-gradient(to bottom,rgba(9,9,11,.4) 0%,rgba(9,9,11,.2) 40%,rgba(9,9,11,.7) 75%,rgba(9,9,11,.95) 100%)}
 
-#app{position:relative;z-index:2;width:100%;max-width:700px;margin:0 auto;padding:36px 14px 80px;animation:fadeUp .8s ease both}
+#app{position:relative;z-index:2;width:100%;max-width:720px;margin:0 auto;
+  padding:84px 16px 60px;animation:fadeUp .8s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* HEADER */
-.eyebrow{font-size:.75rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:800;margin-bottom:8px;text-align:center}
-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3rem);letter-spacing:2px;color:var(--text);text-align:center;margin-bottom:6px}
-h1 em{color:var(--green-lt);font-style:normal}
-.sub{font-size:.82rem;color:var(--muted);font-weight:600;line-height:1.6;text-align:center;margin-bottom:20px}
+/* HEADER PAGE */
+.eyebrow{font-size:.72rem;letter-spacing:.2em;color:var(--amber);
+  text-transform:uppercase;font-weight:600;margin-bottom:10px;text-align:center}
+h1{font-size:clamp(2rem,6vw,2.8rem);font-weight:800;letter-spacing:-.03em;
+  color:#fff;text-align:center;margin-bottom:10px;line-height:1.1}
+h1 em{color:var(--amber-lt);font-style:normal}
+.sub{font-size:.92rem;color:var(--muted);line-height:1.6;
+  text-align:center;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
 
 /* QUICK STATS */
-.quick-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
-.qs-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center}
-.qs-val{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--green-lt);display:block;line-height:1}
-.qs-lbl{font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block}
+.quick-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.qs-card{background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:16px 10px;text-align:center;transition:border-color .2s}
+.qs-card:hover{border-color:var(--border2)}
+.qs-val{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;
+  color:var(--amber);display:block;line-height:1}
+.qs-lbl{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-top:6px;display:block}
 
 /* LÉGENDE */
-.legend{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:.68rem;font-weight:800;color:var(--muted);text-transform:uppercase}
-.legend-sq{width:10px;height:10px;border-radius:1.5px;flex-shrink:0}
+.legend{display:flex;align-items:center;gap:16px;margin-bottom:12px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:.72rem;
+  font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.legend-sq{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 
-/* GRILLE — centré, pas de débordement */
-.grid-wrapper{width:100%;margin-bottom:20px}
-.grid-section{display:flex;flex-direction:column;align-items:flex-start;width:fit-content;margin:0 auto}
-
-.grid-year-row{display:flex;align-items:center;gap:var(--sq-gap);height:calc(var(--sq-size) + 1px)}
+/* GRILLE */
+.grid-wrapper{width:100%;margin-bottom:28px}
+.grid-section{display:flex;flex-direction:column;align-items:flex-start;
+  width:fit-content;margin:0 auto}
+.grid-year-row{display:flex;align-items:center;gap:var(--sq-gap);
+  height:calc(var(--sq-size) + 1px)}
 .grid-year-row.gap-5{margin-top:4px}
-
-.grid-year-label{
-  font-family:'Bebas Neue',sans-serif;font-size:.6rem;
-  color:rgba(168,240,208,.2);letter-spacing:.5px;
-  width:22px;flex-shrink:0;text-align:right;padding-right:3px;
-}
-.grid-year-label.visible{color:rgba(168,240,208,.55);font-size:.68rem}
-
+.grid-year-label{font-size:.65rem;font-weight:600;
+  color:rgba(245,158,11,.2);letter-spacing:.02em;
+  width:24px;flex-shrink:0;text-align:right;padding-right:4px}
+.grid-year-label.visible{color:rgba(253,230,138,.55)}
 .grid-weeks{display:flex;flex-wrap:nowrap;gap:var(--sq-gap)}
-
 .sq{width:var(--sq-size);height:var(--sq-size);border-radius:1px;flex-shrink:0}
-.sq-done{background:#1a6b4a}
-.sq-current{background:#a8f0d0;box-shadow:0 0 4px rgba(168,240,208,.6)}
-.sq-left{background:#131a16;border:1px solid #1e2b22}
+.sq-done{background:var(--amber-dk)}
+.sq-current{background:var(--amber-lt);box-shadow:0 0 4px rgba(253,230,138,.6)}
+.sq-left{background:#18181b;border:1px solid #27272a}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .sq-current{animation:pulse 2s ease infinite}
 
 /* CITATION */
-.citation{background:rgba(45,158,114,.06);border-left:3px solid var(--green);
-  border-radius:0 10px 10px 0;padding:13px 16px;margin:20px 0;
-  font-style:italic;font-size:.86rem;color:rgba(168,240,208,.5);line-height:1.7;font-weight:600}
+.citation{background:rgba(245,158,11,.06);border-left:3px solid var(--amber);
+  border-radius:0 12px 12px 0;padding:14px 18px;margin:24px 0;
+  font-style:italic;font-size:.9rem;color:rgba(253,230,138,.7);
+  line-height:1.7;font-weight:500}
+.citation-author{display:block;font-size:.72rem;color:var(--muted);
+  margin-top:8px;font-style:normal;font-weight:600;letter-spacing:.04em}
 
 /* STATS */
-.life-stats-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;
-  color:var(--green-lt);border-bottom:1px solid var(--border);padding-bottom:7px;margin-bottom:12px}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 11px}
-.stat-card .s-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--green-lt);display:block;letter-spacing:1px;line-height:1}
-.stat-card .s-lbl{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block}
-.stat-card .s-sub{font-size:.68rem;color:rgba(168,240,208,.35);font-weight:600;margin-top:2px}
-.stat-card-trail{border-color:rgba(45,158,114,.3);background:rgba(45,158,114,.05)}
-.stat-card-trail .s-val{color:#a8f0d0}
+.life-stats-title{font-size:1rem;font-weight:700;letter-spacing:-.01em;
+  color:var(--text);border-bottom:1px solid var(--border);
+  padding-bottom:10px;margin-bottom:14px}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.stat-card{background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:16px 14px;transition:border-color .2s}
+.stat-card:hover{border-color:var(--border2)}
+.stat-card .s-val{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;
+  color:var(--text);display:block;line-height:1}
+.stat-card .s-lbl{font-size:.7rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);margin-top:6px;display:block}
+.stat-card .s-sub{font-size:.72rem;color:var(--dim);font-weight:500;margin-top:4px;line-height:1.4}
+.stat-card-trail{border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.04)}
+.stat-card-trail .s-val{color:var(--amber-lt)}
 
 /* BOUTONS */
-.btns-wrap{display:flex;gap:10px}
-.btn-main{
-  flex:1;text-align:center;
-  background:linear-gradient(135deg,var(--green-dk),var(--green));
-  color:#fff;text-decoration:none;padding:14px 10px;
-  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;
-  border-radius:12px;transition:all .2s;box-shadow:0 4px 16px rgba(45,158,114,.3);
-  border:none;cursor:pointer;display:block;
-}
-.btn-main:hover{transform:translateY(-2px)}
-.btn-secondary{
-  flex:1;text-align:center;
-  background:rgba(45,158,114,.15);border:1px solid rgba(45,158,114,.4);
-  color:var(--green-lt);text-decoration:none;padding:14px 10px;
-  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;
-  border-radius:12px;transition:all .2s;display:block;
-}
-.btn-secondary:hover{background:rgba(45,158,114,.3);border-color:var(--green);color:#fff}
+.btns-wrap{display:flex;gap:10px;margin-top:8px}
+.btn-main{flex:1;text-align:center;background:var(--amber);color:#000;
+  text-decoration:none;padding:14px 16px;font-size:.95rem;font-weight:700;
+  letter-spacing:-.01em;border-radius:12px;transition:all .2s;
+  box-shadow:0 4px 16px rgba(245,158,11,.25);border:none;cursor:pointer;display:block}
+.btn-main:hover{transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(245,158,11,.35);background:var(--amber-dk);color:#000}
+.btn-secondary{flex:1;text-align:center;background:transparent;
+  border:1px solid var(--border2);color:var(--text);text-decoration:none;
+  padding:14px 16px;font-size:.95rem;font-weight:600;letter-spacing:-.01em;
+  border-radius:12px;transition:all .2s;display:block}
+.btn-secondary:hover{background:var(--card2);color:#fff}
 
 /* NO DATA */
-.no-data{text-align:center;padding:60px 20px;color:var(--muted)}
-.no-data h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--green-lt);margin-bottom:12px;letter-spacing:2px}
-.no-data p{font-size:.88rem;font-weight:600;line-height:1.7;margin-bottom:20px}
+.no-data{text-align:center;padding:80px 20px;color:var(--muted)}
+.no-data h2{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;
+  color:#fff;margin-bottom:14px}
+.no-data p{font-size:.95rem;line-height:1.7;margin-bottom:24px}
 
-@media(max-width:360px){
-  .stats-grid{grid-template-columns:1fr}
-  .btns-wrap{flex-direction:column}
+/* FOOTER */
+.gr-footer{background:var(--card);border-top:1px solid var(--border);
+  padding:36px 24px;text-align:center;margin-top:40px;position:relative;z-index:2}
+.gr-footer-inner{max-width:1024px;margin:0 auto}
+.gr-footer-links{display:flex;align-items:center;justify-content:center;
+  gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.gr-footer-link{font-size:.875rem;font-weight:500;color:var(--muted);
+  text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
+.gr-footer-link:hover{color:var(--text)}
+.gr-footer-sep{color:var(--dim);font-size:.75rem}
+.gr-footer-copy{font-size:.8rem;color:var(--dim);line-height:1.6}
+.gr-footer-copy a{color:var(--dim);text-decoration:none}
+.gr-footer-copy a:hover{color:var(--muted)}
+
+@media(max-width:600px){
+  #app{padding:80px 14px 40px}
+  .stats-grid{grid-template-columns:1fr 1fr}
   .quick-stats{grid-template-columns:1fr 1fr}
   .quick-stats .qs-card:last-child{grid-column:span 2}
+  .btns-wrap{flex-direction:column}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
+<nav class="gr-nav">
+  <div class="gr-nav-inner">
+    <a class="gr-nav-brand" href="/">
+      <div class="gr-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      Montre de Vie
+    </a>
+    <div class="gr-nav-links">
+      <a href="/montre/" class="gr-nav-link">La Montre</a>
+      <a href="/blog/" class="gr-nav-link">Blog</a>
+      <a href="/apropos/" class="gr-nav-link">À propos</a>
+      <a href="/score/" class="gr-nav-link gr-nav-link-score">Score de Vie</a>
+    </div>
+  </div>
+</nav>
+
 <div class="bg">
 <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
   <defs>
     <radialGradient id="sunGlow" cx="35%" cy="38%" r="30%">
-      <stop offset="0%" stop-color="#2d9e72" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#0a0f0c" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#060e09"/>
-      <stop offset="45%" stop-color="#0d1f15"/>
-      <stop offset="100%" stop-color="#0a0f0c"/>
+      <stop offset="0%" stop-color="#0a0a0d"/>
+      <stop offset="45%" stop-color="#13130f"/>
+      <stop offset="100%" stop-color="#09090b"/>
     </linearGradient>
   </defs>
   <rect width="1440" height="900" fill="url(#skyGrad)"/>
   <ellipse cx="504" cy="342" rx="430" ry="270" fill="url(#sunGlow)"/>
-  <path d="M0,480 Q80,330 180,380 Q260,290 360,350 Q440,280 530,340 Q620,260 720,320 Q810,250 900,310 Q990,240 1080,295 Q1160,230 1250,280 Q1330,250 1440,290 L1440,900 L0,900 Z" fill="#0c1610" opacity="0.9"/>
-  <path d="M0,560 Q90,420 200,470 Q300,390 400,450 Q490,400 580,455 Q670,380 770,440 Q850,390 950,445 Q1040,395 1140,450 Q1220,400 1320,440 Q1380,415 1440,440 L1440,900 L0,900 Z" fill="#111e16" opacity="0.95"/>
-  <path d="M0,720 Q200,680 400,700 Q600,720 720,690 Q900,660 1100,680 Q1280,695 1440,670 L1440,900 L0,900 Z" fill="#0d1610" opacity="0.95"/>
+  <path d="M0,480 Q80,330 180,380 Q260,290 360,350 Q440,280 530,340 Q620,260 720,320 Q810,250 900,310 Q990,240 1080,295 Q1160,230 1250,280 Q1330,250 1440,290 L1440,900 L0,900 Z" fill="#161310" opacity="0.9"/>
+  <path d="M0,560 Q90,420 200,470 Q300,390 400,450 Q490,400 580,455 Q670,380 770,440 Q850,390 950,445 Q1040,395 1140,450 Q1220,400 1320,440 Q1380,415 1440,440 L1440,900 L0,900 Z" fill="#1e1a16" opacity="0.95"/>
+  <path d="M0,720 Q200,680 400,700 Q600,720 720,690 Q900,660 1100,680 Q1280,695 1440,670 L1440,900 L0,900 Z" fill="#161310" opacity="0.95"/>
 </svg>
 </div>
 <div class="bg-overlay"></div>
@@ -141,6 +218,27 @@ h1 em{color:var(--green-lt);font-style:normal}
 <div id="app">
   <div id="content"></div>
 </div>
+
+<!-- FOOTER -->
+<footer class="gr-footer">
+  <div class="gr-footer-inner">
+    <div class="gr-footer-links">
+      <a class="gr-footer-link" href="/">Accueil</a>
+      <span class="gr-footer-sep">·</span>
+      <a class="gr-footer-link" href="/montre/">La Montre</a>
+      <span class="gr-footer-sep">·</span>
+      <a class="gr-footer-link" href="/score/">Score de Vie</a>
+      <span class="gr-footer-sep">·</span>
+      <a class="gr-footer-link" href="/blog/">Blog</a>
+      <span class="gr-footer-sep">·</span>
+      <a class="gr-footer-link" href="/apropos/">À propos</a>
+    </div>
+    <p class="gr-footer-copy">
+      Outil indicatif — pas un conseil médical ·
+      © 2026 <a href="https://run-nature.com" target="_blank">Run Nature</a>
+    </p>
+  </div>
+</footer>
 
 <script>
 function getParams(){
@@ -150,22 +248,21 @@ function getParams(){
 function fmt(n){return Math.round(n).toLocaleString('fr-FR')}
 
 var citations=[
-  {txt:'Tu pourrais quitter la vie l\'instant même. Laisse cela déterminer ce que tu fais, dis et penses.',aut:'Marc Aurèle'},
-  {txt:'Ce n\'est pas que nous ayons peu de temps à vivre, c\'est que nous en perdons beaucoup.',aut:'Sénèque'},
-  {txt:'Vis comme si tu mourais à chaque instant — parce que c\'est exactement ce qui se passe.',aut:'Marc Aurèle'},
+  {txt:"Tu pourrais quitter la vie à l'instant même. Laisse cela déterminer ce que tu fais, dis et penses.",aut:'Marc Aurèle'},
+  {txt:"Ce n'est pas que nous ayons peu de temps à vivre, c'est que nous en perdons beaucoup.",aut:'Sénèque'},
+  {txt:"Vis comme si tu mourais à chaque instant — parce que c'est exactement ce qui se passe.",aut:'Marc Aurèle'},
   {txt:'La mort sourit à tout le monde. Tout ce qu\'un homme peut faire, c\'est lui sourire en retour.',aut:'Marc Aurèle'},
   {txt:'Pendant que tu repousses ta vie, elle passe.',aut:'Sénèque — Lettres à Lucilius'},
-  {txt:'La vie n\'est pas courte. C\'est nous qui la gaspillons.',aut:'Sénèque'},
-  {txt:'Il n\'y a qu\'une seule façon de vivre longtemps — ne plus gaspiller une seule journée.',aut:'Épictète'},
-  {txt:'Chaque foulée compte. Chaque seconde aussi.',aut:'Sébastien Salomon — Run Nature'},
+  {txt:"La vie n'est pas courte. C'est nous qui la gaspillons.",aut:'Sénèque'},
+  {txt:"Il n'y a qu'une seule façon de vivre longtemps — ne plus gaspiller une seule journée.",aut:'Épictète'},
   {txt:'Le moment présent aura toujours été.',aut:'Philosophie stoïcienne'},
-  {txt:'N\'agis pas comme si tu avais dix mille ans devant toi.',aut:'Marc Aurèle'},
+  {txt:"N'agis pas comme si tu avais dix mille ans devant toi.",aut:'Marc Aurèle'},
 ];
 
 function calcSqSize(){
   var w=window.innerWidth;
-  var padding=28;
-  var labelW=25;
+  var padding=32;
+  var labelW=28;
   var gap=2;
   var weeks=52;
   var available=w-padding-labelW-(gap*weeks);
@@ -177,7 +274,7 @@ function render(){
   var p=getParams();
   var c=document.getElementById('content');
   if(!p.age||!p.esperance){
-    c.innerHTML=`<div class="no-data"><h2>Données manquantes</h2><p>Lance d'abord la montre de vie pour générer ta grille personnalisée.</p><div class="btns-wrap" style="max-width:300px;margin:0 auto"><a href="https://montre-de-vie.com/montre/" class="btn-main">⏱ Lancer la montre</a><a href="https://montre-de-vie.com/" class="btn-secondary">🏠 Accueil</a></div></div>`;
+    c.innerHTML='<div class="no-data"><h2>Données manquantes</h2><p>Lance d\'abord la Montre de Vie pour générer ta grille personnalisée.</p><div class="btns-wrap" style="max-width:340px;margin:0 auto"><a href="/montre/" class="btn-main">Lancer la Montre</a><a href="/" class="btn-secondary">Accueil</a></div></div>';
     return;
   }
 
@@ -193,44 +290,41 @@ function render(){
   var trailR=Math.round(leftW*p.trail);
   var cite=citations[Math.floor(Math.random()*citations.length)];
 
-  c.innerHTML=`
-    <div class="eyebrow">Memento Mori — Run Nature</div>
-    <h1>Ta vie en <em>semaines</em></h1>
-    <p class="sub">Chaque carré = 1 semaine · ${fmt(totalW)} semaines au total · ${pct}% vécues</p>
+  c.innerHTML=
+    '<div class="eyebrow">Memento Mori</div>'+
+    '<h1>Ta vie en <em>semaines</em></h1>'+
+    '<p class="sub">Chaque carré = 1 semaine · '+fmt(totalW)+' semaines au total · '+pct+'% vécues</p>'+
 
-    <div class="quick-stats">
-      <div class="qs-card"><span class="qs-val">${fmt(livedW)}</span><span class="qs-lbl">Semaines vécues</span></div>
-      <div class="qs-card"><span class="qs-val">${fmt(leftW)}</span><span class="qs-lbl">Restantes</span></div>
-      <div class="qs-card"><span class="qs-val">${pct}%</span><span class="qs-lbl">Vie vécue</span></div>
-    </div>
+    '<div class="quick-stats">'+
+      '<div class="qs-card"><span class="qs-val">'+fmt(livedW)+'</span><span class="qs-lbl">Semaines vécues</span></div>'+
+      '<div class="qs-card"><span class="qs-val">'+fmt(leftW)+'</span><span class="qs-lbl">Restantes</span></div>'+
+      '<div class="qs-card"><span class="qs-val">'+pct+'%</span><span class="qs-lbl">Vie écoulée</span></div>'+
+    '</div>'+
 
-    <div class="legend">
-      <div class="legend-item"><div class="legend-sq" style="background:#1a6b4a"></div>Vécue</div>
-      <div class="legend-item"><div class="legend-sq" style="background:#a8f0d0"></div>En cours</div>
-      <div class="legend-item"><div class="legend-sq" style="background:#131a16;border:1px solid #243028"></div>Restante</div>
-    </div>
+    '<div class="legend">'+
+      '<div class="legend-item"><div class="legend-sq" style="background:#d97706"></div>Vécue</div>'+
+      '<div class="legend-item"><div class="legend-sq" style="background:#fde68a"></div>En cours</div>'+
+      '<div class="legend-item"><div class="legend-sq" style="background:#18181b;border:1px solid #27272a"></div>Restante</div>'+
+    '</div>'+
 
-    <div class="citation">"${cite.txt}"<br><span style="font-size:.68rem;opacity:.6;font-style:normal">— ${cite.aut}</span></div>
+    '<div class="citation">"'+cite.txt+'"<span class="citation-author">— '+cite.aut+'</span></div>'+
 
-    <div class="grid-wrapper"><div class="grid-section" id="gc"></div></div>
+    '<div class="grid-wrapper"><div class="grid-section" id="gc"></div></div>'+
 
-    <div class="life-stats-title">📊 Ta vie en chiffres</div>
-    <div class="stats-grid">
-      <div class="stat-card"><span class="s-val">${fmt(joursV)}</span><span class="s-lbl">Jours vécus</span><span class="s-sub">${p.age} ans et quelques poussières</span></div>
-      <div class="stat-card"><span class="s-val">${fmt(joursR)}</span><span class="s-lbl">Jours restants</span><span class="s-sub">Si tu continues comme ça 🏔️</span></div>
-      <div class="stat-card"><span class="s-val">${fmt(weR)}</span><span class="s-lbl">Week-ends restants</span><span class="s-sub">Ça fait mal à lire 😅</span></div>
-      <div class="stat-card"><span class="s-val">${fmt(etesR)}</span><span class="s-lbl">Étés restants</span><span class="s-sub">Chaque saison compte</span></div>
-      <div class="stat-card stat-card-trail"><span class="s-val">${fmt(trailR)}</span><span class="s-lbl">Sorties trail restantes</span><span class="s-sub">À ${p.trail} sorties/semaine</span></div>
-      <div class="stat-card stat-card-trail"><span class="s-val">${fmt(Math.round(trailR*12))}</span><span class="s-lbl">Km de sentiers</span><span class="s-sub">~12km/sortie</span></div>
-    </div>
+    '<div class="life-stats-title">Ta vie en chiffres</div>'+
+    '<div class="stats-grid">'+
+      '<div class="stat-card"><span class="s-val">'+fmt(joursV)+'</span><span class="s-lbl">Jours vécus</span><span class="s-sub">'+p.age+' ans</span></div>'+
+      '<div class="stat-card"><span class="s-val">'+fmt(joursR)+'</span><span class="s-lbl">Jours restants</span><span class="s-sub">Estimation actuelle</span></div>'+
+      '<div class="stat-card"><span class="s-val">'+fmt(weR)+'</span><span class="s-lbl">Week-ends restants</span><span class="s-sub">Chaque samedi compte</span></div>'+
+      '<div class="stat-card"><span class="s-val">'+fmt(etesR)+'</span><span class="s-lbl">Étés restants</span><span class="s-sub">Chaque saison compte</span></div>'+
+      '<div class="stat-card stat-card-trail"><span class="s-val">'+fmt(trailR)+'</span><span class="s-lbl">Sorties sport restantes</span><span class="s-sub">À '+p.trail+' sorties / semaine</span></div>'+
+      '<div class="stat-card stat-card-trail"><span class="s-val">'+fmt(Math.round(trailR*12))+'</span><span class="s-lbl">Km parcourus restants</span><span class="s-sub">~12 km par sortie</span></div>'+
+    '</div>'+
 
-    <div class="btns-wrap">
-      <a href="https://montre-de-vie.com/montre/" class="btn-main">⏱ Voir mon décompte</a>
-      <a href="https://montre-de-vie.com/" class="btn-secondary">🏠 Accueil</a>
-    </div>
-  `;
-  // Bouton retour résultats — localStorage permet de retrouver les résultats directement
-  // Le lien "Saisir à nouveau" pointe vers la montre — le localStorage la ramènera aux résultats
+    '<div class="btns-wrap">'+
+      '<a href="/montre/" class="btn-main">Voir mon décompte</a>'+
+      '<a href="/" class="btn-secondary">Accueil</a>'+
+    '</div>';
 
   buildGrid(p.esperance, livedW, totalW);
 }
@@ -241,7 +335,6 @@ function buildGrid(esperance, livedW, totalW){
   var sq=calcSqSize();
   document.documentElement.style.setProperty('--sq-size',sq+'px');
 
-  // D'abord on génère tous les carrés en "left" (vide)
   var html='';
   var wk=0;
   for(var yr=0;yr<esperance;yr++){
@@ -252,7 +345,6 @@ function buildGrid(esperance, livedW, totalW){
     html+='<div class="grid-weeks">';
     for(var w=0;w<52;w++){
       wk++;
-      // Tous commencent vides — l'animation les allumera
       var cls = wk===livedW ? 'sq sq-current' : 'sq sq-left';
       html+='<div class="'+cls+'" data-week="'+wk+'"></div>';
     }
@@ -260,10 +352,10 @@ function buildGrid(esperance, livedW, totalW){
   }
   gc.innerHTML=html;
 
-  // Animation : remplir les carrés vécus en 2 secondes
+  // Animation : remplir les carrés vécus progressivement
   if(livedW > 0){
-    var delay = 100 / livedW; // 0.1 secondes au total
-    delay = Math.max(delay, 0.5); // minimum 0.5ms
+    var delay = 800 / livedW;
+    delay = Math.max(delay, 0.5);
     var squares = gc.querySelectorAll('.sq-left, .sq-current');
     var i = 0;
     function fillNext(){
@@ -277,7 +369,7 @@ function buildGrid(esperance, livedW, totalW){
         setTimeout(fillNext, delay);
       }
     }
-    setTimeout(fillNext, 300); // petit délai avant de démarrer
+    setTimeout(fillNext, 300);
   }
 }
 
@@ -286,10 +378,9 @@ window.addEventListener('resize',function(){
   var sq=calcSqSize();
   document.documentElement.style.setProperty('--sq-size',sq+'px');
 });
-
 </script>
 
-<!-- OneSignal Push Notifications -->
+<!-- OneSignal -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];

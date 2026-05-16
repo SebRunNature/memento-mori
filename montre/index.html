@@ -24,7 +24,7 @@
   --green:#009862;--green-dk:#006b44;--green-lt:#a0facf;
 
   /* Legacy aliases pour le JS existant (ne pas supprimer) */
-  --green-lt-legacy:#a8f0d0;
+  --green-lt-legacy:#a0facf;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
@@ -161,7 +161,7 @@ input,select{
 input:focus,select:focus{outline:none;border-color:var(--green);background:var(--card2)}
 input::placeholder{color:var(--muted)}
 select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232d9e72' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23009862' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 14px center;
   padding-right:36px;cursor:pointer;
 }
@@ -341,8 +341,8 @@ select option{background:var(--card)}
 <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
   <defs>
     <radialGradient id="sunGlow" cx="35%" cy="38%" r="30%">
-      <stop offset="0%" stop-color="#2d9e72" stop-opacity="0.35"/>
-      <stop offset="60%" stop-color="#1a6b4a" stop-opacity="0.15"/>
+      <stop offset="0%" stop-color="#009862" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#006b44" stop-opacity="0.15"/>
       <stop offset="100%" stop-color="#0a0f0c" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
@@ -354,7 +354,7 @@ select option{background:var(--card)}
   </defs>
   <rect width="1440" height="900" fill="url(#skyGrad)"/>
   <ellipse cx="504" cy="342" rx="430" ry="270" fill="url(#sunGlow)"/>
-  <g fill="#a8f0d0" opacity="0.35">
+  <g fill="#a0facf" opacity="0.35">
     <circle cx="120" cy="60" r="0.8"/><circle cx="280" cy="30" r="1.1"/>
     <circle cx="400" cy="90" r="0.7"/><circle cx="700" cy="40" r="0.9"/>
     <circle cx="900" cy="70" r="0.6"/><circle cx="1100" cy="25" r="1"/>
@@ -471,7 +471,7 @@ select option{background:var(--card)}
 <!-- ══ NAV FIXE ══ -->
 <nav class="mdv-nav">
   <div class="mdv-nav-inner">
-    <a class="mdv-nav-brand" href="https://montre-de-vie.com/">
+    <a class="mdv-nav-brand" href="/">
       <div class="mdv-nav-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
@@ -480,9 +480,9 @@ select option{background:var(--card)}
       Montre de Vie
     </a>
     <div class="mdv-nav-links">
-      <a href="https://montre-de-vie.com/blog/" class="mdv-nav-link">Blog</a>
-      <a href="https://montre-de-vie.com/apropos/" class="mdv-nav-link">À propos</a>
-      <a href="https://montre-de-vie.com/score/" class="mdv-nav-link mdv-nav-link-score">Score de Vie</a>
+      <a href="/blog/" class="mdv-nav-link">Blog</a>
+      <a href="/apropos/" class="mdv-nav-link">À propos</a>
+      <a href="/score/" class="mdv-nav-link mdv-nav-link-score">Score de Vie</a>
       <!-- Bouton son -->
       <button id="btn-sound" onclick="toggleSound()" title="Activer / désactiver le tick sonore"
         style="background:transparent;border:1px solid var(--border2);color:var(--muted);
@@ -886,7 +886,7 @@ select option{background:var(--card)}
   <div style="text-align:center;margin-bottom:32px;display:flex;flex-direction:column;align-items:center;gap:14px">
 
     <!-- Voir ma vie bio → Score de Vie -->
-    <a href="https://montre-de-vie.com/score/" id="btn-score-bio"
+    <a href="/score/" id="btn-score-bio"
       style="display:inline-flex;align-items:center;gap:10px;
       background:linear-gradient(135deg,var(--green-dk),var(--green));
       color:#fff;text-decoration:none;padding:15px 32px;border-radius:14px;
@@ -933,7 +933,13 @@ select option{background:var(--card)}
 
   <div style="text-align:center;margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
     <button class="btn-reset" onclick="resetAll()">↺ Réinitialiser</button>
-    <a href="https://montre-de-vie.com/" class="btn-reset" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">🏠 Accueil</a>
+    <a href="/" class="btn-reset" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      Accueil
+    </a>
   </div>
 
   <!-- Boutons d'action en bas de page (Partager / Sauvegarder) -->
@@ -1248,7 +1254,7 @@ function showMoringaMsg(){
   if(val==='1'){
     el.style.background='rgba(45,158,114,.12)';
     el.style.border='1px solid rgba(45,158,114,.3)';
-    el.style.color='#a8f0d0';
+    el.style.color='#a0facf';
     el.innerHTML='✅ Parfait. Tu as clairement une longueur d\'avance. Littéralement.';
   } else {
     el.style.background='rgba(200,135,58,.08)';
@@ -1344,15 +1350,15 @@ function showSdvBridgeOverDisplay(){
   toast.innerHTML =
     '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">' +
       '<div style="flex:1;min-width:180px">' +
-        '<div style="font-family:Inter,system-ui,sans-serif;font-size:.95rem;letter-spacing:1.5px;color:#a8f0d0;margin-bottom:3px">' +
+        '<div style="font-family:Inter,system-ui,sans-serif;font-size:.95rem;letter-spacing:1.5px;color:#a0facf;margin-bottom:3px">' +
           '🧬 NOUVEAU SCORE DE VIE' +
         '</div>' +
         '<div style="font-size:.78rem;color:#5a8a7a;font-weight:600">' +
-          'Delta âge bio : <strong style="color:#a8f0d0">' + deltaStr + ' ans</strong>. Recalculer ?' +
+          'Delta âge bio : <strong style="color:#a0facf">' + deltaStr + ' ans</strong>. Recalculer ?' +
         '</div>' +
       '</div>' +
       '<div style="display:flex;gap:6px">' +
-        '<button id="sdv-toast-yes" style="background:linear-gradient(135deg,#1a6b4a,#2d9e72);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:Inter,system-ui,sans-serif;font-size:.78rem;letter-spacing:1.2px;cursor:pointer">⚡ OUI</button>' +
+        '<button id="sdv-toast-yes" style="background:linear-gradient(135deg,#006b44,#009862);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:Inter,system-ui,sans-serif;font-size:.78rem;letter-spacing:1.2px;cursor:pointer">⚡ OUI</button>' +
         '<button id="sdv-toast-no" style="background:transparent;color:#5a8a7a;border:1px solid #243028;padding:8px 12px;border-radius:8px;font-size:.7rem;font-weight:700;cursor:pointer">×</button>' +
       '</div>' +
     '</div>';
@@ -1573,7 +1579,6 @@ function startLifeClock(){
   try {
     // Table de correspondance valeurs Montre → clés Score
     var tobaccoMap = {'0':'non','-1':'ex','-3':'occ','-8':'oui','-12':'lourd'};
-    var tobaccoMap = {'0':'non','-1':'ex','-3':'occ','-8':'oui','-12':'lourd'};
     var alcoholMap = {'0':'occ','-0.5':'mod','-2':'eleve','-5':'excessif'};
     var stressMap  = {'0.5':'gere','0':'faible','-1':'mod','-3':'eleve'};
     var sleepMap   = {'-3':'<6','-1.5':'6','2':'7-8'};  // '>9' ambiguë avec '-1.5', on laisse
@@ -1684,7 +1689,7 @@ function startCountdown(){
     box.classList.remove('hidden');
     var sign=s.niveau2Score>0?'+':'';
     val.textContent=sign+s.niveau2Score+' ans';
-    val.style.color=s.niveau2Score>0?'#a8f0d0':'#f87171';
+    val.style.color=s.niveau2Score>0?'#a0facf':'#f87171';
     if (lbl) {
       if (s.fromSdv) {
         var dStr = (s.sdvDelta >= 0 ? '+' : '') + s.sdvDelta.toFixed(1);
@@ -1920,7 +1925,7 @@ function drawMdvShareImage() {
   ctx.fillRect(0, 0, W, H);
 
   // Eyebrow MEMENTO MORI
-  ctx.fillStyle = '#2d9e72';
+  ctx.fillStyle = '#009862';
   ctx.font = 'bold 28px "Nunito", sans-serif';
   ctx.textAlign = 'center';
   fillTextWithSpacing(ctx, 'MEMENTO MORI', W/2, 160, 8);
@@ -1949,12 +1954,12 @@ function drawMdvShareImage() {
   var endAngle = -Math.PI/2 + (Math.PI * 2 * s.pct / 100);
   ctx.beginPath();
   ctx.arc(cx, cy, r, -Math.PI/2, endAngle);
-  ctx.strokeStyle = '#a8f0d0';
+  ctx.strokeStyle = '#a0facf';
   ctx.lineWidth = 24;
   ctx.lineCap = 'round';
   ctx.stroke();
   // % au centre
-  ctx.fillStyle = '#a8f0d0';
+  ctx.fillStyle = '#a0facf';
   ctx.font = '700 110px Inter, system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -1984,7 +1989,7 @@ function drawMdvShareImage() {
     ctx.font = 'bold 18px "Nunito", sans-serif';
     ctx.textAlign = 'center';
     fillTextWithSpacing(ctx, labels[i], x, statsY + 34, 3);
-    ctx.fillStyle = '#a8f0d0';
+    ctx.fillStyle = '#a0facf';
     ctx.font = '700 56px Inter, system-ui, sans-serif';
     ctx.fillText(values[i], x, statsY + 88);
     ctx.fillStyle = '#5a8a7a';
@@ -2219,6 +2224,41 @@ window.addEventListener('DOMContentLoaded', function(){
   updateMdvProgress();
 });
 </script>
+
+<!-- ══ FOOTER ══ -->
+<style>
+.mdv-site-footer{background:var(--card);border-top:1px solid var(--border);
+  padding:36px 24px;text-align:center;margin-top:60px}
+.mdv-site-footer-inner{max-width:1024px;margin:0 auto}
+.mdv-footer-links{display:flex;align-items:center;justify-content:center;
+  gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.mdv-footer-link{font-size:.875rem;font-weight:500;color:var(--muted);
+  text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
+.mdv-footer-link:hover{color:var(--text)}
+.mdv-footer-sep{color:#52525b;font-size:.75rem}
+.mdv-footer-copy{font-size:.8rem;color:#52525b;line-height:1.6}
+.mdv-footer-copy a{color:#52525b;text-decoration:none}
+.mdv-footer-copy a:hover{color:var(--muted)}
+</style>
+<footer class="mdv-site-footer">
+  <div class="mdv-site-footer-inner">
+    <div class="mdv-footer-links">
+      <a class="mdv-footer-link" href="/">Accueil</a>
+      <span class="mdv-footer-sep">·</span>
+      <a class="mdv-footer-link" href="/montre/">La Montre</a>
+      <span class="mdv-footer-sep">·</span>
+      <a class="mdv-footer-link" href="/score/">Score de Vie</a>
+      <span class="mdv-footer-sep">·</span>
+      <a class="mdv-footer-link" href="/blog/">Blog</a>
+      <span class="mdv-footer-sep">·</span>
+      <a class="mdv-footer-link" href="/apropos/">À propos</a>
+    </div>
+    <p class="mdv-footer-copy">
+      Outil indicatif — pas un conseil médical ·
+      © 2026 <a href="https://run-nature.com" target="_blank">Run Nature</a>
+    </p>
+  </div>
+</footer>
 
 <!-- OneSignal Push Notifications -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>

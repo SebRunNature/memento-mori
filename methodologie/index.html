@@ -1,1 +1,312 @@
+---
+layout: default
+title: "Méthodologie — Comment on calcule ton espérance de vie et ton âge biologique"
+description: "Comment fonctionne le calcul de la Montre de Vie et du Score de Vie ? Algorithme, pondérations, modèle PhenoAge, études Framingham et INTERHEART. Tout est documenté."
+canonical: "https://montre-de-vie.com/methodologie/"
+---
 
+<style>
+.ap-hero { text-align:center; padding:48px 0 44px; }
+.ap-eyebrow { font-size:.72rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:700;margin-bottom:14px; }
+.ap-hero h1 { font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:16px;line-height:1.1; }
+.ap-hero h1 em { color:var(--amber-lt);font-style:normal; }
+.ap-hero p { font-size:.95rem;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7; }
+.ap-section-title { font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:10px;margin:44px 0 20px; }
+.prose { font-size:.96rem;color:rgba(228,228,231,.82);line-height:1.85;margin-bottom:18px; }
+.prose strong { color:#fff;font-weight:700; }
+.prose em { color:var(--amber-lt);font-style:italic; }
+.ap-quote { background:rgba(9,9,11,.4);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 22px;margin:28px 0;font-style:italic;font-size:.95rem;color:rgba(253,230,138,.7);line-height:1.75; }
+.ap-quote-author { display:block;font-size:.72rem;color:var(--muted);margin-top:10px;font-style:normal;font-weight:600;letter-spacing:.05em; }
+
+/* ÉTAPES ALGORITHME */
+.algo-steps { display:flex;flex-direction:column;gap:12px;margin:24px 0; }
+.algo-step { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;display:flex;gap:18px;align-items:flex-start; }
+.algo-num { width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--amber-dk),var(--amber));display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:#000;flex-shrink:0; }
+.algo-content { flex:1; }
+.algo-title { display:block;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:5px; }
+.algo-body { font-size:.83rem;color:var(--muted);line-height:1.65; }
+.algo-body strong { color:var(--text);font-weight:600; }
+
+/* TABLEAU FACTEURS */
+.factor-table { width:100%;border-collapse:collapse;margin:20px 0;font-size:.84rem; }
+.factor-table th { background:var(--surface);color:var(--muted);font-weight:700;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase; }
+.factor-table td { padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(228,228,231,.8);vertical-align:top; }
+.factor-table tr:last-child td { border-bottom:none; }
+.factor-table td:first-child { color:var(--text);font-weight:600; }
+.badge { display:inline-block;padding:2px 9px;border-radius:20px;font-size:.68rem;font-weight:700;letter-spacing:.04em; }
+.badge-high { background:rgba(245,158,11,.12);color:var(--amber-lt);border:1px solid rgba(245,158,11,.2); }
+.badge-med { background:rgba(0,152,98,.1);color:var(--green-lt);border:1px solid rgba(0,152,98,.2); }
+.badge-low { background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border); }
+
+/* FORMULE */
+.formula-box { background:rgba(9,9,11,.5);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:22px 24px;margin:24px 0;font-family:monospace; }
+.formula-label { font-size:.7rem;color:var(--amber);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:block;font-family:sans-serif; }
+.formula-main { font-size:1rem;color:#fff;font-weight:700;line-height:1.8; }
+.formula-note { font-size:.78rem;color:var(--muted);margin-top:10px;display:block;font-family:sans-serif;line-height:1.6; }
+
+/* DISCLAIMER */
+.disclaimer-box { background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.15);border-radius:14px;padding:18px 22px;margin:32px 0; }
+.disclaimer-box p { font-size:.84rem;color:rgba(252,165,165,.7);line-height:1.7;margin:0; }
+.disclaimer-box strong { color:rgba(252,165,165,.9); }
+
+.internal-link { display:inline-flex;align-items:center;gap:5px;color:var(--amber-lt);font-size:.84rem;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(245,158,11,.25);padding-bottom:1px;transition:border-color .2s; }
+.internal-link:hover { border-color:var(--amber-lt); }
+
+@media(max-width:600px) {
+  .ap-hero { padding:28px 0 24px; }
+  .algo-step { flex-direction:column;gap:10px; }
+  .factor-table { font-size:.78rem; }
+  .factor-table th,.factor-table td { padding:8px 10px; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Méthodologie — Comment on calcule ton espérance de vie et ton âge biologique",
+  "description": "Documentation complète de l'algorithme de la Montre de Vie et du Score de Vie : modèle PhenoAge, études Framingham, INTERHEART, pondérations des facteurs.",
+  "author": { "@type": "Person", "name": "Sébastien Salomon", "url": "https://montre-de-vie.com/apropos/" },
+  "publisher": { "@type": "Organization", "name": "Montre de Vie", "url": "https://montre-de-vie.com" },
+  "datePublished": "2026-01-01",
+  "dateModified": "2026-05-17"
+}
+</script>
+
+<!-- HERO -->
+<div class="ap-hero">
+  <div class="ap-eyebrow">Transparence · Science · Algorithme</div>
+  <h1>Comment on calcule ton <em>espérance de vie</em></h1>
+  <p>Chaque chiffre que tu vois dans la Montre et le Score a une source. Voici comment ça marche, sans rien cacher.</p>
+</div>
+
+<h2 class="ap-section-title">Le principe de base</h2>
+
+<p class="prose">La Montre de Vie ne prédit pas ta date de mort. Personne ne peut faire ça. Ce qu'elle calcule, c'est une <strong>espérance de vie ajustée selon tes habitudes</strong> — la moyenne statistique de personnes qui ont les mêmes profils de risque que toi, selon les grandes études épidémiologiques.</p>
+
+<p class="prose">Concrètement : on part d'une espérance de vie de référence selon ton pays, ton âge et ton sexe (données OMS / INSEE 2023), puis on <strong>ajuste à la hausse ou à la baisse</strong> en fonction de tes réponses. Chaque facteur de risque documenté dans la littérature scientifique a un poids proportionnel à son impact mesuré.</p>
+
+<div class="ap-quote">
+  Ce n'est pas une boule de cristal. C'est un miroir statistique — il reflète la direction que prennent tes choix, pas la date gravée quelque part dans le futur.
+  <span class="ap-quote-author">— Sébastien, Run Nature</span>
+</div>
+
+<!-- ══ LA MONTRE ══ -->
+<h2 class="ap-section-title">La Montre de Vie — étape par étape</h2>
+
+<div class="algo-steps">
+  <div class="algo-step">
+    <div class="algo-num">1</div>
+    <div class="algo-content">
+      <span class="algo-title">Espérance de vie de référence</span>
+      <span class="algo-body">On récupère l'espérance de vie nationale par sexe et par âge (tables de mortalité OMS 2023, Institut Grand-Ducal de la Statistique pour le Luxembourg). Ce chiffre est la <strong>médiane populationnelle</strong> — le point de départ avant toute personnalisation.</span>
+    </div>
+  </div>
+  <div class="algo-step">
+    <div class="algo-num">2</div>
+    <div class="algo-content">
+      <span class="algo-title">Application des facteurs de risque (questionnaire)</span>
+      <span class="algo-body">Chacune des 15 à 23 questions du questionnaire correspond à un facteur documenté dans la littérature. On applique un <strong>coefficient multiplicateur</strong> basé sur le risque relatif mesuré dans les études de référence. Les coefficients sont additifs sur l'échelle logarithmique du risque relatif, pas sur l'espérance de vie brute — pour éviter les effets de sommation irréalistes.</span>
+    </div>
+  </div>
+  <div class="algo-step">
+    <div class="algo-num">3</div>
+    <div class="algo-content">
+      <span class="algo-title">Calcul du score composite</span>
+      <span class="algo-body">Les facteurs sont <strong>pondérés par leur impact relatif</strong> mesuré dans les méta-analyses. Le tabac pèse plus que la consommation de légumes — parce que les données épidémiologiques le disent. Les pondérations sont détaillées dans le tableau ci-dessous.</span>
+    </div>
+  </div>
+  <div class="algo-step">
+    <div class="algo-num">4</div>
+    <div class="algo-content">
+      <span class="algo-title">Ajustement par le Score de Vie (si disponible)</span>
+      <span class="algo-body">Si tu as rempli le Score de Vie (biomarqueurs), l'écart entre ton âge biologique et ton âge chronologique <strong>ajuste le résultat de la Montre</strong>. Un âge biologique de 42 ans à 47 ans chronologiques ajoute environ 3 à 5 ans d'espérance de vie estimée.</span>
+    </div>
+  </div>
+  <div class="algo-step">
+    <div class="algo-num">5</div>
+    <div class="algo-content">
+      <span class="algo-title">Décompte en temps réel</span>
+      <span class="algo-body">L'espérance de vie estimée est convertie en secondes à partir de ta date de naissance. Le décompte soustrait le temps déjà écoulé. <strong>Le calcul se fait entièrement dans ton navigateur</strong> — aucune donnée ne sort de ton appareil.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FACTEURS MONTRE ══ -->
+<h2 class="ap-section-title">Les facteurs pris en compte (Montre de Vie)</h2>
+
+<table class="factor-table">
+  <thead>
+    <tr>
+      <th>Facteur</th>
+      <th>Impact mesuré</th>
+      <th>Source principale</th>
+      <th>Poids</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tabagisme actif</td>
+      <td>−8 à −12 ans</td>
+      <td>INTERHEART, 2004</td>
+      <td><span class="badge badge-high">Élevé</span></td>
+    </tr>
+    <tr>
+      <td>Activité physique régulière</td>
+      <td>+3 à +7 ans</td>
+      <td>Wen et al., Lancet 2011</td>
+      <td><span class="badge badge-high">Élevé</span></td>
+    </tr>
+    <tr>
+      <td>IMC / obésité</td>
+      <td>−2 à −8 ans</td>
+      <td>Global BMI Mortality Coll., Lancet 2016</td>
+      <td><span class="badge badge-high">Élevé</span></td>
+    </tr>
+    <tr>
+      <td>Qualité du sommeil</td>
+      <td>±3 à 5 ans</td>
+      <td>Walker, Why We Sleep, 2017 ; meta-analyses</td>
+      <td><span class="badge badge-high">Élevé</span></td>
+    </tr>
+    <tr>
+      <td>Alimentation (score)</td>
+      <td>+2 à +5 ans</td>
+      <td>Willett et al., Lancet 2019</td>
+      <td><span class="badge badge-med">Moyen</span></td>
+    </tr>
+    <tr>
+      <td>Consommation d'alcool</td>
+      <td>−1 à −6 ans</td>
+      <td>GBD 2016 Alcohol Collaborators, Lancet</td>
+      <td><span class="badge badge-med">Moyen</span></td>
+    </tr>
+    <tr>
+      <td>Liens sociaux / isolement</td>
+      <td>±3 à 5 ans</td>
+      <td>Holt-Lunstad et al., PLOS Med 2010</td>
+      <td><span class="badge badge-med">Moyen</span></td>
+    </tr>
+    <tr>
+      <td>Stress chronique</td>
+      <td>−2 à −4 ans</td>
+      <td>Cohen et al., Health Psychology</td>
+      <td><span class="badge badge-med">Moyen</span></td>
+    </tr>
+    <tr>
+      <td>Niveau d'éducation</td>
+      <td>±1 à 3 ans</td>
+      <td>Mackenbach et al., NEJM 2008</td>
+      <td><span class="badge badge-low">Faible</span></td>
+    </tr>
+    <tr>
+      <td>Exposition aux polluants</td>
+      <td>−0,5 à −2 ans</td>
+      <td>OMS, Lelieveld et al., 2019</td>
+      <td><span class="badge badge-low">Faible</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ══ LE SCORE ══ -->
+<h2 class="ap-section-title">Le Score de Vie — le modèle PhenoAge</h2>
+
+<p class="prose">Le Score de Vie s'appuie sur deux modèles scientifiques complémentaires : <strong>PhenoAge</strong> (Levine et al., 2018) pour les biomarqueurs sanguins, et un score composite de physiologie sportive pour les mesures de performance physique.</p>
+
+<p class="prose"><strong>PhenoAge</strong> est un modèle développé par Morgan Levine (Yale, puis Altos Labs) à partir des données NHANES. Il utilise 9 biomarqueurs sanguins pour calculer un "âge phénotypique" — l'âge biologique réel de ton corps, indépendamment de ton âge civil. Ce modèle prédit mieux la mortalité toutes causes que l'âge chronologique seul.</p>
+
+<div class="formula-box">
+  <span class="formula-label">Formule simplifiée PhenoAge (Levine 2018)</span>
+  <div class="formula-main">
+    PhenoAge = β₀ + β₁×Albumine + β₂×Créatinine + β₃×Glucose<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + β₄×CRP + β₅×Lymphocytes% + β₆×VCM<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + β₇×Largeur distribution érythrocytes + β₈×PAlc<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + β₉×Leucocytes
+  </div>
+  <span class="formula-note">Les coefficients β sont issus de la régression sur la cohorte NHANES III et publiés dans Levine et al., Aging (Albany NY), 2018. Nous utilisons les coefficients publiés sans modification.</span>
+</div>
+
+<p class="prose">Pour les utilisateurs qui n'ont pas leurs biomarqueurs sanguins, le Score s'appuie sur les <strong>facteurs physiologiques de performance</strong> : VO₂max (le prédicteur le plus puissant de longévité selon les méta-analyses de Kodama et al., JAMA 2009), force de préhension, vitesse de marche sur 4 mètres, et tour de taille.</p>
+
+<h2 class="ap-section-title">Ce qu'on ne fait pas (et pourquoi)</h2>
+
+<p class="prose">Quelques choix méthodologiques méritent d'être expliqués explicitement :</p>
+
+<div class="algo-steps">
+  <div class="algo-step">
+    <div class="algo-num">✗</div>
+    <div class="algo-content">
+      <span class="algo-title">On ne somme pas les années directement</span>
+      <span class="algo-body">Additionner "−12 ans de tabac + +7 ans de sport = −5 ans" serait faux mathématiquement. Les effets interagissent. On travaille sur le <strong>risque relatif composé</strong>, qui est ensuite converti en ajustement d'espérance de vie via les tables actuarielles.</span>
+    </div>
+  </div>
+  <div class="algo-step">
+    <div class="algo-num">✗</div>
+    <div class="algo-content">
+      <span class="algo-title">On ne plafonne pas à 100 ans par défaut</span>
+      <span class="algo-body">Des profils très favorables peuvent donner des estimations de 105-110 ans. C'est mathématiquement cohérent avec les distributions de longévité observées dans les zones bleues. Ce n'est pas une promesse — c'est une projection probabiliste sur l'extrémité de la distribution.</span>
+    </div>
+  </div>
+  <div class="algo-step">
+    <div class="algo-num">✗</div>
+    <div class="algo-content">
+      <span class="algo-title">On n'inclut pas l'hérédité comme facteur principal</span>
+      <span class="algo-body">Les études récentes (Wilcox et al., Plos ONE 2006 ; Fridell et al.) suggèrent que la génétique explique seulement 20-25 % de la variance de longévité. Les habitudes de vie en expliquent 75-80 %. On ne peut pas agir sur ses gènes — on peut agir sur ses habitudes.</span>
+    </div>
+  </div>
+</div>
+
+<div class="disclaimer-box">
+  <p><strong>Avertissement important :</strong> ces outils sont des estimateurs statistiques à usage éducatif. Ils ne constituent pas un diagnostic médical, ne remplacent pas un bilan de santé professionnel, et ne doivent pas être utilisés pour prendre des décisions médicales. Si tu as des préoccupations de santé, consulte un médecin. Pour la liste complète des limites, consulte la <a href="/limites/" style="color:rgba(252,165,165,.8);text-decoration:none;font-weight:600">page Limites</a>.</p>
+</div>
+
+<h2 class="ap-section-title">Mises à jour de l'algorithme</h2>
+
+<p class="prose">L'algorithme n'est pas figé. Quand de nouvelles méta-analyses publient des données plus robustes, on met à jour les coefficients. Les changements sont documentés ici :</p>
+
+<table class="factor-table">
+  <thead>
+    <tr><th>Date</th><th>Modification</th><th>Raison</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Janvier 2026</td>
+      <td>Version initiale — 15 facteurs Montre, 9 biomarqueurs Score</td>
+      <td>Lancement du projet</td>
+    </tr>
+    <tr>
+      <td>Mars 2026</td>
+      <td>Ajout VO₂max direct dans le Score</td>
+      <td>Demandes utilisateurs + Kodama 2009 (JAMA)</td>
+    </tr>
+    <tr>
+      <td>Mai 2026</td>
+      <td>Ajout force de préhension et vitesse de marche</td>
+      <td>Méta-analyse Leong et al., Lancet 2015</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- CTA -->
+<div style="text-align:center;margin-top:48px;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px">
+  <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
+    La méthode est claire — maintenant tu peux l'utiliser en connaissance de cause.
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <a href="/montre/" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700;letter-spacing:-.01em">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Lancer la Montre
+    </a>
+    <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/></svg>
+      Calculer mon Score
+    </a>
+  </div>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">
+    <a href="/sources/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Voir toutes les sources →</a>
+    &nbsp;·&nbsp;
+    <a href="/limites/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Limites de l'outil →</a>
+    &nbsp;·&nbsp;
+    <a href="/faq/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">FAQ →</a>
+  </p>
+</div>

@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "À propos — Montre de Vie & Score de Vie"
-description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire du Memento Mori, la philosophie stoïcienne, l'âge biologique, et pourquoi un traileur luxembourgeois a créé ces outils gratuits."
+description: "Qui est derrière la Montre de Vie et le Score de Vie ? Sébastien Salomon, traileur luxembourgeois de 47 ans, VO₂max 54, espérance de vie estimée à 104 ans. L'histoire du projet, la philosophie Memento Mori, les outils et la science derrière."
+canonical: "https://montre-de-vie.com/apropos/"
 ---
 
 <style>
@@ -114,6 +115,38 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
   font-style: normal;
   font-weight: 600;
   letter-spacing: .05em;
+}
+
+/* STATS GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 28px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 16px;
+  text-align: center;
+}
+.stat-number {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--amber-lt);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: .72rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.4;
 }
 
 /* TIMELINE */
@@ -231,6 +264,34 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
   letter-spacing: .04em;
 }
 
+/* CREDENTIAL ROW */
+.credential-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+.credential-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+.credential-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.credential-text {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.credential-text strong { color: var(--text); font-weight: 700; }
+
 /* FAQ */
 .faq-item {
   background: var(--surface);
@@ -255,6 +316,21 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
 }
 .faq-a strong { color: var(--text); font-weight: 600; }
 
+/* LIEN PAGE INTERNE */
+.internal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--amber-lt);
+  font-size: .84rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245,158,11,.25);
+  padding-bottom: 1px;
+  transition: border-color .2s;
+}
+.internal-link:hover { border-color: var(--amber-lt); }
+
 @media(max-width: 600px) {
   .ap-hero { padding: 28px 0 24px; }
   .latin-quote { padding: 22px 16px; }
@@ -263,8 +339,27 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
   .timeline::before { left: 11px; }
   .tl-dot { width: 24px; height: 24px; font-size: .7rem; }
   .tl-item { gap: 12px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
+
+<!-- Schema.org Person + WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Sébastien Salomon",
+  "url": "https://montre-de-vie.com/apropos/",
+  "sameAs": [
+    "https://run-nature.com",
+    "https://www.instagram.com/seb_run_lux",
+    "https://strava.app.link/DEw8pXyyl0b"
+  ],
+  "jobTitle": "Créateur de Montre de Vie",
+  "description": "Traileur luxembourgeois de 47 ans, passionné de longévité et de science du vieillissement. VO₂max 54, espérance de vie estimée à 104 ans.",
+  "knowsAbout": ["âge biologique", "longévité", "trail running", "PhenoAge", "Memento Mori", "endurance"]
+}
+</script>
 
 <!-- ══ HERO ══ -->
 <div class="ap-hero">
@@ -302,7 +397,78 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
   La Montre compte les secondes. Le Score mesure leur valeur.
 </div>
 
-<p class="prose">Les deux outils se parlent : ton Score ajuste automatiquement le décompte de ta Montre. Plus tu prends soin de toi, plus la Montre ralentit. C'est le seul tableau de bord qui réagit en temps réel à tes choix.</p>
+<p class="prose">Les deux outils se parlent : ton Score ajuste automatiquement le décompte de ta Montre. Plus tu prends soin de toi, plus la Montre ralentit. C'est le seul tableau de bord qui réagit en temps réel à tes choix. Pour comprendre précisément comment le calcul fonctionne, consulte la <a href="/methodologie/" class="internal-link">page Méthodologie</a>.</p>
+
+<!-- ══ QUI ══ -->
+<h2 class="ap-section-title">Qui est derrière ce projet ?</h2>
+
+<div class="author-card">
+  <div class="author-avatar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+    </svg>
+  </div>
+  <div>
+    <span class="author-name">Sébastien Salomon — Luxembourg</span>
+    <p class="author-bio">47 ans, traileur luxembourgeois. Je cours les sentiers du Grand-Duché — l'Uelzechtdalltrail, les crêtes de l'Ardenne, les forêts de la Petite Suisse luxembourgeoise. J'écris sur <a href="https://run-nature.com" style="color:var(--amber-lt);text-decoration:none;font-weight:600">run-nature.com</a> ce que je vis, ce que je teste, et ce que les données confirment.</p>
+    <p class="author-bio" style="margin-top:8px">La Montre de Vie est née d'une conviction simple : les données sur la longévité existent, elles sont publiques, et elles devraient être accessibles à tous — pas seulement à ceux qui peuvent payer un coach de santé.</p>
+    <div class="author-tags">
+      <span class="author-tag">Trail running</span>
+      <span class="author-tag">Luxembourg</span>
+      <span class="author-tag">Longévité</span>
+      <span class="author-tag">Stoïcisme</span>
+      <span class="author-tag">Run Nature</span>
+      <span class="author-tag">VO₂max 54</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MES DONNÉES PERSONNELLES ══ -->
+<h2 class="ap-section-title">Ce que mes propres chiffres disent</h2>
+
+<p class="prose">Je ne parle pas de longévité en théorie. J'utilise moi-même ces outils, et voici ce qu'ils donnent pour un traileur de 47 ans basé au Luxembourg.</p>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <span class="stat-number">47</span>
+    <span class="stat-label">Âge chronologique</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">~42</span>
+    <span class="stat-label">Âge biologique estimé</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">54</span>
+    <span class="stat-label">VO₂max (ml/kg/min)</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">104</span>
+    <span class="stat-label">Espérance de vie estimée</span>
+  </div>
+</div>
+
+<p class="prose">Ces chiffres ne sont pas là pour impressionner. Ils sont là pour montrer que <strong>le mode de vie a un impact réel et mesurable</strong>. Un VO₂max de 54 à 47 ans se situe dans le top 5 % pour l'âge — mais ça ne s'est pas fait tout seul. Des années de trail, de récupération sérieuse, de sommeil géré, et d'alimentation réfléchie.</p>
+
+<div class="credential-row">
+  <div class="credential-item">
+    <span class="credential-icon">🏃</span>
+    <span class="credential-text"><strong>Trail running depuis 10+ ans</strong> — ING Night Marathon, Peckvillercherslaf, trails Mullerthal, Bambesch, Ardennes. Les courses ne sont pas juste un hobby : ce sont des marqueurs de progression physiologique.</span>
+  </div>
+  <div class="credential-item">
+    <span class="credential-icon">📊</span>
+    <span class="credential-text"><strong>Suivi biologique régulier</strong> — bilans sanguins (LDL, glycémie, CRP), tension, composition corporelle, VO₂max mesuré. Les outils que j'ai créés, je les utilise moi-même sur mes propres données.</span>
+  </div>
+  <div class="credential-item">
+    <span class="credential-icon">📚</span>
+    <span class="credential-text"><strong>Veille scientifique active</strong> — études PhenoAge (Levine 2018), INTERHEART, Framingham Heart Study, méta-analyses sur le VO₂max et la mortalité. Je lis les études, je ne recopie pas des articles de presse santé.</span>
+  </div>
+  <div class="credential-item">
+    <span class="credential-icon">🛠️</span>
+    <span class="credential-text"><strong>Développement autodidacte</strong> — j'ai construit ces outils de zéro, sans être développeur de formation. Parce que les données existaient mais les outils gratuits, eux, n'existaient pas.</span>
+  </div>
+</div>
+
+<p class="prose">Je ne suis ni médecin, ni biologiste, ni chercheur. Ce que je suis : quelqu'un qui s'intéresse <em>sérieusement</em> aux données sur la longévité, qui les teste sur lui-même, et qui les rend accessibles. Toutes les bases scientifiques utilisées sont <a href="/sources/" class="internal-link">documentées et vérifiables</a>.</p>
 
 <!-- ══ HISTOIRE ══ -->
 <h2 class="ap-section-title">2 000 ans d'histoire en quelques dates</h2>
@@ -366,32 +532,6 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
   </div>
 </div>
 
-<!-- ══ QUI ══ -->
-<h2 class="ap-section-title">Qui est derrière ce projet ?</h2>
-
-<div class="author-card">
-  <div class="author-avatar">
-    <!-- Logo horloge SVG -->
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-    </svg>
-  </div>
-  <div>
-    <span class="author-name">Sébastien Salomon — Luxembourg</span>
-    <p class="author-bio">47 ans, traileur luxembourgeois. Je cours les sentiers du Grand-Duché — l'Uelzechtdalltrail, les crêtes de l'Ardenne, les forêts de la Petite Suisse luxembourgeoise. J'écris sur run-nature.com ce que je vis, ce que je teste, et ce que les données confirment.</p>
-    <p class="author-bio" style="margin-top:8px">La Montre de Vie est née d'une conviction simple : les données sur la longévité existent, elles sont publiques, et elles devraient être accessibles à tous — pas seulement à ceux qui peuvent payer un coach de santé.</p>
-    <div class="author-tags">
-      <span class="author-tag">Trail running</span>
-      <span class="author-tag">Luxembourg</span>
-      <span class="author-tag">Longévité</span>
-      <span class="author-tag">Stoïcisme</span>
-      <span class="author-tag">Run Nature</span>
-    </div>
-  </div>
-</div>
-
-<p class="prose">Ce projet est un <strong>défi personnel</strong> — créer de vrais outils à partir de zéro, sans être développeur, en apprenant sur le tas. La Montre de Vie est née d'abord, le Score de Vie l'a complétée. Une vraie app mobile arrive ensuite.</p>
-
 <!-- ══ PHILOSOPHIE ══ -->
 <h2 class="ap-section-title">Pourquoi le Memento Mori n'est pas morbide</h2>
 
@@ -406,12 +546,36 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
   <span class="ap-quote-author">— Sébastien, Run Nature</span>
 </div>
 
+<!-- ══ ENGAGEMENTS ══ -->
+<h2 class="ap-section-title">Ce que ce projet n'est pas</h2>
+
+<p class="prose">Autant être clair là-dessus aussi, parce que le web est plein d'outils qui ont l'air gratuits sans l'être vraiment.</p>
+
+<div class="credential-row">
+  <div class="credential-item">
+    <span class="credential-icon">🚫</span>
+    <span class="credential-text"><strong>Pas de collecte de données</strong> — tout le calcul se fait localement dans ton navigateur. Rien ne part vers un serveur. Jamais.</span>
+  </div>
+  <div class="credential-item">
+    <span class="credential-icon">🚫</span>
+    <span class="credential-text"><strong>Pas de publicité</strong> — aucune régie publicitaire, aucun tracking, aucun pixel Facebook. Le site est financé par rien d'autre que du temps personnel.</span>
+  </div>
+  <div class="credential-item">
+    <span class="credential-icon">🚫</span>
+    <span class="credential-text"><strong>Pas de conseil médical</strong> — ces outils sont des estimateurs statistiques, pas des diagnostics. Si tu as une question de santé sérieuse, tu consultes un médecin. C'est non-négociable. Les <a href="/limites/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">limites de l'outil</a> sont documentées en détail.</span>
+  </div>
+  <div class="credential-item">
+    <span class="credential-icon">🚫</span>
+    <span class="credential-text"><strong>Pas de bullshit bien-être</strong> — pas de "5 habitudes des gens qui vivent 100 ans". Juste des données épidémiologiques, des algorithmes documentés, et de la transparence sur ce qu'on sait et ce qu'on ne sait pas.</span>
+  </div>
+</div>
+
 <!-- ══ FAQ ══ -->
 <h2 class="ap-section-title">Questions fréquentes</h2>
 
 <div class="faq-item">
   <div class="faq-q">L'espérance de vie calculée est-elle précise ?</div>
-  <div class="faq-a">Non — et c'est assumé. Aucun algorithme ne peut prédire la date de ta mort. Ce calcul est un <strong>estimateur probabiliste</strong> basé sur les grandes études épidémiologiques (INSEE, OMS, Framingham Heart Study). Il donne une direction, pas une certitude. Si tes habitudes s'améliorent, ton score s'améliore — c'est le seul message qui compte.</div>
+  <div class="faq-a">Non — et c'est assumé. Aucun algorithme ne peut prédire la date de ta mort. Ce calcul est un <strong>estimateur probabiliste</strong> basé sur les grandes études épidémiologiques (INSEE, OMS, Framingham Heart Study). Il donne une direction, pas une certitude. Si tes habitudes s'améliorent, ton score s'améliore — c'est le seul message qui compte. Pour le détail complet, consulte la <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">page Méthodologie</a>.</div>
 </div>
 
 <div class="faq-item">
@@ -431,7 +595,12 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
 
 <div class="faq-item">
   <div class="faq-q">C'est quoi la suite du projet ?</div>
-  <div class="faq-a">Une vraie app mobile sur le Play Store et l'App Store — installable, avec notifications optionnelles et suivi dans le temps. Le développement est en cours. Si tu veux suivre l'évolution, rejoins Run Nature.</div>
+  <div class="faq-a">Une vraie app mobile sur le Play Store et l'App Store — installable, avec notifications optionnelles et suivi dans le temps. Le développement est en cours. Si tu veux suivre l'évolution, rejoins <a href="https://run-nature.com" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Run Nature</a>.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Les calculs sont-ils vraiment basés sur de vraies études ?</div>
+  <div class="faq-a">Oui — et elles sont toutes citées. Le modèle PhenoAge de Morgan Levine (2018), les données INTERHEART sur les facteurs de risque cardiovasculaire, les tables de l'INSEE et de l'OMS, les méta-analyses sur le VO₂max et la mortalité toutes causes. La liste complète avec liens vers les publications originales est disponible sur la <a href="/sources/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">page Sources</a>.</div>
 </div>
 
 <!-- CTA léger en fin de page -->
@@ -459,4 +628,12 @@ description: "Qui est derrière la Montre de Vie et le Score de Vie ? L'histoire
       Calculer mon Score
     </a>
   </div>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">
+    Tu veux comprendre la science derrière les calculs ?
+    <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Lire la Méthodologie →</a>
+    &nbsp;·&nbsp;
+    <a href="/sources/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Voir les Sources →</a>
+    &nbsp;·&nbsp;
+    <a href="/faq/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">FAQ complète →</a>
+  </p>
 </div>

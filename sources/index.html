@@ -1,1 +1,271 @@
+---
+layout: default
+title: "Sources scientifiques — Les études derrière la Montre de Vie et le Score de Vie"
+description: "Bibliographie complète et commentée des études épidémiologiques utilisées dans la Montre de Vie et le Score de Vie : PhenoAge, INTERHEART, Framingham, Lancet, JAMA et OMS."
+canonical: "https://montre-de-vie.com/sources/"
+---
 
+<style>
+.ap-hero { text-align:center;padding:48px 0 44px; }
+.ap-eyebrow { font-size:.72rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:700;margin-bottom:14px; }
+.ap-hero h1 { font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:16px;line-height:1.1; }
+.ap-hero h1 em { color:var(--amber-lt);font-style:normal; }
+.ap-hero p { font-size:.95rem;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7; }
+.ap-section-title { font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:10px;margin:44px 0 20px; }
+.prose { font-size:.96rem;color:rgba(228,228,231,.82);line-height:1.85;margin-bottom:18px; }
+.prose strong { color:#fff;font-weight:700; }
+.prose em { color:var(--amber-lt);font-style:italic; }
+
+/* CARD SOURCE */
+.source-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px 22px;
+  margin-bottom:12px;
+  transition:border-color .2s;
+}
+.source-card:hover { border-color:var(--border2); }
+.source-meta {
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:10px;
+}
+.source-badge {
+  padding:3px 10px;
+  border-radius:20px;
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.badge-core { background:rgba(245,158,11,.12);color:var(--amber-lt);border:1px solid rgba(245,158,11,.2); }
+.badge-support { background:rgba(0,152,98,.1);color:var(--green-lt);border:1px solid rgba(0,152,98,.2); }
+.badge-ref { background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border); }
+.source-title {
+  font-size:.92rem;
+  font-weight:700;
+  color:var(--text);
+  line-height:1.4;
+  flex:1;
+}
+.source-ref {
+  font-size:.78rem;
+  color:var(--amber);
+  font-weight:600;
+  margin-bottom:6px;
+  display:block;
+}
+.source-why {
+  font-size:.83rem;
+  color:var(--muted);
+  line-height:1.65;
+}
+.source-why strong { color:var(--text);font-weight:600; }
+
+/* LÉGENDE */
+.legend { display:flex;gap:16px;flex-wrap:wrap;margin:0 0 28px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px; }
+.legend-item { display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--muted); }
+
+@media(max-width:600px) {
+  .ap-hero { padding:28px 0 24px; }
+  .source-meta { flex-direction:column;gap:8px; }
+  .legend { flex-direction:column;gap:10px; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Sources scientifiques — Montre de Vie",
+  "description": "Bibliographie complète des études épidémiologiques et biomédicales utilisées dans les algorithmes de la Montre de Vie et du Score de Vie.",
+  "url": "https://montre-de-vie.com/sources/",
+  "author": { "@type": "Person", "name": "Sébastien Salomon" },
+  "about": [
+    { "@type": "Thing", "name": "PhenoAge" },
+    { "@type": "Thing", "name": "Âge biologique" },
+    { "@type": "Thing", "name": "Espérance de vie" },
+    { "@type": "Thing", "name": "Épidémiologie" }
+  ]
+}
+</script>
+
+<!-- HERO -->
+<div class="ap-hero">
+  <div class="ap-eyebrow">Bibliographie · Épidémiologie · Transparence</div>
+  <h1>Les <em>études scientifiques</em> derrière les outils</h1>
+  <p>Chaque coefficient, chaque pondération, chaque facteur de risque a une source. Les voilà toutes, avec le contexte pour comprendre pourquoi elles comptent.</p>
+</div>
+
+<!-- LÉGENDE -->
+<div class="legend">
+  <div class="legend-item"><span class="source-badge badge-core">Fondamentale</span> Utilisée directement dans l'algorithme</div>
+  <div class="legend-item"><span class="source-badge badge-support">Support</span> Valide et contextualise les coefficients</div>
+  <div class="legend-item"><span class="source-badge badge-ref">Référence</span> Source institutionnelle de données brutes</div>
+</div>
+
+<p class="prose">La règle qu'on s'est fixée : <strong>aucun coefficient dans l'algorithme sans une étude publiée dans une revue à comité de lecture</strong>. Si la donnée n'est pas dans la littérature, elle n'est pas dans l'outil. Simple.</p>
+
+<!-- ══ ÂGE BIOLOGIQUE ══ -->
+<h2 class="ap-section-title">Âge biologique & biomarqueurs</h2>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-core">Fondamentale</span>
+    <span class="source-title">An epigenetic biomarker of aging for lifespan and healthspan — PhenoAge</span>
+  </div>
+  <span class="source-ref">Levine, M.E. et al. — Aging (Albany NY), 2018. DOI: 10.18632/aging.101414</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> C'est la base du Score de Vie. PhenoAge est le modèle de référence pour calculer l'âge biologique à partir de 9 biomarqueurs sanguins. Développé sur la cohorte NHANES III (n > 11 000), il prédit la mortalité toutes causes mieux que l'âge chronologique seul. C'est la source principale des coefficients du Score de Vie.</p>
+</div>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-support">Support</span>
+    <span class="source-title">Biological age as a health index for mortality and major age-related disease incidence in Koreans</span>
+  </div>
+  <span class="source-ref">Park, J. et al. — Clinical Interventions in Aging, 2021. DOI: 10.2147/CIA.S298276</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Valide l'applicabilité du concept d'âge biologique sur des populations non-américaines. Confirme que l'écart âge biologique / âge chronologique est un prédicteur robuste indépendant de l'ethnie.</p>
+</div>
+
+<!-- ══ ACTIVITÉ PHYSIQUE ══ -->
+<h2 class="ap-section-title">Activité physique & longévité</h2>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-core">Fondamentale</span>
+    <span class="source-title">Minimum amount of physical activity for reduced mortality and extended life expectancy</span>
+  </div>
+  <span class="source-ref">Wen, C.P. et al. — The Lancet, 2011. DOI: 10.1016/S0140-6736(11)60749-6</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Cohorte taïwanaise de 416 175 personnes sur 8 ans. Démontre qu'une activité minimale de 15 min/jour est associée à +3 ans d'espérance de vie. C'est la base du coefficient "activité physique légère" dans la Montre.</p>
+</div>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-core">Fondamentale</span>
+    <span class="source-title">Cardiorespiratory fitness and all-cause mortality — méta-analyse</span>
+  </div>
+  <span class="source-ref">Kodama, S. et al. — JAMA, 2009. DOI: 10.1001/jama.2009.681</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Méta-analyse de 33 études (n > 102 000). Montre que chaque augmentation de 1 MET (≈ 3,5 ml O₂/kg/min) de VO₂max est associée à une réduction de 13 % de la mortalité toutes causes. Source principale du coefficient VO₂max dans le Score.</p>
+</div>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-support">Support</span>
+    <span class="source-title">Grip strength as a predictor of all-cause mortality</span>
+  </div>
+  <span class="source-ref">Leong, D.P. et al. — The Lancet, 2015. DOI: 10.1016/S0140-6736(14)62000-6</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Étude PURE, 17 pays, 139 691 participants. La force de préhension prédit la mortalité toutes causes mieux que la tension artérielle systolique. Coefficient force de préhension dans le Score.</p>
+</div>
+
+<!-- ══ TABAC ══ -->
+<h2 class="ap-section-title">Tabac & risque cardiovasculaire</h2>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-core">Fondamentale</span>
+    <span class="source-title">Effect of potentially modifiable risk factors associated with myocardial infarction — INTERHEART</span>
+  </div>
+  <span class="source-ref">Yusuf, S. et al. — The Lancet, 2004. DOI: 10.1016/S0140-6736(04)17018-9</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Étude cas-témoin de 15 152 infarctus dans 52 pays. Identifie les 9 facteurs qui expliquent plus de 90 % du risque cardiaque modifiable. C'est la base des coefficients tabac, alimentation, stress et liens sociaux dans la Montre.</p>
+</div>
+
+<!-- ══ SOMMEIL ══ -->
+<h2 class="ap-section-title">Sommeil & mortalité</h2>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-core">Fondamentale</span>
+    <span class="source-title">Sleep duration and all-cause mortality — méta-analyse</span>
+  </div>
+  <span class="source-ref">Cappuccio, F.P. et al. — Sleep, 2010. DOI: 10.1093/sleep/33.5.585</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Méta-analyse de 16 études prospectives (n = 1 382 999). Montre la relation en U entre durée de sommeil et mortalité toutes causes — risque augmenté aussi bien en dessous de 6h qu'au-dessus de 8-9h. Source du coefficient sommeil dans la Montre.</p>
+</div>
+
+<!-- ══ ALIMENTATION ══ -->
+<h2 class="ap-section-title">Alimentation & longévité</h2>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-core">Fondamentale</span>
+    <span class="source-title">Food in the Anthropocene — EAT–Lancet Commission</span>
+  </div>
+  <span class="source-ref">Willett, W. et al. — The Lancet, 2019. DOI: 10.1016/S0140-6736(18)31788-4</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Commission de 37 scientifiques dans 16 pays. Définit les fourchettes de consommation optimales pour la santé humaine basées sur les méta-analyses disponibles. Source du score alimentaire dans la Montre.</p>
+</div>
+
+<!-- ══ LIENS SOCIAUX ══ -->
+<h2 class="ap-section-title">Liens sociaux & isolement</h2>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-support">Support</span>
+    <span class="source-title">Social relationships and mortality risk — méta-analyse</span>
+  </div>
+  <span class="source-ref">Holt-Lunstad, J. et al. — PLOS Medicine, 2010. DOI: 10.1371/journal.pmed.1000316</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Méta-analyse de 148 études (n = 308 849). Les liens sociaux forts sont associés à une réduction de 50 % du risque de mortalité prématurée. Coefficient isolement social dans la Montre.</p>
+</div>
+
+<!-- ══ DONNÉES INSTITUTIONNELLES ══ -->
+<h2 class="ap-section-title">Données institutionnelles de référence</h2>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-ref">Référence</span>
+    <span class="source-title">Tables de mortalité et espérance de vie — OMS</span>
+  </div>
+  <span class="source-ref">Organisation Mondiale de la Santé — Global Health Observatory, 2023. who.int/data/gho</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Tables de mortalité par pays, âge et sexe. C'est la baseline de l'espérance de vie de référence avant toute personnalisation dans la Montre.</p>
+</div>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-ref">Référence</span>
+    <span class="source-title">Espérance de vie au Luxembourg — STATEC</span>
+  </div>
+  <span class="source-ref">Institut National de la Statistique et des Études Économiques du Grand-Duché de Luxembourg — statec.lu, 2024</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Tables de mortalité spécifiques au Luxembourg (83,4 ans pour les femmes, 80,1 ans pour les hommes en 2023). Utilisées pour les utilisateurs luxembourgeois afin d'affiner la baseline nationale.</p>
+</div>
+
+<div class="source-card">
+  <div class="source-meta">
+    <span class="source-badge badge-ref">Référence</span>
+    <span class="source-title">Tables de mortalité — INSEE (France)</span>
+  </div>
+  <span class="source-ref">Institut National de la Statistique et des Études Économiques — insee.fr, tables 2023</span>
+  <p class="source-why"><strong>Pourquoi on l'utilise :</strong> Baseline pour les utilisateurs français et les frontaliers.</p>
+</div>
+
+<!-- NOTE FINALE -->
+<div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.15);border-radius:14px;padding:20px 22px;margin-top:32px">
+  <p style="font-size:.84rem;color:rgba(253,230,138,.6);line-height:1.7;margin:0">
+    <strong style="color:rgba(253,230,138,.85)">Note sur l'utilisation des sources :</strong> les coefficients utilisés dans l'algorithme sont issus des publications originales. Nous n'utilisons pas de vulgarisations ou d'articles secondaires comme sources de coefficients. En cas de conflits entre études, nous retenons les méta-analyses les plus récentes et/ou les plus grandes cohortes. La <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">page Méthodologie</a> détaille les choix de pondération.
+  </p>
+</div>
+
+<!-- CTA -->
+<div style="text-align:center;margin-top:40px;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px">
+  <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
+    La science est là. Maintenant, qu'est-ce que ça donne pour toi ?
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <a href="/montre/" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700;letter-spacing:-.01em">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Lancer la Montre
+    </a>
+    <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/></svg>
+      Calculer mon Score
+    </a>
+  </div>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">
+    <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Comment fonctionne l'algorithme →</a>
+    &nbsp;·&nbsp;
+    <a href="/limites/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Limites de l'outil →</a>
+    &nbsp;·&nbsp;
+    <a href="/faq/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">FAQ →</a>
+  </p>
+</div>

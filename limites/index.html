@@ -1,1 +1,234 @@
+---
+layout: default
+title: "Limites de l'outil — Ce que la Montre de Vie ne peut pas faire"
+description: "La Montre de Vie et le Score de Vie sont des outils puissants — mais pas parfaits. Voici exactement ce qu'ils mesurent, ce qu'ils ne mesurent pas, et pourquoi c'est important de le savoir."
+canonical: "https://montre-de-vie.com/limites/"
+---
 
+<style>
+.ap-hero { text-align:center;padding:48px 0 44px; }
+.ap-eyebrow { font-size:.72rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:700;margin-bottom:14px; }
+.ap-hero h1 { font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:16px;line-height:1.1; }
+.ap-hero h1 em { color:var(--amber-lt);font-style:normal; }
+.ap-hero p { font-size:.95rem;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7; }
+.ap-section-title { font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:10px;margin:44px 0 20px; }
+.prose { font-size:.96rem;color:rgba(228,228,231,.82);line-height:1.85;margin-bottom:18px; }
+.prose strong { color:#fff;font-weight:700; }
+.prose em { color:var(--amber-lt);font-style:italic; }
+.ap-quote { background:rgba(9,9,11,.4);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 22px;margin:28px 0;font-style:italic;font-size:.95rem;color:rgba(253,230,138,.7);line-height:1.75; }
+.ap-quote-author { display:block;font-size:.72rem;color:var(--muted);margin-top:10px;font-style:normal;font-weight:600;letter-spacing:.05em; }
+
+/* LIMITE CARD */
+.limit-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px 22px;
+  margin-bottom:12px;
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+}
+.limit-icon {
+  font-size:1.4rem;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.limit-content { flex:1; }
+.limit-title {
+  display:block;
+  font-size:.92rem;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:6px;
+  letter-spacing:-0.01em;
+}
+.limit-body {
+  font-size:.84rem;
+  color:var(--muted);
+  line-height:1.7;
+}
+.limit-body strong { color:var(--text);font-weight:600; }
+.limit-body em { color:var(--amber-lt);font-style:italic; }
+.limit-body a { color:var(--amber-lt);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(245,158,11,.25); }
+
+/* COMPARAISON CAN/CANNOT */
+.compare-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:24px 0;
+}
+.compare-col { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px; }
+.compare-col.yes { border-color:rgba(0,152,98,.2); }
+.compare-col.no { border-color:rgba(239,68,68,.15); }
+.compare-header {
+  font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:12px;display:block;
+}
+.compare-header.yes { color:var(--green-lt); }
+.compare-header.no { color:rgba(252,165,165,.7); }
+.compare-item {
+  display:flex;gap:8px;align-items:flex-start;
+  font-size:.83rem;color:var(--muted);line-height:1.5;
+  margin-bottom:8px;
+}
+.compare-item:last-child { margin-bottom:0; }
+.compare-dot { flex-shrink:0;font-size:.7rem;margin-top:3px; }
+.compare-dot.yes { color:var(--green-lt); }
+.compare-dot.no { color:rgba(252,165,165,.6); }
+
+/* DISCLAIMER ROUGE */
+.disclaimer-box { background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.15);border-radius:14px;padding:20px 22px;margin:32px 0; }
+.disclaimer-box p { font-size:.85rem;color:rgba(252,165,165,.75);line-height:1.75;margin:0; }
+.disclaimer-box strong { color:rgba(252,165,165,.9); }
+
+@media(max-width:600px) {
+  .ap-hero { padding:28px 0 24px; }
+  .compare-grid { grid-template-columns:1fr; }
+  .limit-card { flex-direction:column;gap:10px; }
+}
+</style>
+
+<!-- HERO -->
+<div class="ap-hero">
+  <div class="ap-eyebrow">Transparence · Honnêteté · Limites</div>
+  <h1>Ce que la Montre de Vie <em>ne peut pas</em> faire</h1>
+  <p>Un outil honnête sur ses propres limites est plus utile qu'un outil qui promet tout. Voici exactement ce qu'on mesure — et ce qu'on ne mesure pas.</p>
+</div>
+
+<div class="ap-quote">
+  La transparence sur les limites, c'est la condition pour que les résultats qui rentrent dans le cadre soient vraiment utiles. Si tu sais ce que l'outil ne voit pas, tu sais ce à quoi ses résultats s'appliquent.
+  <span class="ap-quote-author">— Sébastien, Run Nature</span>
+</div>
+
+<!-- ══ CE QUE L'OUTIL PEUT / NE PEUT PAS ══ -->
+<h2 class="ap-section-title">Ce que l'outil peut faire — et ce qu'il ne peut pas faire</h2>
+
+<div class="compare-grid">
+  <div class="compare-col yes">
+    <span class="compare-header yes">✓ Ce que l'outil fait</span>
+    <div class="compare-item"><span class="compare-dot yes">●</span><span>Estimer une trajectoire statistique de longévité basée sur tes habitudes</span></div>
+    <div class="compare-item"><span class="compare-dot yes">●</span><span>Calculer un âge biologique comparatif à partir de biomarqueurs validés</span></div>
+    <div class="compare-item"><span class="compare-dot yes">●</span><span>Identifier les facteurs de risque modifiables les plus impactants pour toi</span></div>
+    <div class="compare-item"><span class="compare-dot yes">●</span><span>Motiver à des changements de comportement via une visualisation concrète du temps</span></div>
+    <div class="compare-item"><span class="compare-dot yes">●</span><span>Suivre ta progression dans le temps si tu refais les tests</span></div>
+  </div>
+  <div class="compare-col no">
+    <span class="compare-header no">✗ Ce que l'outil ne fait pas</span>
+    <div class="compare-item"><span class="compare-dot no">●</span><span>Prédire une date de mort individuelle — personne ne peut faire ça</span></div>
+    <div class="compare-item"><span class="compare-dot no">●</span><span>Diagnostiquer une maladie ou remplacer un bilan médical</span></div>
+    <div class="compare-item"><span class="compare-dot no">●</span><span>Prendre en compte l'ensemble de l'histoire médicale personnelle</span></div>
+    <div class="compare-item"><span class="compare-dot no">●</span><span>Capturer les risques d'accidents, de maladies rares ou d'événements imprévisibles</span></div>
+    <div class="compare-item"><span class="compare-dot no">●</span><span>Garantir un résultat — c'est de la statistique, pas de la divination</span></div>
+  </div>
+</div>
+
+<!-- ══ LIMITES DÉTAILLÉES ══ -->
+<h2 class="ap-section-title">Les limites en détail</h2>
+
+<div class="limit-card">
+  <span class="limit-icon">📊</span>
+  <div class="limit-content">
+    <span class="limit-title">C'est de la statistique de population, pas une prédiction individuelle</span>
+    <p class="limit-body">Les coefficients utilisés viennent d'études épidémiologiques sur des milliers à des centaines de milliers de personnes. Ils reflètent des <strong>probabilités moyennes pour des groupes</strong>, pas des certitudes individuelles. Un fumeur peut vivre jusqu'à 95 ans. Un sportif non-fumeur peut mourir à 45 ans d'un accident. La statistique ne governe pas les individus — elle décrit des populations. L'outil te dit où tu te situes dans la distribution, pas ce qui t'arrivera à toi.</p>
+  </div>
+</div>
+
+<div class="limit-card">
+  <span class="limit-icon">🧬</span>
+  <div class="limit-content">
+    <span class="limit-title">La génétique individuelle n'est pas prise en compte</span>
+    <p class="limit-body">L'algorithme n'inclut pas d'historique familial détaillé ni de données génétiques. Si ton père et ta mère ont tous les deux vécu jusqu'à 95 ans, tu as probablement un avantage génétique qui n'est pas capturé ici. Inversement, si des maladies génétiques courent dans ta famille, l'outil peut surestimer ton espérance de vie. <em>La génétique explique 20-25 % de la variance de longévité selon les études sur jumeaux</em> — ce n'est pas négligeable.</p>
+  </div>
+</div>
+
+<div class="limit-card">
+  <span class="limit-icon">🏥</span>
+  <div class="limit-content">
+    <span class="limit-title">Les maladies chroniques diagnostiquées ne sont pas toutes capturées</span>
+    <p class="limit-body">Le questionnaire inclut quelques questions sur les maladies cardiovasculaires et le diabète, mais il ne couvre pas l'ensemble des pathologies chroniques. Une personne vivant avec un cancer, une maladie auto-immune sévère, ou une insuffisance rénale chronique verra son résultat potentiellement biaisé. <strong>Dans ces cas, l'outil n'est pas pertinent comme référence principale</strong> — un suivi médical spécialisé est indispensable.</p>
+  </div>
+</div>
+
+<div class="limit-card">
+  <span class="limit-icon">🎲</span>
+  <div class="limit-content">
+    <span class="limit-title">Les accidents et causes externes ne sont pas modélisés</span>
+    <p class="limit-body">L'algorithme est basé sur la mortalité par maladies chroniques et facteurs de risque modifiables. Il ne prend pas en compte la probabilité d'accidents de voiture, de chutes, de violences ou d'autres causes externes. En France et au Luxembourg, les accidents représentent environ 5-7 % des décès — c'est une source de variance réelle non capturée.</p>
+  </div>
+</div>
+
+<div class="limit-card">
+  <span class="limit-icon">📍</span>
+  <div class="limit-content">
+    <span class="limit-title">Les données de référence sont principalement occidentales</span>
+    <p class="limit-body">Les études épidémiologiques utilisées (INTERHEART, Framingham, NHANES) ont été menées principalement en Europe et Amérique du Nord. Leurs coefficients sont les plus fiables pour des populations d'origine occidentale. Pour d'autres origines ethniques, des biais peuvent exister — les données de mortalité différentielle par ethnie sont encore insuffisantes pour être intégrées avec précision.</p>
+  </div>
+</div>
+
+<div class="limit-card">
+  <span class="limit-icon">📝</span>
+  <div class="limit-content">
+    <span class="limit-title">Le questionnaire dépend de l'honnêteté des réponses</span>
+    <p class="limit-body">Il n'y a aucun moyen de vérifier tes réponses. Si tu minimises ta consommation d'alcool, surestimes ton activité physique, ou arrondis ta tension artérielle, le résultat sera biaisé en conséquence. L'outil fonctionne mieux quand tu joues le jeu de l'honnêteté — pas pour nous, mais pour toi. <em>Un outil ne vaut que la qualité des données qu'on lui donne.</em></p>
+  </div>
+</div>
+
+<div class="limit-card">
+  <span class="limit-icon">⏳</span>
+  <div class="limit-content">
+    <span class="limit-title">L'algorithme ne capture pas les changements en cours</span>
+    <p class="limit-body">Si tu as arrêté de fumer il y a 3 mois, commencé à courir il y a 6 semaines, ou changé ton alimentation il y a 2 mois, l'outil ne voit pas encore l'impact de ces changements sur tes biomarqueurs. Le temps de latence entre un changement de comportement et son impact mesurable sur les biomarqueurs est de <strong>3 à 12 mois</strong> selon les facteurs. Refais le test dans 6 mois — tu verras la différence.</p>
+  </div>
+</div>
+
+<div class="limit-card">
+  <span class="limit-icon">🔬</span>
+  <div class="limit-content">
+    <span class="limit-title">PhenoAge a ses propres limites connues</span>
+    <p class="limit-body">Le modèle PhenoAge (Levine, 2018) a été développé sur la cohorte NHANES III — une cohorte américaine des années 1988-1994. Les normes biologiques évoluent, les médicaments et les standards de traitement ont changé depuis. Le modèle est robuste mais pas infaillible. Des modèles plus récents (DunedinPACE, GrimAge) existent et sont plus précis — nous travaillons à les intégrer progressivement. La <a href="/methodologie/">page Méthodologie</a> détaille les choix techniques.</p>
+  </div>
+</div>
+
+<!-- ══ DISCLAIMER MÉDICAL ══ -->
+<div class="disclaimer-box">
+  <p><strong>Avertissement médical :</strong> La Montre de Vie et le Score de Vie sont des outils éducatifs et de motivation, pas des dispositifs médicaux. Ils ne constituent pas un diagnostic, ne remplacent pas une consultation médicale, et ne doivent en aucun cas influencer des décisions médicales sans l'avis d'un professionnel de santé qualifié. Si tu as des préoccupations concernant ta santé, consulte un médecin. Si les résultats t'inquiètent ou te surprennent fortement, c'est une bonne raison de faire un bilan médical — pas de te fier uniquement à cet outil.</p>
+</div>
+
+<!-- ══ POURQUOI ON DOCUMENTE ÇA ══ -->
+<h2 class="ap-section-title">Pourquoi on documente tout ça ouvertement</h2>
+
+<p class="prose">Il serait plus simple de ne pas parler des limites. La plupart des outils bien-être ne le font pas.</p>
+
+<p class="prose">Mais un outil qui prétend tout mesurer parfaitement est un outil qui ment. Et un outil qui ment ne sert à rien — pire, il donne une fausse confiance qui peut être dangereuse dans un domaine aussi sérieux que la santé.</p>
+
+<p class="prose">Les limites documentées ici ne rendent pas l'outil inutile. Elles définissent le cadre dans lequel il est utile. <strong>À l'intérieur de ce cadre, les résultats sont fiables, actionnables, et peuvent vraiment changer des comportements</strong> — c'est ce que montrent les études sur la communication du risque de mortalité.</p>
+
+<p class="prose">On est un traileur de 47 ans basé au Luxembourg, pas une entreprise de dispositifs médicaux. Cette clarté-là, on la revendique — parce qu'elle permet de te donner exactement ce qu'on peut donner, sans prétendre être ce qu'on n'est pas.</p>
+
+<!-- CTA -->
+<div style="text-align:center;margin-top:48px;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px">
+  <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
+    Dans les limites décrites ci-dessus — l'outil est solide. Lance-toi.
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <a href="/montre/" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700;letter-spacing:-.01em">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Lancer la Montre
+    </a>
+    <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/></svg>
+      Calculer mon Score
+    </a>
+  </div>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">
+    <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Méthodologie →</a>
+    &nbsp;·&nbsp;
+    <a href="/sources/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Sources scientifiques →</a>
+    &nbsp;·&nbsp;
+    <a href="/faq/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">FAQ →</a>
+    &nbsp;·&nbsp;
+    <a href="/apropos/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">À propos →</a>
+  </p>
+</div>

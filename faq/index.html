@@ -1,1 +1,432 @@
+---
+layout: default
+title: "FAQ — Questions fréquentes sur la Montre de Vie et le Score de Vie"
+description: "Toutes les questions fréquentes sur la Montre de Vie et le Score de Vie : précision du calcul, âge biologique, VO₂max, données personnelles, différences entre les outils, et suite du projet."
+canonical: "https://montre-de-vie.com/faq/"
+---
 
+<style>
+.ap-hero { text-align:center;padding:48px 0 44px; }
+.ap-eyebrow { font-size:.72rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:700;margin-bottom:14px; }
+.ap-hero h1 { font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:16px;line-height:1.1; }
+.ap-hero h1 em { color:var(--amber-lt);font-style:normal; }
+.ap-hero p { font-size:.95rem;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7; }
+.ap-section-title { font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:10px;margin:44px 0 20px; }
+.prose { font-size:.96rem;color:rgba(228,228,231,.82);line-height:1.85;margin-bottom:18px; }
+.prose strong { color:#fff;font-weight:700; }
+
+/* FAQ ACCORDÉON */
+.faq-item {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin-bottom:8px;
+  overflow:hidden;
+  transition:border-color .2s;
+}
+.faq-item:hover { border-color:var(--border2); }
+.faq-toggle {
+  width:100%;
+  background:none;
+  border:none;
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+  text-align:left;
+}
+.faq-q {
+  font-size:.9rem;
+  font-weight:700;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  line-height:1.45;
+}
+.faq-icon {
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:rgba(245,158,11,.1);
+  border:1px solid rgba(245,158,11,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  color:var(--amber-lt);
+  font-size:.75rem;
+  font-weight:700;
+  transition:transform .25s;
+}
+.faq-item.open .faq-icon { transform:rotate(45deg); }
+.faq-a {
+  display:none;
+  padding:0 20px 18px;
+  font-size:.85rem;
+  color:var(--muted);
+  line-height:1.75;
+}
+.faq-item.open .faq-a { display:block; }
+.faq-a strong { color:var(--text);font-weight:600; }
+.faq-a a { color:var(--amber-lt);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(245,158,11,.25); }
+.faq-a a:hover { border-color:var(--amber-lt); }
+
+/* FILTER PILLS */
+.filter-pills {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:28px;
+}
+.pill {
+  padding:5px 14px;
+  border-radius:20px;
+  font-size:.76rem;
+  font-weight:600;
+  cursor:pointer;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  transition:all .2s;
+  letter-spacing:.02em;
+}
+.pill.active, .pill:hover {
+  background:rgba(245,158,11,.1);
+  border-color:rgba(245,158,11,.3);
+  color:var(--amber-lt);
+}
+
+@media(max-width:600px) {
+  .ap-hero { padding:28px 0 24px; }
+}
+</style>
+
+<!-- Schema.org FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "L'espérance de vie calculée est-elle précise ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non — et c'est assumé. Aucun algorithme ne peut prédire la date de ta mort. Ce calcul est un estimateur probabiliste basé sur les grandes études épidémiologiques (OMS, INSEE, Framingham Heart Study, INTERHEART). Il donne une direction statistique, pas une certitude individuelle. Si tes habitudes s'améliorent, ton score s'améliore — c'est le seul message qui compte."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "C'est quoi l'âge biologique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'âge biologique est l'âge réel de ton corps au niveau cellulaire et physiologique, indépendamment de ton âge civil. Il est calculé à partir de biomarqueurs sanguins (glycémie, LDL, CRP, albumine...) et de mesures de performance physique (VO₂max, force de préhension, vitesse de marche). Tu peux avoir 47 ans sur ton passeport et 42 dans tes cellules — ou l'inverse. C'est ce que mesure le Score de Vie, basé sur le modèle PhenoAge (Levine, 2018)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mes données personnelles sont-elles collectées ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Tout le calcul se fait dans ton navigateur. Aucune donnée n'est envoyée à un serveur. Aucun compte requis. Aucune publicité. Montre-de-vie.com est un projet indépendant, financé par du temps personnel, pas une entreprise qui monétise tes données de santé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "C'est quoi le VO₂max et pourquoi c'est important ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le VO₂max (consommation maximale d'oxygène) mesure la capacité de ton corps à utiliser l'oxygène à l'effort. Il s'exprime en ml/kg/min. C'est le prédicteur le plus puissant de longévité parmi tous les facteurs mesurables : selon la méta-analyse de Kodama et al. (JAMA, 2009), chaque augmentation de 1 MET de VO₂max est associée à une réduction de 13% de la mortalité toutes causes. Un VO₂max de 54 à 47 ans se situe dans le top 5% pour l'âge."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre la Montre de Vie et le Score de Vie ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La Montre est un décompte en temps réel de ton espérance de vie estimée, basé sur un questionnaire de mode de vie (15 à 23 questions). Elle confronte. Elle crée l'urgence. Le Score est un diagnostic de ton âge biologique, basé sur tes biomarqueurs sanguins et tes mesures physiques. Il te donne les leviers d'action concrets. Les deux sont complémentaires : le Score ajuste automatiquement le décompte de la Montre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi c'est gratuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Parce que l'accès à ces informations ne devrait pas coûter 59 dollars. La Tikker Watch, créée en 2013 par Fredrik Colting, était une belle idée mais un produit payant. La Montre de Vie est la version ouverte et accessible — pour tout le monde, pas seulement ceux qui peuvent se payer un gadget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je faire confiance à ces calculs sans bilan sanguin ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, avec des nuances. Sans bilan sanguin, le Score de Vie s'appuie sur les facteurs physiologiques de performance (VO₂max, force, vitesse de marche, tour de taille) et les réponses au questionnaire mode de vie. C'est moins précis qu'avec des biomarqueurs sanguins, mais suffisamment robuste pour donner une direction fiable. Pour les biomarqueurs, un bilan sanguin standard chez ton médecin généraliste suffit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Est-ce que fumer vraiment enlève autant d'années que ça ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Les données épidémiologiques sont très claires là-dessus. L'étude INTERHEART (Yusuf et al., Lancet 2004) sur 52 pays montre que le tabagisme multiplie le risque cardiovasculaire par 2,9. À long terme, les fumeurs perdent en moyenne 8 à 12 ans d'espérance de vie par rapport aux non-fumeurs. La bonne nouvelle : l'arrêt du tabac avant 40 ans récupère 90% de ce risque."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment améliorer mon âge biologique concrètement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les leviers les plus puissants documentés dans la littérature sont, par ordre d'impact : 1) Arrêter de fumer si applicable, 2) Augmenter son VO₂max via l'endurance aérobie régulière, 3) Améliorer la qualité du sommeil (7-8h, régularité, obscurité), 4) Réduire la glycémie à jeun et le LDL via l'alimentation, 5) Renforcer les liens sociaux. Un tour sur run-nature.com pour les aspects sport et nutrition peut aider."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- HERO -->
+<div class="ap-hero">
+  <div class="ap-eyebrow">FAQ · Questions fréquentes</div>
+  <h1><em>FAQ</em> — Ce qu'on nous demande souvent</h1>
+  <p>Les vraies questions, avec les vraies réponses. Sans langue de bois.</p>
+</div>
+
+<!-- FILTER -->
+<div class="filter-pills">
+  <div class="pill active" onclick="filterFAQ('all', this)">Toutes</div>
+  <div class="pill" onclick="filterFAQ('outil', this)">L'outil</div>
+  <div class="pill" onclick="filterFAQ('science', this)">La science</div>
+  <div class="pill" onclick="filterFAQ('data', this)">Mes données</div>
+  <div class="pill" onclick="filterFAQ('ameliorer', this)">Améliorer son score</div>
+</div>
+
+<!-- ══ L'OUTIL ══ -->
+<h2 class="ap-section-title">Sur l'outil</h2>
+
+<div class="faq-item" data-cat="outil">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">C'est quoi exactement la Montre de Vie ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    C'est un décompte en temps réel de ton espérance de vie estimée. Tu réponds à 15-23 questions sur tes habitudes de vie, et l'outil calcule une espérance de vie personnalisée. Puis le décompte part — années, jours, heures, secondes. En temps réel. L'idée n'est pas de créer de l'anxiété : c'est de rendre le temps <strong>concret et visible</strong>, pour t'aider à choisir consciemment ce que tu en fais.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="outil">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">Quelle différence entre la Montre de Vie et le Score de Vie ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    <strong>La Montre</strong> : décompte en temps réel basé sur un questionnaire de mode de vie. Elle confronte. Elle crée l'urgence.<br><br>
+    <strong>Le Score</strong> : diagnostic de ton âge biologique, basé sur tes biomarqueurs sanguins (LDL, glycémie, CRP, albumine...) et tes mesures physiques (VO₂max, force de préhension, vitesse de marche). Il te donne des leviers d'action concrets.<br><br>
+    Les deux se complètent : le Score ajuste automatiquement le décompte de la Montre. Commence par le Score si tu as tes bilans sanguins récents — la Montre sera plus précise.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="outil">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">Pourquoi c'est gratuit ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Parce que l'accès à ces informations ne devrait pas coûter 59 dollars. La <strong>Tikker Watch</strong> (2013, Fredrik Colting) était une belle idée — un gadget physique à décompte d'espérance de vie. Elle a connu un succès mondial, puis a fermé faute de composants. La Montre de Vie est la version ouverte, gratuite, sans inscription, accessible sur tous les écrans. Pour tout le monde.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="outil">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">C'est quoi la "Grille de vie en semaines" ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    C'est une visualisation inspirée de <strong>Tim Urban (Wait But Why)</strong> : chaque carré représente une semaine de vie. Tu vois d'un coup d'œil les semaines déjà vécues (grisées) et celles qui te restent estimées. C'est parfois inconfortable. C'est exactement le but. Accessible depuis la page <a href="/grille/">Grille de vie</a> ou après avoir lancé la Montre.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="outil">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">C'est quoi la suite du projet ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Une vraie app mobile sur le Play Store et l'App Store — installable, avec notifications optionnelles, suivi de progression et historique dans le temps. Le développement est en cours. En attendant, le site fonctionne comme une Progressive Web App (PWA) : tu peux l'ajouter à ton écran d'accueil depuis ton navigateur. Pour suivre l'évolution, rejoins <a href="https://run-nature.com">Run Nature</a>.
+  </div>
+</div>
+
+<!-- ══ LA SCIENCE ══ -->
+<h2 class="ap-section-title">Sur la science</h2>
+
+<div class="faq-item" data-cat="science">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">L'espérance de vie calculée est-elle précise ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Non — et c'est assumé. Aucun algorithme ne peut prédire la date de ta mort. Ce calcul est un <strong>estimateur probabiliste</strong> basé sur les grandes études épidémiologiques (OMS, INSEE, Framingham Heart Study, INTERHEART). Il reflète la trajectoire statistique de personnes qui ont le même profil de risque que toi. Si tes habitudes s'améliorent, ta trajectoire s'améliore. Pour le détail des limites, consulte la <a href="/limites/">page Limites</a>.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="science">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">C'est quoi l'âge biologique exactement ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    C'est l'âge réel de ton corps au niveau cellulaire et physiologique, indépendamment de ce qu'indique ton acte de naissance. Il est calculé à partir de biomarqueurs sanguins (glycémie, LDL, CRP, albumine, créatinine...) et de mesures physiques (VO₂max, force de préhension, vitesse de marche sur 4 mètres).<br><br>
+    Le modèle qu'on utilise — <strong>PhenoAge</strong>, développé par Morgan Levine à Yale — prédit mieux la mortalité toutes causes que l'âge chronologique seul. Tu peux avoir 47 ans sur le papier et 42 dans tes cellules. Ou 53. La <a href="/sources/">page Sources</a> détaille les études.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="science">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">C'est quoi le VO₂max et pourquoi il compte autant ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Le VO₂max (volume maximal d'oxygène consommé à l'effort) mesure la capacité cardiorespiratoire. Il s'exprime en ml/kg/min. C'est le prédicteur de longévité le plus puissant parmi tous les facteurs mesurables.<br><br>
+    Selon la méta-analyse de <strong>Kodama et al. (JAMA, 2009)</strong> sur 102 000 personnes : chaque augmentation de 1 MET de VO₂max est associée à une réduction de <strong>13 % de la mortalité toutes causes</strong>. Un VO₂max de 54 à 47 ans (comme celui de Sébastien) se situe dans le top 5% pour l'âge — et correspond à une espérance de vie estimée de ~104 ans dans notre algorithme.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="science">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">Est-ce que fumer enlève vraiment autant d'années que ça ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Oui. Les données sont parmi les plus robustes en épidémiologie. L'étude <strong>INTERHEART</strong> (Yusuf et al., Lancet 2004 — 52 pays, 15 000 infarctus) montre que le tabac multiplie le risque cardiovasculaire par 2,9. Sur une vie entière, un fumeur régulier perd en moyenne <strong>8 à 12 ans</strong> d'espérance de vie.<br><br>
+    La bonne nouvelle, solide elle aussi : l'arrêt du tabac avant 40 ans récupère environ 90 % du risque. Avant 50 ans, encore 50 à 60 %.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="science">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">La génétique ne compte pas plus que les habitudes ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Moins qu'on ne le croit. Les études sur les jumeaux et les populations de longue vie (Wilcox et al., PLOS ONE 2006 ; cohortes des zones bleues) indiquent que <strong>la génétique n'explique que 20 à 25 %</strong> de la variance de longévité. Les habitudes de vie en expliquent 75 à 80 %.<br><br>
+    C'est pour ça qu'on n'inclut pas l'hérédité comme facteur principal dans l'algorithme : tu ne peux pas agir dessus. On se concentre sur ce que tu peux changer.
+  </div>
+</div>
+
+<!-- ══ MES DONNÉES ══ -->
+<h2 class="ap-section-title">Sur mes données</h2>
+
+<div class="faq-item" data-cat="data">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">Mes données personnelles sont-elles collectées ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    <strong>Non.</strong> Tout le calcul se fait dans ton navigateur. Aucune donnée n'est envoyée à un serveur. Pas de compte, pas de cookies de tracking, pas de publicité, pas de pixel Facebook. Ce que tu entres ne sort jamais de ton appareil.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="data">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">Puis-je faire confiance aux calculs sans bilan sanguin ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Oui, avec une nuance. Sans biomarqueurs sanguins, le Score s'appuie sur les facteurs physiologiques de performance (VO₂max estimé ou mesuré, force, vitesse de marche, tour de taille) et les réponses au questionnaire mode de vie. C'est <strong>moins précis</strong> qu'avec des données biologiques, mais la direction reste fiable.<br><br>
+    Si tu veux aller plus loin, un bilan sanguin standard chez ton médecin généraliste suffit — glycémie à jeun, LDL, CRP ultrasensible, albumine, créatinine. Aucun test exotique requis.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="data">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">Pourquoi l'historique disparaît si je ferme le navigateur ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Parce que tout est local. L'historique est stocké dans le <code>localStorage</code> de ton navigateur — il persiste tant que tu n'effaces pas les données du site. Si tu changes de navigateur ou d'appareil, l'historique ne suit pas. C'est le prix de la confidentialité totale : on ne stocke rien côté serveur, donc on ne peut pas synchroniser entre appareils. Une app mobile avec compte optionnel est prévue pour résoudre ça.
+  </div>
+</div>
+
+<!-- ══ AMÉLIORER SON SCORE ══ -->
+<h2 class="ap-section-title">Améliorer son score</h2>
+
+<div class="faq-item" data-cat="ameliorer">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">Comment améliorer mon âge biologique concrètement ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Par ordre d'impact documenté dans la littérature :<br><br>
+    <strong>1. Arrêter de fumer</strong> si applicable — c'est le levier le plus puissant.<br>
+    <strong>2. Augmenter son VO₂max</strong> via l'endurance aérobie régulière (3-4 séances/semaine, zone 2).<br>
+    <strong>3. Améliorer la qualité du sommeil</strong> — 7-8h, horaires réguliers, chambre fraîche et sombre.<br>
+    <strong>4. Réduire la glycémie et le LDL</strong> via l'alimentation (moins de sucres rapides, plus de fibres).<br>
+    <strong>5. Renforcer les liens sociaux</strong> — l'isolement chronique est associé à un risque équivalent à 15 cigarettes/jour.<br><br>
+    Pour le sport et la nutrition en pratique, <a href="https://run-nature.com">run-nature.com</a> détaille tout ce que je fais moi-même à 47 ans.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="ameliorer">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">En combien de temps peut-on voir son âge biologique baisser ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Les études suggèrent que des changements de mode de vie significatifs peuvent modifier les biomarqueurs en <strong>3 à 6 mois</strong>. Le VO₂max, lui, s'améliore plus vite — des gains mesurables dès 8 à 12 semaines d'entraînement régulier. Pour les biomarqueurs sanguins, un bilan de contrôle après 3-6 mois de changements permet de mesurer la progression. C'est exactement pour ça que le Score de Vie garde un historique.
+  </div>
+</div>
+
+<div class="faq-item" data-cat="ameliorer">
+  <button class="faq-toggle" onclick="toggleFAQ(this)">
+    <span class="faq-q">Le sport intense est-il mieux que le sport modéré pour la longévité ?</span>
+    <span class="faq-icon">+</span>
+  </button>
+  <div class="faq-a">
+    Pas nécessairement. Les études montrent une relation en courbe : les gains de longévité sont très importants quand on passe de sédentaire à actif modéré, puis <strong>diminuent progressivement</strong> avec l'intensité croissante. L'étude de Wen et al. (Lancet, 2011) montre que 15 min/jour de marche rapide donne déjà +3 ans d'espérance de vie.<br><br>
+    Pour la longévité, la régularité compte plus que l'intensité. Et l'endurance fondamentale (zone 2, conversation possible) est le meilleur levier selon les données actuelles — c'est ce que j'applique sur les sentiers du Luxembourg.
+  </div>
+</div>
+
+<script>
+function toggleFAQ(btn) {
+  const item = btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+
+function filterFAQ(cat, pill) {
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  document.querySelectorAll('.faq-item').forEach(item => {
+    if (cat === 'all' || item.dataset.cat === cat) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+  document.querySelectorAll('.ap-section-title').forEach(t => {
+    t.style.display = cat === 'all' ? '' : 'none';
+  });
+}
+</script>
+
+<!-- CTA -->
+<div style="text-align:center;margin-top:48px;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px">
+  <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
+    Ta question n'est pas là ? On peut en parler directement.
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <a href="/montre/" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700;letter-spacing:-.01em">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Lancer la Montre
+    </a>
+    <a href="https://run-nature.com/contactez-moi/" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
+      Poser une question
+    </a>
+  </div>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">
+    <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Méthodologie →</a>
+    &nbsp;·&nbsp;
+    <a href="/sources/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Sources scientifiques →</a>
+    &nbsp;·&nbsp;
+    <a href="/limites/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Limites de l'outil →</a>
+  </p>
+</div>

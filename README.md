@@ -119,3 +119,5 @@ Puis le contenu en Markdown normal.
 | Domaine .com sur Gandi | ~15€/an |
 | SSL/HTTPS | Gratuit (Let's Encrypt via GitHub) |
 | **Total** | **~15€/an** |
+
+

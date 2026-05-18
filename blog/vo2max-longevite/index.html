@@ -1,1 +1,350 @@
+---
+layout: default
+title: "VO₂max et longévité : le biomarqueur qui prédit ta durée de vie"
+description: "Pourquoi le VO₂max est le prédicteur de longévité le plus puissant mesuré à ce jour ? Comment le mesurer, quelles valeurs viser, et comment l'améliorer à tout âge."
+canonical: "https://montre-de-vie.com/blog/vo2max-longevite/"
+---
 
+<style>
+.ap-hero { text-align:center;padding:48px 0 44px; }
+.ap-eyebrow { font-size:.72rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:700;margin-bottom:14px; }
+.ap-hero h1 { font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:16px;line-height:1.15; }
+.ap-hero h1 em { color:var(--amber-lt);font-style:normal; }
+.ap-hero p { font-size:.95rem;color:var(--muted);max-width:500px;margin:0 auto;line-height:1.7; }
+.ap-section-title { font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:10px;margin:44px 0 20px; }
+.prose { font-size:.96rem;color:rgba(228,228,231,.82);line-height:1.85;margin-bottom:18px; }
+.prose strong { color:#fff;font-weight:700; }
+.prose em { color:var(--amber-lt);font-style:italic; }
+.ap-quote { background:rgba(9,9,11,.4);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 22px;margin:28px 0;font-style:italic;font-size:.95rem;color:rgba(253,230,138,.7);line-height:1.75; }
+
+.answer-box { background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(217,119,6,.04));border:1px solid rgba(245,158,11,.25);border-radius:16px;padding:24px 28px;margin:28px 0; }
+.answer-box .ab-label { font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;display:block; }
+.answer-box p { font-size:.95rem;color:rgba(253,230,138,.8);line-height:1.75;margin:0; }
+.answer-box strong { color:#fff; }
+
+.stat-hero { display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:28px 0; }
+.stat-card { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 16px;text-align:center; }
+.stat-number { display:block;font-size:1.7rem;font-weight:800;letter-spacing:-0.03em;color:var(--amber-lt);line-height:1;margin-bottom:6px; }
+.stat-label { font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase;line-height:1.4; }
+
+.data-table { width:100%;border-collapse:collapse;margin:20px 0;font-size:.84rem; }
+.data-table th { background:var(--surface);color:var(--muted);font-weight:700;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase; }
+.data-table td { padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(228,228,231,.8);vertical-align:top; }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table td:first-child { color:var(--text);font-weight:600; }
+.badge { display:inline-block;padding:2px 9px;border-radius:20px;font-size:.68rem;font-weight:700; }
+.badge-elite { background:rgba(245,158,11,.12);color:var(--amber-lt);border:1px solid rgba(245,158,11,.2); }
+.badge-good { background:rgba(0,152,98,.1);color:var(--green-lt);border:1px solid rgba(0,152,98,.2); }
+.badge-avg { background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border); }
+.badge-low { background:rgba(239,68,68,.08);color:rgba(252,165,165,.7);border:1px solid rgba(239,68,68,.15); }
+
+.method-card { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:10px; }
+.method-title { display:block;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:6px; }
+.method-body { font-size:.84rem;color:var(--muted);line-height:1.7; }
+.method-body strong { color:var(--text);font-weight:600; }
+
+.faq-item { background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:10px; }
+.faq-q { font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:8px; }
+.faq-a { font-size:.84rem;color:var(--muted);line-height:1.7; }
+.faq-a strong { color:var(--text);font-weight:600; }
+.faq-a a { color:var(--amber-lt);text-decoration:none;font-weight:600; }
+
+.breadcrumb { font-size:.78rem;color:var(--muted);margin-bottom:32px; }
+.breadcrumb a { color:var(--muted);text-decoration:none; }
+.breadcrumb a:hover { color:var(--amber-lt); }
+.breadcrumb span { margin:0 6px;opacity:.4; }
+
+.sister-links { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:40px 0; }
+.sister-title { font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:block; }
+.sister-grid { display:flex;flex-direction:column;gap:8px; }
+.sister-link { color:var(--amber-lt);text-decoration:none;font-size:.86rem;font-weight:600;display:flex;align-items:center;gap:8px; }
+.sister-link::before { content:'→';opacity:.6; }
+.internal-link { color:var(--amber-lt);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(245,158,11,.25); }
+
+@media(max-width:600px) {
+  .ap-hero { padding:28px 0 24px; }
+  .stat-hero { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "VO₂max et longévité : le biomarqueur qui prédit ta durée de vie",
+  "description": "Le VO₂max est le prédicteur de longévité le plus puissant mesuré à ce jour. Comment le mesurer, les valeurs de référence par âge, et comment l'améliorer.",
+  "author": { "@type": "Person", "name": "Sébastien Salomon", "url": "https://montre-de-vie.com/apropos/" },
+  "publisher": { "@type": "Organization", "name": "Montre de Vie", "url": "https://montre-de-vie.com" },
+  "datePublished": "2026-05-18",
+  "dateModified": "2026-05-18",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://montre-de-vie.com/blog/vo2max-longevite/" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "C'est quoi le VO₂max ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le VO₂max (volume maximal d'oxygène consommé) mesure la capacité maximale du corps à utiliser l'oxygène à l'effort. Il s'exprime en ml/kg/min. C'est le prédicteur de longévité le plus puissant mesuré à ce jour : chaque augmentation de 1 MET de VO₂max réduit la mortalité toutes causes de 13% (Kodama et al., JAMA 2009)." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel VO₂max faut-il avoir pour une bonne longévité ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Les études montrent qu'un VO₂max dans le top 25% pour son âge et son sexe est associé à une réduction significative de la mortalité. Pour un homme de 45-50 ans, cela correspond à environ 43 ml/kg/min et plus. Un VO₂max de 50+ est considéré excellent et associé à une espérance de vie significativement supérieure à la moyenne." }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment améliorer son VO₂max après 45 ans ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le VO₂max reste améliorable à tout âge. Les méthodes les plus efficaces sont : l'entraînement en zone 2 (allure conversationnelle, 3-4 séances/semaine), les intervalles courts à haute intensité (HIIT, 1-2 séances/semaine), et la progressivité sur le long terme. Des gains de 10 à 15% sont documentés sur 12 semaines chez les personnes de 45-60 ans." }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment mesurer son VO₂max sans laboratoire ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Plusieurs méthodes accessibles : le test de Cooper (distance parcourue en 12 minutes), le test de Rockport (marche de 1,6 km), ou l'estimation via les montres GPS connectées (Garmin, Polar, Apple Watch). Ces estimations ont une marge d'erreur de ±10-15% vs le test en laboratoire avec masque." }
+    }
+  ]
+}
+</script>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/blog/">Blog</a>
+  <span>›</span>
+  <a href="/blog/age-biologique/">Âge biologique</a>
+  <span>›</span>
+  VO₂max et longévité
+</div>
+
+<!-- HERO -->
+<div class="ap-hero">
+  <div class="ap-eyebrow">Article 3 · Cluster Âge biologique</div>
+  <h1><em>VO₂max</em> et longévité : le biomarqueur<br>qui prédit ta durée de vie</h1>
+  <p>Parmi tous les marqueurs de santé mesurables, un seul prédit la longévité avec cette précision. Et il est directement améliorable par l'entraînement.</p>
+</div>
+
+<!-- ANSWER BOX -->
+<div class="answer-box">
+  <span class="ab-label">Réponse rapide</span>
+  <p>Le <strong>VO₂max</strong> est la capacité maximale du corps à consommer l'oxygène à l'effort (ml/kg/min). C'est le prédicteur de longévité le plus puissant mesuré à ce jour : chaque augmentation de <strong>1 MET réduit la mortalité toutes causes de 13 %</strong> (Kodama et al., JAMA 2009). Il est améliorable à tout âge par l'entraînement en endurance.</p>
+</div>
+
+<!-- STATS CLÉS -->
+<div class="stat-hero">
+  <div class="stat-card">
+    <span class="stat-number">13%</span>
+    <span class="stat-label">Réduction mortalité par MET gagné</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">54</span>
+    <span class="stat-label">VO₂max de Sébastien à 47 ans</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">5%</span>
+    <span class="stat-label">Top % pour l'âge à VO₂max 54</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">12 sem</span>
+    <span class="stat-label">Pour des gains mesurables</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<p class="prose">Si tu devais choisir un seul biomarqueur à mesurer et à améliorer pour vivre plus longtemps, ce serait celui-là. Pas le cholestérol, pas la tension, pas même la glycémie — le <strong>VO₂max</strong>.</p>
+
+<p class="prose">La méta-analyse de Kodama et al. publiée dans le <em>Journal of the American Medical Association</em> en 2009 — 33 études, plus de 102 000 personnes — est sans appel : la capacité cardiorespiratoire est le prédicteur de mortalité toutes causes le plus puissant parmi tous les facteurs mesurables de manière non-invasive.</p>
+
+<p class="prose">Et contrairement à la génétique, au tabac d'enfance ou aux antécédents familiaux — le VO₂max est <em>directement modifiable</em> par l'entraînement. À tout âge.</p>
+
+<!-- C'EST QUOI -->
+<h2 class="ap-section-title">C'est quoi exactement le VO₂max ?</h2>
+
+<p class="prose">VO₂max signifie "volume maximal d'oxygène consommé par unité de temps et de masse corporelle". Il mesure la capacité de la chaîne entière — poumons, cœur, vaisseaux, muscles — à transporter et utiliser l'oxygène à l'effort maximal.</p>
+
+<p class="prose">Il s'exprime en <strong>ml/kg/min</strong> : millilitres d'oxygène consommés par kilogramme de poids corporel par minute d'effort maximal. Un VO₂max de 54 ml/kg/min signifie que le corps consomme 54 ml d'oxygène par kilo par minute à l'effort maximal.</p>
+
+<p class="prose">Pourquoi c'est si prédictif de la longévité ? Parce que le VO₂max est en réalité un index composite de la santé cardiovasculaire, pulmonaire et musculaire. Un corps qui oxygène bien ses tissus est un corps qui résiste mieux aux maladies, récupère mieux, et vieillit plus lentement.</p>
+
+<div class="ap-quote">
+  Le VO₂max est comme la cylindrée d'un moteur. Mais contrairement à une voiture, tu peux augmenter ta cylindrée avec de l'entraînement — à 30 ans comme à 60 ans.
+</div>
+
+<!-- LIEN AVEC MORTALITÉ -->
+<h2 class="ap-section-title">Le lien entre VO₂max et mortalité — les données</h2>
+
+<p class="prose">La méta-analyse de Kodama et al. (JAMA, 2009) est la référence. Voici ce qu'elle montre :</p>
+
+<table class="data-table">
+  <thead>
+    <tr><th>Niveau de VO₂max</th><th>Réduction du risque de mortalité</th><th>Réduction risque cardio</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chaque +1 MET (~3,5 ml/kg/min)</td>
+      <td>−13% mortalité toutes causes</td>
+      <td>−15% risque cardiovasculaire</td>
+    </tr>
+    <tr>
+      <td>Apte vs inapte (seuil bas)</td>
+      <td>−56% mortalité toutes causes</td>
+      <td>−52% risque cardiovasculaire</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="prose">Une étude complémentaire de la Cleveland Clinic (Kokkinos et al., 2022) sur 750 000 personnes confirme : les personnes avec un VO₂max dans le <strong>top 2,5%</strong> pour leur âge ont une mortalité toutes causes <strong>80% inférieure</strong> aux personnes avec un VO₂max très bas. C'est l'association la plus forte jamais documentée pour un facteur de risque modifiable.</p>
+
+<!-- VALEURS DE RÉFÉRENCE -->
+<h2 class="ap-section-title">Valeurs de référence par âge et sexe</h2>
+
+<table class="data-table">
+  <thead>
+    <tr><th>Âge</th><th>Très bas</th><th>Moyen</th><th>Bon</th><th>Excellent</th><th>Élite</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Hommes 40-49 ans</strong></td>
+      <td>< 31</td>
+      <td>31-38</td>
+      <td>39-45</td>
+      <td>46-52</td>
+      <td>> 52 <span class="badge badge-elite">Top 5%</span></td>
+    </tr>
+    <tr>
+      <td><strong>Hommes 50-59 ans</strong></td>
+      <td>< 27</td>
+      <td>27-34</td>
+      <td>35-41</td>
+      <td>42-48</td>
+      <td>> 48 <span class="badge badge-elite">Top 5%</span></td>
+    </tr>
+    <tr>
+      <td><strong>Femmes 40-49 ans</strong></td>
+      <td>< 24</td>
+      <td>24-30</td>
+      <td>31-37</td>
+      <td>38-44</td>
+      <td>> 44 <span class="badge badge-elite">Top 5%</span></td>
+    </tr>
+    <tr>
+      <td><strong>Femmes 50-59 ans</strong></td>
+      <td>< 21</td>
+      <td>21-27</td>
+      <td>28-33</td>
+      <td>34-40</td>
+      <td>> 40 <span class="badge badge-elite">Top 5%</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="prose">Toutes les valeurs en ml/kg/min. Source : American College of Sports Medicine (ACSM) Fitness Classifications.</p>
+
+<p class="prose">À titre personnel : mon VO₂max mesuré à 47 ans est de <strong>54 ml/kg/min</strong> — top 5% pour l'âge. C'est directement lié à 10+ ans de trail running régulier sur les sentiers du Luxembourg. Ce n'est pas de la génétique exceptionnelle — c'est de la régularité.</p>
+
+<!-- COMMENT MESURER -->
+<h2 class="ap-section-title">Comment mesurer son VO₂max</h2>
+
+<div class="method-card">
+  <span class="method-title">🏥 Test en laboratoire (le plus précis)</span>
+  <p class="method-body">Test d'effort maximal sur tapis ou vélo ergométrique avec masque de mesure des échanges gazeux. <strong>Précision : ±2-3%</strong>. Coût : 150 à 400€ selon le pays. Recommandé pour les sportifs qui veulent une mesure de référence précise ou pour un bilan médical complet.</p>
+</div>
+
+<div class="method-card">
+  <span class="method-title">⌚ Montre GPS connectée (bonne estimation)</span>
+  <p class="method-body">Garmin, Polar, Apple Watch estiment le VO₂max via la fréquence cardiaque et la vitesse. <strong>Précision : ±10-15%</strong> vs laboratoire. Suffisant pour suivre la progression dans le temps. Nécessite quelques semaines de données pour être fiable.</p>
+</div>
+
+<div class="method-card">
+  <span class="method-title">🏃 Test de Cooper (accessible à tous)</span>
+  <p class="method-body">Courir aussi loin que possible en 12 minutes sur terrain plat. <strong>Formule :</strong> VO₂max ≈ (distance en mètres − 504,9) / 44,73. <strong>Précision : ±15%</strong>. Gratuit, sans équipement. Exemple : 3000m en 12 min → VO₂max estimé ≈ 56 ml/kg/min.</p>
+</div>
+
+<div class="method-card">
+  <span class="method-title">🚶 Test de Rockport (pour débutants)</span>
+  <p class="method-body">Marcher 1,6 km aussi vite que possible, noter le temps et la FC à l'arrivée. Formule adaptée à l'âge et au poids. <strong>Idéal pour les personnes non entraînées</strong> pour qui le test de Cooper serait trop intense.</p>
+</div>
+
+<!-- COMMENT AMÉLIORER -->
+<h2 class="ap-section-title">Comment améliorer son VO₂max — les méthodes validées</h2>
+
+<p class="prose">Le VO₂max répond à l'entraînement à tout âge. Les études montrent des gains de <strong>10 à 20%</strong> sur 12 semaines avec un programme adapté. Les deux leviers principaux :</p>
+
+<p class="prose"><strong>Zone 2 — l'endurance fondamentale</strong> (70-80% de l'effort total) : allure où tu peux tenir une conversation. C'est le travail de base qui développe la densité mitochondriale et améliore l'utilisation des lipides. 3 à 4 séances par semaine de 45 à 90 minutes. C'est exactement ce que je pratique sur les sentiers du Mullerthal et de Bambesch au Luxembourg.</p>
+
+<p class="prose"><strong>Intervalles à haute intensité</strong> (20-30% de l'effort total) : séances courtes et intenses — 4×4 minutes à 90-95% de la FC max, récupération 3 minutes. 1 à 2 séances par semaine maximum. La méthode norvégienne adaptée aux masters runners donne d'excellents résultats après 45 ans.</p>
+
+<p class="prose">Pour aller plus loin sur l'entraînement spécifique après 45 ans, le blog <a href="https://run-nature.com" class="internal-link">run-nature.com</a> détaille les plans et la science derrière chaque séance.</p>
+
+<!-- VO2MAX ET ÂGE BIO -->
+<h2 class="ap-section-title">VO₂max et âge biologique : le lien direct</h2>
+
+<p class="prose">Le VO₂max est l'un des facteurs les plus puissants pour réduire l'âge biologique — et il complète parfaitement le modèle <a href="/blog/phenoage-algorithme-age-biologique/" class="internal-link">PhenoAge</a> qui se concentre sur les biomarqueurs sanguins.</p>
+
+<p class="prose">Un VO₂max élevé agit sur plusieurs biomarqueurs PhenoAge simultanément : il réduit la CRP (inflammation), améliore la glycémie à jeun, optimise le nombre de leucocytes. C'est le levier qui a le plus d'effets "domino" sur l'ensemble du profil biologique.</p>
+
+<p class="prose">C'est pourquoi le <a href="/score/" class="internal-link">Score de Vie</a> intègre le VO₂max dans son calcul d'âge biologique — en complément des biomarqueurs sanguins du modèle PhenoAge. Pour comprendre comment tous les biomarqueurs interagissent : <a href="/blog/biomarqueurs-age-biologique/" class="internal-link">Les 9 biomarqueurs qui révèlent ton âge réel</a>.</p>
+
+<!-- FAQ -->
+<h2 class="ap-section-title">Questions fréquentes</h2>
+
+<div class="faq-item">
+  <div class="faq-q">C'est quoi le VO₂max ?</div>
+  <div class="faq-a">Le VO₂max est la capacité maximale du corps à consommer l'oxygène à l'effort, exprimée en ml/kg/min. C'est le prédicteur de longévité le plus puissant mesuré à ce jour : <strong>chaque +1 MET réduit la mortalité toutes causes de 13 %</strong> (Kodama et al., JAMA 2009).</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Quel VO₂max faut-il avoir pour une bonne longévité ?</div>
+  <div class="faq-a">Un VO₂max dans le <strong>top 25% pour son âge et son sexe</strong> est associé à une réduction significative de la mortalité. Pour un homme de 45-50 ans, cela correspond à environ <strong>43 ml/kg/min et plus</strong>. Le top 5% commence à environ 52 ml/kg/min pour cette tranche d'âge.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Comment améliorer son VO₂max après 45 ans ?</div>
+  <div class="faq-a">Le VO₂max reste améliorable après 45 ans. Les méthodes les plus efficaces : <strong>zone 2</strong> (3-4 séances/semaine à allure conversationnelle) et <strong>intervalles courts</strong> à haute intensité (1-2 séances/semaine). Des gains de <strong>10 à 15%</strong> sont documentés sur 12 semaines chez les 45-60 ans.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Comment mesurer son VO₂max sans laboratoire ?</div>
+  <div class="faq-a">Trois options accessibles : le <strong>test de Cooper</strong> (courir 12 min et mesurer la distance), une <strong>montre GPS connectée</strong> (Garmin, Polar, Apple Watch — précision ±10-15%), ou le <strong>test de Rockport</strong> (marche 1,6 km) pour les débutants. Pour une mesure précise, le test en laboratoire avec masque reste la référence.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Le VO₂max diminue-t-il avec l'âge ?</div>
+  <div class="faq-a">Oui — le VO₂max diminue d'environ <strong>1% par an après 25 ans</strong> sans entraînement. Mais cette diminution est fortement ralentie par l'entraînement régulier. Un sportif de 60 ans entraîné peut avoir un VO₂max supérieur à un sédentaire de 35 ans. La décroissance n'est pas une fatalité.</div>
+</div>
+
+<!-- LIENS SŒURS -->
+<div class="sister-links">
+  <span class="sister-title">Dans le même cluster — Âge biologique</span>
+  <div class="sister-grid">
+    <a href="/blog/age-biologique/" class="sister-link">Guide complet : Âge biologique — définition, calcul et comment le réduire</a>
+    <a href="/blog/age-biologique-vs-age-chronologique/" class="sister-link">Âge biologique vs âge chronologique : quelle différence ?</a>
+    <a href="/blog/phenoage-algorithme-age-biologique/" class="sister-link">PhenoAge : l'algorithme qui calcule ton vrai âge</a>
+    <a href="/blog/reduire-age-biologique/" class="sister-link">Comment rajeunir son âge biologique en 6 mois</a>
+    <a href="/blog/biomarqueurs-age-biologique/" class="sister-link">Les 9 biomarqueurs qui révèlent ton âge réel</a>
+  </div>
+</div>
+
+<!-- CTA -->
+<div style="text-align:center;margin-top:32px;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px">
+  <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
+    Ton VO₂max est déjà intégré dans le Score de Vie. Lance le calcul.
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700">
+      Calculer mon âge biologique
+    </a>
+    <a href="/montre/" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
+      Lancer la Montre
+    </a>
+  </div>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">
+    <a href="/sources/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Sources →</a>
+    &nbsp;·&nbsp;
+    <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Méthodologie →</a>
+    &nbsp;·&nbsp;
+    <a href="https://run-nature.com" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Run Nature →</a>
+  </p>
+</div>

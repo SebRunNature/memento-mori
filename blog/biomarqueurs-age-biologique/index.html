@@ -1,1 +1,431 @@
+---
+layout: default
+title: "Les 9 biomarqueurs qui révèlent ton âge biologique réel"
+description: "Albumine, glycémie, CRP, VO₂max, force de préhension : les 9 biomarqueurs les plus prédictifs de l'âge biologique et de la longévité. Ce qu'ils mesurent et comment les optimiser."
+canonical: "https://montre-de-vie.com/blog/biomarqueurs-age-biologique/"
+---
 
+<style>
+.ap-hero { text-align:center;padding:48px 0 44px; }
+.ap-eyebrow { font-size:.72rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:700;margin-bottom:14px; }
+.ap-hero h1 { font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:16px;line-height:1.15; }
+.ap-hero h1 em { color:var(--amber-lt);font-style:normal; }
+.ap-hero p { font-size:.95rem;color:var(--muted);max-width:500px;margin:0 auto;line-height:1.7; }
+.ap-section-title { font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:10px;margin:44px 0 20px; }
+.prose { font-size:.96rem;color:rgba(228,228,231,.82);line-height:1.85;margin-bottom:18px; }
+.prose strong { color:#fff;font-weight:700; }
+.prose em { color:var(--amber-lt);font-style:italic; }
+.ap-quote { background:rgba(9,9,11,.4);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 22px;margin:28px 0;font-style:italic;font-size:.95rem;color:rgba(253,230,138,.7);line-height:1.75; }
+
+.answer-box { background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(217,119,6,.04));border:1px solid rgba(245,158,11,.25);border-radius:16px;padding:24px 28px;margin:28px 0; }
+.answer-box .ab-label { font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;display:block; }
+.answer-box p { font-size:.95rem;color:rgba(253,230,138,.8);line-height:1.75;margin:0; }
+.answer-box strong { color:#fff; }
+
+/* BIOMARKER FULL CARD */
+.bm-full-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:22px 24px;
+  margin-bottom:14px;
+  transition:border-color .2s;
+}
+.bm-full-card:hover { border-color:var(--border2); }
+.bm-header { display:flex;align-items:flex-start;gap:14px;margin-bottom:14px; }
+.bm-num-badge { width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--amber-dk),var(--amber));display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#000;flex-shrink:0; }
+.bm-head-content { flex:1; }
+.bm-name { display:block;font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:2px; }
+.bm-type { font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.04em; }
+.bm-origin { display:inline-block;margin-left:8px;padding:1px 7px;border-radius:10px;font-size:.65rem;font-weight:700; }
+.bm-sanguin { background:rgba(245,158,11,.1);color:var(--amber-lt);border:1px solid rgba(245,158,11,.2); }
+.bm-physique { background:rgba(0,152,98,.1);color:var(--green-lt);border:1px solid rgba(0,152,98,.2); }
+.bm-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px; }
+.bm-cell { background:rgba(0,0,0,.2);border-radius:10px;padding:10px 12px; }
+.bm-cell-label { font-size:.68rem;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:3px; }
+.bm-cell-value { font-size:.84rem;color:var(--text);font-weight:600; }
+.bm-desc { font-size:.84rem;color:var(--muted);line-height:1.7; }
+.bm-desc strong { color:var(--text);font-weight:600; }
+
+.data-table { width:100%;border-collapse:collapse;margin:20px 0;font-size:.84rem; }
+.data-table th { background:var(--surface);color:var(--muted);font-weight:700;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase; }
+.data-table td { padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(228,228,231,.8);vertical-align:top; }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table td:first-child { color:var(--text);font-weight:600; }
+
+.faq-item { background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:10px; }
+.faq-q { font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:8px; }
+.faq-a { font-size:.84rem;color:var(--muted);line-height:1.7; }
+.faq-a strong { color:var(--text);font-weight:600; }
+.faq-a a { color:var(--amber-lt);text-decoration:none;font-weight:600; }
+
+.breadcrumb { font-size:.78rem;color:var(--muted);margin-bottom:32px; }
+.breadcrumb a { color:var(--muted);text-decoration:none; }
+.breadcrumb a:hover { color:var(--amber-lt); }
+.breadcrumb span { margin:0 6px;opacity:.4; }
+
+.sister-links { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:40px 0; }
+.sister-title { font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:block; }
+.sister-grid { display:flex;flex-direction:column;gap:8px; }
+.sister-link { color:var(--amber-lt);text-decoration:none;font-size:.86rem;font-weight:600;display:flex;align-items:center;gap:8px; }
+.sister-link::before { content:'→';opacity:.6; }
+.internal-link { color:var(--amber-lt);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(245,158,11,.25); }
+
+@media(max-width:600px) {
+  .ap-hero { padding:28px 0 24px; }
+  .bm-grid { grid-template-columns:1fr; }
+  .bm-header { flex-direction:column;gap:8px; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Les 9 biomarqueurs qui révèlent ton âge biologique réel",
+  "description": "Les 9 biomarqueurs les plus prédictifs de l'âge biologique et de la longévité : les 9 marqueurs PhenoAge + VO₂max, force de préhension et vitesse de marche. Valeurs optimales et leviers d'action.",
+  "author": { "@type": "Person", "name": "Sébastien Salomon", "url": "https://montre-de-vie.com/apropos/" },
+  "publisher": { "@type": "Organization", "name": "Montre de Vie", "url": "https://montre-de-vie.com" },
+  "datePublished": "2026-05-18",
+  "dateModified": "2026-05-18",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://montre-de-vie.com/blog/biomarqueurs-age-biologique/" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quels sont les biomarqueurs les plus prédictifs de l'âge biologique ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Les 9 biomarqueurs du modèle PhenoAge (Levine, 2018) sont les plus validés scientifiquement pour le sang : albumine, créatinine, glycémie, CRP, lymphocytes%, VCM, RDW, phosphatase alcaline, leucocytes. En complément, le VO₂max, la force de préhension et la vitesse de marche sont les prédicteurs physiques les plus puissants de la mortalité toutes causes." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel bilan sanguin demander pour mesurer son âge biologique ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Un bilan sanguin standard chez ton médecin généraliste suffit : NFS (numération formule sanguine), glycémie à jeun, créatinine, albumine, CRP ultrasensible, phosphatase alcaline. Ce sont les éléments du modèle PhenoAge. Pas de test exotique ou coûteux requis." }
+    },
+    {
+      "@type": "Question",
+      "name": "La force de préhension est-elle vraiment un indicateur de longévité ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui — l'étude PURE (Leong et al., Lancet 2015) sur 139 691 personnes dans 17 pays a montré que la force de préhension prédit la mortalité toutes causes mieux que la tension artérielle systolique. Chaque réduction de 5 kg de force de préhension est associée à une augmentation de 16% de la mortalité toutes causes." }
+    }
+  ]
+}
+</script>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/blog/">Blog</a>
+  <span>›</span>
+  <a href="/blog/age-biologique/">Âge biologique</a>
+  <span>›</span>
+  Les 9 biomarqueurs
+</div>
+
+<!-- HERO -->
+<div class="ap-hero">
+  <div class="ap-eyebrow">Article 5 · Cluster Âge biologique</div>
+  <h1>Les <em>9 biomarqueurs</em> qui révèlent<br>ton âge biologique réel</h1>
+  <p>Ce que ton corps dit vraiment sur ton vieillissement — en chiffres mesurables, actionnables, et disponibles dans n'importe quel bilan médical standard.</p>
+</div>
+
+<!-- ANSWER BOX -->
+<div class="answer-box">
+  <span class="ab-label">Réponse rapide</span>
+  <p>Les biomarqueurs les plus prédictifs de l'âge biologique sont les <strong>9 marqueurs PhenoAge</strong> (albumine, créatinine, glycémie, CRP, lymphocytes, VCM, RDW, phosphatase alcaline, leucocytes) + le <strong>VO₂max</strong>, la <strong>force de préhension</strong> et la <strong>vitesse de marche</strong>. Tous disponibles sans tests spécialisés.</p>
+</div>
+
+<!-- INTRO -->
+<p class="prose">Un biomarqueur de l'âge biologique, c'est une mesure objective qui dit quelque chose sur la vitesse à laquelle ton corps vieillit — indépendamment de ta date de naissance. Pas une impression, pas un ressenti : un chiffre, issu d'une prise de sang ou d'un test physique, avec une valeur de référence et une tendance mesurable dans le temps.</p>
+
+<p class="prose">Il en existe des dizaines. On se concentre ici sur ceux qui ont la base scientifique la plus solide — ceux utilisés dans le modèle <a href="/blog/phenoage-algorithme-age-biologique/" class="internal-link">PhenoAge</a> et les grandes méta-analyses sur la mortalité. Ceux que tu peux mesurer concrètement, sans équipement de laboratoire de pointe.</p>
+
+<!-- CATÉGORIES -->
+<h2 class="ap-section-title">Deux catégories de biomarqueurs</h2>
+
+<p class="prose">On distingue deux types de biomarqueurs de l'âge biologique, complémentaires et non-redondants :</p>
+
+<p class="prose"><strong>Les biomarqueurs sanguins</strong> — issus d'une prise de sang standard. Ils reflètent l'état interne de l'organisme : inflammation, métabolisme, fonction rénale et hépatique, immunité. Ce sont les 9 marqueurs du modèle PhenoAge.</p>
+
+<p class="prose"><strong>Les biomarqueurs physiques</strong> — mesurés lors d'un test fonctionnel. Ils reflètent la capacité du corps à fonctionner efficacement : VO₂max, force musculaire, vitesse de marche. Souvent plus prédictifs à court terme que les biomarqueurs sanguins pour les personnes sans maladie chronique déclarée.</p>
+
+<!-- LES BIOMARQUEURS SANGUINS -->
+<h2 class="ap-section-title">Les biomarqueurs sanguins (modèle PhenoAge)</h2>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">1</div>
+    <div class="bm-head-content">
+      <span class="bm-name">Albumine <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Protéine principale du plasma sanguin</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">> 4,0 g/dL</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Apport protéique, réduction alcool</span></div>
+  </div>
+  <p class="bm-desc">L'albumine est produite par le foie et maintient la pression oncotique du sang. <strong>Un taux bas signale inflammation chronique, malnutrition ou défaillance hépatique</strong> — trois accélérateurs du vieillissement biologique. C'est l'un des biomarqueurs les plus sensibles à la qualité globale de l'alimentation.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">2</div>
+    <div class="bm-head-content">
+      <span class="bm-name">Créatinine <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Déchet du métabolisme musculaire</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">0,6 – 1,1 mg/dL (H) / 0,5 – 0,9 (F)</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Hydratation, contrôle pression artérielle</span></div>
+  </div>
+  <p class="bm-desc">Filtrée par les reins, la créatinine est le marqueur standard de la fonction rénale. <strong>Un taux élevé indique une filtration rénale dégradée</strong> — le rein est l'un des organes qui vieillit le plus visiblement avec le temps. Une bonne hydratation et le contrôle de l'hypertension la maintiennent à un niveau optimal.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">3</div>
+    <div class="bm-head-content">
+      <span class="bm-name">Glycémie à jeun <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Taux de glucose plasmatique</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">70 – 90 mg/dL (3,9 – 5,0 mmol/L)</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Alimentation IG bas, exercice post-repas</span></div>
+  </div>
+  <p class="bm-desc">La glycémie est l'un des biomarqueurs PhenoAge les plus réactifs aux changements de mode de vie. <strong>Une glycémie chroniquement élevée accélère la glycation</strong> — un processus où le glucose se lie aux protéines et les endommage progressivement, accélérant le vieillissement cellulaire. Marcher 10 minutes après le repas réduit le pic glycémique de 20 à 30%.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">4</div>
+    <div class="bm-head-content">
+      <span class="bm-name">CRP — Protéine C-réactive <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Marqueur d'inflammation systémique</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">< 1,0 mg/L (idéal < 0,5)</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Endurance aérobie, oméga-3, sommeil</span></div>
+  </div>
+  <p class="bm-desc"><strong>Le biomarqueur le plus sensible à l'exercice et à l'alimentation</strong>. La CRP reflète l'inflammation systémique de bas grade — un feu lent qui accélère le vieillissement de tous les organes. L'endurance aérobie régulière la réduit en 8 à 12 semaines. Une CRP élevée chronique double le risque cardiovasculaire.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">5</div>
+    <div class="bm-head-content">
+      <span class="bm-name">Lymphocytes (%) <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Cellules immunitaires adaptatives</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">20 – 40% des leucocytes</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Nutrition, gestion du stress, exercice modéré</span></div>
+  </div>
+  <p class="bm-desc">Les lymphocytes sont les soldats du système immunitaire adaptatif. <strong>Un pourcentage bas signale un système immunitaire affaibli</strong> — souvent lié au stress chronique, à la malnutrition ou aux infections répétées. Le vieillissement immunologique (immunosenescence) est l'une des causes majeures de mortalité chez les personnes âgées.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">6</div>
+    <div class="bm-head-content">
+      <span class="bm-name">VCM — Volume Corpusculaire Moyen <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Taille moyenne des globules rouges</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">80 – 96 fL</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Apport en B12, folates, fer</span></div>
+  </div>
+  <p class="bm-desc">Le VCM mesure la taille des globules rouges. <strong>Des valeurs anormalement hautes ou basses signalent des carences nutritionnelles</strong> (B12, folates, fer) ou des pathologies de la moelle osseuse. Un VCM élevé (macrocytose) est fréquent en cas de carence en B12 ou d'alcoolisme chronique.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">7</div>
+    <div class="bm-head-content">
+      <span class="bm-name">RDW — Largeur de distribution des érythrocytes <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Variabilité de taille des globules rouges</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">< 13,5%</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Bilan nutritionnel complet, traitement des carences</span></div>
+  </div>
+  <p class="bm-desc"><strong>L'un des prédicteurs les moins connus mais les plus puissants du modèle PhenoAge</strong>. Un RDW élevé indique une production hétérogène de globules rouges — souvent le signe de carences multiples ou d'une inflammation chronique. Des études montrent qu'un RDW élevé est associé à une mortalité toutes causes accrue indépendamment des autres facteurs.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">8</div>
+    <div class="bm-head-content">
+      <span class="bm-name">Phosphatase alcaline <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Enzyme hépatique et osseuse</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">44 – 147 U/L</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Réduction alcool, santé hépatique</span></div>
+  </div>
+  <p class="bm-desc">La phosphatase alcaline est produite par le foie, les os et l'intestin. <strong>Un taux élevé peut indiquer une pathologie hépatique ou une maladie osseuse</strong> — deux conditions dont l'incidence augmente avec le vieillissement accéléré. La réduction de l'alcool et la surveillance hépatique régulière sont les leviers principaux.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">9</div>
+    <div class="bm-head-content">
+      <span class="bm-name">Leucocytes (globules blancs) <span class="bm-origin bm-sanguin">Sanguin</span></span>
+      <span class="bm-type">Cellules immunitaires totales</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">4,5 – 7,5 × 10³/µL</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Gestion stress, sommeil, traitement infections</span></div>
+  </div>
+  <p class="bm-desc">Le compte total de globules blancs reflète l'état du système immunitaire. <strong>Un taux chroniquement élevé indique une inflammation ou infection persistante</strong>. Un taux trop bas signale un système immunitaire déficient. Le stress chronique maintient les leucocytes à des niveaux légèrement élevés en continu — c'est l'un des mécanismes par lesquels le stress accélère le vieillissement biologique.</p>
+</div>
+
+<!-- LES BIOMARQUEURS PHYSIQUES -->
+<h2 class="ap-section-title">Les biomarqueurs physiques — complémentaires et puissants</h2>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">+1</div>
+    <div class="bm-head-content">
+      <span class="bm-name">VO₂max <span class="bm-origin bm-physique">Physique</span></span>
+      <span class="bm-type">Capacité cardiorespiratoire maximale</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale H 45-50 ans</span><span class="bm-cell-value">> 43 ml/kg/min (top 25%)</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Endurance aérobie zone 2, intervalles</span></div>
+  </div>
+  <p class="bm-desc"><strong>Le prédicteur de longévité le plus puissant mesuré à ce jour</strong>. Chaque augmentation de 1 MET de VO₂max réduit la mortalité toutes causes de 13% (Kodama et al., JAMA 2009). Directement améliorable par l'entraînement à tout âge. Article complet : <a href="/blog/vo2max-longevite/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">VO₂max et longévité</a>.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">+2</div>
+    <div class="bm-head-content">
+      <span class="bm-name">Force de préhension <span class="bm-origin bm-physique">Physique</span></span>
+      <span class="bm-type">Force musculaire de la main dominante</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale H 40-50 ans</span><span class="bm-cell-value">> 40 kg (dynamomètre)</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Renforcement musculaire, musculation</span></div>
+  </div>
+  <p class="bm-desc">L'étude PURE (Leong et al., Lancet 2015) sur 139 691 personnes dans 17 pays a montré que <strong>la force de préhension prédit la mortalité toutes causes mieux que la tension artérielle systolique</strong>. Chaque réduction de 5 kg est associée à +16% de mortalité. C'est un proxy de la force musculaire globale — un indicateur de la "réserve physiologique" du corps.</p>
+</div>
+
+<div class="bm-full-card">
+  <div class="bm-header">
+    <div class="bm-num-badge">+3</div>
+    <div class="bm-head-content">
+      <span class="bm-name">Vitesse de marche sur 4 mètres <span class="bm-origin bm-physique">Physique</span></span>
+      <span class="bm-type">Vitesse de déplacement habituelle</span>
+    </div>
+  </div>
+  <div class="bm-grid">
+    <div class="bm-cell"><span class="bm-cell-label">Valeur optimale</span><span class="bm-cell-value">> 1,0 m/s (idéal > 1,2 m/s)</span></div>
+    <div class="bm-cell"><span class="bm-cell-label">Levier principal</span><span class="bm-cell-value">Activité physique quotidienne, endurance</span></div>
+  </div>
+  <p class="bm-desc"><strong>Prédicteur simple et robuste de la longévité</strong>. La méta-analyse de Studenski et al. (JAMA, 2011) sur 34 485 personnes montre que la vitesse de marche prédit la survie à 5 et 10 ans. Une vitesse < 0,6 m/s est associée à un risque de mortalité significativement élevé. Facile à mesurer : chronomètre-toi sur 4 mètres à allure habituelle.</p>
+</div>
+
+<!-- QUEL BILAN DEMANDER -->
+<h2 class="ap-section-title">Quel bilan demander à ton médecin</h2>
+
+<p class="prose">Un bilan standard couvre l'ensemble des biomarqueurs sanguins nécessaires. Voici exactement ce que tu peux demander à ton médecin généraliste :</p>
+
+<table class="data-table">
+  <thead>
+    <tr><th>Examen</th><th>Biomarqueurs couverts</th><th>Fréquence recommandée</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NFS (Numération Formule Sanguine)</td>
+      <td>Leucocytes, lymphocytes%, VCM, RDW</td>
+      <td>1 fois par an</td>
+    </tr>
+    <tr>
+      <td>Bilan métabolique de base</td>
+      <td>Glycémie à jeun, créatinine, albumine</td>
+      <td>1 fois par an</td>
+    </tr>
+    <tr>
+      <td>CRP ultrasensible</td>
+      <td>CRP</td>
+      <td>1 fois par an (à préciser)</td>
+    </tr>
+    <tr>
+      <td>Bilan hépatique</td>
+      <td>Phosphatase alcaline</td>
+      <td>1 fois par an</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="prose">Avec ces résultats, rentre les valeurs dans le <a href="/score/" class="internal-link">Score de Vie</a> pour obtenir ton âge biologique PhenoAge. Refais le bilan dans 6 mois après avoir appliqué les <a href="/blog/reduire-age-biologique/" class="internal-link">leviers du protocole</a> — et compare.</p>
+
+<!-- FAQ -->
+<h2 class="ap-section-title">Questions fréquentes</h2>
+
+<div class="faq-item">
+  <div class="faq-q">Quels sont les biomarqueurs les plus prédictifs de l'âge biologique ?</div>
+  <div class="faq-a">Les 9 biomarqueurs du modèle <strong>PhenoAge</strong> pour le sang (albumine, créatinine, glycémie, CRP, lymphocytes%, VCM, RDW, phosphatase alcaline, leucocytes) et le <strong>VO₂max</strong>, la <strong>force de préhension</strong> et la <strong>vitesse de marche</strong> pour les mesures physiques. Tous disponibles sans tests spécialisés.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Quel bilan sanguin demander pour mesurer son âge biologique ?</div>
+  <div class="faq-a">Un bilan standard chez ton médecin généraliste suffit : <strong>NFS</strong> (leucocytes, lymphocytes, VCM, RDW), <strong>glycémie à jeun</strong>, <strong>créatinine</strong>, <strong>albumine</strong>, <strong>CRP ultrasensible</strong> et <strong>phosphatase alcaline</strong>. Demande-le à ton prochain rendez-vous annuel.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">La force de préhension est-elle vraiment un indicateur de longévité ?</div>
+  <div class="faq-a">Oui — l'étude PURE (Leong et al., Lancet 2015) sur <strong>139 691 personnes</strong> dans 17 pays a montré que la force de préhension prédit la mortalité toutes causes mieux que la tension artérielle. Chaque réduction de 5 kg est associée à +16% de mortalité toutes causes.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Combien de temps faut-il pour améliorer ses biomarqueurs ?</div>
+  <div class="faq-a">Les biomarqueurs les plus réactifs (CRP, glycémie, leucocytes) s'améliorent en <strong>8 à 12 semaines</strong> de changements cohérents. Les biomarqueurs plus lents (albumine, RDW, VCM) nécessitent 3 à 6 mois. Le VO₂max montre des gains mesurables en <strong>8 à 12 semaines</strong> d'entraînement régulier. Guide complet : <a href="/blog/reduire-age-biologique/">Comment rajeunir son âge biologique en 6 mois</a>.</div>
+</div>
+
+<!-- LIENS SŒURS -->
+<div class="sister-links">
+  <span class="sister-title">Dans le même cluster — Âge biologique</span>
+  <div class="sister-grid">
+    <a href="/blog/age-biologique/" class="sister-link">Guide complet : Âge biologique — définition, calcul et comment le réduire</a>
+    <a href="/blog/age-biologique-vs-age-chronologique/" class="sister-link">Âge biologique vs âge chronologique : quelle différence ?</a>
+    <a href="/blog/phenoage-algorithme-age-biologique/" class="sister-link">PhenoAge : l'algorithme qui calcule ton vrai âge</a>
+    <a href="/blog/vo2max-longevite/" class="sister-link">VO₂max et longévité : le biomarqueur qui prédit ta durée de vie</a>
+    <a href="/blog/reduire-age-biologique/" class="sister-link">Comment rajeunir son âge biologique en 6 mois</a>
+  </div>
+</div>
+
+<!-- CTA -->
+<div style="text-align:center;margin-top:32px;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px">
+  <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
+    Tu as tes biomarqueurs ? Calcule ton âge biologique maintenant.
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700">
+      Calculer mon âge biologique
+    </a>
+    <a href="/sources/" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
+      Voir les sources scientifiques
+    </a>
+  </div>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">
+    <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Méthodologie →</a>
+    &nbsp;·&nbsp;
+    <a href="/faq/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">FAQ →</a>
+    &nbsp;·&nbsp;
+    <a href="/apropos/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">À propos →</a>
+  </p>
+</div>

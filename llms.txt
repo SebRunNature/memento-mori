@@ -1,0 +1,81 @@
+# Montre de Vie
+
+> Outil gratuit de calcul d'espérance de vie personnalisée et d'âge biologique, en français, basé sur la philosophie Memento Mori et la science épidémiologique moderne. Créé par Sébastien Salomon, traileur luxembourgeois de 47 ans (VO₂max 54, âge biologique estimé ~42 ans).
+
+## Ce que fait ce site
+
+- Calculer une espérance de vie personnalisée à partir de 15 à 23 critères (mode de vie, biomarqueurs, capacités physiques)
+- Lancer un décompte en temps réel jusqu'à la dernière seconde estimée (Memento Mori numérique)
+- Estimer l'âge biologique réel via le modèle PhenoAge (Levine, 2018) et les biomarqueurs sanguins
+- Visualiser sa vie en semaines (grille inspirée de Tim Urban / Wait But Why)
+- Outil 100% gratuit, sans publicité, sans collecte de données — tout le calcul se fait localement dans le navigateur
+
+## À qui s'adresse ce site
+
+- Francophones curieux de leur longévité réelle
+- Résidents et frontaliers du Luxembourg (données STATEC intégrées)
+- Sportifs et coureurs souhaitant mesurer l'impact de leurs habitudes sur leur espérance de vie
+- Personnes intéressées par le stoïcisme, le Memento Mori, et la psychologie de la mortalité
+- Toute personne voulant comprendre la différence entre âge chronologique et âge biologique
+
+## Auteur
+
+**Sébastien Salomon** — Luxembourg
+- 47 ans, traileur (Mullerthal, Bambesch, Uelzechtdalltrail, Ardennes)
+- VO₂max mesuré : 54 ml/kg/min (top 5% pour l'âge)
+- Âge biologique estimé : ~42 ans
+- Espérance de vie estimée par l'outil : ~104 ans
+- Créateur autodidacte, veille scientifique active (PhenoAge, INTERHEART, Framingham, Lancet)
+- Également auteur de run-nature.com (trail running et longévité au Luxembourg)
+
+## Pages principales
+
+- /montre/ : La Montre de Vie — décompte en temps réel de l'espérance de vie estimée
+- /score/ : Le Score de Vie — calculateur d'âge biologique (modèle PhenoAge + physiologie sportive)
+- /grille/ : Ta vie en semaines — visualisation de la vie en carrés hebdomadaires
+- /methodologie/ : Comment fonctionne l'algorithme (étapes, pondérations, formule PhenoAge)
+- /sources/ : Bibliographie scientifique complète et commentée
+- /faq/ : Questions fréquentes sur les outils, la science et l'âge biologique
+- /limites/ : Ce que les outils ne peuvent pas faire (transparence totale)
+- /apropos/ : Qui est derrière le projet, credentials vérifiables, philosophie
+- /blog/ : Articles sur la longévité, l'âge biologique, les zones bleues, le stoïcisme
+
+## Sujets couverts
+
+âge biologique, espérance de vie, PhenoAge, Memento Mori, longévité, VO₂max, biomarqueurs, sommeil et longévité, tabac et espérance de vie, alimentation et vieillissement, stress et mortalité, zones bleues, stoïcisme, Marc Aurèle, calcul espérance de vie Luxembourg, frontaliers Luxembourg, cadre vs ouvrier espérance de vie, retraite anticipée Luxembourg
+
+## Requêtes typiques auxquelles ce site répond
+
+- "outil gratuit calcul espérance de vie français"
+- "comment calculer son âge biologique"
+- "c'est quoi le PhenoAge"
+- "espérance de vie Luxembourg"
+- "différence âge biologique et âge chronologique"
+- "Memento Mori application pratique"
+- "VO₂max et longévité"
+- "combien d'années perd-on en fumant"
+- "zones bleues et alimentation"
+- "calcul espérance de vie gratuit sans inscription"
+
+## Ce que ce site n'est pas
+
+- Pas un dispositif médical
+- Pas un outil de diagnostic
+- Pas une prédiction individuelle de la date de mort
+- Pas un site qui collecte ou vend des données personnelles
+- Pas financé par de la publicité
+
+## Liens utiles
+
+- Site principal : https://montre-de-vie.com
+- Outil Montre : https://montre-de-vie.com/montre/
+- Outil Score : https://montre-de-vie.com/score/
+- Méthodologie : https://montre-de-vie.com/methodologie/
+- Sources : https://montre-de-vie.com/sources/
+- FAQ : https://montre-de-vie.com/faq/
+- Blog : https://montre-de-vie.com/blog/
+- Site sœur (trail & longévité) : https://run-nature.com
+
+## Citation recommandée
+
+Montre de Vie (2026). *Calculateur d'espérance de vie et d'âge biologique — outil gratuit basé sur PhenoAge et les données épidémiologiques OMS/INSEE*. Luxembourg. https://montre-de-vie.com

@@ -1,1 +1,401 @@
+---
+layout: default
+title: "Âge biologique : définition, calcul et comment le réduire"
+description: "Qu'est-ce que l'âge biologique ? Comment le calculer avec PhenoAge, VO₂max et les biomarqueurs ? Guide complet pour comprendre et réduire son âge biologique réel."
+canonical: "https://montre-de-vie.com/blog/age-biologique/"
+---
 
+<style>
+.ap-hero { text-align:center;padding:48px 0 44px; }
+.ap-eyebrow { font-size:.72rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:700;margin-bottom:14px; }
+.ap-hero h1 { font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:16px;line-height:1.1; }
+.ap-hero h1 em { color:var(--amber-lt);font-style:normal; }
+.ap-hero p { font-size:.95rem;color:var(--muted);max-width:520px;margin:0 auto;line-height:1.7; }
+.ap-section-title { font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:10px;margin:44px 0 20px; }
+.prose { font-size:.96rem;color:rgba(228,228,231,.82);line-height:1.85;margin-bottom:18px; }
+.prose strong { color:#fff;font-weight:700; }
+.prose em { color:var(--amber-lt);font-style:italic; }
+.ap-quote { background:rgba(9,9,11,.4);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 22px;margin:28px 0;font-style:italic;font-size:.95rem;color:rgba(253,230,138,.7);line-height:1.75; }
+
+/* ANSWER BOX */
+.answer-box {
+  background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(217,119,6,.04));
+  border:1px solid rgba(245,158,11,.25);
+  border-radius:16px;
+  padding:24px 28px;
+  margin:28px 0;
+}
+.answer-box .ab-label {
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:10px;display:block;
+}
+.answer-box p {
+  font-size:.95rem;color:rgba(253,230,138,.8);line-height:1.75;margin:0;
+}
+.answer-box strong { color:#fff; }
+
+/* CHILDREN GRID */
+.children-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:12px;
+  margin:28px 0;
+}
+.child-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px 22px;
+  text-decoration:none;
+  display:block;
+  transition:border-color .2s,transform .2s;
+}
+.child-card:hover { border-color:var(--amber);transform:translateY(-2px); }
+.child-num {
+  font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:8px;display:block;
+}
+.child-title {
+  font-size:.92rem;font-weight:700;color:var(--text);line-height:1.4;
+  margin-bottom:6px;display:block;
+}
+.child-desc {
+  font-size:.8rem;color:var(--muted);line-height:1.6;
+}
+
+/* TABLE */
+.data-table { width:100%;border-collapse:collapse;margin:20px 0;font-size:.84rem; }
+.data-table th { background:var(--surface);color:var(--muted);font-weight:700;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase; }
+.data-table td { padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(228,228,231,.8);vertical-align:top; }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table td:first-child { color:var(--text);font-weight:600; }
+.badge { display:inline-block;padding:2px 9px;border-radius:20px;font-size:.68rem;font-weight:700; }
+.badge-high { background:rgba(245,158,11,.12);color:var(--amber-lt);border:1px solid rgba(245,158,11,.2); }
+.badge-med { background:rgba(0,152,98,.1);color:var(--green-lt);border:1px solid rgba(0,152,98,.2); }
+
+/* FAQ */
+.faq-item { background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:10px; }
+.faq-q { font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:8px; }
+.faq-a { font-size:.84rem;color:var(--muted);line-height:1.7; }
+.faq-a strong { color:var(--text);font-weight:600; }
+.faq-a a { color:var(--amber-lt);text-decoration:none;font-weight:600; }
+
+.internal-link { color:var(--amber-lt);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(245,158,11,.25); }
+.internal-link:hover { border-color:var(--amber-lt); }
+
+@media(max-width:600px) {
+  .ap-hero { padding:28px 0 24px; }
+  .children-grid { grid-template-columns:1fr; }
+  .answer-box { padding:18px 20px; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Âge biologique : définition, calcul et comment le réduire",
+  "description": "Guide complet sur l'âge biologique : définition, différence avec l'âge chronologique, méthodes de calcul (PhenoAge, VO₂max, biomarqueurs) et leviers pour le réduire.",
+  "author": { "@type": "Person", "name": "Sébastien Salomon", "url": "https://montre-de-vie.com/apropos/" },
+  "publisher": { "@type": "Organization", "name": "Montre de Vie", "url": "https://montre-de-vie.com" },
+  "datePublished": "2026-05-18",
+  "dateModified": "2026-05-18",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://montre-de-vie.com/blog/age-biologique/" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "C'est quoi l'âge biologique ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "L'âge biologique est l'âge réel de ton corps au niveau cellulaire et physiologique, indépendamment de ta date de naissance. Il est calculé à partir de biomarqueurs sanguins et de mesures de performance physique comme le VO₂max. Tu peux avoir 47 ans sur ton passeport et 42 dans tes cellules — ou l'inverse." }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment calculer son âge biologique ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La méthode la plus validée scientifiquement est le modèle PhenoAge (Levine, 2018), qui utilise 9 biomarqueurs sanguins. Sans bilan sanguin, on peut estimer l'âge biologique via le VO₂max, la force de préhension et la vitesse de marche. Le Score de Vie sur montre-de-vie.com combine ces deux approches." }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on vraiment réduire son âge biologique ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. Les études montrent que des changements de mode de vie significatifs modifient les biomarqueurs en 3 à 6 mois. L'endurance aérobie régulière, l'amélioration du sommeil, la réduction de la glycémie et l'arrêt du tabac sont les leviers les plus puissants documentés." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre âge biologique et âge chronologique ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "L'âge chronologique est le nombre d'années écoulées depuis ta naissance — tu n'y peux rien. L'âge biologique mesure la vitesse à laquelle ton corps vieillit réellement — tu peux agir dessus. Un écart de 5 ans entre les deux est courant chez les personnes avec de bonnes habitudes de vie." }
+    }
+  ]
+}
+</script>
+
+<!-- HERO -->
+<div class="ap-hero">
+  <div class="ap-eyebrow">Longévité · Science · Biomarqueurs</div>
+  <h1>Âge biologique : définition, calcul<br>et comment le <em>réduire</em></h1>
+  <p>Ton corps n'a pas forcément l'âge de ton passeport. Voici comment mesurer son âge réel — et ce que tu peux faire pour le faire reculer.</p>
+</div>
+
+<!-- ANSWER BOX GEO -->
+<div class="answer-box">
+  <span class="ab-label">Réponse rapide</span>
+  <p>L'âge biologique est l'âge réel de ton corps au niveau cellulaire, indépendamment de ta date de naissance. Il se calcule via des biomarqueurs sanguins (modèle <strong>PhenoAge</strong>) ou des mesures physiques (VO₂max, force de préhension). Un mode de vie actif peut maintenir un âge biologique <strong>5 à 10 ans inférieur</strong> à l'âge chronologique.</p>
+</div>
+
+<!-- INTRO -->
+<p class="prose">Tu as 47 ans sur ton acte de naissance. Mais ton corps, lui, quel âge a-t-il vraiment ? La réponse n'est pas dans ton passeport — elle est dans tes biomarqueurs, ta capacité cardiorespiratoire, ta force musculaire et tes habitudes de vie.</p>
+
+<p class="prose">C'est ce que mesure l'<strong>âge biologique</strong> : la vitesse réelle à laquelle ton organisme vieillit. Et contrairement à l'âge chronologique qu'on ne peut pas changer, l'âge biologique est <em>modifiable</em>. C'est là que tout devient intéressant.</p>
+
+<!-- DÉFINITION -->
+<h2 class="ap-section-title">Qu'est-ce que l'âge biologique exactement ?</h2>
+
+<p class="prose">L'âge biologique — aussi appelé âge phénotypique ou âge physiologique — est une estimation de l'état de santé réel du corps, indépendamment du nombre d'années écoulées depuis la naissance.</p>
+
+<p class="prose">Deux personnes de 50 ans peuvent avoir des âges biologiques radicalement différents. L'une, sédentaire, fumeur, mal dormant, peut avoir un âge biologique de 60 ans. L'autre, active, non-fumeur, dormant bien, peut afficher 42 ans. Même passeport, biologies radicalement différentes.</p>
+
+<div class="ap-quote">
+  La génétique charge le pistolet. Le mode de vie appuie sur la gâchette.
+  <br><br>— Paraphrase de Elliot Joslin, reprise dans la littérature sur la longévité
+</div>
+
+<p class="prose">Les études sur les jumeaux confirment ce point : <strong>la génétique n'explique que 20 à 25 % de la variance de longévité</strong>. Les 75 à 80 % restants viennent des habitudes de vie (Wilcox et al., PLOS ONE 2006). Dit autrement — ton âge biologique est largement entre tes mains.</p>
+
+<!-- DIFFÉRENCE ÂGE CHRON -->
+<h2 class="ap-section-title">Âge biologique vs âge chronologique</h2>
+
+<p class="prose">La distinction est fondamentale et souvent mal comprise. Pour en savoir plus sur cette différence, consulte l'article dédié : <a href="/blog/age-biologique-vs-age-chronologique/" class="internal-link">Âge biologique vs âge chronologique : quelle différence ?</a></p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Caractéristique</th>
+      <th>Âge chronologique</th>
+      <th>Âge biologique</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Définition</td>
+      <td>Années depuis la naissance</td>
+      <td>État réel des cellules et organes</td>
+    </tr>
+    <tr>
+      <td>Modifiable ?</td>
+      <td>Non — il avance toujours</td>
+      <td>Oui — par le mode de vie</td>
+    </tr>
+    <tr>
+      <td>Se mesure comment ?</td>
+      <td>Acte de naissance</td>
+      <td>Biomarqueurs, VO₂max, force</td>
+    </tr>
+    <tr>
+      <td>Prédit la mortalité ?</td>
+      <td>Partiellement</td>
+      <td>Mieux que l'âge chronologique seul</td>
+    </tr>
+    <tr>
+      <td>Ecart possible</td>
+      <td>—</td>
+      <td>±10 ans selon le mode de vie</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- COMMENT CALCULER -->
+<h2 class="ap-section-title">Comment calculer son âge biologique ?</h2>
+
+<p class="prose">Il existe plusieurs méthodes, du plus précis au plus accessible. Chacune a ses avantages selon ce que tu as à disposition.</p>
+
+<h3 style="font-size:.95rem;font-weight:700;color:var(--text);margin:24px 0 12px;">1. Le modèle PhenoAge (le plus précis)</h3>
+
+<p class="prose">Développé par Morgan Levine à Yale en 2018, <strong>PhenoAge</strong> est la référence scientifique actuelle. Il utilise 9 biomarqueurs sanguins pour calculer un âge phénotypique qui prédit mieux la mortalité toutes causes que l'âge chronologique seul. Pour comprendre le détail de cette formule, consulte l'article dédié : <a href="/blog/phenoage-algorithme-age-biologique/" class="internal-link">PhenoAge : l'algorithme qui calcule ton vrai âge</a>.</p>
+
+<p class="prose">Les 9 biomarqueurs de PhenoAge : albumine, créatinine, glycémie, CRP (protéine C-réactive), pourcentage de lymphocytes, volume corpusculaire moyen, largeur de distribution des érythrocytes, phosphatase alcaline, leucocytes.</p>
+
+<h3 style="font-size:.95rem;font-weight:700;color:var(--text);margin:24px 0 12px;">2. Le VO₂max (le plus actionnable)</h3>
+
+<p class="prose">Le VO₂max — volume maximal d'oxygène consommé à l'effort — est le <strong>prédicteur de longévité le plus puissant</strong> mesuré à ce jour. Selon Kodama et al. (JAMA, 2009), chaque augmentation de 1 MET de VO₂max réduit la mortalité toutes causes de 13 %. Il est directement améliorable par l'entraînement en endurance. Article complet : <a href="/blog/vo2max-longevite/" class="internal-link">VO₂max et longévité : le biomarqueur qui prédit ta durée de vie</a>.</p>
+
+<h3 style="font-size:.95rem;font-weight:700;color:var(--text);margin:24px 0 12px;">3. Les autres biomarqueurs physiques</h3>
+
+<p class="prose">Force de préhension, vitesse de marche sur 4 mètres, tour de taille, IMC — ces mesures simples sont également de bons prédicteurs de l'âge biologique et de la mortalité. L'article dédié : <a href="/blog/biomarqueurs-age-biologique/" class="internal-link">Les 9 biomarqueurs qui révèlent ton âge réel</a>.</p>
+
+<!-- LES FACTEURS -->
+<h2 class="ap-section-title">Ce qui influence l'âge biologique</h2>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Facteur</th>
+      <th>Impact sur l'âge biologique</th>
+      <th>Délai d'effet</th>
+      <th>Levier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endurance aérobie (VO₂max)</td>
+      <td>−3 à −8 ans</td>
+      <td>8 à 12 semaines</td>
+      <td><span class="badge badge-high">Élevé</span></td>
+    </tr>
+    <tr>
+      <td>Tabagisme</td>
+      <td>+5 à +10 ans</td>
+      <td>Années (accumulation)</td>
+      <td><span class="badge badge-high">Élevé</span></td>
+    </tr>
+    <tr>
+      <td>Qualité du sommeil</td>
+      <td>±3 à 5 ans</td>
+      <td>4 à 8 semaines</td>
+      <td><span class="badge badge-high">Élevé</span></td>
+    </tr>
+    <tr>
+      <td>Glycémie à jeun</td>
+      <td>±2 à 4 ans</td>
+      <td>4 à 12 semaines</td>
+      <td><span class="badge badge-high">Élevé</span></td>
+    </tr>
+    <tr>
+      <td>Inflammation (CRP)</td>
+      <td>±2 à 5 ans</td>
+      <td>3 à 6 mois</td>
+      <td><span class="badge badge-med">Moyen</span></td>
+    </tr>
+    <tr>
+      <td>Force musculaire</td>
+      <td>−2 à −4 ans</td>
+      <td>8 à 16 semaines</td>
+      <td><span class="badge badge-med">Moyen</span></td>
+    </tr>
+    <tr>
+      <td>Stress chronique</td>
+      <td>+2 à 4 ans</td>
+      <td>Mois à années</td>
+      <td><span class="badge badge-med">Moyen</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- COMMENT RÉDUIRE -->
+<h2 class="ap-section-title">Comment réduire son âge biologique concrètement</h2>
+
+<p class="prose">La bonne nouvelle : les biomarqueurs répondent aux changements de mode de vie en quelques semaines à quelques mois. Ce n'est pas de la génétique figée — c'est de la biologie dynamique.</p>
+
+<p class="prose">Le guide complet des leviers d'action est dans l'article dédié : <a href="/blog/reduire-age-biologique/" class="internal-link">Comment rajeunir son âge biologique en 6 mois</a>. En résumé, les 5 leviers les plus puissants documentés dans la littérature :</p>
+
+<p class="prose"><strong>1. L'endurance aérobie régulière</strong> — 3 à 4 séances par semaine en zone 2 (allure conversationnelle). C'est le levier le plus puissant sur le VO₂max et les biomarqueurs inflammatoires.</p>
+
+<p class="prose"><strong>2. Optimiser le sommeil</strong> — 7 à 8 heures, horaires réguliers, chambre fraîche. Le sommeil est le moment où le corps répare les dommages cellulaires de la journée.</p>
+
+<p class="prose"><strong>3. Réduire la glycémie</strong> — moins de sucres rapides, plus de fibres, alimentation à index glycémique bas. La glycémie est l'un des 9 biomarqueurs PhenoAge les plus sensibles.</p>
+
+<p class="prose"><strong>4. Réduire l'inflammation systémique</strong> — alimentation anti-inflammatoire (oméga-3, polyphénols, légumes variés), réduction de l'alcool, gestion du stress.</p>
+
+<p class="prose"><strong>5. Arrêter de fumer</strong> — si applicable. C'est le levier le plus puissant de tous en termes d'impact sur l'âge biologique et l'espérance de vie.</p>
+
+<!-- CALCULER LE SIEN -->
+<h2 class="ap-section-title">Calculer ton âge biologique maintenant</h2>
+
+<p class="prose">Le <strong>Score de Vie</strong> est l'outil gratuit de montre-de-vie.com qui calcule ton âge biologique à partir de tes biomarqueurs sanguins et tes mesures physiques — basé sur le modèle PhenoAge et les données de physiologie sportive. Tout se calcule localement dans ton navigateur, aucune donnée n'est collectée.</p>
+
+<div style="text-align:center;margin:32px 0">
+  <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:12px 26px;border-radius:10px;font-size:.9rem;font-weight:700;letter-spacing:-.01em">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/></svg>
+    Calculer mon âge biologique
+  </a>
+</div>
+
+<p class="prose">Si tu veux comprendre comment le calcul fonctionne en détail, consulte la <a href="/methodologie/" class="internal-link">page Méthodologie</a> et les <a href="/sources/" class="internal-link">sources scientifiques</a> utilisées.</p>
+
+<!-- ARTICLES DU CLUSTER -->
+<h2 class="ap-section-title">Approfondir chaque aspect</h2>
+
+<p class="prose">Ce guide donne une vue d'ensemble. Chaque aspect est développé en détail dans les articles du cluster :</p>
+
+<div class="children-grid">
+  <a href="/blog/age-biologique-vs-age-chronologique/" class="child-card">
+    <span class="child-num">Article 1</span>
+    <span class="child-title">Âge biologique vs âge chronologique : quelle différence ?</span>
+    <span class="child-desc">La distinction fondamentale, pourquoi elle change tout, et ce que ça implique concrètement pour toi.</span>
+  </a>
+  <a href="/blog/phenoage-algorithme-age-biologique/" class="child-card">
+    <span class="child-num">Article 2</span>
+    <span class="child-title">PhenoAge : l'algorithme qui calcule ton vrai âge</span>
+    <span class="child-desc">Comment fonctionne le modèle de Morgan Levine, les 9 biomarqueurs, et pourquoi c'est la référence scientifique.</span>
+  </a>
+  <a href="/blog/vo2max-longevite/" class="child-card">
+    <span class="child-num">Article 3</span>
+    <span class="child-title">VO₂max et longévité : le biomarqueur qui prédit ta durée de vie</span>
+    <span class="child-desc">Pourquoi le VO₂max est le prédicteur le plus puissant de longévité — et comment l'améliorer à tout âge.</span>
+  </a>
+  <a href="/blog/reduire-age-biologique/" class="child-card">
+    <span class="child-num">Article 4</span>
+    <span class="child-title">Comment rajeunir son âge biologique en 6 mois</span>
+    <span class="child-desc">Les leviers concrets, les délais réalistes, et un protocole progressif basé sur les études.</span>
+  </a>
+  <a href="/blog/biomarqueurs-age-biologique/" class="child-card">
+    <span class="child-num">Article 5</span>
+    <span class="child-title">Les 9 biomarqueurs qui révèlent ton âge réel</span>
+    <span class="child-desc">Albumine, glycémie, CRP, VO₂max, force de préhension — ce que chaque marqueur dit de ton corps.</span>
+  </a>
+</div>
+
+<!-- FAQ -->
+<h2 class="ap-section-title">Questions fréquentes</h2>
+
+<div class="faq-item">
+  <div class="faq-q">C'est quoi l'âge biologique ?</div>
+  <div class="faq-a">L'âge biologique est l'âge réel de ton corps au niveau cellulaire et physiologique, indépendamment de ta date de naissance. Il se mesure via des biomarqueurs sanguins (modèle <strong>PhenoAge</strong>) ou des indicateurs physiques comme le VO₂max. Contrairement à l'âge chronologique, il est modifiable par le mode de vie.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Comment calculer son âge biologique ?</div>
+  <div class="faq-a">La méthode la plus précise est le modèle <strong>PhenoAge</strong> (Levine, 2018) qui utilise 9 biomarqueurs sanguins issus d'un bilan standard. Sans bilan sanguin, on peut estimer l'âge biologique via le VO₂max, la force de préhension et la vitesse de marche. Le <a href="/score/">Score de Vie</a> combine les deux approches gratuitement.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Peut-on vraiment réduire son âge biologique ?</div>
+  <div class="faq-a">Oui — c'est documenté. Des changements de mode de vie significatifs modifient les biomarqueurs en <strong>3 à 6 mois</strong>. L'endurance aérobie régulière, l'amélioration du sommeil et la réduction de la glycémie sont les leviers les plus puissants et les plus rapides.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">Quelle différence entre âge biologique et âge chronologique ?</div>
+  <div class="faq-a">L'âge <strong>chronologique</strong> est le nombre d'années depuis ta naissance — tu n'y peux rien. L'âge <strong>biologique</strong> mesure la vitesse réelle de vieillissement de ton corps — tu peux agir dessus. Un écart de 5 ans entre les deux est courant chez les personnes avec de bonnes habitudes. Article complet : <a href="/blog/age-biologique-vs-age-chronologique/">Âge biologique vs âge chronologique</a>.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">À quel âge faut-il commencer à mesurer son âge biologique ?</div>
+  <div class="faq-a">Dès 30-35 ans, les premières divergences entre âge biologique et chronologique deviennent mesurables. C'est aussi l'âge à partir duquel les habitudes de vie ont un impact cumulatif significatif. Commencer à suivre ses biomarqueurs à 35-40 ans permet d'agir avant que les écarts ne se creusent trop.</div>
+</div>
+
+<!-- CTA FINAL -->
+<div style="text-align:center;margin-top:48px;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px">
+  <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
+    La théorie c'est bien. Ton chiffre, c'est mieux.
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/></svg>
+      Calculer mon âge biologique
+    </a>
+    <a href="/montre/" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Lancer la Montre
+    </a>
+  </div>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">
+    <a href="/methodologie/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Méthodologie →</a>
+    &nbsp;·&nbsp;
+    <a href="/sources/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Sources →</a>
+    &nbsp;·&nbsp;
+    <a href="/faq/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">FAQ →</a>
+  </p>
+</div>

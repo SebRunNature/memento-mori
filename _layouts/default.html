@@ -50,7 +50,11 @@
       justify-content:center;
       gap:12px;
       flex-wrap:wrap;
-      position:relative;
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:200;
     }
     .don-banner-text{
       font-size:.8rem;
@@ -149,7 +153,7 @@
       .nav-link-don{font-size:.75rem;padding:4px 10px}
     }
 
-    /* MAIN — padding-top géré dynamiquement par JS selon hauteur bandeau + nav */
+    /* MAIN — padding-top initial, ajusté dynamiquement par JS */
     main{padding-top:60px}
 
     .content-wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px}
@@ -328,16 +332,23 @@
 
 <script>
 /* ── Bandeau Don ─────────────────────────────────────────────────
-   - Affiche le bandeau et décale la nav en conséquence
-   - Fermé → ne réapparaît pas avant 7 jours (localStorage)
-   - Si l'utilisateur a déjà cliqué sur "Faire un don" → masqué
+   PRINCIPE :
+   • Le bandeau est en position statique — il défile avec la page
+   • La nav (fixed) se positionne sous le bandeau via top dynamique
+   • Au scroll : dès que le bandeau sort de l'écran, nav → top:0
+   • Sur mobile : on attend le layout stable (requestAnimationFrame)
+     avant le premier calcul pour éviter le chevauchement iPhone
 ──────────────────────────────────────────────────────────────── */
 (function () {
   var BANNER_KEY  = 'don_banner_closed';
   var CLICKED_KEY = 'don_clicked';
   var DELAY_DAYS  = 7;
-  var banner      = document.getElementById('don-banner');
 
+  var banner = document.getElementById('don-banner');
+  var nav    = document.querySelector('.site-nav');
+  var mainEl = document.querySelector('main');
+
+  /* ── Faut-il masquer le bandeau ? ── */
   function shouldHide() {
     try {
       if (localStorage.getItem(CLICKED_KEY)) return true;
@@ -347,15 +358,43 @@
     return false;
   }
 
-  if (shouldHide()) {
-    banner.classList.add('hidden');
-  } else {
-    document.body.classList.add('banner-visible');
+  var bannerHidden = shouldHide();
+  if (bannerHidden) banner.classList.add('hidden');
+
+  /* ── Ajustement nav + padding main ──
+     Bandeau = fixed z-index:200, nav = fixed z-index:100
+     La nav se place juste sous le bandeau via top = hauteur bandeau
+     Le contenu (main) est décalé de hauteur bandeau + hauteur nav
+  ── */
+  function adjust() {
+    if (bannerHidden || banner.classList.contains('hidden')) {
+      nav.style.top           = '0';
+      mainEl.style.paddingTop = '60px';
+      return;
+    }
+    var bannerH = banner.offsetHeight;
+    nav.style.top           = bannerH + 'px';
+    mainEl.style.paddingTop = (bannerH + 60) + 'px';
   }
 
+  /* Double rAF : attend que le layout soit stable (fix iPhone/Safari) */
+  if (typeof requestAnimationFrame !== 'undefined') {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(adjust);
+    });
+  } else {
+    adjust();
+  }
+
+  /* Recalcul au resize uniquement (bandeau fixed ne bouge pas au scroll) */
+  window.addEventListener('resize', adjust, { passive: true });
+
+  /* ── Fermeture manuelle ── */
   window.closeBanner = function () {
     banner.classList.add('hidden');
-    document.body.classList.remove('banner-visible');
+    bannerHidden = true;
+    nav.style.top        = '0';
+    mainEl.style.paddingTop = '60px';
     try { localStorage.setItem(BANNER_KEY, Date.now()); } catch (e) {}
   };
 })();

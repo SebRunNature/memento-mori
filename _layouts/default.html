@@ -40,6 +40,64 @@
       font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden;
       -webkit-font-smoothing:antialiased}
 
+    /* ══ BANDEAU DON ══════════════════════════════════════════════ */
+    .don-banner{
+      background:linear-gradient(90deg,rgba(245,158,11,.13),rgba(217,119,6,.07),rgba(245,158,11,.13));
+      border-bottom:1px solid rgba(245,158,11,.22);
+      padding:8px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+      position:relative;
+    }
+    .don-banner-text{
+      font-size:.8rem;
+      color:var(--amber-lt);
+      font-weight:500;
+      line-height:1.4;
+    }
+    .don-banner-text em{color:#fff;font-style:normal;font-weight:700}
+    .don-banner-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      background:var(--amber);
+      color:#000;
+      font-size:.76rem;
+      font-weight:700;
+      padding:5px 14px;
+      border-radius:20px;
+      text-decoration:none;
+      letter-spacing:.01em;
+      white-space:nowrap;
+      transition:background .15s,transform .1s;
+      flex-shrink:0;
+    }
+    .don-banner-cta:hover{background:var(--amber-dk);transform:translateY(-1px)}
+    .don-banner-close{
+      position:absolute;
+      right:12px;
+      top:50%;
+      transform:translateY(-50%);
+      background:none;
+      border:none;
+      color:rgba(253,230,138,.35);
+      font-size:.9rem;
+      cursor:pointer;
+      padding:4px 6px;
+      line-height:1;
+      transition:color .15s;
+      border-radius:4px;
+    }
+    .don-banner-close:hover{color:var(--amber-lt)}
+    .don-banner.hidden{display:none}
+    @media(max-width:600px){
+      .don-banner{padding:8px 36px 8px 16px;gap:8px}
+      .don-banner-text{font-size:.75rem}
+    }
+
     /* NAV */
     .site-nav{position:fixed;top:0;left:0;right:0;z-index:100;
       background:rgba(9,9,11,.92);backdrop-filter:blur(16px);
@@ -60,18 +118,49 @@
     .nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
       border:1px solid rgba(0,152,98,.2);font-weight:600}
     .nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+
+    /* Lien Don dans la nav — pill amber */
+    .nav-link-don{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      background:rgba(245,158,11,.12);
+      color:var(--amber);
+      border:1px solid rgba(245,158,11,.3);
+      font-size:.82rem;
+      font-weight:700;
+      padding:5px 12px;
+      border-radius:20px;
+      text-decoration:none;
+      letter-spacing:.01em;
+      transition:all .2s;
+    }
+    .nav-link-don:hover{
+      background:rgba(245,158,11,.22);
+      border-color:rgba(245,158,11,.55);
+      color:var(--amber-lt);
+      transform:translateY(-1px);
+    }
+
     @media(max-width:600px){
       .site-nav-inner{padding:0 16px}
       .nav-link{font-size:.78rem;padding:5px 8px}
       .nav-link[href="/apropos/"]{display:none}
+      .nav-link-don{font-size:.75rem;padding:4px 10px}
     }
 
-    /* MAIN WRAP — s'applique aux pages sans wrapper propre (blog, à propos, articles) */
+    /* MAIN — décalage bandeau + nav */
     main{padding-top:60px}
+    /* Le bandeau pousse le contenu vers le bas quand il est visible */
+    body.banner-visible main{padding-top:96px}
+    body.banner-visible .site-nav{top:36px}
+    @media(max-width:600px){
+      body.banner-visible .site-nav{top:44px}
+      body.banner-visible main{padding-top:104px}
+    }
+
     .content-wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px}
-    /* Les pages avec leur propre structure (accueil) annulent le padding du wrap */
     .content-wrap:has(.home){max-width:none;padding:0}
-    /* Fallback sans :has() */
     .home{max-width:1024px;margin:0 auto;padding:80px 24px 100px}
 
     /* BLOG CARDS */
@@ -93,7 +182,7 @@
     article .post-meta{display:none}
     article h2{font-size:1.4rem;font-weight:700;letter-spacing:-.02em;
       color:var(--text);margin:40px 0 12px}
-    article h3{font-size:1.1rem;font-weight:700;color:var(--text);margin:28px 0 8px}    
+    article h3{font-size:1.1rem;font-weight:700;color:var(--text);margin:28px 0 8px}
     article p{font-size:1rem;line-height:1.8;color:rgba(228,228,231,.85);margin-bottom:16px;text-align:justify}
     article a{color:var(--amber-lt);text-decoration:underline;text-underline-offset:3px}
     article a:hover{color:#fff}
@@ -138,6 +227,28 @@
       text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
     .footer-link:hover{color:var(--text)}
     .footer-sep{color:var(--dim);font-size:.75rem}
+
+    /* Lien Don dans le footer — pill amber discret */
+    .footer-link-don{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      background:rgba(245,158,11,.08);
+      color:var(--amber-lt);
+      border:1px solid rgba(245,158,11,.2);
+      font-size:.82rem;
+      font-weight:700;
+      padding:4px 12px;
+      border-radius:20px;
+      text-decoration:none;
+      transition:all .2s;
+    }
+    .footer-link-don:hover{
+      background:rgba(245,158,11,.16);
+      border-color:rgba(245,158,11,.4);
+      color:#fff;
+    }
+
     .footer-copy{font-size:.8rem;color:var(--dim);line-height:1.6}
     .footer-copy a{color:var(--dim);text-decoration:none}
     .footer-copy a:hover{color:var(--muted)}
@@ -146,6 +257,19 @@
   </style>
 </head>
 <body>
+
+<!-- ══ BANDEAU DON ═════════════════════════════════════════════════
+     Visible sur toutes les pages, fermable, ne réapparaît pas
+     avant 7 jours si l'utilisateur l'a fermé.
+══════════════════════════════════════════════════════════════════ -->
+<div class="don-banner" id="don-banner">
+  <span class="don-banner-text">
+    ☕ Ce site est <em>100 % gratuit</em> — aucune pub, aucune donnée collectée.
+    Si la Montre de Vie t'a été utile, tu peux soutenir le projet.
+  </span>
+  <a class="don-banner-cta" href="/don/">♡ Faire un don</a>
+  <button class="don-banner-close" onclick="closeBanner()" aria-label="Fermer le bandeau">✕</button>
+</div>
 
 <nav class="site-nav">
   <div class="site-nav-inner">
@@ -161,7 +285,7 @@
       <a href="/montre/"  class="nav-link {% if page.url contains '/montre'  %}active{% endif %}">La Montre</a>
       <a href="/score/"   class="nav-link nav-link-score {% if page.url contains '/score' %}active{% endif %}">Score de Vie</a>
       <a href="/blog/"    class="nav-link {% if page.url contains '/blog'    %}active{% endif %}">Blog</a>
-      <a href="/don/"    style="color:var(--amber) class="nav-link {% if page.url contains '/don'    %}active{% endif %}">♡ Don</a>
+      <a href="/don/"     class="nav-link-don {% if page.url contains '/don'  %}active{% endif %}">♡ Don</a>
       <a href="/apropos/" class="nav-link {% if page.url contains '/apropos' %}active{% endif %}">À propos</a>
     </div>
   </div>
@@ -186,7 +310,7 @@
       <span class="footer-sep">·</span>
       <a class="footer-link" href="/faq/">FAQ</a>
       <span class="footer-sep">·</span>
-      <a class="footer-link" style="color:var(--amber) href="/don/">♡ Don</a>
+      <a class="footer-link-don" href="/don/">♡ Soutenir le projet</a>
       <span class="footer-sep">·</span>
       <a class="footer-link" href="/apropos/">À propos</a>
     </div>
@@ -208,5 +332,41 @@
     });
   });
 </script>
+
+<script>
+/* ── Bandeau Don ─────────────────────────────────────────────────
+   - Affiche le bandeau et décale la nav en conséquence
+   - Fermé → ne réapparaît pas avant 7 jours (localStorage)
+   - Si l'utilisateur a déjà cliqué sur "Faire un don" → masqué
+──────────────────────────────────────────────────────────────── */
+(function () {
+  var BANNER_KEY  = 'don_banner_closed';
+  var CLICKED_KEY = 'don_clicked';
+  var DELAY_DAYS  = 7;
+  var banner      = document.getElementById('don-banner');
+
+  function shouldHide() {
+    try {
+      if (localStorage.getItem(CLICKED_KEY)) return true;
+      var ts = localStorage.getItem(BANNER_KEY);
+      if (ts && Date.now() - parseInt(ts) < DELAY_DAYS * 86400000) return true;
+    } catch (e) {}
+    return false;
+  }
+
+  if (shouldHide()) {
+    banner.classList.add('hidden');
+  } else {
+    document.body.classList.add('banner-visible');
+  }
+
+  window.closeBanner = function () {
+    banner.classList.add('hidden');
+    document.body.classList.remove('banner-visible');
+    try { localStorage.setItem(BANNER_KEY, Date.now()); } catch (e) {}
+  };
+})();
+</script>
+
 </body>
 </html>

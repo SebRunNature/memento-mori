@@ -149,15 +149,8 @@
       .nav-link-don{font-size:.75rem;padding:4px 10px}
     }
 
-    /* MAIN — décalage bandeau + nav */
+    /* MAIN — padding-top géré dynamiquement par JS selon hauteur bandeau + nav */
     main{padding-top:60px}
-    /* Le bandeau pousse le contenu vers le bas quand il est visible */
-    body.banner-visible main{padding-top:96px}
-    body.banner-visible .site-nav{top:36px}
-    @media(max-width:600px){
-      body.banner-visible .site-nav{top:44px}
-      body.banner-visible main{padding-top:104px}
-    }
 
     .content-wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px}
     .content-wrap:has(.home){max-width:none;padding:0}

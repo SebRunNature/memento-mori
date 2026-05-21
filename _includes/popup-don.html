@@ -1,0 +1,291 @@
+<!--
+  ══ POPUP DON — montre-de-vie.com ═════════════════════════════════
+  Fichier à placer dans : _includes/popup-don.html
+  Puis inclure dans montre/index.html et score/index.html :
+    {% include popup-don.html %}
+  juste avant la balise </body>.
+
+  Déclenchement :
+  • Montre : appeler donPopup.trigger('montre') dans startLifeClock()
+             après que le décompte démarre (après setInterval)
+  • Score  : appeler donPopup.trigger('score') dans computeFull()
+             après scrollIntoView du résultat
+
+  Logique anti-spam :
+  • Ne s'affiche qu'UNE SEULE FOIS par session (sessionStorage)
+  • Si l'utilisateur a déjà cliqué sur "Faire un don" → jamais plus
+    (localStorage 'don_clicked' posé par la page /don/)
+  ═══════════════════════════════════════════════════════════════ -->
+
+<style>
+/* ── Overlay ── */
+#don-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.72);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+#don-popup-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Boîte ── */
+#don-popup-box {
+  background: var(--surface, #18181b);
+  border: 1px solid rgba(245,158,11,.25);
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  transform: translateY(24px) scale(.97);
+  transition: transform .3s ease;
+  text-align: center;
+}
+#don-popup-overlay.visible #don-popup-box {
+  transform: translateY(0) scale(1);
+}
+
+/* ── Fermer ── */
+#don-popup-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 28px; height: 28px;
+  background: rgba(255,255,255,.07);
+  border: none;
+  border-radius: 50%;
+  color: var(--muted, #71717a);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+#don-popup-close:hover { background: rgba(255,255,255,.14); color: #fff; }
+
+/* ── Icône ── */
+.don-popup-icon {
+  font-size: 2.4rem;
+  display: block;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+
+/* ── Eyebrow ── */
+.don-popup-eyebrow {
+  font-size: .68rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--amber, #f59e0b);
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* ── Titre ── */
+.don-popup-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.don-popup-title em { color: var(--amber-lt, #fde68a); font-style: normal; }
+
+/* ── Texte ── */
+.don-popup-text {
+  font-size: .88rem;
+  color: var(--muted, #71717a);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* ── CTA don ── */
+.don-popup-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  background: #0070BA;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: .92rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  transition: background .15s, transform .1s;
+  margin-bottom: 10px;
+}
+.don-popup-cta:hover { background: #005EA6; color: #fff; transform: translateY(-1px); }
+.don-popup-cta:active { transform: translateY(0); }
+
+/* ── Lien refus ── */
+.don-popup-skip {
+  display: block;
+  font-size: .78rem;
+  color: var(--dim, #52525b);
+  cursor: pointer;
+  transition: color .15s;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: center;
+  padding: 4px 0;
+  font-family: inherit;
+}
+.don-popup-skip:hover { color: var(--muted, #71717a); }
+
+/* ── Séparateur ── */
+.don-popup-divider {
+  height: 1px;
+  background: var(--border, rgba(255,255,255,.08));
+  margin: 20px 0 16px;
+}
+
+/* ── Note sécurité ── */
+.don-popup-secure {
+  font-size: .7rem;
+  color: var(--dim, #52525b);
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  #don-popup-box { padding: 24px 18px 20px; }
+  .don-popup-title { font-size: 1.15rem; }
+}
+</style>
+
+<!-- ── Markup de la popup ── -->
+<div id="don-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="don-popup-title-el">
+  <div id="don-popup-box">
+
+    <button id="don-popup-close" onclick="donPopup.close()" aria-label="Fermer">✕</button>
+
+    <span class="don-popup-icon" id="don-popup-icon">⏱️</span>
+    <span class="don-popup-eyebrow">Projet indépendant · 100 % gratuit</span>
+    <h2 class="don-popup-title" id="don-popup-title-el">
+      Ta <em>Montre de Vie</em> tourne.<br>Le projet, lui, a besoin de toi.
+    </h2>
+    <p class="don-popup-text" id="don-popup-text">
+      Ce décompte est gratuit, sans pub, sans tes données.
+      Si il t'a été utile, un petit don — même 3 € — fait une vraie différence.
+    </p>
+
+    <a class="don-popup-cta"
+       href="/don/"
+       id="don-popup-btn"
+       onclick="donPopup.onDonClick()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      Soutenir le projet
+    </a>
+
+    <div class="don-popup-divider"></div>
+    <button class="don-popup-skip" onclick="donPopup.close()">
+      Non merci, continuer sans don
+    </button>
+    <div class="don-popup-secure">🔒 Via PayPal · Carte acceptée · Aucune obligation</div>
+
+  </div>
+</div>
+
+<!-- ── Script ── -->
+<script>
+var donPopup = (function() {
+
+  var STORAGE_SEEN    = 'don_popup_seen';   // sessionStorage → une fois par session
+  var STORAGE_CLICKED = 'don_clicked';      // localStorage → posé par /don/ au clic PayPal
+
+  // Délai après déclenchement avant affichage (ms)
+  var DELAY_MONTRE = 4000;   // 4 s après lancement du décompte
+  var DELAY_SCORE  = 2500;   // 2,5 s après affichage du résultat
+
+  var _timer = null;
+  var _overlay = document.getElementById('don-popup-overlay');
+
+  // Contenu selon le contexte
+  var CONTENT = {
+    montre: {
+      icon:  '⏱️',
+      title: 'Ta <em>Montre de Vie</em> tourne.<br>Le projet, lui, a besoin de toi.',
+      text:  'Ce décompte est gratuit, sans pub, sans tes données. Si il t\'a été utile, un petit don — même 3 € — fait une vraie différence.'
+    },
+    score: {
+      icon:  '💚',
+      title: 'Ton <em>Score de Vie</em> est calculé.<br>Le projet, lui, a besoin de toi.',
+      text:  'Ce calcul d\'âge biologique est gratuit, sans inscription, sans pub. Si il t\'a apporté quelque chose, un petit don est un grand encouragement.'
+    }
+  };
+
+  function _shouldShow() {
+    // Déjà vu cette session ?
+    try { if (sessionStorage.getItem(STORAGE_SEEN)) return false; } catch(e) {}
+    // A déjà cliqué "Faire un don" (localStorage posé par /don/) ?
+    try { if (localStorage.getItem(STORAGE_CLICKED)) return false; } catch(e) {}
+    return true;
+  }
+
+  function _markSeen() {
+    try { sessionStorage.setItem(STORAGE_SEEN, '1'); } catch(e) {}
+  }
+
+  function _setContent(ctx) {
+    var c = CONTENT[ctx] || CONTENT.montre;
+    document.getElementById('don-popup-icon').textContent = c.icon;
+    document.getElementById('don-popup-title-el').innerHTML = c.title;
+    document.getElementById('don-popup-text').textContent = c.text;
+    // Réhydrater les <em> du titre (innerHTML)
+    document.getElementById('don-popup-title-el').innerHTML = c.title;
+  }
+
+  function _show() {
+    _overlay.classList.add('visible');
+    _markSeen();
+    // Fermer si clic sur l'overlay (hors box)
+    _overlay.addEventListener('click', function(e) {
+      if (e.target === _overlay) close();
+    });
+    // Fermer avec Escape
+    document.addEventListener('keydown', _onKey);
+  }
+
+  function _onKey(e) {
+    if (e.key === 'Escape') close();
+  }
+
+  function trigger(ctx) {
+    if (!_shouldShow()) return;
+    var delay = ctx === 'score' ? DELAY_SCORE : DELAY_MONTRE;
+    _setContent(ctx);
+    clearTimeout(_timer);
+    _timer = setTimeout(_show, delay);
+  }
+
+  function close() {
+    _overlay.classList.remove('visible');
+    clearTimeout(_timer);
+    document.removeEventListener('keydown', _onKey);
+  }
+
+  function onDonClick() {
+    // Marquer que l'utilisateur a cliqué → plus jamais de popup
+    try { localStorage.setItem(STORAGE_CLICKED, Date.now()); } catch(e) {}
+    close();
+  }
+
+  return { trigger: trigger, close: close, onDonClick: onDonClick };
+
+})();
+</script>

@@ -1722,6 +1722,7 @@ function startCountdown(){
   }
   tick();
   setInterval(tick,1000);
+  donPopup.trigger('montre');
 }
 
 // ── SON TICK ─────────────────────────────────────────────────────────────
@@ -2251,5 +2252,6 @@ window.addEventListener('DOMContentLoaded', function(){
     });
   });
 </script>
+  {% include popup-don.html %}
 </body>
 </html>

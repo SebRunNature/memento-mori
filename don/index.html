@@ -1,1 +1,496 @@
+---
+layout: default
+title: "Faire un don — Montre de Vie & Score de Vie"
+description: "Ces outils sont gratuits et le resteront. Si la Montre de Vie ou le Score de Vie t'ont été utiles, un don est une façon de soutenir le projet."
+canonical: "https://montre-de-vie.com/don/"
+---
 
+<style>
+/* ══ PAGE FAIRE UN DON ════════════════════════════════════════════
+   Suit les conventions de layout default.html :
+   .content-wrap = max-width 720px, marges auto, padding 48px 24px
+════════════════════════════════════════════════════════════════ */
+
+/* HERO */
+.don-hero {
+  text-align: center;
+  padding: 48px 0 44px;
+}
+.don-eyebrow {
+  font-size: .72rem;
+  letter-spacing: .3em;
+  color: var(--amber);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.don-hero h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.don-hero h1 em { color: var(--amber-lt); font-style: normal; }
+.don-hero p {
+  font-size: .95rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* SECTION TITLE — identique à .ap-section-title */
+.don-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin: 44px 0 20px;
+}
+
+/* PROSE */
+.don-prose {
+  font-size: .96rem;
+  color: rgba(228,228,231,.82);
+  line-height: 1.85;
+  margin-bottom: 18px;
+}
+.don-prose strong { color: #fff; font-weight: 700; }
+.don-prose em { color: var(--amber-lt); font-style: italic; }
+
+/* CITATION AMBER — identique à .ap-quote */
+.don-quote {
+  background: rgba(9,9,11,.4);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 22px;
+  margin: 28px 0;
+  font-style: italic;
+  font-size: .95rem;
+  color: rgba(253,230,138,.7);
+  line-height: 1.75;
+}
+
+/* CARDS OUTILS */
+.don-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 24px 0 32px;
+}
+.don-tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+  transition: border-color .2s;
+}
+.don-tool-card:hover { border-color: var(--border2); }
+.don-tool-icon {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 10px;
+}
+.don-tool-name {
+  display: block;
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 5px;
+  letter-spacing: -0.01em;
+}
+.don-tool-desc {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.don-free-badge {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--green-lt);
+  background: rgba(0,152,98,.08);
+  border: 1px solid rgba(0,152,98,.2);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* ENGAGEMENTS — identique à .credential-row / .credential-item */
+.don-engagements {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+.don-engagement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+.don-eng-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.don-eng-text {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.don-eng-text strong { color: var(--text); font-weight: 700; }
+
+/* ══ BLOC DE DON PRINCIPAL ══ */
+.don-box {
+  background: linear-gradient(135deg, rgba(245,158,11,.06), rgba(217,119,6,.03));
+  border: 1px solid rgba(245,158,11,.2);
+  border-radius: 16px;
+  padding: 32px 28px;
+  margin: 32px 0;
+  text-align: center;
+}
+.don-box-label {
+  font-size: .72rem;
+  letter-spacing: .3em;
+  color: var(--amber);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.don-box h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.don-box h2 em { color: var(--amber-lt); font-style: normal; }
+.don-box p {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 420px;
+  margin: 0 auto 24px;
+}
+
+/* Boutons montants */
+.don-amounts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.don-amount-btn {
+  padding: 10px 18px;
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: .88rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--muted);
+  transition: all .15s;
+  letter-spacing: -.01em;
+  font-family: inherit;
+}
+.don-amount-btn:hover {
+  border-color: rgba(245,158,11,.5);
+  color: var(--amber-lt);
+  background: rgba(245,158,11,.06);
+}
+.don-amount-btn.active {
+  border-color: var(--amber);
+  border-width: 2px;
+  color: var(--amber-lt);
+  background: rgba(245,158,11,.1);
+}
+
+/* Bouton PayPal principal */
+.don-paypal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+  padding: 15px 24px;
+  background: #0070BA;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  text-decoration: none;
+  letter-spacing: -.01em;
+}
+.don-paypal-btn:hover {
+  background: #005EA6;
+  color: #fff;
+  transform: translateY(-1px);
+}
+.don-paypal-btn:active { transform: translateY(0); }
+
+.don-paypal-logo {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+
+.don-secure-note {
+  font-size: .72rem;
+  color: var(--muted);
+  margin-top: 12px;
+  letter-spacing: .02em;
+}
+
+/* AUTRES FAÇONS DE SOUTENIR */
+.don-alt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.don-alt-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 16px;
+  text-align: center;
+  transition: border-color .2s;
+}
+.don-alt-card:hover { border-color: var(--border2); }
+.don-alt-icon { font-size: 1.4rem; display: block; margin-bottom: 8px; }
+.don-alt-title {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+  margin-bottom: 5px;
+}
+.don-alt-desc {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* MERCI BOX */
+.don-merci {
+  text-align: center;
+  margin-top: 48px;
+  padding: 28px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.don-merci p {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.don-merci strong { color: var(--amber-lt); }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .don-hero { padding: 28px 0 24px; }
+  .don-box { padding: 24px 16px; }
+  .don-tools-grid { grid-template-columns: repeat(2, 1fr); }
+  .don-amounts { gap: 6px; }
+  .don-amount-btn { padding: 9px 14px; font-size: .82rem; }
+}
+</style>
+
+<!-- ══ HERO ══ -->
+<div class="don-hero">
+  <div class="don-eyebrow">Projet indépendant · Luxembourg</div>
+  <h1>Soutenir la <em>Montre de Vie</em></h1>
+  <p>Ces outils sont gratuits, sans publicité, sans collecte de données. Si l'un d'eux t'a été utile, un don — même symbolique — fait une vraie différence.</p>
+</div>
+
+<!-- ══ CE QUE TU SOUTIENS ══ -->
+<h2 class="don-section-title">Ce que tu soutiens</h2>
+
+<p class="don-prose">Ce site ne se monétise pas. Aucune publicité, aucun abonnement, aucune donnée vendue. Le seul moteur derrière ces outils, c'est <strong>du temps personnel</strong> — des centaines d'heures de recherche, de développement et de maintenance.</p>
+
+<div class="don-tools-grid">
+  <div class="don-tool-card">
+    <span class="don-tool-icon">⏱️</span>
+    <span class="don-tool-name">La Montre de Vie</span>
+    <span class="don-tool-desc">Décompte en temps réel jusqu'à ta dernière seconde estimée</span>
+    <span class="don-free-badge">Gratuit</span>
+  </div>
+  <div class="don-tool-card">
+    <span class="don-tool-icon">💚</span>
+    <span class="don-tool-name">Le Score de Vie</span>
+    <span class="don-tool-desc">Calcul de ton âge biologique réel sur 20+ critères scientifiques</span>
+    <span class="don-free-badge">Gratuit</span>
+  </div>
+  <div class="don-tool-card">
+    <span class="don-tool-icon">📅</span>
+    <span class="don-tool-name">Ta vie en semaines</span>
+    <span class="don-tool-desc">Visualisation de chaque semaine vécue et restante</span>
+    <span class="don-free-badge">Gratuit</span>
+  </div>
+  <div class="don-tool-card">
+    <span class="don-tool-icon">🔬</span>
+    <span class="don-tool-name">Méthodologie ouverte</span>
+    <span class="don-tool-desc">Sources scientifiques documentées et vérifiables</span>
+    <span class="don-free-badge">Gratuit</span>
+  </div>
+</div>
+
+<div class="don-quote">
+  Ces données sur la longévité existent, elles sont publiques — elles devraient être accessibles à tous, pas seulement à ceux qui peuvent payer un coach de santé ou une montre à 59 dollars.
+</div>
+
+<!-- ══ BLOC DON PRINCIPAL ══ -->
+<div class="don-box">
+  <div class="don-box-label">Soutien volontaire</div>
+  <h2>Faire un <em>don</em></h2>
+  <p>Choisis un montant ou laisse-le libre. Chaque don va directement dans l'hébergement, le temps de développement, et les futures fonctionnalités.</p>
+
+  <!-- Boutons montants rapides -->
+  <div class="don-amounts">
+    <button class="don-amount-btn" onclick="selectAmount(this,'3')">3 €</button>
+    <button class="don-amount-btn active" onclick="selectAmount(this,'5')">5 €</button>
+    <button class="don-amount-btn" onclick="selectAmount(this,'10')">10 €</button>
+    <button class="don-amount-btn" onclick="selectAmount(this,'20')">20 €</button>
+    <button class="don-amount-btn" onclick="selectAmount(this,'')">Montant libre</button>
+  </div>
+
+  <a class="don-paypal-btn"
+     href="https://www.paypal.com/donate?hosted_button_id=X5VXKN5DES2Z6"
+     id="don-paypal-link"
+     target="_blank"
+     rel="noopener noreferrer">
+    <span class="don-paypal-logo">PayPal</span>
+    <span>Faire un don de <span id="don-amount-display">5 €</span></span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+  </a>
+
+  <div class="don-secure-note">🔒 Paiement sécurisé via PayPal · Carte bancaire acceptée sans compte PayPal</div>
+  <!-- Pixel de suivi PayPal — requis par leurs CGU -->
+  <img alt="" src="https://www.paypal.com/en_LU/i/scr/pixel.gif" width="1" height="1" style="display:none" />
+</div>
+
+<!-- ══ ENGAGEMENTS ══ -->
+<h2 class="don-section-title">Ce que ton don ne finance pas</h2>
+
+<p class="don-prose">Autant être transparent sur comment ce projet fonctionne.</p>
+
+<div class="don-engagements">
+  <div class="don-engagement-item">
+    <span class="don-eng-icon">🚫</span>
+    <span class="don-eng-text"><strong>Pas de publicité</strong> — le don ne remplace pas une régie publicitaire inexistante. Il n'y en aura jamais une, don ou pas.</span>
+  </div>
+  <div class="don-engagement-item">
+    <span class="don-eng-icon">🚫</span>
+    <span class="don-eng-text"><strong>Pas de données vendues</strong> — tes informations restent dans ton navigateur. Aucun serveur ne les touche.</span>
+  </div>
+  <div class="don-engagement-item">
+    <span class="don-eng-icon">🚫</span>
+    <span class="don-eng-text"><strong>Pas de paywall à venir</strong> — les outils existants resteront gratuits, pour tout le monde, quoi qu'il arrive.</span>
+  </div>
+  <div class="don-engagement-item">
+    <span class="don-eng-icon">✅</span>
+    <span class="don-eng-text"><strong>Ce que ça finance vraiment</strong> — l'hébergement, le temps de développement des prochaines fonctionnalités, et la future app mobile (Play Store / App Store).</span>
+  </div>
+</div>
+
+<!-- ══ AUTRES FAÇONS ══ -->
+<h2 class="don-section-title">Pas de budget ? D'autres façons d'aider</h2>
+
+<p class="don-prose">Un don n'est pas la seule façon de soutenir un projet indépendant. Ces actions ne coûtent rien et font une vraie différence.</p>
+
+<div class="don-alt-grid">
+  <div class="don-alt-card">
+    <span class="don-alt-icon">🔗</span>
+    <span class="don-alt-title">Partager</span>
+    <span class="don-alt-desc">Parle de la Montre ou du Score à quelqu'un qui en aurait besoin.</span>
+  </div>
+  <div class="don-alt-card">
+    <span class="don-alt-icon">⭐</span>
+    <span class="don-alt-title">Laisser un avis</span>
+    <span class="don-alt-desc">Un retour honnête sur ce qui marche ou ce qu'il faudrait améliorer.</span>
+  </div>
+  <div class="don-alt-card">
+    <span class="don-alt-icon">📖</span>
+    <span class="don-alt-title">Lire Run Nature</span>
+    <span class="don-alt-desc">Le blog trail & longévité de Sébastien, sur <a href="https://run-nature.com" style="color:var(--amber-lt);text-decoration:none;font-weight:600">run-nature.com</a>.</span>
+  </div>
+</div>
+
+<!-- ══ CTA RETOUR AUX OUTILS ══ -->
+<div class="don-merci">
+  <p>
+    Que tu fasses un don ou non, <strong>merci d'utiliser ces outils</strong> et de leur donner du sens. C'est la meilleure raison de continuer.
+  </p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <a href="/montre/" style="display:inline-flex;align-items:center;gap:8px;
+       background:var(--amber);color:#000;text-decoration:none;
+       padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700;
+       letter-spacing:-.01em;transition:all .2s">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      Lancer la Montre
+    </a>
+    <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;
+       background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;
+       padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;
+       border:1px solid rgba(0,152,98,.25);transition:all .2s">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/>
+      </svg>
+      Calculer mon Score
+    </a>
+  </div>
+</div>
+
+<script>
+// ── Gestion des montants ──────────────────────────────────────────
+// ⚠️  Remplace TON_BUTTON_ID par ton vrai hosted_button_id PayPal
+var PAYPAL_BUTTON_ID = 'X5VXKN5DES2Z6';
+var BASE_URL = 'https://www.paypal.com/donate?hosted_button_id=' + PAYPAL_BUTTON_ID;
+
+function selectAmount(btn, amount) {
+  document.querySelectorAll('.don-amount-btn')
+          .forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+
+  var display = document.getElementById('don-amount-display');
+  var link    = document.getElementById('don-paypal-link');
+
+  if (amount === '') {
+    display.textContent = 'librement';
+    link.href = BASE_URL;
+  } else {
+    display.textContent = amount + '\u00a0€';
+    link.href = BASE_URL + '&amount=' + amount;
+  }
+}
+
+// ── Marqueur pour la popup (déclenche après un don éventuel) ─────
+// Utilisé par la popup contextuelle sur les pages Montre / Score
+document.getElementById('don-paypal-link').addEventListener('click', function() {
+  try { localStorage.setItem('don_clicked', Date.now()); } catch(e) {}
+});
+</script>

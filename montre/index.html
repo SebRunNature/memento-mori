@@ -60,10 +60,18 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
 .nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
   border:1px solid rgba(0,152,98,.2);font-weight:600}
 .nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+.nav-link-don{display:inline-flex;align-items:center;gap:5px;
+  background:rgba(245,158,11,.12);color:var(--amber);
+  border:1px solid rgba(245,158,11,.3);font-size:.82rem;font-weight:700;
+  padding:5px 12px;border-radius:20px;text-decoration:none;
+  letter-spacing:.01em;transition:all .2s}
+.nav-link-don:hover{background:rgba(245,158,11,.22);
+  border-color:rgba(245,158,11,.55);color:var(--amber-lt);transform:translateY(-1px)}
 @media(max-width:600px){
   .site-nav-inner{padding:0 16px}
   .nav-link{font-size:.78rem;padding:5px 8px}
-  .nav-link[href="/apropos/"]{display:none}
+  .nav-link[href="/blog/"]{display:none}
+  .nav-link-don{font-size:.75rem;padding:4px 10px}
 }
 
 /* ── HEADER PAGE ── */
@@ -480,7 +488,7 @@ select option{background:var(--card)}
       <a href="/montre/"  class="nav-link active">La Montre</a>
       <a href="/score/"   class="nav-link nav-link-score">Score de Vie</a>
       <a href="/blog/"    class="nav-link">Blog</a>
-      <a href="/apropos/" class="nav-link">À propos</a>
+      <a href="/don/"     class="nav-link-don">♡ Don</a>
     </div>
   </div>
 </nav>
@@ -1633,7 +1641,7 @@ function buildProfileMessage(s){
     else if (d <  2)   msgs.push('⚖️ Profil équilibré — ton âge bio est proche de ton âge réel.');
     else if (d <  5)   msgs.push('⚠️ Léger vieillissement biologique. Quelques leviers à activer.');
     else               msgs.push('⚠️ Vieillissement biologique marqué. Le Score de Vie a identifié des leviers — applique-les.');
-    msgs.push('🔬 Calcul issu de ton <a href="https://score-de-vie.com" target="_blank" style="color:var(--green-lt)">Score de Vie</a>. Re-fais le test régulièrement pour mesurer tes progrès.');
+    msgs.push('🔬 Calcul issu de ton <a href="/score/" style="color:var(--green-lt)">Score de Vie</a>. Re-fais le test régulièrement pour mesurer tes progrès.');
     if(s.yearsLeft>=40) msgs.push('🌿 Tu as encore beaucoup de sentiers devant toi. Ne les gâche pas sur un canapé.');
     else if(s.yearsLeft<15) msgs.push('⏱️ Chaque seconde compte encore plus. Quelles foulées veux-tu encore poser ?');
     return msgs.join('<br>');
@@ -2218,6 +2226,12 @@ window.addEventListener('DOMContentLoaded', function(){
 .footer-copy{font-size:.8rem;color:#52525b;line-height:1.6}
 .footer-copy a{color:#52525b;text-decoration:none}
 .footer-copy a:hover{color:var(--muted)}
+.footer-link-don{display:inline-flex;align-items:center;gap:5px;
+  background:rgba(245,158,11,.08);color:var(--amber-lt);
+  border:1px solid rgba(245,158,11,.2);font-size:.82rem;font-weight:700;
+  padding:4px 12px;border-radius:20px;text-decoration:none;transition:all .2s}
+.footer-link-don:hover{background:rgba(245,158,11,.16);
+  border-color:rgba(245,158,11,.4);color:#fff}
 </style>
 <footer class="site-footer">
   <div class="site-footer-inner">
@@ -2229,6 +2243,10 @@ window.addEventListener('DOMContentLoaded', function(){
       <a class="footer-link" href="/score/">Score de Vie</a>
       <span class="footer-sep">·</span>
       <a class="footer-link" href="/blog/">Blog</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link" href="/faq/">FAQ</a>
+      <span class="footer-sep">·</span>
+      <a class="footer-link-don" href="/don/">♡ Soutenir le projet</a>
       <span class="footer-sep">·</span>
       <a class="footer-link" href="/apropos/">À propos</a>
     </div>

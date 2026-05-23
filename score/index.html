@@ -51,20 +51,29 @@ body {
   padding-top: 60px;
 }
 
-/* FOND ADN — grande hélice unique, fixe, très discrète */
+/* FOND — collines douces + glow vert, dans le style de la Montre de Vie */
 body::before {
   content: '';
   position: fixed;
-  top: -10%;
-  right: -15%;
-  width: 55vw;
-  height: 120vh;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 800' fill='none'%3E%3Cg stroke='%23009862' opacity='0.07'%3E%3C!-- Brin 1 --%3E%3Cpath d='M100 0 C160 80 160 160 100 240 C40 320 40 400 100 480 C160 560 160 640 100 720 C40 800 40 800 100 800' stroke-width='2' fill='none'/%3E%3C!-- Brin 2 --%3E%3Cpath d='M100 0 C40 80 40 160 100 240 C160 320 160 400 100 480 C40 560 40 640 100 720 C160 800 160 800 100 800' stroke-width='2' fill='none'/%3E%3C!-- Barreaux --%3E%3Cline x1='137' y1='40' x2='63' y2='40' stroke-width='1'/%3E%3Cline x1='153' y1='80' x2='47' y2='80' stroke-width='1'/%3E%3Cline x1='158' y1='120' x2='42' y2='120' stroke-width='1'/%3E%3Cline x1='153' y1='160' x2='47' y2='160' stroke-width='1'/%3E%3Cline x1='137' y1='200' x2='63' y2='200' stroke-width='1'/%3E%3Cline x1='113' y1='240' x2='87' y2='240' stroke-width='1'/%3E%3Cline x1='87' y1='280' x2='113' y2='280' stroke-width='1'/%3E%3Cline x1='63' y1='320' x2='137' y2='320' stroke-width='1'/%3E%3Cline x1='47' y1='360' x2='153' y2='360' stroke-width='1'/%3E%3Cline x1='42' y1='400' x2='158' y2='400' stroke-width='1'/%3E%3Cline x1='47' y1='440' x2='153' y2='440' stroke-width='1'/%3E%3Cline x1='63' y1='480' x2='137' y2='480' stroke-width='1'/%3E%3Cline x1='87' y1='520' x2='113' y2='520' stroke-width='1'/%3E%3Cline x1='113' y1='560' x2='87' y2='560' stroke-width='1'/%3E%3Cline x1='137' y1='600' x2='63' y2='600' stroke-width='1'/%3E%3Cline x1='153' y1='640' x2='47' y2='640' stroke-width='1'/%3E%3Cline x1='158' y1='680' x2='42' y2='680' stroke-width='1'/%3E%3Cline x1='153' y1='720' x2='47' y2='720' stroke-width='1'/%3E%3Cline x1='137' y1='760' x2='63' y2='760' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  pointer-events: none;
+  inset: 0;
   z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 45% at 35% 25%, rgba(0,152,98,0.10) 0%, rgba(9,9,11,0) 60%),
+    linear-gradient(to bottom, #0a0f0d 0%, #0d1410 45%, #09090b 100%);
+}
+/* Collines en bas, superposées, comme les montagnes de la Montre mais en vert doux */
+body::after {
+  content: '';
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 55vh;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 600' preserveAspectRatio='xMidYMax slice'%3E%3Cpath d='M0,320 Q120,250 260,290 Q400,220 540,275 Q680,210 820,265 Q960,205 1100,260 Q1240,215 1440,255 L1440,600 L0,600 Z' fill='%23009862' opacity='0.05'/%3E%3Cpath d='M0,400 Q160,340 320,375 Q480,320 640,370 Q800,325 960,370 Q1120,330 1280,368 Q1360,350 1440,360 L1440,600 L0,600 Z' fill='%23009862' opacity='0.07'/%3E%3Cpath d='M0,490 Q240,455 480,475 Q720,495 960,470 Q1200,450 1440,468 L1440,600 L0,600 Z' fill='%23006b44' opacity='0.09'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
 }
 
 .wrap {
@@ -178,7 +187,7 @@ body::before {
   position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: 14px;
   padding: 48px 40px;
   margin-bottom: 40px;
   overflow: hidden;
@@ -244,7 +253,7 @@ body::before {
   gap: 1px;
   background: var(--border3);
   border: 1px solid var(--border3);
-  border-radius: 2px;
+  border-radius: 10px;
   overflow: hidden;
 }
 .result-meta-item {
@@ -336,7 +345,7 @@ body::before {
   color: var(--green);
   background: var(--green-dim);
   padding: 5px 12px;
-  border-radius: 2px;
+  border-radius: 10px;
 }
 .level-title {
   font-family: 'Nunito',system-ui,sans-serif;
@@ -354,7 +363,7 @@ body::before {
 .qcard {
   background: var(--surface);
   border: 1px solid var(--border2);
-  border-radius: 3px;
+  border-radius: 16px;
   margin-bottom: 12px;
   overflow: hidden;
   transition: border-color 0.2s;
@@ -390,8 +399,8 @@ body::before {
 .qcard-badge {
   font-family: 'Nunito',system-ui,sans-serif;
   font-size: 16px;
-  padding: 3px 10px;
-  border-radius: 2px;
+  padding: 3px 12px;
+  border-radius: 20px;
   background: var(--surface3);
   color: var(--ink3);
   transition: all 0.2s;
@@ -445,8 +454,8 @@ input[type="number"] {
   width: 100%;
   background: var(--surface2);
   border: 1px solid var(--border2);
-  border-radius: 2px;
-  padding: 10px 14px;
+  border-radius: 12px;
+  padding: 12px 16px;
   font-family: 'Nunito',system-ui,sans-serif;
   font-size: 16px;
   color: var(--ink);
@@ -463,8 +472,8 @@ input[type="number"]:focus { border-color: var(--green); }
 .opt {
   background: var(--surface2);
   border: 1px solid var(--border2);
-  border-radius: 2px;
-  padding: 7px 14px;
+  border-radius: 10px;
+  padding: 9px 16px;
   font-family: 'Nunito',system-ui,sans-serif;
   font-size: 16px;
   color: var(--ink2);
@@ -498,7 +507,7 @@ input[type="number"]:focus { border-color: var(--green); }
   margin-top: 8px;
   padding: 6px 12px;
   background: var(--surface2);
-  border-radius: 2px;
+  border-radius: 10px;
   border: 1px solid var(--border2);
 }
 .imc-num {
@@ -517,7 +526,7 @@ input[type="number"]:focus { border-color: var(--green); }
 .grip-accordion {
   margin-top: 10px;
   border: 1px solid var(--border2);
-  border-radius: 2px;
+  border-radius: 10px;
   overflow: hidden;
 }
 .grip-accordion-header {
@@ -575,7 +584,7 @@ input[type="number"]:focus { border-color: var(--green); }
 .grip-th {
   padding: 7px 10px;
   background: var(--surface3);
-  border-radius: 2px;
+  border-radius: 10px;
   font-size: 16px;
 }
 .grip-th-label { color: var(--ink3); font-size: 16px; margin-bottom: 2px; font-family: 'Nunito',system-ui,sans-serif; letter-spacing: 0.08em; }
@@ -597,7 +606,7 @@ input[type="number"]:focus { border-color: var(--green); }
   background: var(--green);
   color: var(--bg);
   border: none;
-  border-radius: 3px;
+  border-radius: 14px;
   padding: 18px 24px;
   font-family: 'Nunito',system-ui,sans-serif;
   font-weight: 700;
@@ -660,7 +669,7 @@ input[type="number"]:focus { border-color: var(--green); }
   padding: 14px 18px;
   background: var(--surface);
   border: 1px solid var(--border2);
-  border-radius: 2px;
+  border-radius: 10px;
   transition: border-color 0.2s;
 }
 .hrow:hover { border-color: var(--border); }
@@ -686,7 +695,7 @@ input[type="number"]:focus { border-color: var(--green); }
   padding: 36px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: 14px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -714,7 +723,7 @@ input[type="number"]:focus { border-color: var(--green); }
   letter-spacing: 0.15em;
   text-transform: uppercase;
   padding: 12px 24px;
-  border-radius: 2px;
+  border-radius: 10px;
   text-decoration: none;
   transition: all 0.2s;
   position: relative;
@@ -733,7 +742,7 @@ input[type="number"]:focus { border-color: var(--green); }
   color: var(--ink3);
   background: var(--surface3);
   padding: 2px 8px;
-  border-radius: 2px;
+  border-radius: 10px;
   margin-left: 8px;
   vertical-align: middle;
 }
@@ -881,7 +890,7 @@ input[type="number"]:focus { border-color: var(--green); }
 .reco-card {
   background: var(--surface);
   border: 1px solid var(--border2);
-  border-radius: 3px;
+  border-radius: 14px;
   padding: 20px 22px;
   display: flex;
   gap: 18px;
@@ -938,7 +947,7 @@ input[type="number"]:focus { border-color: var(--green); }
   display: inline-block;
   background: var(--green-dim);
   padding: 2px 10px;
-  border-radius: 2px;
+  border-radius: 10px;
 }
 
 /* ─── GRAPHIQUE ÉVOLUTION ─── */
@@ -963,7 +972,7 @@ input[type="number"]:focus { border-color: var(--green); }
 .chart-wrap {
   background: var(--surface);
   border: 1px solid var(--border2);
-  border-radius: 3px;
+  border-radius: 14px;
   padding: 24px;
   position: relative;
 }
@@ -1164,7 +1173,8 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
             <button class="opt" onclick="pick(this,'tabac','non')">Non-fumeur ✓</button>
             <button class="opt mid" onclick="pick(this,'tabac','ex')">Ex-fumeur</button>
             <button class="opt mid" onclick="pick(this,'tabac','occ')">Occasionnel</button>
-            <button class="opt bad" onclick="pick(this,'tabac','oui')">Fumeur régulier</button>
+            <button class="opt bad" onclick="pick(this,'tabac','oui')">Régulier — &lt;10/jour</button>
+            <button class="opt bad" onclick="pick(this,'tabac','lourd')">Gros fumeur — &gt;10/jour</button>
           </div>
         </div>
       </div>
@@ -1175,7 +1185,8 @@ canvas#evoChart { width: 100% !important; height: 160px !important; }
             <button class="opt" onclick="pick(this,'alcool','non')">Jamais</button>
             <button class="opt" onclick="pick(this,'alcool','occ')">Occasionnel</button>
             <button class="opt mid" onclick="pick(this,'alcool','mod')">Modéré 1-7v/sem</button>
-            <button class="opt bad" onclick="pick(this,'alcool','eleve')">Élevé 8+/sem</button>
+            <button class="opt bad" onclick="pick(this,'alcool','eleve')">Élevé 8-14/sem</button>
+            <button class="opt bad" onclick="pick(this,'alcool','excessif')">Excessif — +14/sem</button>
           </div>
         </div>
       </div>
@@ -1871,9 +1882,9 @@ function calcBio() {
 
   // ── 1. TABAC — PAR 35.7%, OR 2.87 ──────────────────────────
   // Plus fort facteur unique modifiable. Asymétrique : pas de bonus positif.
-  const tabacMap = { non:0, ex:+1, occ:+3, oui:+8 };
+  const tabacMap = { non:0, ex:+1, occ:+3, oui:+8, lourd:+12 };
   if (D.tabac !== undefined && D.tabac !== null) {
-    const v = cap(tabacMap[D.tabac] ?? 0, 0, 8);
+    const v = cap(tabacMap[D.tabac] ?? 0, 0, 12);
     delta += v; factors.push({ l:'Tabac', v });
   }
 
@@ -1986,8 +1997,8 @@ function calcBio() {
 
   // ── 11. ALCOOL — post-INTERHEART ────────────────────────────
   // Pas de bonus abstinence (post-2018). Excessif abaissé à +2 (bridge.js compromis)
-  const alcoolMap = { non:0, occ:0, mod:+0.5, eleve:+2 };
-  if (D.alcool) { const v=cap(alcoolMap[D.alcool]??0,-0.5,+3); delta+=v; factors.push({l:'Alcool',v}); }
+  const alcoolMap = { non:0, occ:0, mod:+0.5, eleve:+2, excessif:+5 };
+  if (D.alcool) { const v=cap(alcoolMap[D.alcool]??0,-0.5,+5); delta+=v; factors.push({l:'Alcool',v}); }
 
   // ── 12. GRIP STRENGTH — Leong Lancet 2015 ───────────────────
   // Proxy masse musculaire. Plafonné -2/+3.

@@ -256,7 +256,7 @@ canonical: "https://montre-de-vie.com/don/"
 
 
 <!-- ══ MUR DES DONATEURS ══════════════════════════════════════════
-     Pour ajouter un donateur, copier-coller un bloc .don-row
+     Pour ajouter un donateur apres avoir reçu son don, copier-coller un bloc .don-row
      et modifier :
        - .don-avatar : initiales (named) ou icône (anon)
        - .don-avatar class : "named" ou "anon"
@@ -273,8 +273,8 @@ canonical: "https://montre-de-vie.com/don/"
 <div class="don-wall">
   <div class="don-wall-header">
     <span style="font-size:.82rem;color:var(--muted)">Merci à eux ♡</span>
-    <!-- ↓ Mettre à jour ce chiffre quand tu ajoutes un donateur -->
-    <span class="don-wall-count">2 dons reçus</span>
+    <!-- ↓ Mettre à jour ce chiffre quand on doit ajouter un donateur et que qu'il est envoyé l'argent via Payconiq ou paypal -->
+    <span class="don-wall-count">3 dons reçus</span>
   </div>
 
   <div class="don-list">
@@ -301,6 +301,19 @@ canonical: "https://montre-de-vie.com/don/"
       </div>
       <div class="don-right">
         <span class="don-amount">5 €</span>
+        <span class="don-via paypal"><img src="/assets/img/paypal-logo.png" height="10" alt="" aria-hidden="true" style="vertical-align:middle;filter:brightness(0) invert(1);opacity:.85"> PayPal</span>
+      </div>
+    </div>
+
+    <!-- ══ DONATEUR 3 — Prénom + initiale + Payconiq ══ -->
+    <div class="don-row">
+      <div class="don-avatar named">CB</div>
+      <div class="don-info">
+        <div class="don-name">Claudine B.</div>
+        <div class="don-date">📅 26 mai 2026</div>
+      </div>
+      <div class="don-right">
+        <span class="don-amount">1 €</span>
         <span class="don-via paypal"><img src="/assets/img/paypal-logo.png" height="10" alt="" aria-hidden="true" style="vertical-align:middle;filter:brightness(0) invert(1);opacity:.85"> PayPal</span>
       </div>
     </div>

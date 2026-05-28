@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Montre de Vie — Âge biologique & temps restant</title>
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<style>
+:root {
+  --bg:#09090b; --card:#18181b; --card2:#27272a;
+  --text:#e4e4e7; --muted:#71717a; --dim:#52525b;
+  --border:#27272a; --border2:#3f3f46; --radius:14px;
+  --amber:#f59e0b; --amber-dk:#d97706; --amber-lt:#fde68a;
+  --green:#009862; --green-dk:#006b44; --green-lt:#a0facf;
+  --red:#e05555;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+.bg svg{width:100%;height:100%;object-fit:cover}
+.bg-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(9,9,11,.4) 0%,rgba(9,9,11,.1) 40%,rgba(9,9,11,.7) 75%,rgba(9,9,11,.95) 100%)}
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(9,9,11,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.site-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;letter-spacing:-.02em;color:var(--text);text-decoration:none;transition:color .2s}
+.nav-brand:hover{color:#fff}
+.nav-brand-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-brand-icon svg{width:14px;height:14px;stroke:#000}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .2s}
+.nav-link:hover{color:var(--text);background:var(--card2)}
+.nav-link.active{color:var(--text)}
+.nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);border:1px solid rgba(0,152,98,.2);font-weight:600}
+.nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+.nav-link-don{display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.3);font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:20px;text-decoration:none;transition:all .2s}
+.nav-link-don:hover{background:rgba(245,158,11,.22);border-color:rgba(245,158,11,.55);color:var(--amber-lt);transform:translateY(-1px)}
+@media(max-width:600px){.site-nav-inner{padding:0 16px}.nav-link{font-size:.78rem;padding:5px 8px}.nav-link[href="/blog/"]{display:none}.nav-link-don{font-size:.75rem;padding:4px 10px}}
+#app{position:relative;z-index:2;width:100%;max-width:680px;margin:0 auto;padding:84px 22px 80px;animation:fadeUp .9s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.header{text-align:center;margin-bottom:32px;padding-top:8px}
+.eyebrow{font-size:.78rem;letter-spacing:.32em;color:var(--green);text-transform:uppercase;margin-bottom:10px;font-weight:800}
+h1{font-size:clamp(2.2rem,7vw,3.6rem);letter-spacing:1.5px;line-height:1;color:var(--text)}
+h1 em{color:var(--amber-lt);font-style:normal}
+.sub{margin-top:12px;font-size:.95rem;color:var(--muted);font-weight:600;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.6}
+.warning{border:1px solid rgba(200,135,58,.4);background:rgba(200,135,58,.07);color:#e8b070;font-size:.88rem;line-height:1.7;padding:12px 18px;border-radius:var(--radius);margin-bottom:24px;text-align:center;font-weight:700}
+.progress-wrap{margin:0 0 20px;padding:13px 17px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);transition:opacity .3s}
+.progress-wrap.complete{opacity:.5}
+.progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-label{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.progress-pct{font-size:.9rem;letter-spacing:.04em;color:var(--amber-lt)}
+.progress-track{height:4px;background:rgba(45,158,114,.1);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--amber-dk),var(--amber) 60%,var(--amber-lt));border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.level-header{display:flex;align-items:flex-start;gap:14px;margin:28px 0 14px}
+.level-num{font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:2px}
+.level-title{font-size:1.2rem;font-weight:700;color:var(--text)}
+.level-desc{font-size:.8rem;color:var(--muted);font-weight:600;margin-top:2px}
+.level-sep{display:flex;align-items:center;gap:8px;margin:28px 0 0}
+.level-sep-line{flex:1;height:1px;background:var(--border)}
+.level-sep-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.qcard:hover{border-color:var(--border2)}
+.qcard-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s}
+.qcard-header:hover{background:rgba(255,255,255,.025)}
+.qcard-header.open{background:rgba(245,158,11,.04)}
+.qcard-left{display:flex;align-items:center;gap:10px}
+.qcard-icon{font-size:1.15rem;flex-shrink:0}
+.qcard-name{font-size:.9rem;font-weight:700;color:var(--text)}
+.qcard-right{display:flex;align-items:center;gap:10px}
+.qcard-badge{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--card2);color:var(--muted);padding:3px 9px;border-radius:20px}
+.qcard-badge.ok{background:rgba(0,152,98,.15);color:var(--green-lt)}
+.qcard-badge.req{background:rgba(245,158,11,.12);color:var(--amber)}
+.qcard-chevron{font-size:.8rem;color:var(--muted);transition:transform .25s}
+.qcard-header.open .qcard-chevron{transform:rotate(180deg)}
+.qcard-body{display:none;padding:0 18px 18px;animation:fadeDown .2s ease both}
+.qcard-body.open{display:block}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.field-row.full{grid-template-columns:1fr}
+@media(max-width:480px){.field-row{grid-template-columns:1fr}}
+.field-group{display:flex;flex-direction:column;gap:6px}
+.field-label{font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.field-hint{font-size:.76rem;color:var(--muted);font-weight:600;line-height:1.5;margin-top:2px}
+input[type=number]{width:100%;padding:12px 14px;background:var(--card2);border:1px solid var(--border);color:var(--text);border-radius:10px;font-family:'Inter',system-ui,sans-serif;font-size:1rem;font-weight:700;appearance:none;transition:border-color .2s,background .2s}
+input[type=number]:focus{outline:none;border-color:var(--green);background:rgba(39,39,42,.8)}
+input[type=number]::placeholder{color:var(--muted)}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.opt{background:var(--card2);border:1px solid var(--border);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:.82rem;font-weight:600;padding:9px 13px;border-radius:9px;cursor:pointer;transition:all .15s;text-align:left}
+.opt:hover{border-color:var(--border2);background:rgba(63,63,70,.6)}
+.opt.sel{background:rgba(0,152,98,.15);border-color:var(--green);color:var(--green-lt)}
+.opt.mid{border-color:rgba(245,158,11,.25);color:#e8b070}
+.opt.mid.sel{background:rgba(245,158,11,.15);border-color:var(--amber);color:var(--amber-lt)}
+.opt.bad{border-color:rgba(224,85,85,.2);color:#f87171}
+.opt.bad.sel{background:rgba(224,85,85,.12);border-color:var(--red);color:#fca5a5}
+.imc-display{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(0,152,98,.07);border:1px solid rgba(0,152,98,.18);border-radius:9px}
+.imc-num{font-size:1.4rem;font-weight:800;color:var(--green-lt)}
+.imc-cat{font-size:.78rem;font-weight:700;color:var(--muted)}
+.opt-tag{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--card2);padding:2px 8px;border-radius:8px;margin-left:8px}
+.btn-wrap{text-align:center;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.btn-launch{background:linear-gradient(135deg,var(--amber-dk),var(--amber));color:#fff;border:none;padding:18px 52px;cursor:pointer;font-family:'Inter',system-ui,sans-serif;font-size:1.35rem;font-weight:800;letter-spacing:2px;border-radius:14px;transition:all .2s;box-shadow:0 4px 24px rgba(245,158,11,.3)}
+.btn-launch:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,158,11,.45)}
+.btn-launch:active{transform:translateY(0)}
+.btn-disclaimer{font-size:.73rem;color:var(--muted);font-weight:600;text-align:center;margin-top:12px;font-style:italic}
+#results{display:none}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+@media(max-width:520px){.results-grid{grid-template-columns:1fr}}
+.res-block{position:relative;border-radius:var(--radius);overflow:hidden;padding:26px 22px}
+.res-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px}
+.res-block-chrono{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25)}
+.res-block-chrono::before{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.res-block-bio{background:rgba(0,152,98,.06);border:1px solid rgba(0,152,98,.25)}
+.res-block-bio::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.res-block-tag{font-size:.68rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.res-block-chrono .res-block-tag{color:var(--amber)}
+.res-block-bio .res-block-tag{color:var(--green-lt)}
+.res-main-num{font-size:clamp(2.8rem,9vw,4.5rem);font-weight:800;line-height:.9;letter-spacing:-2px}
+.res-block-chrono .res-main-num{color:var(--amber-lt)}
+.res-block-bio .res-main-num{color:var(--green-lt)}
+.res-main-unit{font-size:.88rem;font-weight:600;color:var(--muted);margin-left:4px;vertical-align:bottom;line-height:2.1}
+.res-delta{display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:800;padding:4px 10px;border-radius:20px;margin:10px 0}
+.res-delta.young{background:rgba(0,152,98,.15);color:var(--green-lt)}
+.res-delta.old{background:rgba(224,85,85,.12);color:#fca5a5}
+.res-delta.neu{background:var(--card2);color:var(--muted)}
+.res-sub-rows{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.res-sub-row{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;font-weight:600}
+.res-sub-row .label{color:var(--muted)}
+.res-sub-row .value{font-weight:800;color:var(--text)}
+.res-sub-row .value.accent-amber{color:var(--amber-lt)}
+.res-sub-row .value.accent-green{color:var(--green-lt)}
+.life-bar-wrap{max-width:100%;margin:0 0 6px}
+.life-bar-label{display:flex;justify-content:space-between;font-size:.68rem;font-weight:800;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:7px}
+.life-bar{height:5px;background:rgba(168,240,208,.08);border-radius:3px;overflow:hidden}
+.life-bar-fill{height:100%;background:linear-gradient(to right,var(--green-dk),var(--green),var(--green-lt));border-radius:3px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.cd-section{margin-bottom:28px}
+.cd-section-label{font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px}
+.cd-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:480px){.cd-grid{grid-template-columns:repeat(3,1fr)}}
+.cd-cell{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center}
+.cd-val{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;color:var(--amber-lt);display:block;letter-spacing:-1px;line-height:1}
+.cd-lbl{display:block;font-size:.6rem;font-weight:800;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:5px}
+.quote-line{font-size:.93rem;font-style:italic;color:rgba(168,240,208,.35);text-align:center;margin:20px 0 28px;font-weight:600;line-height:1.7}
+.reco-section{margin-top:28px}
+.reco-title{font-size:1.25rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.reco-sub{font-size:.8rem;color:var(--muted);font-weight:600;margin-bottom:16px;font-style:italic}
+.reco-cards{display:flex;flex-direction:column;gap:10px}
+.reco-card{background:var(--card);border:1px solid rgba(0,152,98,.1);border-radius:12px;padding:17px 19px;display:flex;gap:15px;align-items:flex-start;animation:fadeUp .4s ease both}
+.reco-card:hover{transform:translateX(3px);transition:transform .15s}
+.reco-card:nth-child(1){border-left:3px solid var(--red);animation-delay:.04s}
+.reco-card:nth-child(2){border-left:3px solid var(--amber);animation-delay:.1s}
+.reco-card:nth-child(3){border-left:3px solid var(--green);animation-delay:.16s}
+.reco-rank{font-size:2rem;font-weight:800;line-height:1;min-width:26px;flex-shrink:0;opacity:.4}
+.reco-card:nth-child(1) .reco-rank{color:var(--red)}
+.reco-card:nth-child(2) .reco-rank{color:var(--amber)}
+.reco-card:nth-child(3) .reco-rank{color:var(--green)}
+.reco-body{flex:1}
+.reco-factor{font-size:.67rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.reco-action{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.4}
+.reco-detail{font-size:.8rem;color:rgba(228,228,231,.6);line-height:1.6}
+.reco-gain{font-size:.76rem;color:var(--green);background:rgba(0,152,98,.12);padding:2px 9px;border-radius:8px;margin-top:7px;display:inline-block}
+.result-actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;justify-content:center}
+.result-action{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--border);color:var(--green-lt);font-family:'Inter',system-ui,sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.05em;padding:10px 17px;border-radius:10px;cursor:pointer;transition:all .2s}
+.result-action:hover{border-color:var(--green);background:rgba(0,152,98,.08);color:#fff}
+.result-action svg{width:15px;height:15px;flex-shrink:0}
+.result-action.primary{background:linear-gradient(135deg,var(--amber-dk),var(--amber));border-color:var(--amber);color:#fff}
+.result-action.primary:hover{box-shadow:0 4px 16px rgba(245,158,11,.35);transform:translateY(-1px)}
+.btn-reset{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Inter',system-ui,sans-serif;font-size:.82rem;font-weight:700;padding:9px 16px;border-radius:9px;cursor:pointer;transition:all .2s;text-decoration:none}
+.btn-reset:hover{border-color:var(--border2);color:var(--text)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--green);color:var(--green-lt);padding:12px 22px;border-radius:28px;font-size:.85rem;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:toastIn .3s ease both}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.toast.out{animation:toastOut .3s ease both}
+@keyframes toastOut{from{opacity:1;transform:translateX(-50%) translateY(0)}to{opacity:0;transform:translateX(-50%) translateY(20px)}}
+.share-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.share-overlay.visible{display:flex;animation:fadeIn .25s ease both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.share-modal{background:var(--card);border:1px solid var(--border);border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow:auto;padding:24px;animation:modalIn .3s ease both}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.share-modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.share-modal-title{font-size:1.15rem;font-weight:800;letter-spacing:1px;color:var(--green-lt)}
+.share-modal-close{background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;padding:4px 10px;line-height:1;transition:color .2s}
+.share-modal-close:hover{color:var(--text)}
+.share-preview{width:100%;border-radius:12px;border:1px solid var(--border);margin-bottom:18px;display:block;background:var(--bg)}
+.share-modal-actions{display:flex;gap:10px;flex-wrap:wrap}
+.share-modal-actions .result-action{flex:1;justify-content:center;min-width:140px}
+.share-modal-hint{font-size:.73rem;color:var(--muted);text-align:center;margin-top:14px;font-weight:600;line-height:1.5}
+.grip-accordion{background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.15);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.grip-accordion-header{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;cursor:pointer;font-size:.74rem;font-weight:800;letter-spacing:.06em;color:#e8b070;user-select:none}
+.grip-accordion-body{display:none;padding:0 14px 14px}
+.grip-accordion-body.open{display:block}
+.grip-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.grip-step{display:flex;gap:10px;align-items:flex-start;font-size:.78rem;color:rgba(228,228,231,.75);line-height:1.5}
+.grip-step-n{width:22px;height:22px;background:var(--green-dk);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#fff;flex-shrink:0;margin-top:1px}
+.grip-warning{font-size:.72rem;color:#e8b070;font-weight:700;background:rgba(245,158,11,.07);border-radius:6px;padding:6px 10px;margin-bottom:8px}
+.grip-thresholds{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.grip-th{background:var(--card2);border-radius:7px;padding:8px 10px}
+.grip-th-label{font-size:.67rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.grip-th-val{font-size:.78rem;font-weight:700;color:var(--text);margin-top:1px}
+.hidden{display:none!important}
+.site-footer{background:var(--card);border-top:1px solid var(--border);padding:36px 24px;text-align:center;margin-top:60px;position:relative;z-index:2}
+.site-footer-inner{max-width:1024px;margin:0 auto}
+.footer-links{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.footer-link{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
+.footer-link:hover{color:var(--text)}
+.footer-sep{color:var(--dim);font-size:.75rem}
+.footer-copy{font-size:.8rem;color:var(--dim);line-height:1.6}
+.footer-copy a{color:var(--dim);text-decoration:none}
+.footer-copy a:hover{color:var(--muted)}
+.footer-link-don{display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,.08);color:var(--amber-lt);border:1px solid rgba(245,158,11,.2);font-size:.82rem;font-weight:700;padding:4px 12px;border-radius:20px;text-decoration:none;transition:all .2s}
+.footer-link-don:hover{background:rgba(245,158,11,.16);border-color:rgba(245,158,11,.4);color:#fff}
+</style>
+</head>
+<body>
+<!-- BG -->
+<div class="bg"><svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="g1" cx="30%" cy="25%" r="50%"><stop offset="0%" stop-color="#009862" stop-opacity=".12"/><stop offset="100%" stop-color="#09090b" stop-opacity="0"/></radialGradient><radialGradient id="g2" cx="75%" cy="15%" r="40%"><stop offset="0%" stop-color="#f59e0b" stop-opacity=".06"/><stop offset="100%" stop-color="#09090b" stop-opacity="0"/></radialGradient></defs><rect width="1440" height="900" fill="#09090b"/><rect width="1440" height="900" fill="url(#g1)"/><rect width="1440" height="900" fill="url(#g2)"/><path d="M0,520 Q180,430 360,480 Q540,390 720,450 Q900,380 1080,435 Q1260,390 1440,420 L1440,900 L0,900 Z" fill="#009862" opacity=".04"/><path d="M0,640 Q240,590 480,615 Q720,640 960,608 Q1200,580 1440,600 L1440,900 L0,900 Z" fill="#006b44" opacity=".06"/><path d="M0,760 Q360,730 720,748 Q1080,766 1440,750 L1440,900 L0,900 Z" fill="#006b44" opacity=".08"/></svg></div>
+<div class="bg-overlay"></div>
+<!-- NAV -->
+<nav class="site-nav"><div class="site-nav-inner"><a class="nav-brand" href="/"><div class="nav-brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>Montre de Vie</a><div class="nav-links"><a href="/montre/" class="nav-link active">La Montre</a><a href="/score/" class="nav-link nav-link-score">Score de Vie</a><a href="/blog/" class="nav-link">Blog</a><a href="/don/" class="nav-link-don">♡ Don</a></div></div></nav>
+<!-- APP -->
+<div id="app">
+<!-- SETUP -->
+<div id="setup">
+<div class="header"><div class="eyebrow">Memento Mori</div><h1>Ton décompte <em>réel</em></h1><p class="sub">Âge chronologique, âge biologique, années restantes — tout en un seul calcul.</p></div>
+<div class="warning">⚠ Outil indicatif, pas médical. Plus tu réponds honnêtement, plus le calcul sera juste.</div>
+<div class="progress-wrap" id="progressWrap"><div class="progress-info"><span class="progress-label">Progression</span><span class="progress-pct" id="progressPct">0%</span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+
+<!-- NIVEAU 1 -->
+<div class="level-header"><div><div class="level-num">NIVEAU 01</div><div class="level-title">Profil & Mode de vie</div><div class="level-desc">Les fondations — environ 5 min</div></div></div>
+
+<!-- Profil -->
+<div class="qcard"><div class="qcard-header open" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">👤</span><span class="qcard-name">Profil de base</span></div><div class="qcard-right"><span class="qcard-badge req" id="badge-profil">Requis</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body open"><div class="field-row"><div class="field-group"><label class="field-label">Âge</label><input type="number" id="age" min="1" max="120" placeholder="47" oninput="onInput()"></div><div class="field-group"><label class="field-label">Sexe biologique</label><div class="opts"><button class="opt" onclick="pick(this,'sexe','H')">Homme</button><button class="opt" onclick="pick(this,'sexe','F')">Femme</button></div></div></div></div></div>
+
+<!-- Composition corporelle -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">⚖️</span><span class="qcard-name">Composition corporelle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-corpo">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-row"><div class="field-group"><label class="field-label">Taille (cm)</label><input type="number" id="taille" min="140" max="220" placeholder="175" oninput="onInput();calcImc()"></div><div class="field-group"><label class="field-label">Poids (kg)</label><input type="number" id="poids" min="40" max="200" step=".5" placeholder="70" oninput="onInput();calcImc()"></div></div><div id="imcWrap" style="display:none;margin-bottom:14px"><div class="imc-display"><span class="imc-num" id="imcNum">—</span><span class="imc-cat" id="imcCat">IMC</span></div></div><div class="field-row full"><div class="field-group"><label class="field-label">Tour de taille (cm)</label><input type="number" id="waist" min="50" max="160" placeholder="82" oninput="onInput()"><div class="field-hint">Au niveau du nombril. Idéal : H &lt;94 cm · F &lt;80 cm</div></div></div></div></div>
+
+<!-- Mode de vie -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🌿</span><span class="qcard-name">Mode de vie</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-life">0/4</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Tabac</label><div class="opts"><button class="opt" onclick="pick(this,'tabac','non')">Non-fumeur ✓</button><button class="opt mid" onclick="pick(this,'tabac','ex')">Ex-fumeur</button><button class="opt mid" onclick="pick(this,'tabac','occ')">Occasionnel</button><button class="opt bad" onclick="pick(this,'tabac','oui')">Régulier — &lt;10/jour</button><button class="opt bad" onclick="pick(this,'tabac','lourd')">Gros fumeur — &gt;10/jour</button></div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Alcool (verres/semaine)</label><div class="opts"><button class="opt" onclick="pick(this,'alcool','non')">Jamais ou très rare</button><button class="opt" onclick="pick(this,'alcool','occ')">Occasionnel — 1 à 3</button><button class="opt mid" onclick="pick(this,'alcool','mod')">Modéré — 4 à 7</button><button class="opt bad" onclick="pick(this,'alcool','eleve')">Élevé — 8 à 14</button><button class="opt bad" onclick="pick(this,'alcool','excessif')">Excessif — +14/sem</button></div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Alimentation</label><div class="opts"><button class="opt bad" onclick="pick(this,'alim','mauvaise')">Transformée / fast-food</button><button class="opt mid" onclick="pick(this,'alim','moyenne')">Moyenne</button><button class="opt" onclick="pick(this,'alim','bonne')">Équilibrée — fruits &amp; légumes</button><button class="opt" onclick="pick(this,'alim','excellente')">Méditerranéenne / plants ✓</button></div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Hydratation / jour</label><div class="opts"><button class="opt bad" onclick="pick(this,'hydratation','faible')">Moins de 1 L</button><button class="opt mid" onclick="pick(this,'hydratation','moyen')">1,5 L — correct</button><button class="opt" onclick="pick(this,'hydratation','bon')">2 L et plus ✓</button></div></div></div>
+</div></div>
+
+<!-- Sommeil -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🌙</span><span class="qcard-name">Sommeil</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-sleep">0/2</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Durée par nuit</label><div class="opts"><button class="opt bad" onclick="pick(this,'sleep_dur','&lt;6')">Moins de 6h</button><button class="opt mid" onclick="pick(this,'sleep_dur','6')">6h</button><button class="opt" onclick="pick(this,'sleep_dur','7-8')">7 – 8h ✓</button><button class="opt mid" onclick="pick(this,'sleep_dur','&gt;9')">Plus de 9h</button></div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Qualité subjective</label><div class="opts"><button class="opt bad" onclick="pick(this,'sleep_qual','mauvaise')">Mauvaise — réveils, non récupérateur</button><button class="opt mid" onclick="pick(this,'sleep_qual','moyenne')">Moyenne</button><button class="opt" onclick="pick(this,'sleep_qual','bonne')">Bonne ✓</button><button class="opt" onclick="pick(this,'sleep_qual','excellente')">Excellente — profond, reposant ✓</button></div></div></div>
+</div></div>
+
+<!-- Sport -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🏔️</span><span class="qcard-name">Sport &amp; Activité physique</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-sport">0/4</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Sport modéré (h/sem)</label><input type="number" id="sport_mod_h" min="0" max="40" step=".5" placeholder="Ex : 3" oninput="onInput()"><div class="field-hint">Marche, vélo, yoga…</div></div><div class="field-group"><label class="field-label">Sport intense (h/sem)</label><input type="number" id="sport_int_h" min="0" max="40" step=".5" placeholder="Ex : 2" oninput="onInput()"><div class="field-hint">Trail, HIIT, fractionné…</div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Activité modérée — fréquence</label><div class="opts"><button class="opt bad" onclick="pick(this,'sport_mod','0')">Sédentaire — 0</button><button class="opt mid" onclick="pick(this,'sport_mod','1-3')">1 à 3 h/sem</button><button class="opt" onclick="pick(this,'sport_mod','4-7')">4 à 7 h/sem ✓</button><button class="opt" onclick="pick(this,'sport_mod','&gt;7')">&gt; 7 h/sem ✓</button></div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Activité intense — fréquence</label><div class="opts"><button class="opt mid" onclick="pick(this,'sport_int','0')">Aucune</button><button class="opt" onclick="pick(this,'sport_int','1-3')">1 à 3 h/sem ✓</button><button class="opt" onclick="pick(this,'sport_int','4-6')">4 à 6 h/sem ✓</button><button class="opt mid" onclick="pick(this,'sport_int','&gt;6')">&gt; 6 h/sem — surentraînement ?</button></div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Renforcement musculaire</label><div class="opts"><button class="opt bad" onclick="pick(this,'renfo','jamais')">Jamais</button><button class="opt mid" onclick="pick(this,'renfo','occ')">Occasionnel</button><button class="opt" onclick="pick(this,'renfo','regulier')">Régulier ✓ — 2×/sem ou plus</button></div></div></div>
+</div></div>
+
+<!-- Mental -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🧠</span><span class="qcard-name">Stress &amp; Santé mentale</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-mental">0/5</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Stress chronique</label><div class="opts"><button class="opt bad" onclick="pick(this,'stress','eleve')">Élevé et non géré</button><button class="opt mid" onclick="pick(this,'stress','mod')">Modéré — la vie quoi</button><button class="opt" onclick="pick(this,'stress','faible')">Faible</button><button class="opt" onclick="pick(this,'stress','gere')">Bien géré — méditation, recul ✓</button></div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Humeur générale — 30 derniers jours</label><div class="opts"><button class="opt bad" onclick="pick(this,'humeur','mauvaise')">Souvent sombre ou anxieux</button><button class="opt mid" onclick="pick(this,'humeur','variable')">Variable, hauts et bas</button><button class="opt" onclick="pick(this,'humeur','bonne')">Globalement positif</button><button class="opt" onclick="pick(this,'humeur','excellente')">Stable, serein ✓</button></div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Anxiété chronique</label><div class="opts"><button class="opt bad" onclick="pick(this,'anxiete','eleve')">Élevée — rumination fréquente</button><button class="opt mid" onclick="pick(this,'anxiete','mod')">Modérée</button><button class="opt" onclick="pick(this,'anxiete','faible')">Faible — je gère bien</button><button class="opt" onclick="pick(this,'anxiete','nulle')">Quasi nulle ✓</button></div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Sens — Ikigai</label><div class="field-hint" style="margin-bottom:8px">Tu te lèves le matin avec une raison claire ?</div><div class="opts"><button class="opt bad" onclick="pick(this,'ikigai','absent')">Aucun sens perçu</button><button class="opt mid" onclick="pick(this,'ikigai','flou')">Flou — j'y réfléchis</button><button class="opt" onclick="pick(this,'ikigai','partiel')">Partiel — quelques domaines</button><button class="opt" onclick="pick(this,'ikigai','fort')">Fort — aligné avec mes valeurs ✓</button></div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Énergie mentale quotidienne</label><div class="field-hint" style="margin-bottom:8px">La résistance intérieure — pas la fatigue physique.</div><div class="opts"><button class="opt bad" onclick="pick(this,'friction_energie','tres_haute')">Très haute — tout est effort</button><button class="opt mid" onclick="pick(this,'friction_energie','haute')">Haute — je me traîne</button><button class="opt" onclick="pick(this,'friction_energie','mod')">Modérée — ça passe</button><button class="opt" onclick="pick(this,'friction_energie','faible')">Faible — dans le flux ✓</button></div></div></div>
+</div></div>
+
+<!-- Social & Env -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">👥</span><span class="qcard-name">Liens sociaux &amp; Environnement</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-social">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Qualité des liens sociaux</label><div class="opts"><button class="opt bad" onclick="pick(this,'social','isole')">Isolé</button><button class="opt mid" onclick="pick(this,'social','superficiel')">Relations superficielles</button><button class="opt" onclick="pick(this,'social','bons')">Bons amis, famille présente</button><button class="opt" onclick="pick(this,'social','fort')">Communauté forte ✓</button></div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Pollution atmosphérique</label><div class="opts"><button class="opt" onclick="pick(this,'pollution','faible')">Faible — campagne, nature ✓</button><button class="opt mid" onclick="pick(this,'pollution','moyenne')">Moyenne — ville standard</button><button class="opt bad" onclick="pick(this,'pollution','eleve')">Élevée — grande ville</button><button class="opt bad" onclick="pick(this,'pollution','tres_eleve')">Très élevée — zone industrielle</button></div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Santé financière perçue</label><div class="field-hint" style="margin-bottom:8px">Le stress financier chronique accélère le vieillissement biologique.</div><div class="opts"><button class="opt bad" onclick="pick(this,'finance','stress')">Stress financier permanent</button><button class="opt mid" onclick="pick(this,'finance','incertain')">Incertain — dettes ou épargne nulle</button><button class="opt" onclick="pick(this,'finance','correct')">Correct — dépenses couvertes</button><button class="opt" onclick="pick(this,'finance','serein')">Serein — sécurité et épargne ✓</button></div></div></div>
+</div></div>
+
+<!-- Santé & Génétique -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🧬</span><span class="qcard-name">Santé &amp; Génétique</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-gen">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Bilan médical régulier</label><div class="opts"><button class="opt" onclick="pick(this,'checkup','annuel')">Oui — chaque année ✓</button><button class="opt mid" onclick="pick(this,'checkup','biennal')">Tous les 2–3 ans</button><button class="opt bad" onclick="pick(this,'checkup','jamais')">Jamais — "je me sens bien" 🙈</button></div></div></div>
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Antécédents familiaux</label><div class="opts"><button class="opt" onclick="pick(this,'antecedents','excellents')">Excellents — longévité familiale ✓</button><button class="opt" onclick="pick(this,'antecedents','neutres')">Neutres</button><button class="opt mid" onclick="pick(this,'antecedents','cardio')">Cardio ou cancers après 60 ans ⚠️</button><button class="opt bad" onclick="pick(this,'antecedents','precoces')">Maladies précoces avant 60 ans ❌</button></div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Méditation / pleine conscience</label><div class="opts"><button class="opt mid" onclick="pick(this,'mindfulness','jamais')">Jamais</button><button class="opt" onclick="pick(this,'mindfulness','occ')">Occasionnelle</button><button class="opt" onclick="pick(this,'mindfulness','regulier')">Régulière ✓ — même 5 min/jour</button></div></div></div>
+</div></div>
+
+<!-- NIVEAU 2 -->
+<div class="level-sep"><div class="level-sep-line"></div><div class="level-sep-dot"></div><div class="level-sep-line"></div></div>
+<div class="level-header"><div><div class="level-num">NIVEAU 02</div><div class="level-title">Capacités physiques <span class="opt-tag">Optionnel</span></div><div class="level-desc">VO₂max, force de préhension, vitesse de marche</div></div></div>
+
+<!-- VO2max -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">❤️</span><span class="qcard-name">VO₂max</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-vo2">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">VO₂max mesuré (ml/kg/min)</label><input type="number" id="vo2max" min="10" max="90" placeholder="ex : 54" oninput="onInput()"><div class="field-hint">Ta montre GPS (Garmin, COROS, Polar) te donne cette valeur. Laisse vide si inconnu.</div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Niveau perçu (si VO₂max inconnu)</label><div class="opts"><button class="opt" onclick="pick(this,'vo2_perc','neutre')">Je ne sais pas</button><button class="opt bad" onclick="pick(this,'vo2_perc','faible')">Faible — essoufflé vite</button><button class="opt mid" onclick="pick(this,'vo2_perc','moyen')">Moyen</button><button class="opt" onclick="pick(this,'vo2_perc','bon')">Bon — endurance solide</button><button class="opt" onclick="pick(this,'vo2_perc','elite')">Excellent — athlète confirmé ✓</button></div></div></div>
+</div></div>
+
+<!-- Grip -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🤜</span><span class="qcard-name">Force de préhension</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-grip">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="grip-accordion"><div class="grip-accordion-header" onclick="this.nextElementSibling.classList.toggle('open')"><span>🤜 MESURER AVEC UN PÈSE-PERSONNE</span><span>▼</span></div><div class="grip-accordion-body"><div class="grip-steps"><div class="grip-step"><span class="grip-step-n">1</span><span><strong>Installation</strong> — Pèse-personne sur table solide à hauteur de taille.</span></div><div class="grip-step"><span class="grip-step-n">2</span><span><strong>Position</strong> — Main dominante à plat sur le plateau, doigts dépassant du bord.</span></div><div class="grip-step"><span class="grip-step-n">3</span><span><strong>Action</strong> — Referme les doigts et serre fort 3 secondes.</span></div><div class="grip-step"><span class="grip-step-n">4</span><span><strong>Lecture</strong> — Note le poids maximal. 3 essais, garde le meilleur.</span></div></div><div class="grip-warning">⚠️ Marge d'erreur ~20% vs dynamomètre médical.</div><div class="grip-thresholds"><div class="grip-th"><div class="grip-th-label">Excellent ✓</div><div class="grip-th-val">H &gt;40kg · F &gt;25kg</div></div><div class="grip-th"><div class="grip-th-label">Normal</div><div class="grip-th-val">H 30–40kg · F 20–25kg</div></div><div class="grip-th"><div class="grip-th-label">Faible ⚠️</div><div class="grip-th-val">H 20–30kg · F 15–20kg</div></div><div class="grip-th"><div class="grip-th-label">Très faible ❌</div><div class="grip-th-val">H &lt;20kg · F &lt;15kg</div></div></div></div></div>
+<div class="field-group" style="margin-top:12px"><label class="field-label">Résultat (kg)</label><input type="number" id="grip" min="5" max="80" placeholder="ex : 42" oninput="onInput()"><div class="field-hint" id="gripFeedback">Saisis ton meilleur essai en kg.</div></div>
+</div></div>
+
+<!-- Marche -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🚶</span><span class="qcard-name">Vitesse de marche</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-walk">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Vitesse de marche (m/s)</label><input type="number" id="walk" min="0.3" max="3" step="0.1" placeholder="ex : 1.4" oninput="onInput()"><div class="field-hint">Test 10m : marche normalement, chronomètre. Vitesse = 10 ÷ secondes.<br>Ex : 7s → 1,43 m/s · Excellent &gt;1,4 · Normal 1,2–1,4 · Vigilance &lt;1,2</div></div></div></div>
+
+<!-- NIVEAU 3 -->
+<div class="level-sep"><div class="level-sep-line"></div><div class="level-sep-dot"></div><div class="level-sep-line"></div></div>
+<div class="level-header"><div><div class="level-num">NIVEAU 03</div><div class="level-title">Bilan sanguin <span class="opt-tag">Optionnel</span></div><div class="level-desc">Cholestérol, tension, glycémie, CRP, ferritine, vitamine D</div></div></div>
+
+<!-- Tension -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">💓</span><span class="qcard-name">Tension artérielle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-tension">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Systolique (mmHg)</label><div class="opts"><button class="opt" onclick="pick(this,'tension','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'tension','&lt;120')">&lt; 120 — Optimal ✓</button><button class="opt" onclick="pick(this,'tension','120-129')">120–129 — Normale</button><button class="opt mid" onclick="pick(this,'tension','130-139')">130–139 — Haute ⚠️</button><button class="opt bad" onclick="pick(this,'tension','140-159')">140–159 — HTA G1 ❌</button><button class="opt bad" onclick="pick(this,'tension','&gt;=160')">≥ 160 — HTA G2 ❌</button></div></div></div></div>
+
+<!-- Glycémie -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🍬</span><span class="qcard-name">Glycémie à jeun</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-glyc">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Glycémie à jeun (g/L)</label><div class="opts"><button class="opt" onclick="pick(this,'glycemie','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'glycemie','opt')">0,70–1,00 — Optimal ✓</button><button class="opt mid" onclick="pick(this,'glycemie','limite')">1,01–1,10 — Limite ⚠️</button><button class="opt bad" onclick="pick(this,'glycemie','prediabete')">1,11–1,25 — Prédiabète ❌</button><button class="opt bad" onclick="pick(this,'glycemie','diabete')">≥ 1,26 — Diabète ❌</button></div><div class="field-hint">Pour convertir mg/dL → g/L : divise par 100.</div></div></div></div>
+
+<!-- LDL -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🩸</span><span class="qcard-name">Cholestérol LDL</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-ldl">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><div class="opts"><button class="opt" onclick="pick(this,'ldl','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'ldl','&lt;1.0')">&lt; 1,00 g/L — Optimal ✓</button><button class="opt" onclick="pick(this,'ldl','1.0-1.29')">1,00–1,29 — Normal</button><button class="opt mid" onclick="pick(this,'ldl','1.3-1.59')">1,30–1,59 — Limite haute ⚠️</button><button class="opt bad" onclick="pick(this,'ldl','1.6-1.89')">1,60–1,89 — Élevé ❌</button><button class="opt bad" onclick="pick(this,'ldl','&gt;=1.9')">≥ 1,90 — Très élevé ❌</button></div></div></div></div>
+
+<!-- CRP -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🔥</span><span class="qcard-name">CRP — Inflammation</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-crp">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><div class="opts"><button class="opt" onclick="pick(this,'crp','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'crp','&lt;1')">&lt; 1 mg/L — Excellent ✓</button><button class="opt" onclick="pick(this,'crp','1-3')">1 – 3 mg/L — Normal</button><button class="opt mid" onclick="pick(this,'crp','3-10')">3 – 10 mg/L — Élevé ⚠️</button><button class="opt bad" onclick="pick(this,'crp','&gt;10')">&gt; 10 mg/L — Très élevé ❌</button></div><div class="field-hint">Marqueur d'inflammation systémique. &lt;1 mg/L = excellent.</div></div></div></div>
+
+<!-- Ferritine & VitD -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">⚗️</span><span class="qcard-name">Ferritine &amp; Vitamine D</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-ferr">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Ferritine (ng/mL)</label><div class="opts"><button class="opt" onclick="pick(this,'ferritine','neutre')">Je ne sais pas</button><button class="opt mid" onclick="pick(this,'ferritine','basse')">&lt; 30 — Basse (carence)</button><button class="opt" onclick="pick(this,'ferritine','normale')">30–200 — Normale ✓</button><button class="opt mid" onclick="pick(this,'ferritine','haute')">200–400 — Haute ⚠️</button><button class="opt bad" onclick="pick(this,'ferritine','tres_haute')">&gt; 400 — Très haute ❌</button></div><div class="field-hint">Optimal : 50–150 ng/mL.</div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Vitamine D (ng/mL)</label><div class="opts"><button class="opt" onclick="pick(this,'vitD','neutre')">Je ne sais pas</button><button class="opt bad" onclick="pick(this,'vitD','&lt;20')">&lt; 20 — Déficience ❌</button><button class="opt mid" onclick="pick(this,'vitD','20-29')">20–29 — Insuffisance ⚠️</button><button class="opt" onclick="pick(this,'vitD','30-60')">30–60 — Optimal ✓</button><button class="opt mid" onclick="pick(this,'vitD','&gt;60')">&gt; 60 — Trop élevé ⚠️</button></div><div class="field-hint">Optimal : 40–60 ng/mL. Impact sur immunité, récupération, humeur.</div></div></div>
+</div></div>
+
+<!-- Dentaire & Intestin -->
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🦷</span><span class="qcard-name">Santé dentaire &amp; intestinale</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-dent">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Santé dentaire</label><div class="opts"><button class="opt" onclick="pick(this,'dents','excellente')">Excellente — détartrage régulier ✓</button><button class="opt" onclick="pick(this,'dents','correcte')">Correcte</button><button class="opt mid" onclick="pick(this,'dents','problemes')">Problèmes ponctuels ⚠️</button><button class="opt bad" onclick="pick(this,'dents','parodontite')">Parodontite / infections ❌</button></div><div class="field-hint">La parodontite est un facteur d'inflammation systémique sous-estimé.</div></div></div>
+<div class="field-row full"><div class="field-group"><label class="field-label">Santé intestinale</label><div class="opts"><button class="opt" onclick="pick(this,'intestin','tres_bonne')">Très bonne — transit régulier ✓</button><button class="opt" onclick="pick(this,'intestin','correcte')">Correcte</button><button class="opt mid" onclick="pick(this,'intestin','troubles')">Troubles fréquents ⚠️</button><button class="opt bad" onclick="pick(this,'intestin','maladie')">Maladie chronique (Crohn, RCH) ❌</button></div><div class="field-hint">Le microbiome intestinal est directement lié à l'immunité et la longévité.</div></div></div>
+</div></div>
+
+<!-- BOUTON -->
+<div class="btn-wrap">
+<button class="btn-launch" onclick="lancerCalcul()">⏱ Lancer le calcul</button>
+<p class="btn-disclaimer">Outil indicatif — pas un conseil médical. Basé sur INSEE 2024, PhenoAge, Mandsager 2018, Leong Lancet 2015.</p>
+</div>
+</div><!-- #setup -->
+
+<!-- RÉSULTATS -->
+<div id="results">
+<div class="header" style="margin-bottom:24px"><div class="eyebrow">Memento Mori</div><h1>Tes <em>résultats</em></h1></div>
+
+<div class="results-grid">
+<!-- BLOC CHRONO -->
+<div class="res-block res-block-chrono">
+<div class="res-block-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Âge chronologique</div>
+<div><span class="res-main-num" id="r-chrono-age">—</span><span class="res-main-unit">ans</span></div>
+<div class="res-sub-rows" style="margin-top:14px">
+<div class="res-sub-row"><span class="label">Espérance estimée</span><span class="value accent-amber" id="r-chrono-esperance">— ans</span></div>
+<div class="res-sub-row"><span class="label">Années restantes</span><span class="value" id="r-chrono-restant">—</span></div>
+<div class="res-sub-row"><span class="label">% vie écoulée</span><span class="value" id="r-chrono-pct">—</span></div>
+</div>
+<div style="margin-top:14px">
+<div class="life-bar-label"><span>Naissance</span><span id="r-bar-pct">0%</span></div>
+<div class="life-bar"><div class="life-bar-fill" id="r-bar-fill" style="width:0%"></div></div>
+</div>
+</div>
+<!-- BLOC BIO -->
+<div class="res-block res-block-bio">
+<div class="res-block-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/><path d="M12 2C8.5 5 7 8.5 7 12s1.5 7 5 10"/><path d="M12 2c3.5 3 5 6.5 5 10s-1.5 7-5 10"/></svg>Âge biologique</div>
+<div><span class="res-main-num" id="r-bio-age">—</span><span class="res-main-unit">ans</span></div>
+<div id="r-bio-delta-wrap" style="margin-top:8px"></div>
+<div class="res-sub-rows" style="margin-top:10px">
+<div class="res-sub-row"><span class="label">Espérance bio estimée</span><span class="value accent-green" id="r-bio-esperance">— ans</span></div>
+<div class="res-sub-row"><span class="label">Années restantes bio</span><span class="value" id="r-bio-restant">—</span></div>
+</div>
+</div>
+</div><!-- .results-grid -->
+
+<!-- DÉCOMPTE -->
+<div class="cd-section">
+<div class="cd-section-label">Ton temps restant — en direct</div>
+<div class="cd-grid">
+<div class="cd-cell"><span class="cd-val" id="cd-years">--</span><span class="cd-lbl">Années</span></div>
+<div class="cd-cell"><span class="cd-val" id="cd-days">--</span><span class="cd-lbl">Jours</span></div>
+<div class="cd-cell"><span class="cd-val" id="cd-hours">--</span><span class="cd-lbl">Heures</span></div>
+<div class="cd-cell"><span class="cd-val" id="cd-minutes">--</span><span class="cd-lbl">Minutes</span></div>
+<div class="cd-cell"><span class="cd-val" id="cd-seconds">--</span><span class="cd-lbl">Secondes</span></div>
+</div>
+</div>
+
+<p class="quote-line" id="quote-line">« Chaque foulée compte. Chaque seconde aussi. »</p>
+
+<!-- RECOMMANDATIONS -->
+<div class="reco-section" id="recoSection" style="display:none">
+<div class="reco-title">Tes 3 leviers prioritaires</div>
+<div class="reco-sub">Classés par impact sur ton âge biologique — une action concrète chacun.</div>
+<div class="reco-cards" id="recoCards"></div>
+</div>
+
+<!-- ACTIONS -->
+<div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--border)">
+<div style="text-align:center;font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">⤓ Garder une trace</div>
+<div class="result-actions">
+<button class="result-action primary" onclick="openShareModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Partager mes résultats</button>
+<button class="result-action" onclick="saveResultPDF()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Sauvegarder PDF</button>
+</div>
+<div style="text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+<button class="btn-reset" onclick="resetAll()">↺ Recommencer</button>
+<a href="/grille/" id="btn-grille" class="btn-reset"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="4" rx=".5"/><rect x="10" y="3" width="4" height="4" rx=".5"/><rect x="17" y="3" width="4" height="4" rx=".5"/><rect x="3" y="10" width="4" height="4" rx=".5"/><rect x="10" y="10" width="4" height="4" rx=".5"/><rect x="17" y="10" width="4" height="4" rx=".5"/><rect x="3" y="17" width="4" height="4" rx=".5"/><rect x="10" y="17" width="4" height="4" rx=".5"/><rect x="17" y="17" width="4" height="4" rx=".5"/></svg>Ma vie en semaines</a>
+</div>
+</div>
+</div><!-- #results -->
+</div><!-- #app -->
+
+<!-- MODAL PARTAGE -->
+<div class="share-overlay" id="shareOverlay" onclick="if(event.target===this)closeShareModal()">
+<div class="share-modal">
+<div class="share-modal-header"><div class="share-modal-title">📸 Partager mes résultats</div><button class="share-modal-close" onclick="closeShareModal()">×</button></div>
+<canvas class="share-preview" id="sharePreview" width="1080" height="1080"></canvas>
+<div class="share-modal-actions">
+<button class="result-action primary" onclick="downloadShareImage()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger l'image</button>
+<button class="result-action" onclick="copyShareText()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copier le texte</button>
+</div>
+<p class="share-modal-hint">Image 1080×1080 — parfait pour Instagram, WhatsApp ou Stories.</p>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer"><div class="site-footer-inner"><div class="footer-links"><a class="footer-link" href="/">Accueil</a><span class="footer-sep">·</span><a class="footer-link" href="/montre/">La Montre</a><span class="footer-sep">·</span><a class="footer-link" href="/score/">Score de Vie</a><span class="footer-sep">·</span><a class="footer-link" href="/blog/">Blog</a><span class="footer-sep">·</span><a class="footer-link" href="/faq/">FAQ</a><span class="footer-sep">·</span><a class="footer-link-don" href="/don/">♡ Soutenir le projet</a><span class="footer-sep">·</span><a class="footer-link" href="/apropos/">À propos</a></div><p class="footer-copy">Outil indicatif — pas un conseil médical · © 2026 <a href="https://run-nature.com" target="_blank">Run Nature</a></p></div></footer>
+<script>
+'use strict';
+const D = {};
+let _resultState = null;
+let _countdownInterval = null;
+
+function pick(btn, key, val) {
+  const group = btn.closest('.opts');
+  if (!group) return;
+  group.querySelectorAll('.opt').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  D[key] = val;
+  onInput();
+}
+
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const isOpen = header.classList.contains('open');
+  header.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+function calcImc() {
+  const h = parseFloat(document.getElementById('taille').value);
+  const w = parseFloat(document.getElementById('poids').value);
+  const wrap = document.getElementById('imcWrap');
+  if (!h || !w || h < 140 || w < 40) { wrap.style.display = 'none'; return; }
+  const bmi = w / Math.pow(h / 100, 2);
+  document.getElementById('imcNum').textContent = bmi.toFixed(1);
+  let cat = '', color = 'var(--green-lt)';
+  if (bmi < 18.5)    { cat = 'Maigreur';      color = '#e8b070'; }
+  else if (bmi < 22) { cat = 'Optimal ✓';     color = 'var(--green-lt)'; }
+  else if (bmi < 25) { cat = 'Normal';         color = 'var(--green-lt)'; }
+  else if (bmi < 28) { cat = 'Surpoids léger'; color = '#e8b070'; }
+  else if (bmi < 32) { cat = 'Surpoids';       color = '#e8b070'; }
+  else               { cat = 'Obésité';         color = '#f87171'; }
+  const catEl = document.getElementById('imcCat');
+  catEl.textContent = cat; catEl.style.color = color;
+  wrap.style.display = 'flex';
+}
+
+const PROGRESS_KEYS = ['age','sexe','taille','poids','tabac','alcool','alim','hydratation','sleep_dur','sleep_qual','sport_mod','sport_int','stress','humeur','social','pollution','antecedents'];
+
+function updateProgress() {
+  let filled = 0;
+  const age = parseFloat(document.getElementById('age').value);
+  if (age > 0) filled++;
+  if (parseFloat(document.getElementById('taille').value) > 0) filled++;
+  if (parseFloat(document.getElementById('poids').value) > 0) filled++;
+  ['sexe','tabac','alcool','alim','hydratation','sleep_dur','sleep_qual','sport_mod','sport_int','stress','humeur','social','pollution','antecedents'].forEach(k => { if (D[k]) filled++; });
+  const pct = Math.round((filled / PROGRESS_KEYS.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  if (pct >= 100) document.getElementById('progressWrap').classList.add('complete');
+  else document.getElementById('progressWrap').classList.remove('complete');
+}
+
+function updateBadges() {
+  const age = parseFloat(document.getElementById('age').value);
+  const taille = parseFloat(document.getElementById('taille').value);
+  const poids = parseFloat(document.getElementById('poids').value);
+  const profilOk = age > 0 && D.sexe;
+  setBadge('badge-profil', profilOk ? 'ok' : 'req', profilOk ? '✓ Requis' : 'Requis');
+  const corpoN = (taille > 0 ? 1 : 0) + (poids > 0 ? 1 : 0) + (D.waist ? 1 : 0);
+  setBadge('badge-corpo', corpoN >= 2 ? 'ok' : null, corpoN + '/3');
+  const lifeN = ['tabac','alcool','alim','hydratation'].filter(k => D[k]).length;
+  setBadge('badge-life', lifeN >= 3 ? 'ok' : null, lifeN + '/4');
+  const slN = ['sleep_dur','sleep_qual'].filter(k => D[k]).length;
+  setBadge('badge-sleep', slN >= 2 ? 'ok' : null, slN + '/2');
+  let spN = (D.sport_mod ? 1 : 0) + (D.sport_int ? 1 : 0) + (parseFloat(document.getElementById('sport_mod_h').value) > 0 ? 1 : 0) + (D.renfo ? 1 : 0);
+  spN = Math.min(spN, 4);
+  setBadge('badge-sport', spN >= 3 ? 'ok' : null, spN + '/4');
+  const mN = ['stress','humeur','anxiete','ikigai','friction_energie'].filter(k => D[k]).length;
+  setBadge('badge-mental', mN >= 3 ? 'ok' : null, mN + '/5');
+  const soN = ['social','pollution','finance'].filter(k => D[k]).length;
+  setBadge('badge-social', soN >= 2 ? 'ok' : null, soN + '/3');
+  const gN = ['checkup','antecedents','mindfulness'].filter(k => D[k]).length;
+  setBadge('badge-gen', gN >= 2 ? 'ok' : null, gN + '/3');
+}
+
+function setBadge(id, cls, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = text;
+  el.className = 'qcard-badge' + (cls ? ' ' + cls : '');
+}
+
+function onInput() { updateProgress(); updateBadges(); }
+
+// ── MOTEURS DE CALCUL ──
+
+function baseLifeExpectancy(sexe) { return sexe === 'F' ? 85.7 : 80.0; }
+
+const cap = (v, mn, mx) => Math.max(mn, Math.min(v, mx));
+
+function vo2maxToDelta(vo2, age, sexe) {
+  if (!vo2 || !age || !sexe) return 0;
+  const expected = sexe === 'H' ? Math.max(22, 56.363 - 0.413 * age) : Math.max(18, 44.232 - 0.356 * age);
+  const r = vo2 / expected;
+  if (r > 1.35) return -5; if (r > 1.15) return -3.5; if (r > 1.00) return -1.5;
+  if (r > 0.85) return 0;  if (r > 0.70) return +3;   return +6;
+}
+
+function gripToDelta(grip, sexe) {
+  if (!grip || grip < 5) return 0;
+  const ref = sexe === 'H' ? 42 : 26;
+  if (grip > ref*1.2) return -2; if (grip > ref) return -1; if (grip > ref*.85) return 0;
+  if (grip > ref*.65) return +1.5; return +3;
+}
+
+function walkToDelta(walk) {
+  if (!walk || walk < 0.1) return 0;
+  if (walk > 1.6) return -1.5; if (walk > 1.4) return -1; if (walk > 1.2) return 0;
+  if (walk > 0.8) return +1.5; return +2;
+}
+
+function lifeExpectancyDeltaFromBio(deltaBio, chronoAge) {
+  if (chronoAge == null) return -deltaBio;
+  let coef;
+  if (chronoAge <= 25)      coef = 0.6;
+  else if (chronoAge <= 45) coef = 0.6 + (chronoAge-25)*(0.2/20);
+  else if (chronoAge <= 65) coef = 0.8 + (chronoAge-45)*(0.2/20);
+  else if (chronoAge <= 80) coef = 1.0 + (chronoAge-65)*(0.2/15);
+  else                      coef = 1.2;
+  return -deltaBio * coef;
+}
+
+function calcBioAge() {
+  const age = parseFloat(document.getElementById('age').value);
+  if (!age || !D.sexe) return null;
+  let delta = 0;
+  const factors = [];
+
+  // 1. Tabac
+  const tabacMap = { non:0, ex:+1, occ:+3, oui:+8, lourd:+12 };
+  if (D.tabac !== undefined) { const v=cap(tabacMap[D.tabac]??0,0,12); delta+=v; factors.push({l:'Tabac',v}); }
+
+  // 2. VO2max
+  const vo2 = parseFloat(document.getElementById('vo2max').value) || null;
+  if (vo2 && D.sexe) {
+    const v = cap(vo2maxToDelta(vo2, age, D.sexe), -5, +6);
+    delta += v; factors.push({l:'VO₂max', v, n:`${vo2} ml/kg/min`});
+  } else if (D.vo2_perc && D.vo2_perc !== 'neutre') {
+    const mp = { faible:+4, moyen:+1, bon:-1.5, elite:-4 };
+    const v = cap(mp[D.vo2_perc]??0,-4,+4);
+    delta+=v; factors.push({l:'VO₂max (estimé)',v});
+  }
+
+  // 3. LDL
+  const ldlMap = { neutre:0,'<1.0':-2,'1.0-1.29':0,'1.3-1.59':+1.5,'1.6-1.89':+4,'>=1.9':+6 };
+  if (D.ldl) { const v=cap(ldlMap[D.ldl]??0,-2,+6); delta+=v; factors.push({l:'Cholestérol LDL',v}); }
+
+  // 4. Tension
+  const tensionMap = { neutre:0,'<120':-1,'120-129':0,'130-139':+2,'140-159':+4,'>=160':+6 };
+  if (D.tension) { const v=cap(tensionMap[D.tension]??0,-1,+4); delta+=v; factors.push({l:'Tension artérielle',v}); }
+
+  // 5. Glycémie
+  const glycMap = { neutre:0, opt:-1, limite:+1.5, prediabete:+3.5, diabete:+5 };
+  if (D.glycemie) { const v=cap(glycMap[D.glycemie]??0,-1,+5); delta+=v; factors.push({l:'Glycémie',v}); }
+
+  // 6. Obésité
+  const h = parseFloat(document.getElementById('taille').value) || null;
+  const w = parseFloat(document.getElementById('poids').value) || null;
+  const waist = parseFloat(document.getElementById('waist').value) || null;
+  let obDelta = 0;
+  if (h && w) {
+    const bmi = w / Math.pow(h/100, 2);
+    const vbmi = bmi<18.5?+1 : bmi<22?-1 : bmi<25?0 : bmi<28?+1 : bmi<32?+2 : +3;
+    obDelta += vbmi; factors.push({l:'IMC', v:cap(vbmi,-1,+3), n:`${bmi.toFixed(1)} kg/m²`});
+  }
+  if (waist && D.sexe) {
+    const lim = D.sexe==='H' ? 94 : 80;
+    const vw = waist<lim*.9?-0.5 : waist<lim?0 : waist<lim*1.1?+1 : +1.5;
+    obDelta+=vw; factors.push({l:'Tour de taille',v:cap(vw,-0.5,+1.5),n:`${waist} cm`});
+  }
+  delta += cap(obDelta, -1.5, 3);
+
+  // 7. Stress / humeur / anxiété
+  let stressDelta = 0;
+  const stressMap = { eleve:+2, mod:+0.5, faible:0, gere:-0.5 };
+  if (D.stress) { stressDelta += stressMap[D.stress]??0; factors.push({l:'Stress chronique',v:stressMap[D.stress]??0}); }
+  const humeurMap = { mauvaise:+1.5, variable:+0.5, bonne:0, excellente:-0.5 };
+  if (D.humeur) { stressDelta += humeurMap[D.humeur]??0; factors.push({l:'Humeur / stabilité',v:humeurMap[D.humeur]??0}); }
+  const anxieteMap = { eleve:+1.5, mod:+0.5, faible:0, nulle:-0.5 };
+  if (D.anxiete) { stressDelta += anxieteMap[D.anxiete]??0; factors.push({l:'Anxiété chronique',v:anxieteMap[D.anxiete]??0}); }
+  delta += cap(stressDelta, -1, +3);
+
+  // 8. Sommeil
+  const slDurMap = {'<6':+3,'6':+1.5,'7-8':-2,'>9':+1.5};
+  const slQMap = { mauvaise:+1.5, moyenne:+0.5, bonne:0, excellente:-1.5 };
+  if (D.sleep_dur) { const v=cap(slDurMap[D.sleep_dur]??0,-2,+3); delta+=v; factors.push({l:'Sommeil (durée)',v}); }
+  if (D.sleep_qual){ const v=cap(slQMap[D.sleep_qual]??0,-1.5,+1.5); delta+=v; factors.push({l:'Sommeil (qualité)',v}); }
+
+  // 9. Sport
+  const sportModMap = {'0':+1,'1-3':0,'4-7':-1,'>7':-1.5};
+  const sportIntMap = {'0':+1,'1-3':-0.5,'4-6':-1.5,'>6':-0.5};
+  const renfoMap = { jamais:+1, occ:0, regulier:-1 };
+  if (D.sport_mod) { const v=cap(sportModMap[D.sport_mod]??0,-1.5,+1); delta+=v; factors.push({l:'Sport modéré',v}); }
+  if (D.sport_int) { const v=cap(sportIntMap[D.sport_int]??0,-1.5,+1); delta+=v; factors.push({l:'Sport intense',v}); }
+  if (D.renfo)     { const v=cap(renfoMap[D.renfo]??0,-1,+1); delta+=v; factors.push({l:'Renforcement muscu',v}); }
+
+  // 10. Alimentation
+  const alimMap = { mauvaise:+1.5, moyenne:+0.5, bonne:0, excellente:-2 };
+  if (D.alim) { const v=cap(alimMap[D.alim]??0,-2,+1.5); delta+=v; factors.push({l:'Alimentation',v}); }
+
+  // 11. Alcool
+  const alcoolMap = { non:0, occ:0, mod:+0.5, eleve:+2, excessif:+5 };
+  if (D.alcool) { const v=cap(alcoolMap[D.alcool]??0,-0.5,+5); delta+=v; factors.push({l:'Alcool',v}); }
+
+  // 12. Grip
+  const grip = parseFloat(document.getElementById('grip').value) || null;
+  if (grip && D.sexe) { const v=cap(gripToDelta(grip,D.sexe),-2,+3); delta+=v; factors.push({l:'Grip strength',v,n:`${grip} kg`}); }
+
+  // 13. Marche
+  const walk = parseFloat(document.getElementById('walk').value) || null;
+  if (walk) { const v=cap(walkToDelta(walk),-1.5,+2); delta+=v; factors.push({l:'Vitesse marche',v,n:`${walk} m/s`}); }
+
+  // 14. CRP
+  const crpMap = { neutre:0,'<1':-1,'1-3':0,'3-10':+2,'>10':+3 };
+  if (D.crp) { const v=cap(crpMap[D.crp]??0,-1,+3); delta+=v; factors.push({l:'CRP (inflammation)',v}); }
+
+  // 15. Facteurs secondaires
+  const ikigaiMap   = { absent:+1, flou:+0.5, partiel:0, fort:-1 };
+  const frictionMap = { tres_haute:+2, haute:+1, mod:+0.5, faible:-0.5 };
+  const financeMap  = { stress:+1.5, incertain:+0.5, correct:0, serein:-0.5 };
+  const socialMap   = { isole:+2, superficiel:+0.5, bons:0, fort:-1 };
+  const pollMap     = { faible:0, moyenne:+0.5, eleve:+1.5, tres_eleve:+2.5 };
+  const ferrMap     = { neutre:0, basse:+1, normale:0, haute:+0.5, tres_haute:+1.5 };
+  const vitDMap     = { neutre:0,'<20':+1,'20-29':+0.5,'30-60':-0.5,'>60':+0.5 };
+  const dentsMap    = { excellente:0, correcte:0, problemes:+0.5, parodontite:+1.5 };
+  const intestinMap = { tres_bonne:0, correcte:0, troubles:+0.5, maladie:+1.5 };
+  const antecMap    = { excellents:-1, neutres:0, cardio:+1, precoces:+2 };
+  const checkupMap  = { annuel:-0.5, biennal:0, jamais:+0.5 };
+
+  if (D.ikigai)           { const v=ikigaiMap[D.ikigai]??0;           delta+=v; factors.push({l:'Sens / Ikigai',v}); }
+  if (D.friction_energie) { const v=frictionMap[D.friction_energie]??0;delta+=v; factors.push({l:'Friction quotidienne',v}); }
+  if (D.finance)          { const v=financeMap[D.finance]??0;          delta+=v; factors.push({l:'Sécurité financière',v}); }
+  if (D.social)           { const v=socialMap[D.social]??0;            delta+=v; factors.push({l:'Liens sociaux',v}); }
+  if (D.pollution)        { const v=pollMap[D.pollution]??0;           delta+=v; factors.push({l:'Pollution',v}); }
+  if (D.ferritine)        { const v=ferrMap[D.ferritine]??0;           delta+=v; factors.push({l:'Ferritine',v}); }
+  if (D.vitD)             { const v=vitDMap[D.vitD]??0;               delta+=v; factors.push({l:'Vitamine D',v}); }
+  if (D.dents)            { const v=dentsMap[D.dents]??0;             delta+=v; factors.push({l:'Santé dentaire',v}); }
+  if (D.intestin)         { const v=intestinMap[D.intestin]??0;       delta+=v; factors.push({l:'Microbiome',v}); }
+  if (D.antecedents)      { const v=antecMap[D.antecedents]??0;       delta+=v; factors.push({l:'Génétique',v}); }
+  if (D.checkup)          { const v=checkupMap[D.checkup]??0;         delta+=v; factors.push({l:'Suivi médical',v}); }
+
+  delta = Math.max(-12, Math.min(delta, 18));
+  delta = Math.round(delta * 2) / 2;
+  return { bioAge: Math.round(age + delta), delta, factors };
+}
+
+function calcChronoExpectancy() {
+  const age = parseFloat(document.getElementById('age').value);
+  if (!age || !D.sexe) return null;
+  let base = baseLifeExpectancy(D.sexe);
+  let deltaEV = 0;
+  const tobEV  = { non:0, ex:-1, occ:-3, oui:-8, lourd:-12 };
+  const alcEV  = { non:0, occ:0, mod:-0.5, eleve:-2, excessif:-5 };
+  const slEV   = {'<6':-3,'6':-1.5,'7-8':+2,'>9':-1.5};
+  const strEV  = { eleve:-3, mod:-1, faible:0, gere:+0.5 };
+  const socEV  = { isole:-2, superficiel:-0.5, bons:0, fort:+1 };
+  const pollEV = { faible:0, moyenne:-0.5, eleve:-1.5, tres_eleve:-2.5 };
+  const alimEV = { mauvaise:-5, moyenne:0, bonne:+2, excellente:+5 };
+  const antEV  = { precoces:-2, cardio:-1, neutres:0, excellents:+1 };
+  if (D.tabac)      deltaEV += tobEV[D.tabac]??0;
+  if (D.alcool)     deltaEV += alcEV[D.alcool]??0;
+  if (D.sleep_dur)  deltaEV += slEV[D.sleep_dur]??0;
+  if (D.stress)     deltaEV += strEV[D.stress]??0;
+  if (D.social)     deltaEV += socEV[D.social]??0;
+  if (D.pollution)  deltaEV += pollEV[D.pollution]??0;
+  if (D.alim)       deltaEV += alimEV[D.alim]??0;
+  if (D.antecedents)deltaEV += antEV[D.antecedents]??0;
+  // Sport heures
+  const smod = parseFloat(document.getElementById('sport_mod_h').value) || 0;
+  const sint = parseFloat(document.getElementById('sport_int_h').value) || 0;
+  deltaEV += Math.min((smod*0.8)+(sint*1.5), 8);
+  // IMC
+  const hv = parseFloat(document.getElementById('taille').value);
+  const wv = parseFloat(document.getElementById('poids').value);
+  if (hv && wv) {
+    const bmi = wv / Math.pow(hv/100, 2);
+    const vbmi = bmi<18.5?+1 : bmi<22?-1 : bmi<25?0 : bmi<28?+1 : bmi<32?+2 : +3;
+    deltaEV += -lifeExpectancyDeltaFromBio(vbmi, age);
+  }
+  // Biomarqueurs
+  const ldlEV  = { neutre:0,'<1.0':+1,'1.0-1.29':0,'1.3-1.59':-1,'1.6-1.89':-3,'>=1.9':-5 };
+  const tensEV = { neutre:0,'<120':+1,'120-129':0,'130-139':-1,'140-159':-4,'>=160':-6 };
+  const glycEV = { neutre:0, opt:+1, limite:-1, prediabete:-4, diabete:-7 };
+  if (D.ldl)     deltaEV += ldlEV[D.ldl]??0;
+  if (D.tension) deltaEV += tensEV[D.tension]??0;
+  if (D.glycemie)deltaEV += glycEV[D.glycemie]??0;
+  const vo2v = parseFloat(document.getElementById('vo2max').value) || null;
+  if (vo2v && D.sexe) deltaEV += -lifeExpectancyDeltaFromBio(vo2maxToDelta(vo2v, age, D.sexe), age);
+  const totalLife = Math.round(Math.max(base + deltaEV, age + 1));
+  const yearsLeft = Math.max(totalLife - age, 1);
+  const pct = Math.min(Math.round((age / totalLife) * 100), 99);
+  return { totalLife, yearsLeft, pct };
+}
+
+function lancerCalcul() {
+  const age = parseFloat(document.getElementById('age').value);
+  if (!age || isNaN(age) || age < 1 || age > 120) { showToast('⚠ Entre ton âge pour commencer !'); document.getElementById('age').focus(); return; }
+  if (!D.sexe) { showToast('⚠ Sélectionne ton sexe biologique !'); return; }
+  const bio = calcBioAge();
+  const chrono = calcChronoExpectancy();
+  if (!bio || !chrono) return;
+  _resultState = { age, bio, chrono, timestamp: Date.now() };
+  try { localStorage.setItem('unified_result', JSON.stringify({ age, sexe:D.sexe, bioAge:bio.bioAge, bioDelta:bio.delta, totalLife:chrono.totalLife, yearsLeft:chrono.yearsLeft, timestamp:Date.now() })); } catch(e) {}
+  document.getElementById('setup').style.display = 'none';
+  const resEl = document.getElementById('results');
+  resEl.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  afficherResultats(age, bio, chrono);
+}
+
+function afficherResultats(age, bio, chrono) {
+  document.getElementById('r-chrono-age').textContent = age;
+  document.getElementById('r-chrono-esperance').textContent = chrono.totalLife + ' ans';
+  document.getElementById('r-chrono-restant').textContent = '~' + chrono.yearsLeft + ' ans';
+  document.getElementById('r-chrono-pct').textContent = chrono.pct + '%';
+  document.getElementById('r-bar-pct').textContent = chrono.pct + '% vécu';
+  setTimeout(() => { document.getElementById('r-bar-fill').style.width = chrono.pct + '%'; }, 300);
+
+  document.getElementById('r-bio-age').textContent = bio.bioAge;
+  const d = bio.delta;
+  const dStr = (d >= 0 ? '+' : '') + d.toFixed(1) + ' ans';
+  let dClass = 'neu', dLabel = dStr + ' — corps aligné';
+  if (d < -2)  { dClass='young'; dLabel = dStr + ' — corps plus jeune ✓'; }
+  else if (d > 2) { dClass='old'; dLabel = dStr + ' — corps plus vieux'; }
+  document.getElementById('r-bio-delta-wrap').innerHTML = `<span class="res-delta ${dClass}">${dLabel}</span>`;
+
+  const bioYearsLeft = Math.max(Math.round(chrono.totalLife - bio.bioAge), 1);
+  const bioTotalEst  = Math.round(bio.bioAge + bioYearsLeft);
+  document.getElementById('r-bio-esperance').textContent = bioTotalEst + ' ans';
+  document.getElementById('r-bio-restant').textContent = '~' + bioYearsLeft + ' ans';
+  document.getElementById('btn-grille').href = '/grille/?age='+age+'&esperance='+chrono.totalLife;
+
+  const endDate = new Date();
+  endDate.setFullYear(endDate.getFullYear() + Math.floor(chrono.yearsLeft));
+  startCountdown(endDate);
+  buildRecos(bio.factors);
+
+  const quotes = [
+    '« La vie n\'est pas courte, c\'est nous qui la gaspillons. » — Sénèque',
+    '« Tu pourrais quitter la vie à l\'instant même. Laisse cela déterminer ce que tu fais. » — Marc Aurèle',
+    '« Vis comme si tu mourais à chaque instant. » — Marc Aurèle',
+    '« Il n\'y a qu\'une seule façon de vivre longtemps : ne plus gaspiller une journée. » — Épictète'
+  ];
+  document.getElementById('quote-line').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+}
+
+function startCountdown(endDate) {
+  if (_countdownInterval) clearInterval(_countdownInterval);
+  function tick() {
+    const dist = endDate.getTime() - Date.now();
+    if (dist < 0) { ['cd-years','cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(id => { document.getElementById(id).textContent='0'; }); return; }
+    document.getElementById('cd-years').textContent   = Math.floor(dist/(1000*60*60*24*365.25)).toLocaleString('fr-FR');
+    document.getElementById('cd-days').textContent    = Math.floor((dist%(1000*60*60*24*365.25))/(1000*60*60*24));
+    document.getElementById('cd-hours').textContent   = Math.floor((dist%(1000*60*60*24))/(1000*60*60));
+    document.getElementById('cd-minutes').textContent = String(Math.floor((dist%(1000*60*60))/(1000*60))).padStart(2,'0');
+    document.getElementById('cd-seconds').textContent = String(Math.floor((dist%(1000*60))/1000)).padStart(2,'0');
+  }
+  tick();
+  _countdownInterval = setInterval(tick, 1000);
+}
+
+const RECO_DB = {
+  'Tabac':             { action:'Arrêter ou réduire le tabac', detail:'Même une réduction de 50% divise par deux l\'impact sur l\'âge bio. Après 5 ans sans tabac, l\'écart se réduit quasi complètement.', gain:'Jusqu\'à −9 ans' },
+  'Anxiété chronique': { action:'10 min de cohérence cardiaque par jour', detail:'4-7 respirations par minute, matin et soir. Documenté pour réduire le cortisol en 6 semaines. App gratuite : RespiRelax.', gain:'−2 à −4 ans' },
+  'Friction quotidienne':{ action:'Identifier et éliminer 1 source de friction récurrente', detail:'Pas toutes. Une seule. L\'énergie libérée a un effet cascade sur tous les autres facteurs.', gain:'−2 à −5 ans' },
+  'Sommeil (durée)':   { action:'Décaler le coucher de 30 min cette semaine', detail:'30 min de plus par nuit = impact mesurable sur les biomarqueurs en 2 semaines. Évite les écrans 1h avant.', gain:'−2 à −5 ans' },
+  'Sommeil (qualité)': { action:'Chambre à 18–19°C pour un sommeil profond', detail:'La thermorégulation est le signal le plus puissant pour déclencher le sommeil profond. Documenté par Matthew Walker.', gain:'−1 à −2 ans' },
+  'VO₂max':            { action:'Ajouter 2 séances de fractionné/semaine', detail:'30s effort / 30s récup × 8 répétitions. Amélioration mesurable du VO₂max en 4 à 6 semaines.', gain:'−2 à −7 ans' },
+  'VO₂max (estimé)':   { action:'Démarrer 3×/semaine 20 min à allure confortable', detail:'Le VO₂max est le biomarqueur avec le plus fort impact sur la longévité toutes causes confondues.', gain:'−3 à −5 ans' },
+  'Grip strength':     { action:'3 séries de farmer\'s carries 2×/semaine', detail:'Porte des charges lourdes sur 20-30m. La force de préhension répond en 4-8 semaines.', gain:'−2 à −3.5 ans' },
+  'Alimentation':      { action:'Remplacer un repas transformé par légumes + protéines', detail:'Pas de régime. Un seul repas. L\'effet sur l\'inflammation (CRP) est visible en 3 semaines.', gain:'−1.5 à −3.5 ans' },
+  'Alcool':            { action:'Passer sous les 7 verres/semaine', detail:'En dessous de 7 verres, l\'impact cardiovasculaire devient marginal. Remplacer par des alternatives sans alcool le soir.', gain:'−1 à −2.5 ans' },
+  'Stress chronique':  { action:'30 min de marche en nature 3×/semaine', detail:'Le régulateur le plus puissant du système nerveux autonome, documenté. Pas besoin de courir.', gain:'−1 à −3 ans' },
+  'Humeur / stabilité':{ action:'10-20 min de lumière naturelle dès le réveil', detail:'Régule la sérotonine et le cortisol. Gratuit, immédiat, documenté.', gain:'−1 à −2.5 ans' },
+  'Sens / Ikigai':     { action:'Identifier une activité qui combine plaisir + utilité', detail:'Pas une révolution. Un projet 2h/semaine aligné avec tes valeurs suffit à déplacer le sentiment de sens.', gain:'−0.5 à −3 ans' },
+  'Liens sociaux':     { action:'Rejoindre un groupe de pratique partagée', detail:'Running, yoga, rando — peu importe. L\'isolement social a le même effet sur la mortalité que 15 cigarettes/jour.', gain:'−1 à −2 ans' },
+  'Cholestérol LDL':   { action:'Régime méditerranéen : huile d\'olive, poisson, légumineuses', detail:'3 mois réduisent le LDL de 15-20% sans médicament.', gain:'−1 à −3 ans' },
+  'Tension artérielle':{ action:'Réduire le sel et ajouter 20 min de marche/jour', detail:'Combinaison la plus efficace non médicamenteuse. Résultats visibles en 4 semaines.', gain:'−2 à −4 ans' },
+  'Glycémie':          { action:'Marche de 10 min après chaque repas', detail:'Réduit le pic glycémique de 30-40%. Simple, accessible, immédiat.', gain:'−1 à −3 ans' },
+  'Microbiome':        { action:'Ajouter des légumes fermentés à chaque repas', detail:'Choucroute, kimchi, kéfir : diversifient le microbiome en 2-3 semaines.', gain:'−0.5 à −1.5 ans' },
+  'IMC':               { action:'Déficit calorique modéré — 300 kcal/jour', detail:'Soit 1 repas légèrement réduit. -4 kg en 3 mois sans frustration. Associer à du sport.', gain:'−1 à −2 ans' },
+  'Tour de taille':    { action:'Remplacer les glucides rapides par des fibres', detail:'Le tour de taille répond fortement à la réduction des glucides raffinés. Résultats en 6-8 semaines.', gain:'−0.5 à −2 ans' },
+  'CRP (inflammation)':{ action:'Ajouter 2g d\'oméga-3 par jour + réduire le sucre', detail:'Poisson gras, huile de lin ou complément. La CRP répond en 4-6 semaines.', gain:'−0.5 à −2 ans' },
+  'Santé dentaire':    { action:'Détartrage + brossage 2× par jour à la brosse électrique', detail:'La parodontite génère une inflammation systémique. Un détartrage annuel divise le risque par 3.', gain:'−0.5 à −1.5 ans' },
+  'Sécurité financière':{ action:'Virement automatique épargne — même 50€/mois', detail:'Ce n\'est pas le montant qui compte : c\'est la sensation de contrôle sur l\'avenir.', gain:'−1 à −2 ans' },
+};
+
+function buildRecos(factors) {
+  if (!factors || factors.length === 0) return;
+  const sorted = factors.filter(f => f.v > 0).sort((a,b) => b.v - a.v).slice(0,3);
+  if (sorted.length === 0) { document.getElementById('recoSection').style.display = 'none'; return; }
+  const container = document.getElementById('recoCards');
+  container.innerHTML = '';
+  sorted.forEach((f, i) => {
+    const reco = RECO_DB[f.l];
+    if (!reco) return;
+    const card = document.createElement('div');
+    card.className = 'reco-card';
+    card.innerHTML = `<div class="reco-rank">${i+1}</div><div class="reco-body"><div class="reco-factor">${f.l}</div><div class="reco-action">${reco.action}</div><div class="reco-detail">${reco.detail}</div><span class="reco-gain">Gain potentiel : ${reco.gain}</span></div>`;
+    container.appendChild(card);
+  });
+  document.getElementById('recoSection').style.display = 'block';
+}
+
+function resetAll() {
+  Object.keys(D).forEach(k => delete D[k]);
+  document.querySelectorAll('.opt').forEach(b => b.classList.remove('sel'));
+  document.querySelectorAll('input[type=number]').forEach(el => { el.value = ''; });
+  document.getElementById('imcWrap').style.display = 'none';
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('setup').style.display = 'block';
+  if (_countdownInterval) clearInterval(_countdownInterval);
+  updateProgress(); updateBadges();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showToast(msg) {
+  const old = document.querySelector('.toast');
+  if (old) old.remove();
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 350); }, 3000);
+}
+
+function openShareModal() {
+  document.getElementById('shareOverlay').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+  drawShareCanvas();
+}
+function closeShareModal() {
+  document.getElementById('shareOverlay').classList.remove('visible');
+  document.body.style.overflow = '';
+}
+
+function drawShareCanvas() {
+  const canvas = document.getElementById('sharePreview');
+  const ctx = canvas.getContext('2d');
+  const W = 1080, H = 1080;
+  canvas.width = W; canvas.height = H;
+  ctx.fillStyle = '#09090b'; ctx.fillRect(0, 0, W, H);
+  const grd = ctx.createRadialGradient(300, 200, 50, 300, 200, 600);
+  grd.addColorStop(0, 'rgba(0,152,98,0.18)'); grd.addColorStop(1, 'rgba(9,9,11,0)');
+  ctx.fillStyle = grd; ctx.fillRect(0, 0, W, H);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#f59e0b'; ctx.font = 'bold 34px Inter, system-ui, sans-serif';
+  ctx.fillText('MONTRE DE VIE', W/2, 88);
+  ctx.fillStyle = '#71717a'; ctx.font = '22px Inter, system-ui, sans-serif';
+  ctx.fillText('montre-de-vie.com', W/2, 122);
+  ctx.strokeStyle = '#27272a'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(100, 152); ctx.lineTo(980, 152); ctx.stroke();
+  if (!_resultState) return;
+  const { age, bio, chrono } = _resultState;
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#71717a'; ctx.font = 'bold 20px Inter, system-ui, sans-serif';
+  ctx.fillText('ÂGE CHRONOLOGIQUE', 130, 210);
+  ctx.fillStyle = '#fde68a'; ctx.font = 'bold 130px Inter, system-ui, sans-serif';
+  ctx.fillText(age, 130, 360);
+  ctx.fillStyle = '#a1a1aa'; ctx.font = '26px Inter, system-ui, sans-serif';
+  ctx.fillText('ans  ·  espérance estimée ' + chrono.totalLife + ' ans', 130, 408);
+  ctx.fillStyle = '#e4e4e7'; ctx.font = '30px Inter, system-ui, sans-serif';
+  ctx.fillText('~' + chrono.yearsLeft + ' ans restants', 130, 460);
+  ctx.strokeStyle = '#27272a';
+  ctx.beginPath(); ctx.moveTo(100, 510); ctx.lineTo(980, 510); ctx.stroke();
+  ctx.fillStyle = '#71717a'; ctx.font = 'bold 20px Inter, system-ui, sans-serif';
+  ctx.fillText('ÂGE BIOLOGIQUE', 130, 570);
+  ctx.fillStyle = '#a0facf'; ctx.font = 'bold 130px Inter, system-ui, sans-serif';
+  ctx.fillText(bio.bioAge, 130, 720);
+  const dSign = bio.delta >= 0 ? '+' : '';
+  ctx.fillStyle = bio.delta < -2 ? '#a0facf' : bio.delta > 2 ? '#fca5a5' : '#71717a';
+  ctx.font = 'bold 32px Inter, system-ui, sans-serif';
+  ctx.fillText(dSign + bio.delta.toFixed(1) + ' ans vs ton âge réel', 130, 775);
+  ctx.fillStyle = '#52525b'; ctx.font = '18px Inter, system-ui, sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('Outil indicatif — pas un conseil médical', W/2, 960);
+  ctx.fillText(new Date().toLocaleDateString('fr-FR'), W/2, 994);
+}
+
+function downloadShareImage() {
+  const canvas = document.getElementById('sharePreview');
+  const a = document.createElement('a');
+  a.download = 'montre-de-vie-' + new Date().toISOString().slice(0,10) + '.png';
+  a.href = canvas.toDataURL('image/png'); a.click();
+  showToast('✓ Image téléchargée');
+}
+
+function copyShareText() {
+  if (!_resultState) return;
+  const { age, bio, chrono } = _resultState;
+  const txt = `🕐 Montre de Vie\n\nÂge chronologique : ${age} ans\nEspérance estimée : ${chrono.totalLife} ans\nAnnées restantes : ~${chrono.yearsLeft} ans\n\nÂge biologique : ${bio.bioAge} ans (${bio.delta >= 0 ? '+' : ''}${bio.delta.toFixed(1)} ans)\n\nmontre-de-vie.com`;
+  navigator.clipboard.writeText(txt).then(() => showToast('✓ Texte copié'));
+}
+
+function saveResultPDF() {
+  if (typeof window.jspdf === 'undefined' && typeof jsPDF === 'undefined') { showToast('PDF en cours de chargement…'); setTimeout(saveResultPDF, 1200); return; }
+  if (!_resultState) return;
+  const { jsPDF } = window.jspdf || window;
+  const doc = new jsPDF({ unit:'mm', format:'a4' });
+  const { age, bio, chrono } = _resultState;
+  const today = new Date().toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'});
+  doc.setFillColor(9,9,11); doc.rect(0,0,210,28,'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(20); doc.setTextColor(245,158,11);
+  doc.text('MONTRE DE VIE', 20, 18);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(113,113,122);
+  doc.text(today, 190, 18, {align:'right'});
+  let y = 46;
+  doc.setTextColor(40,40,40); doc.setFont('helvetica','bold'); doc.setFontSize(13);
+  doc.text('Âge chronologique', 20, y); y+=9;
+  doc.setDrawColor(220,220,220); doc.line(20,y,190,y); y+=7;
+  doc.setFont('helvetica','normal'); doc.setFontSize(11);
+  doc.text('Âge actuel :', 20, y); doc.setFont('helvetica','bold'); doc.text(age+' ans', 100, y); y+=7;
+  doc.setFont('helvetica','normal'); doc.text('Espérance estimée :', 20, y);
+  doc.setFont('helvetica','bold'); doc.setTextColor(245,158,11); doc.text(chrono.totalLife+' ans', 100, y); doc.setTextColor(40,40,40); y+=7;
+  doc.setFont('helvetica','normal'); doc.text('Années restantes :', 20, y);
+  doc.setFont('helvetica','bold'); doc.text('~'+chrono.yearsLeft+' ans', 100, y); y+=14;
+  doc.setFont('helvetica','bold'); doc.setFontSize(13);
+  doc.text('Âge biologique', 20, y); y+=9;
+  doc.setDrawColor(220,220,220); doc.line(20,y,190,y); y+=7;
+  doc.setFont('helvetica','normal'); doc.setFontSize(11);
+  doc.text('Âge biologique :', 20, y);
+  doc.setFont('helvetica','bold'); doc.setTextColor(0,152,98); doc.text(bio.bioAge+' ans', 100, y); doc.setTextColor(40,40,40); y+=7;
+  doc.setFont('helvetica','normal'); doc.text('Écart vs âge réel :', 20, y);
+  const dSign = bio.delta >= 0 ? '+' : '';
+  doc.setFont('helvetica','bold');
+  if (bio.delta < 0) doc.setTextColor(0,152,98); else if (bio.delta > 0) doc.setTextColor(180,60,60);
+  doc.text(dSign+bio.delta.toFixed(1)+' ans', 100, y); doc.setTextColor(40,40,40); y+=14;
+  doc.setFont('helvetica','italic'); doc.setFontSize(9); doc.setTextColor(100,100,100);
+  const interp = bio.delta < -2 ? 'Ton corps est plus jeune que ton âge réel. Continue.'
+    : bio.delta > 2 ? 'Ton corps vieillit plus vite que prévu. Des leviers sont à activer.'
+    : 'Ton âge biologique est proche de ton âge chronologique.';
+  doc.text(interp, 20, y); y+=14;
+  doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(140,140,140);
+  doc.text('Montre de Vie — montre-de-vie.com  ·  Outil indicatif, non médical.', 105, 287, {align:'center'});
+  doc.save('montre-de-vie-' + new Date().toISOString().slice(0,10) + '.pdf');
+  showToast('✓ PDF téléchargé');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateProgress(); updateBadges();
+});
+</script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "74f8002f-eafa-4b82-9942-48e3ec032bef",
+    safari_web_id: "web.onesignal.auto.01ea4289-b460-45e4-8d90-838752554827",
+    notifyButton: { enable: true },
+  });
+});
+</script>
+</body>
+</html>

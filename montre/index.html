@@ -39,7 +39,7 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;background:va
 .nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
 .nav-link-don{display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.3);font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:20px;text-decoration:none;transition:all .2s}
 .nav-link-don:hover{background:rgba(245,158,11,.22);border-color:rgba(245,158,11,.55);color:var(--amber-lt);transform:translateY(-1px)}
-@media(max-width:600px){.site-nav-inner{padding:0 16px}.nav-link{font-size:.78rem;padding:5px 8px}.nav-link[href="/blog/"]{display:none}.nav-link-don{font-size:.75rem;padding:4px 10px}}
+@media(max-width:600px){.site-nav-inner{padding:0 16px}.nav-link{font-size:.78rem;padding:5px 8px}.nav-link-don{font-size:.75rem;padding:4px 10px}}
 #app{position:relative;z-index:2;width:100%;max-width:680px;margin:0 auto;padding:84px 22px 80px;animation:fadeUp .9s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .header{text-align:center;margin-bottom:32px;padding-top:8px}
@@ -199,6 +199,39 @@ input[type=number]::placeholder{color:var(--muted)}
 .grip-th-label{font-size:.67rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .grip-th-val{font-size:.78rem;font-weight:700;color:var(--text);margin-top:1px}
 .hidden{display:none!important}
+/* ─── GRILLE DE VIE ─── */
+.grille-section{margin:0 0 32px}
+.grille-header{margin-bottom:14px}
+.grille-title{font-size:1.25rem;font-weight:800;color:var(--text);margin-bottom:3px}
+.grille-sub{font-size:.8rem;color:var(--muted);font-weight:600;font-style:italic}
+.grille-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.grille-stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 14px;display:flex;flex-direction:column;gap:2px;flex:1;min-width:90px}
+.grille-stat-val{font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
+.grille-stat-val.amber{color:var(--amber-lt)}
+.grille-stat-val.green{color:var(--green-lt)}
+.grille-stat-val.muted{color:var(--muted)}
+.grille-stat-lbl{font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.grille-legende{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.grille-leg-item{display:flex;align-items:center;gap:6px;font-size:.73rem;font-weight:600;color:var(--muted)}
+.grille-leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.grille-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px;cursor:default}
+.grille-scroll::-webkit-scrollbar{height:3px}
+.grille-scroll::-webkit-scrollbar-track{background:transparent}
+.grille-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.grille-inner{width:fit-content}
+.grille-annees-row{display:flex;gap:2px;margin-bottom:3px;padding-left:0}
+.grille-annee-lbl{font-size:.55rem;color:var(--dim);font-weight:700;width:9px;text-align:center;overflow:hidden;flex-shrink:0;line-height:1}
+@media(max-width:480px){.grille-annee-lbl{width:7px;font-size:.48rem}}
+.grille-rows{display:flex;flex-direction:column;gap:2px}
+.grille-row{display:flex;gap:2px}
+.grille-cell{width:9px;height:9px;border-radius:1.5px;flex-shrink:0;position:relative;transition:transform .08s}
+@media(max-width:480px){.grille-cell{width:7px;height:7px}}
+.grille-cell:hover{transform:scale(1.6);z-index:5}
+.grille-cell.passee{background:var(--amber-dk)}
+.grille-cell.bio-bonus{background:var(--green)}
+.grille-cell.restante{background:var(--card2);border:1px solid rgba(255,255,255,.06)}
+.grille-cell.vide{background:transparent;border:none;pointer-events:none}
+#grilleTooltip{position:fixed;background:var(--card);border:1px solid var(--border2);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:.72rem;font-weight:700;padding:5px 10px;border-radius:7px;pointer-events:none;z-index:9999;white-space:nowrap;display:none;box-shadow:0 4px 14px rgba(0,0,0,.5)}
 .site-footer{background:var(--card);border-top:1px solid var(--border);padding:36px 24px;text-align:center;margin-top:60px;position:relative;z-index:2}
 .site-footer-inner{max-width:1024px;margin:0 auto}
 .footer-links{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}
@@ -378,6 +411,28 @@ input[type=number]::placeholder{color:var(--muted)}
 </div>
 
 <p class="quote-line" id="quote-line">« Chaque foulée compte. Chaque seconde aussi. »</p>
+
+<!-- GRILLE DE VIE -->
+<div class="grille-section" id="grilleSection" style="display:none">
+  <div class="grille-header">
+    <div class="grille-title">Ta vie en semaines</div>
+    <div class="grille-sub">Chaque carré = 1 semaine. Chaque ligne = 1 année.</div>
+  </div>
+  <div class="grille-stats">
+    <div class="grille-stat"><span class="grille-stat-val amber" id="gs-vecues">—</span><span class="grille-stat-lbl">Semaines vécues</span></div>
+    <div class="grille-stat"><span class="grille-stat-val green" id="gs-restantes">—</span><span class="grille-stat-lbl">Semaines restantes</span></div>
+    <div class="grille-stat"><span class="grille-stat-val muted" id="gs-total">—</span><span class="grille-stat-lbl">Total estimé</span></div>
+  </div>
+  <div class="grille-legende">
+    <div class="grille-leg-item"><div class="grille-leg-dot" style="background:var(--amber-dk)"></div>Semaines vécues</div>
+    <div class="grille-leg-item"><div class="grille-leg-dot" style="background:var(--green)"></div>Avantage biologique</div>
+    <div class="grille-leg-item"><div class="grille-leg-dot" style="background:var(--card2);border:1px solid rgba(255,255,255,.1)"></div>Semaines à venir</div>
+  </div>
+  <div class="grille-scroll">
+    <div class="grille-inner" id="grilleInner"></div>
+  </div>
+</div>
+<div id="grilleTooltip"></div>
 
 <!-- RECOMMANDATIONS -->
 <div class="reco-section" id="recoSection" style="display:none">
@@ -757,6 +812,7 @@ function afficherResultats(age, bio, chrono) {
   endDate.setFullYear(endDate.getFullYear() + Math.floor(chrono.yearsLeft));
   startCountdown(endDate);
   buildRecos(bio.factors);
+  buildGrille(age, chrono, bio);
 
   const quotes = [
     '« La vie n\'est pas courte, c\'est nous qui la gaspillons. » — Sénèque',
@@ -808,6 +864,68 @@ const RECO_DB = {
   'Sécurité financière':{ action:'Virement automatique épargne — même 50€/mois', detail:'Ce n\'est pas le montant qui compte : c\'est la sensation de contrôle sur l\'avenir.', gain:'−1 à −2 ans' },
 };
 
+
+function buildGrille(age, chrono, bio) {
+  const section = document.getElementById("grilleSection");
+  const inner   = document.getElementById("grilleInner");
+  if (!section || !inner) return;
+  const SPY = 52;
+  const totalAns  = chrono.totalLife;
+  const totalSem  = totalAns * SPY;
+  const vecuesSem = Math.round(age * SPY);
+  const bonusSem  = bio.delta < 0 ? Math.round(Math.abs(bio.delta) * SPY) : 0;
+  document.getElementById("gs-vecues").textContent    = vecuesSem.toLocaleString("fr-FR");
+  document.getElementById("gs-restantes").textContent = (totalSem - vecuesSem).toLocaleString("fr-FR");
+  document.getElementById("gs-total").textContent     = totalSem.toLocaleString("fr-FR");
+  inner.innerHTML = "";
+  const tooltip = document.getElementById("grilleTooltip");
+  const anneesRow = document.createElement("div");
+  anneesRow.className = "grille-annees-row";
+  for (let a = 0; a < totalAns; a++) {
+    const lbl = document.createElement("div");
+    lbl.className = "grille-annee-lbl";
+    lbl.textContent = (a % 5 === 0) ? a : "";
+    anneesRow.appendChild(lbl);
+  }
+  inner.appendChild(anneesRow);
+  const rowsDiv = document.createElement("div");
+  rowsDiv.className = "grille-rows";
+  for (let sem = 0; sem < SPY; sem++) {
+    const row = document.createElement("div");
+    row.className = "grille-row";
+    for (let an = 0; an < totalAns; an++) {
+      const semAbs = an * SPY + sem;
+      const cell = document.createElement("div");
+      cell.className = "grille-cell";
+      if (semAbs < vecuesSem) { cell.classList.add("passee"); }
+      else if (bonusSem > 0 && semAbs >= totalSem - bonusSem && semAbs < totalSem) { cell.classList.add("bio-bonus"); }
+      else if (semAbs < totalSem) { cell.classList.add("restante"); }
+      else { cell.classList.add("vide"); }
+      cell.addEventListener("mouseenter", function(e) {
+        if (window.matchMedia("(hover:none)").matches) return;
+        let txt = "Année " + an + " · Semaine " + (sem+1);
+        if (cell.classList.contains("passee")) txt += " — vécue";
+        else if (cell.classList.contains("bio-bonus")) txt += " — avantage biologique";
+        tooltip.textContent = txt;
+        tooltip.style.display = "block";
+      });
+      cell.addEventListener("mousemove", function(e) {
+        tooltip.style.left = (e.clientX + 12) + "px";
+        tooltip.style.top  = (e.clientY - 28) + "px";
+      });
+      cell.addEventListener("mouseleave", function() { tooltip.style.display = "none"; });
+      row.appendChild(cell);
+    }
+    rowsDiv.appendChild(row);
+  }
+  inner.appendChild(rowsDiv);
+  section.style.display = "block";
+  const cells = inner.querySelectorAll(".grille-cell.passee, .grille-cell.restante");
+  cells.forEach(function(c, i) {
+    c.style.opacity = "0";
+    setTimeout(function() { c.style.opacity = ""; }, Math.min(i * 0.15, 600));
+  });
+}
 function buildRecos(factors) {
   if (!factors || factors.length === 0) return;
   const sorted = factors.filter(f => f.v > 0).sort((a,b) => b.v - a.v).slice(0,3);

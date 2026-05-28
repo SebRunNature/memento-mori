@@ -224,7 +224,7 @@ input[type=number]::placeholder{color:var(--muted)}
 <div id="setup">
 <div class="header"><div class="eyebrow">Memento Mori</div><h1>Ton décompte <em>réel</em></h1><p class="sub">Âge chronologique, âge biologique, années restantes — tout en un seul calcul.</p></div>
 <div class="warning">⚠ Outil indicatif, pas médical. Plus tu réponds honnêtement, plus le calcul sera juste.</div>
-<div class="progress-wrap" id="progressWrap"><div class="progress-info"><span class="progress-label">Progression</span><span class="progress-pct" id="progressPct">0%</span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+<div class="progress-wrap" id="progressWrap"><div class="progress-info"><span class="progress-label">Progression</span><div style="display:flex;align-items:center;gap:10px"><span class="progress-pct" id="progressPct">0%</span><button onclick="resetAll()" title="Réinitialiser toutes les données" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Inter',system-ui,sans-serif;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer;transition:all .2s;letter-spacing:.04em" onmouseover="this.style.borderColor='var(--border2)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">↺ Réinitialiser</button></div></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
 
 <!-- NIVEAU 1 -->
 <div class="level-header"><div><div class="level-num">NIVEAU 01</div><div class="level-title">Profil & Mode de vie</div><div class="level-desc">Les fondations — environ 5 min</div></div></div>
@@ -415,7 +415,7 @@ input[type=number]::placeholder{color:var(--muted)}
 </div>
 
 <!-- FOOTER -->
-<footer class="site-footer"><div class="site-footer-inner"><div class="footer-links"><a class="footer-link" href="/">Accueil</a><span class="footer-sep">·</span><a class="footer-link" href="/montre/">La Montre</a><span class="footer-sep">·</span><span class="footer-sep"></span><a class="footer-link" href="/blog/">Blog</a><span class="footer-sep">·</span><a class="footer-link" href="/faq/">FAQ</a><span class="footer-sep">·</span><a class="footer-link-don" href="/don/">♡ Soutenir le projet</a><span class="footer-sep">·</span><a class="footer-link" href="/apropos/">À propos</a></div><p class="footer-copy">Outil indicatif — pas un conseil médical · © 2026 <a href="https://run-nature.com" target="_blank">Run Nature</a></p></div></footer>
+<footer class="site-footer"><div class="site-footer-inner"><div class="footer-links"><a class="footer-link" href="/">Accueil</a><span class="footer-sep">·</span><a class="footer-link" href="/montre/">La Montre</a><span class="footer-sep">·</span><a class="footer-link" href="/blog/">Blog</a><span class="footer-sep">·</span><a class="footer-link" href="/faq/">FAQ</a><span class="footer-sep">·</span><a class="footer-link-don" href="/don/">♡ Soutenir le projet</a><span class="footer-sep">·</span><a class="footer-link" href="/apropos/">À propos</a></div><p class="footer-copy">Outil indicatif — pas un conseil médical · © 2026 <a href="https://run-nature.com" target="_blank">Run Nature</a></p></div></footer>
 <script>
 'use strict';
 const D = {};
@@ -957,8 +957,107 @@ function saveResultPDF() {
   showToast('✓ PDF téléchargé');
 }
 
+// ── PERSISTENCE LOCALSTORAGE ──
+
+const LS_KEY = 'mdv_unified_session';
+
+// Inputs numériques à persister
+const NUMERIC_IDS = ['age','taille','poids','waist','sport_mod_h','sport_int_h','vo2max','grip','walk'];
+
+function saveSession() {
+  try {
+    const numerics = {};
+    NUMERIC_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.value) numerics[id] = el.value;
+    });
+    const session = {
+      D: Object.assign({}, D),
+      numerics,
+      resultState: _resultState,
+      savedAt: Date.now()
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(session));
+  } catch(e) {}
+}
+
+function restoreSession() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return false;
+    const session = JSON.parse(raw);
+    // Périmé après 30 jours
+    if (!session || Date.now() - (session.savedAt||0) > 30*24*3600*1000) return false;
+
+    // Restaurer D
+    if (session.D) Object.assign(D, session.D);
+
+    // Restaurer les inputs numériques
+    if (session.numerics) {
+      Object.entries(session.numerics).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      });
+    }
+
+    // Restaurer les boutons opt sélectionnés
+    Object.entries(D).forEach(([key, val]) => {
+      // Chercher un bouton avec onclick contenant pick(this,'key','val')
+      const btns = document.querySelectorAll('.opt');
+      btns.forEach(btn => {
+        const oc = btn.getAttribute('onclick') || '';
+        // Extraire key et val du onclick="pick(this,'KEY','VAL')"
+        const m = oc.match(/pick\(this,'([^']+)','([^']+)'\)/);
+        if (m && m[1] === key && m[2] === val) {
+          btn.classList.add('sel');
+        }
+      });
+    });
+
+    // Recalculer l'IMC si taille+poids présents
+    calcImc();
+    updateProgress();
+    updateBadges();
+
+    // Si un résultat existait, le réafficher directement
+    if (session.resultState) {
+      _resultState = session.resultState;
+      document.getElementById('setup').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+      afficherResultats(_resultState.age, _resultState.bio, _resultState.chrono);
+    }
+
+    return true;
+  } catch(e) { return false; }
+}
+
+// Hook saveSession sur onInput et lancerCalcul
+const _origOnInput = onInput;
+onInput = function() { _origOnInput(); saveSession(); };
+
+const _origLancer = lancerCalcul;
+lancerCalcul = function() { _origLancer(); saveSession(); };
+
+// Vider le localStorage au reset
+const _origReset = resetAll;
+resetAll = function() {
+  _origReset();
+  try { localStorage.removeItem(LS_KEY); } catch(e) {}
+};
+
+// Sauvegarde défensive sur mobile :
+// visibilitychange = onglet mis en arrière-plan (tab switch, retour home)
+// pagehide         = page déchargée (refresh, navigation)
+// beforeunload     = fallback desktop
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'hidden') saveSession();
+});
+window.addEventListener('pagehide', saveSession);
+window.addEventListener('beforeunload', saveSession);
+
 document.addEventListener('DOMContentLoaded', function() {
-  updateProgress(); updateBadges();
+  const restored = restoreSession();
+  if (!restored) { updateProgress(); updateBadges(); }
 });
 </script>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>

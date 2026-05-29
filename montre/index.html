@@ -1026,7 +1026,9 @@ function showToast(msg) {
 function openShareModal() {
   document.getElementById('shareOverlay').classList.add('visible');
   document.body.style.overflow = 'hidden';
-  if (_canvasDirty) {
+  const canvas = document.getElementById('sharePreview');
+  const isEmpty = !canvas.width || canvas.width < 100;
+  if (_canvasDirty || isEmpty) {
     drawShareCanvas();
     _canvasDirty = false;
   }
@@ -1372,6 +1374,7 @@ function restoreSession() {
     // Si un résultat existait, le réafficher directement
     if (session.resultState) {
       _resultState = session.resultState;
+      _canvasDirty = true;
       document.getElementById('setup').style.display = 'none';
       document.getElementById('results').style.display = 'block';
       afficherResultats(_resultState.age, _resultState.bio, _resultState.chrono);

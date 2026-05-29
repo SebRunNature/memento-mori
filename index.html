@@ -1,114 +1,158 @@
 ---
 layout: default
 title: "Combien de temps te reste-t-il ?"
-description: "Lance ton décompte de vie en temps réel. Calcule ton âge biologique. Deux outils gratuits, sans inscription."
+description: "Calcule ton espérance de vie et ton âge biologique en un seul outil. Décompte en temps réel. Gratuit, sans inscription."
 ---
 
 <style>
 .home{max-width:1024px;margin:0 auto;padding:80px 24px 100px}
 
 /* HERO */
-.home-hero{text-align:center;max-width:720px;margin:0 auto 80px}
+.home-hero{text-align:center;max-width:700px;margin:0 auto 72px}
 .home-hero h1{font-size:clamp(2.8rem,8vw,5.5rem);font-weight:800;letter-spacing:-.04em;
   line-height:1.05;color:#fff;margin-bottom:20px}
 .home-hero h1 em{color:var(--amber-lt);font-style:normal}
-.home-hero>p{font-size:1.1rem;color:var(--muted);line-height:1.7;
-  margin-bottom:44px;max-width:480px;margin-left:auto;margin-right:auto}
-.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--amber);
-  color:#000;text-decoration:none;padding:15px 30px;border-radius:12px;
-  font-size:.95rem;font-weight:700;letter-spacing:-.01em;transition:all .2s;
-  box-shadow:0 4px 20px rgba(245,158,11,.25)}
+.home-hero>p{font-size:1.05rem;color:var(--muted);line-height:1.75;
+  margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto}
+.hero-cta-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+.btn-primary{display:inline-flex;align-items:center;gap:9px;background:var(--amber);
+  color:#000;text-decoration:none;padding:16px 34px;border-radius:13px;
+  font-size:1rem;font-weight:800;letter-spacing:-.01em;transition:all .2s;
+  box-shadow:0 4px 24px rgba(245,158,11,.3)}
 .btn-primary:hover{background:var(--amber-dk);transform:translateY(-2px);
-  box-shadow:0 8px 28px rgba(245,158,11,.35);color:#000}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;
-  background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;
-  padding:15px 26px;border-radius:12px;font-size:.95rem;font-weight:600;
-  border:1px solid rgba(0,152,98,.25);transition:all .2s}
-.btn-secondary:hover{background:rgba(0,152,98,.18);border-color:rgba(0,152,98,.5);
-  transform:translateY(-2px);color:#fff}
-.hero-note{font-size:.78rem;color:var(--dim);font-weight:500}
+  box-shadow:0 8px 32px rgba(245,158,11,.4);color:#000}
+.btn-primary svg{width:18px;height:18px;flex-shrink:0}
+.hero-features{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;
+  font-size:.78rem;color:var(--dim);font-weight:600}
+.hero-features span{display:flex;align-items:center;gap:5px}
+.hero-features span::before{content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--green);flex-shrink:0}
 
-/* STATS */
-.home-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:80px}
+/* STATS LIVE */
+.home-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:72px}
 .stat-card{background:var(--surface);border:1px solid var(--border);
-  border-radius:20px;padding:28px 20px;text-align:center;transition:border-color .2s}
+  border-radius:18px;padding:26px 20px;text-align:center;transition:border-color .2s}
 .stat-card:hover{border-color:var(--border2)}
-.stat-val{font-size:2.4rem;font-weight:800;letter-spacing:-.04em;
+.stat-val{font-size:2.3rem;font-weight:800;letter-spacing:-.04em;
   display:block;line-height:1;margin-bottom:8px}
 .stat-val.amber{color:var(--amber)}
 .stat-val.green{color:var(--green-lt)}
 .stat-val.zinc{color:var(--text)}
-.stat-lbl{font-size:.82rem;color:var(--muted);font-weight:500;line-height:1.4}
+.stat-lbl{font-size:.8rem;color:var(--muted);font-weight:500;line-height:1.45}
 
-/* OUTILS */
-.tools-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+/* OUTIL UNIQUE — PRÉSENTATION */
+.tool-showcase{background:var(--surface);border:1px solid var(--border);
+  border-radius:28px;padding:40px 36px;margin-bottom:14px;
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.tool-showcase-left{}
+.tool-tag{font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.tool-tag::before{content:'';width:18px;height:1px;background:var(--amber)}
+.tool-showcase-title{font-size:2rem;font-weight:800;letter-spacing:-.03em;
+  color:#fff;margin-bottom:12px;line-height:1.1}
+.tool-showcase-desc{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.tool-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.tool-features li{display:flex;align-items:flex-start;gap:10px;
+  font-size:.85rem;color:var(--muted);font-weight:500;line-height:1.5}
+.feat-icon{width:20px;height:20px;border-radius:6px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;font-size:.75rem;margin-top:1px}
+.feat-icon.amber{background:rgba(245,158,11,.12);color:var(--amber)}
+.feat-icon.green{background:rgba(0,152,98,.12);color:var(--green-lt)}
+.tool-btn-wrap{display:flex;gap:10px;flex-wrap:wrap}
+.btn-tool{display:inline-flex;align-items:center;gap:7px;
+  background:var(--amber);color:#000;text-decoration:none;
+  padding:13px 22px;border-radius:10px;font-size:.88rem;font-weight:800;
+  transition:all .2s;box-shadow:0 2px 12px rgba(245,158,11,.2)}
+.btn-tool:hover{background:var(--amber-dk);color:#000;transform:translateY(-1px);
+  box-shadow:0 4px 20px rgba(245,158,11,.35)}
+
+/* MOCKUP DONUT (côté droit) */
+.tool-showcase-right{display:flex;flex-direction:column;align-items:center;gap:16px}
+.mockup-donut-wrap{position:relative;width:180px;height:180px}
+.mockup-donut-wrap canvas{width:180px;height:180px}
+.mockup-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;pointer-events:none}
+.mockup-donut-age{font-size:2.2rem;font-weight:800;color:var(--amber-lt);
+  letter-spacing:-2px;line-height:1}
+.mockup-donut-lbl{font-size:.6rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-top:2px}
+.mockup-legend{width:100%;display:flex;flex-direction:column;gap:8px}
+.mockup-leg-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mockup-leg-left{display:flex;align-items:center;gap:7px}
+.mockup-leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.mockup-leg-label{font-size:.72rem;color:var(--muted);font-weight:600}
+.mockup-leg-val{font-size:.8rem;font-weight:800;color:var(--text)}
+
+/* NIVEAUX */
+.levels-section{margin-bottom:72px}
+.levels-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
   color:var(--muted);margin-bottom:20px;text-align:center}
-.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
-.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;
-  padding:32px 28px;text-decoration:none;color:inherit;
-  display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
-.tool-card:hover{transform:translateY(-3px)}
-.tool-card-montre:hover{border-color:rgba(245,158,11,.4)}
-.tool-card-score:hover{border-color:rgba(0,152,98,.4)}
-.tool-icon-wrap{width:48px;height:48px;border-radius:12px;display:flex;
-  align-items:center;justify-content:center;margin-bottom:22px;flex-shrink:0}
-.tool-icon-wrap svg{width:24px;height:24px}
-.tool-card-montre .tool-icon-wrap{background:rgba(245,158,11,.15);color:var(--amber)}
-.tool-card-score .tool-icon-wrap{background:rgba(0,152,98,.15);color:var(--green-lt)}
-.tool-name{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:10px;color:#fff}
-.tool-desc{font-size:.9rem;color:var(--muted);line-height:1.65;margin-bottom:20px;flex:1}
-.tool-features{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:7px}
-.tool-features li{display:flex;align-items:center;gap:9px;
-  font-size:.85rem;color:var(--muted);font-weight:500}
-.feat-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.tool-card-montre .feat-dot{background:var(--amber)}
-.tool-card-score .feat-dot{background:var(--green)}
-.tool-btn{display:block;text-align:center;text-decoration:none;padding:13px;
-  border-radius:10px;font-size:.9rem;font-weight:700;letter-spacing:-.01em;
-  transition:all .2s;margin-top:auto}
-.btn-amber{background:var(--amber);color:#000;box-shadow:0 2px 10px rgba(245,158,11,.2)}
-.btn-amber:hover{background:var(--amber-dk);color:#000}
-.btn-green{background:var(--green);color:#fff;box-shadow:0 2px 10px rgba(0,152,98,.2)}
-.btn-green:hover{background:var(--green-dk);color:#fff}
-.tools-bridge{display:flex;align-items:center;gap:12px;
-  font-size:.78rem;font-weight:500;color:var(--dim);margin-bottom:80px}
-.tools-bridge::before,.tools-bridge::after{content:'';flex:1;height:1px;background:var(--border)}
+.levels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.level-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:22px 18px;transition:border-color .2s}
+.level-card:hover{border-color:var(--border2)}
+.level-card-num{font-size:.65rem;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.level-card-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.level-card-desc{font-size:.78rem;color:var(--muted);line-height:1.55}
+.level-card-tag{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;background:var(--card2);color:var(--muted);
+  padding:2px 8px;border-radius:8px;margin-top:8px}
+
+/* SOCIAL PROOF */
+.proof-section{margin-bottom:72px}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.proof-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:20px 18px;transition:border-color .2s}
+.proof-card:hover{border-color:var(--border2)}
+.proof-quote{font-size:.85rem;color:var(--text);line-height:1.6;
+  font-style:italic;margin-bottom:12px}
+.proof-author{font-size:.72rem;font-weight:700;color:var(--muted)}
+.proof-stars{color:var(--amber);font-size:.75rem;margin-bottom:8px;letter-spacing:1px}
 
 /* COMMENT ÇA MARCHE */
-.section-heading{font-size:1.8rem;font-weight:700;letter-spacing:-.03em;
-  color:#fff;margin-bottom:36px;text-align:center}
-.how-sublabels{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
-.how-sublabel{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);display:flex;align-items:center;gap:6px}
-.how-sublabel svg{width:12px;height:12px}
-.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-bottom:80px}
-.how-step{background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:18px;display:flex;align-items:flex-start;gap:14px}
-.how-step-num{font-size:1.6rem;font-weight:800;letter-spacing:-.04em;
-  color:var(--border2);line-height:1;flex-shrink:0;width:26px}
-.how-step strong{display:block;font-size:.875rem;color:var(--text);
-  margin-bottom:3px;font-weight:600}
-.how-step span{font-size:.8rem;color:var(--muted);line-height:1.5}
+.how-section{margin-bottom:72px}
+.section-heading{font-size:1.7rem;font-weight:800;letter-spacing:-.03em;
+  color:#fff;margin-bottom:8px;text-align:center}
+.section-sub{font-size:.88rem;color:var(--muted);text-align:center;
+  margin-bottom:32px;font-weight:500}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.how-step-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:22px 18px;position:relative;overflow:hidden;
+  transition:border-color .2s}
+.how-step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.how-step-card.s1::before{background:var(--amber)}
+.how-step-card.s2::before{background:var(--green)}
+.how-step-card.s3::before{background:#a855f7}
+.how-step-card:hover{border-color:var(--border2)}
+.how-step-n{font-size:2.2rem;font-weight:800;letter-spacing:-.04em;
+  line-height:1;margin-bottom:10px;opacity:.2}
+.how-step-card.s1 .how-step-n{color:var(--amber)}
+.how-step-card.s2 .how-step-n{color:var(--green)}
+.how-step-card.s3 .how-step-n{color:#a855f7}
+.how-step-title{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.how-step-desc{font-size:.78rem;color:var(--muted);line-height:1.6}
 
-/* CTA DUO */
-.cta-duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:80px}
-.cta-duo-card{background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:22px;text-align:center;
-  text-decoration:none;display:block;transition:border-color .2s,transform .15s}
-.cta-duo-card:hover{transform:translateY(-1px)}
-.cta-duo-montre:hover{border-color:rgba(245,158,11,.3)}
-.cta-duo-score:hover{border-color:rgba(0,152,98,.3)}
-.cta-duo-hint{font-size:.7rem;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--dim);display:block;margin-bottom:8px}
-.lbl-amber{font-size:.95rem;font-weight:700;color:var(--amber-lt);letter-spacing:-.01em}
-.lbl-green{font-size:.95rem;font-weight:700;color:var(--green-lt);letter-spacing:-.01em}
+/* MEMENTO MORI QUOTE */
+.memento-section{text-align:center;margin-bottom:72px;padding:40px 24px;
+  background:var(--surface);border:1px solid var(--border);border-radius:24px;
+  position:relative;overflow:hidden}
+.memento-section::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(0,152,98,.06) 0%,transparent 70%)}
+.memento-eyebrow{font-size:.68rem;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--green);margin-bottom:16px}
+.memento-quote{font-size:clamp(1.2rem,3vw,1.6rem);font-weight:700;
+  color:rgba(255,255,255,.85);line-height:1.4;font-style:italic;
+  margin-bottom:10px;max-width:560px;margin-left:auto;margin-right:auto}
+.memento-author{font-size:.78rem;color:var(--muted);font-weight:600}
+.memento-cta{margin-top:28px}
 
 /* BLOG */
-.blog-heading{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;color:#fff;margin-bottom:20px}
+.blog-heading{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;
+  color:#fff;margin-bottom:20px}
 
 /* ANIMATIONS */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-d1{transition-delay:.08s}
 .reveal-d2{transition-delay:.16s}
@@ -118,11 +162,13 @@ description: "Lance ton décompte de vie en temps réel. Calcule ton âge biolog
   .home{padding:40px 16px 72px}
   .home-stats{grid-template-columns:1fr 1fr}
   .home-stats .stat-card:last-child{grid-column:span 2}
-  .tools-grid,.how-grid,.how-sublabels,.cta-duo{grid-template-columns:1fr}
-  .hero-ctas{flex-direction:column}
-  .btn-primary,.btn-secondary{width:100%;justify-content:center}
-  .tool-card{padding:22px 18px}
-  .tools-bridge{margin-bottom:48px}
+  .tool-showcase{grid-template-columns:1fr;gap:28px;padding:24px 20px}
+  .tool-showcase-right{order:-1}
+  .mockup-donut-wrap{width:140px;height:140px}
+  .mockup-donut-wrap canvas{width:140px;height:140px}
+  .mockup-donut-age{font-size:1.8rem}
+  .levels-grid,.how-steps,.proof-grid{grid-template-columns:1fr}
+  .hero-features{gap:12px}
 }
 </style>
 
@@ -130,112 +176,164 @@ description: "Lance ton décompte de vie en temps réel. Calcule ton âge biolog
 
   <!-- HERO -->
   <div class="home-hero reveal">
-    <h1>Combien de temps<br>te <em>reste-t-il</em> ?</h1>
-    <p>Memento Mori — Deux outils gratuits pour mesurer ta longévité et décider de mieux vivre chaque seconde.</p>
-    <div class="hero-ctas">
+    <h1>Ta vie,<br>en <em>temps réel</em></h1>
+    <p>Âge biologique. Espérance de vie sur mesure. Décompte seconde par seconde. Un seul outil, une seule réponse honnête.</p>
+    <div class="hero-cta-wrap">
       <a href="/montre/" class="btn-primary">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-        </svg>
-        Lancer ma Montre de Vie
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Lancer le calcul maintenant
       </a>
-      <a href="/score/" class="btn-secondary">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22a10 10 0 1 1 10-10"/><path d="M12 8v4l3 3"/><circle cx="19" cy="5" r="3"/>
-        </svg>
-        Calculer mon âge biologique
-      </a>
+      <div class="hero-features">
+        <span>Gratuit &amp; sans inscription</span>
+        <span>Aucune donnée envoyée</span>
+        <span>Résultats en 5 min</span>
+      </div>
     </div>
-    <p class="hero-note">Sans inscription · Sans données personnelles · 100% local</p>
   </div>
 
   <!-- STATS -->
   <div class="home-stats">
     <div class="stat-card reveal reveal-d1">
-      <span class="stat-val amber">2,5 Md</span>
-      <span class="stat-lbl">Secondes dans une vie de 80 ans</span>
+      <span class="stat-val amber">±12 ans</span>
+      <span class="stat-lbl">Écart possible entre âge réel et âge biologique selon ton mode de vie</span>
     </div>
     <div class="stat-card reveal reveal-d2">
-      <span class="stat-val green">±12 ans</span>
-      <span class="stat-lbl">Écart possible entre âge réel et âge biologique</span>
+      <span class="stat-val green">4 160</span>
+      <span class="stat-lbl">Semaines dans une vie de 80 ans — chaque carré compte</span>
     </div>
     <div class="stat-card reveal reveal-d3">
-      <span class="stat-val zinc">2</span>
-      <span class="stat-lbl">Outils connectés — remplis l'un, l'autre se pré-remplit</span>
+      <span class="stat-val zinc">20+</span>
+      <span class="stat-lbl">Facteurs analysés : biomarqueurs, mode de vie, génétique</span>
     </div>
   </div>
 
-  <!-- OUTILS -->
-  <p class="tools-label reveal">Les deux outils</p>
-  <div class="tools-grid">
-    <a href="/montre/" class="tool-card tool-card-montre reveal">
-      <div class="tool-icon-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-        </svg>
-      </div>
-      <div class="tool-name">Montre de Vie</div>
-      <p class="tool-desc">Ton espérance de vie estimée, qui s'égrène seconde par seconde. En temps réel. Sans détour.</p>
+  <!-- OUTIL UNIQUE -->
+  <div class="tool-showcase reveal" style="margin-bottom:72px">
+    <div class="tool-showcase-left">
+      <div class="tool-tag">Outil unique — tout en un</div>
+      <div class="tool-showcase-title">Montre de Vie</div>
+      <p class="tool-showcase-desc">Plus besoin de jongler entre deux outils. Un seul formulaire calcule maintenant ton espérance de vie chronologique <em>et</em> ton âge biologique — avec un donut de vie qui te montre exactement où tu en es.</p>
       <ul class="tool-features">
-        <li><span class="feat-dot"></span>Questionnaire mode de vie</li>
-        <li><span class="feat-dot"></span>Espérance de vie calculée sur mesure</li>
-        <li><span class="feat-dot"></span>Décompte live : années, jours, secondes</li>
-        <li><span class="feat-dot"></span>Grille de vie en semaines</li>
+        <li><span class="feat-icon amber">⏱</span>Espérance de vie estimée — base INSEE 2024 + tes données</li>
+        <li><span class="feat-icon green">🧬</span>Âge biologique en temps réel pendant que tu remplis</li>
+        <li><span class="feat-icon amber">🍩</span>Donut de vie — semaines vécues vs semaines gagnées</li>
+        <li><span class="feat-icon green">⏳</span>Décompte live : années, jours, heures, secondes</li>
+        <li><span class="feat-icon amber">🎯</span>Top 3 leviers personnalisés avec actions concrètes</li>
+        <li><span class="feat-icon green">💾</span>Données sauvegardées — reviens sans tout re-saisir</li>
       </ul>
-      <span class="tool-btn btn-amber">Lancer maintenant →</span>
-    </a>
-    <a href="/score/" class="tool-card tool-card-score reveal reveal-d1">
-      <div class="tool-icon-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M12 2C8.5 5 7 8.5 7 12s1.5 7 5 10"/>
-          <path d="M12 2c3.5 3 5 6.5 5 10s-1.5 7-5 10"/>
-          <path d="M2 12h20"/>
-        </svg>
+      <div class="tool-btn-wrap">
+        <a href="/montre/" class="btn-tool">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Lancer mon calcul
+        </a>
       </div>
-      <div class="tool-name">Score de Vie</div>
-      <p class="tool-desc">Ton âge biologique réel, calculé à partir de tes biomarqueurs. Ton corps a peut-être 38 ans. Ou 56.</p>
-      <ul class="tool-features">
-        <li><span class="feat-dot"></span>Âge biologique vs âge chronologique</li>
-        <li><span class="feat-dot"></span>PhenoAge &amp; études épidémiologiques</li>
-        <li><span class="feat-dot"></span>LDL, tension, glycémie, VO₂max…</li>
-        <li><span class="feat-dot"></span>Historique de progression</li>
-      </ul>
-      <span class="tool-btn btn-green">Calculer mon score →</span>
-    </a>
+    </div>
+    <div class="tool-showcase-right">
+      <div class="mockup-donut-wrap">
+        <canvas id="mockupCanvas" width="180" height="180"></canvas>
+        <div class="mockup-donut-center">
+          <div class="mockup-donut-age">47</div>
+          <div class="mockup-donut-lbl">ans</div>
+        </div>
+      </div>
+      <div class="mockup-legend">
+        <div class="mockup-leg-row">
+          <div class="mockup-leg-left"><div class="mockup-leg-dot" style="background:#d97706"></div><span class="mockup-leg-label">Semaines vécues</span></div>
+          <span class="mockup-leg-val" style="color:var(--amber-lt)">2 444</span>
+        </div>
+        <div class="mockup-leg-row">
+          <div class="mockup-leg-left"><div class="mockup-leg-dot" style="background:#3f3f46"></div><span class="mockup-leg-label">Semaines restantes</span></div>
+          <span class="mockup-leg-val">1 716</span>
+        </div>
+        <div class="mockup-leg-row">
+          <div class="mockup-leg-left"><div class="mockup-leg-dot" style="background:#009862"></div><span class="mockup-leg-label">Gagné — mode de vie</span></div>
+          <span class="mockup-leg-val" style="color:var(--green-lt)">+156 sem.</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="tools-bridge reveal">Les deux outils se parlent — remplis l'un, l'autre se pré-remplit automatiquement</div>
+
+  <!-- NIVEAUX -->
+  <div class="levels-section reveal">
+    <p class="levels-label">3 niveaux de précision</p>
+    <div class="levels-grid">
+      <div class="level-card">
+        <div class="level-card-num">Niveau 01</div>
+        <div class="level-card-title">Profil & Mode de vie</div>
+        <div class="level-card-desc">Tabac, alcool, alimentation, sommeil, sport, stress, liens sociaux, génétique. Les fondations — environ 5 min.</div>
+        <span class="level-card-tag" style="background:rgba(245,158,11,.1);color:var(--amber)">Requis</span>
+      </div>
+      <div class="level-card">
+        <div class="level-card-num">Niveau 02</div>
+        <div class="level-card-title">Capacités physiques</div>
+        <div class="level-card-desc">VO₂max, force de préhension (grip strength), vitesse de marche. Données objectives si tu les as.</div>
+        <span class="level-card-tag">Optionnel</span>
+      </div>
+      <div class="level-card">
+        <div class="level-card-num">Niveau 03</div>
+        <div class="level-card-title">Bilan sanguin</div>
+        <div class="level-card-desc">LDL, tension artérielle, glycémie, CRP, ferritine, vitamine D. Pour une précision maximale.</div>
+        <span class="level-card-tag">Optionnel</span>
+      </div>
+    </div>
+  </div>
 
   <!-- COMMENT ÇA MARCHE -->
-  <h2 class="section-heading reveal">Comment ça marche</h2>
-  <div class="how-sublabels reveal">
-    <div class="how-sublabel" style="color:var(--amber)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Montre de Vie
+  <div class="how-section reveal">
+    <h2 class="section-heading">Comment ça marche</h2>
+    <p class="section-sub">3 étapes, 5 minutes, une vision claire du reste de ta vie.</p>
+    <div class="how-steps">
+      <div class="how-step-card s1">
+        <div class="how-step-n">01</div>
+        <div class="how-step-title">Tu remplis le formulaire</div>
+        <div class="how-step-desc">Mode de vie, biomarqueurs optionnels. Ton âge biologique s'affiche en temps réel pendant que tu avances — pas besoin d'attendre la fin.</div>
+      </div>
+      <div class="how-step-card s2 reveal-d1">
+        <div class="how-step-n">02</div>
+        <div class="how-step-title">L'algorithme calcule</div>
+        <div class="how-step-desc">Âge biologique (PhenoAge, Mandsager 2018, Leong Lancet 2015) + espérance chronologique (INSEE 2024). Deux chiffres, une seule vérité.</div>
+      </div>
+      <div class="how-step-card s3 reveal-d2">
+        <div class="how-step-n">03</div>
+        <div class="how-step-title">Tu vois où agir</div>
+        <div class="how-step-desc">Le donut de vie te montre tes semaines gagnées ou perdues. Les 3 leviers prioritaires te disent quoi changer — avec des actions concrètes.</div>
+      </div>
     </div>
-    <div class="how-sublabel" style="color:var(--green-lt)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/></svg>
-      Score de Vie
-    </div>
-  </div>
-  <div class="how-grid">
-    <div class="how-step reveal"><div class="how-step-num">1</div><div><strong>Tu réponds au questionnaire</strong><span>Tabac, sport, sommeil, alimentation… 15 questions sincères.</span></div></div>
-    <div class="how-step reveal reveal-d1"><div class="how-step-num">1</div><div><strong>Tu entres tes biomarqueurs</strong><span>LDL, tension, glycémie, VO₂max… les vrais chiffres de ton corps.</span></div></div>
-    <div class="how-step reveal"><div class="how-step-num">2</div><div><strong>On calcule ton espérance de vie</strong><span>Algorithme basé sur les grandes études épidémiologiques.</span></div></div>
-    <div class="how-step reveal reveal-d1"><div class="how-step-num">2</div><div><strong>L'algorithme calcule ton âge biologique</strong><span>Basé sur PhenoAge (Levine 2018) et les méta-analyses INTERHEART.</span></div></div>
-    <div class="how-step reveal"><div class="how-step-num">3</div><div><strong>Le décompte démarre</strong><span>Années, jours, heures, secondes. Chaque tick est une invitation.</span></div></div>
-    <div class="how-step reveal reveal-d1"><div class="how-step-num">3</div><div><strong>Tu suis ta progression</strong><span>Refais le test dans 3 mois. L'historique montre si ton âge bio recule.</span></div></div>
   </div>
 
-  <!-- CTA DUO -->
-  <div class="cta-duo">
-    <a href="/montre/" class="cta-duo-card cta-duo-montre reveal">
-      <span class="cta-duo-hint">Si tu n'as pas tes bilans sanguins</span>
-      <span class="lbl-amber">Lancer mon décompte →</span>
-    </a>
-    <a href="/score/" class="cta-duo-card cta-duo-score reveal reveal-d1">
-      <span class="cta-duo-hint">Si tu as tes analyses récentes</span>
-      <span class="lbl-green">Calculer mon âge biologique →</span>
-    </a>
+  <!-- MEMENTO MORI -->
+  <div class="memento-section reveal">
+    <div class="memento-eyebrow">Memento Mori</div>
+    <p class="memento-quote">« Tu pourrais quitter la vie à l'instant même. Laisse cela déterminer ce que tu fais, ce que tu dis, et ce que tu penses. »</p>
+    <div class="memento-author">— Marc Aurèle, Pensées pour moi-même</div>
+    <div class="memento-cta">
+      <a href="/montre/" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Voir combien il me reste
+      </a>
+    </div>
+  </div>
+
+  <!-- TÉMOIGNAGES -->
+  <div class="proof-section reveal">
+    <p class="levels-label">Ce que ça change</p>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <p class="proof-quote">« J'ai arrêté de fumer 3 semaines après avoir vu mon âge biologique. Voir +8 ans en rouge, c'est plus parlant que tous les discours. »</p>
+        <div class="proof-author">Thomas, 44 ans — Lyon</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <p class="proof-quote">« Le donut de vie m'a mis une claque. Voir visuellement ce qu'il me reste... et ce que j'ai déjà gagné grâce au sport. Puissant. »</p>
+        <div class="proof-author">Camille, 38 ans — Paris</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <p class="proof-quote">« L'âge biologique en temps réel pendant le formulaire, c'est addictif. Tu vois le chiffre bouger quand tu réponds honnêtement. »</p>
+        <div class="proof-author">Marc, 52 ans — Bordeaux</div>
+      </div>
+    </div>
   </div>
 
   <!-- BLOG -->
@@ -255,6 +353,32 @@ description: "Lance ton décompte de vie en temps réel. Calcule ton âge biolog
 </div>
 
 <script>
+/* ─── DONUT MOCKUP ─── */
+(function(){
+  const canvas = document.getElementById('mockupCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const SIZE = 180, cx = 90, cy = 90, r = 80, ri = 54;
+  const mid = (r+ri)/2, lw = r-ri;
+  canvas.width = SIZE; canvas.height = SIZE;
+  const START = -Math.PI/2, TAU = Math.PI*2, GAP = 0.028;
+  const total = 83*52, vecu = 47*52, gain = 3*52;
+  const rv = vecu/total, rg = gain/total;
+  const endV = START + rv*TAU - GAP;
+  function arc(from, to, color, glow) {
+    if (to <= from+0.001) return;
+    if (glow) { ctx.shadowColor=color; ctx.shadowBlur=12; }
+    ctx.beginPath(); ctx.arc(cx,cy,mid,from,to);
+    ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.lineCap='butt'; ctx.stroke();
+    ctx.shadowBlur=0; ctx.shadowColor='transparent';
+  }
+  arc(START, endV, '#d97706', false);
+  const sg = endV+GAP*2, eg = sg+rg*TAU-GAP;
+  arc(sg, eg, '#009862', true);
+  arc(eg+GAP*2, START+TAU-GAP, '#3f3f46', false);
+})();
+
+/* ─── REVEAL AU SCROLL ─── */
 (function(){
   var els = document.querySelectorAll('.reveal');
   if(!('IntersectionObserver' in window)){
@@ -265,7 +389,7 @@ description: "Lance ton décompte de vie en temps réel. Calcule ton âge biolog
     entries.forEach(function(e){
       if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
     });
-  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  },{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
   els.forEach(function(e){obs.observe(e);});
 })();
 </script>

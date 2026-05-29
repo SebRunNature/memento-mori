@@ -283,10 +283,8 @@ input[type=number]::placeholder{color:var(--muted)}
 </div></div>
 
 <!-- Sport -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🏔️</span><span class="qcard-name">Sport &amp; Activité physique</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-sport">0/4</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
-<div class="field-row" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Sport modéré (h/sem)</label><input type="number" id="sport_mod_h" min="0" max="40" step=".5" placeholder="Ex : 3" oninput="onInput()"><div class="field-hint">Marche, vélo, yoga…</div></div><div class="field-group"><label class="field-label">Sport intense (h/sem)</label><input type="number" id="sport_int_h" min="0" max="40" step=".5" placeholder="Ex : 2" oninput="onInput()"><div class="field-hint">Trail, HIIT, fractionné…</div></div></div>
-<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Activité modérée — fréquence</label><div class="opts"><button class="opt bad" onclick="pick(this,'sport_mod','0')">Sédentaire — 0</button><button class="opt mid" onclick="pick(this,'sport_mod','1-3')">1 à 3 h/sem</button><button class="opt" onclick="pick(this,'sport_mod','4-7')">4 à 7 h/sem ✓</button><button class="opt" onclick="pick(this,'sport_mod','&gt;7')">&gt; 7 h/sem ✓</button></div></div></div>
-<div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Activité intense — fréquence</label><div class="opts"><button class="opt mid" onclick="pick(this,'sport_int','0')">Aucune</button><button class="opt" onclick="pick(this,'sport_int','1-3')">1 à 3 h/sem ✓</button><button class="opt" onclick="pick(this,'sport_int','4-6')">4 à 6 h/sem ✓</button><button class="opt mid" onclick="pick(this,'sport_int','&gt;6')">&gt; 6 h/sem — surentraînement ?</button></div></div></div>
+<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🏔️</span><span class="qcard-name">Sport &amp; Activité physique</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-sport">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="field-row" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Sport modéré (h/sem)</label><input type="number" id="sport_mod_h" min="0" max="40" step=".5" placeholder="Ex : 3" oninput="onInput()"><div class="field-hint">Marche, vélo, yoga, natation…</div></div><div class="field-group"><label class="field-label">Sport intense (h/sem)</label><input type="number" id="sport_int_h" min="0" max="40" step=".5" placeholder="Ex : 2" oninput="onInput()"><div class="field-hint">Trail, HIIT, fractionné…</div></div></div>
 <div class="field-row full"><div class="field-group"><label class="field-label">Renforcement musculaire</label><div class="opts"><button class="opt bad" onclick="pick(this,'renfo','jamais')">Jamais</button><button class="opt mid" onclick="pick(this,'renfo','occ')">Occasionnel</button><button class="opt" onclick="pick(this,'renfo','regulier')">Régulier ✓ — 2×/sem ou plus</button></div></div></div>
 </div></div>
 
@@ -412,27 +410,56 @@ input[type=number]::placeholder{color:var(--muted)}
 
 <p class="quote-line" id="quote-line">« Chaque foulée compte. Chaque seconde aussi. »</p>
 
-<!-- GRILLE DE VIE -->
-<div class="grille-section" id="grilleSection" style="display:none">
-  <div class="grille-header">
-    <div class="grille-title">Ta vie en semaines</div>
-    <div class="grille-sub">Chaque carré = 1 semaine. Chaque ligne = 1 année.</div>
+<!-- DONUT DE VIE -->
+<div id="donutSection" style="display:none;margin:0 0 32px">
+  <div style="margin-bottom:14px">
+    <div style="font-size:1.25rem;font-weight:800;color:var(--text)">Ta vie en un coup d'œil</div>
+    <div style="font-size:.8rem;color:var(--muted);font-weight:600;font-style:italic;margin-top:3px">Semaines vécues · semaines restantes · gain lié à ton mode de vie</div>
   </div>
-  <div class="grille-stats">
-    <div class="grille-stat"><span class="grille-stat-val amber" id="gs-vecues">—</span><span class="grille-stat-lbl">Semaines vécues</span></div>
-    <div class="grille-stat"><span class="grille-stat-val green" id="gs-restantes">—</span><span class="grille-stat-lbl">Semaines restantes</span></div>
-    <div class="grille-stat"><span class="grille-stat-val muted" id="gs-total">—</span><span class="grille-stat-lbl">Total estimé</span></div>
-  </div>
-  <div class="grille-legende">
-    <div class="grille-leg-item"><div class="grille-leg-dot" style="background:var(--amber-dk)"></div>Semaines vécues</div>
-    <div class="grille-leg-item"><div class="grille-leg-dot" style="background:var(--green)"></div>Avantage biologique</div>
-    <div class="grille-leg-item"><div class="grille-leg-dot" style="background:var(--card2);border:1px solid rgba(255,255,255,.1)"></div>Semaines à venir</div>
-  </div>
-  <div class="grille-scroll">
-    <div class="grille-inner" id="grilleInner"></div>
+  <div style="display:flex;align-items:center;justify-content:flex-start;gap:28px;flex-wrap:wrap">
+    <!-- DONUT -->
+    <div style="position:relative;width:200px;height:200px;flex-shrink:0">
+      <canvas id="donutCanvas" width="200" height="200"></canvas>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-align:center">
+        <span style="font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Âge</span>
+        <span id="donut-age" style="font-size:2.8rem;font-weight:800;line-height:1;color:var(--amber-lt);letter-spacing:-2px">—</span>
+        <span style="font-size:.75rem;color:var(--muted);font-weight:600;margin-top:1px">ans</span>
+      </div>
+    </div>
+    <!-- LÉGENDE -->
+    <div style="display:flex;flex-direction:column;gap:14px;flex:1;min-width:160px">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div style="width:11px;height:11px;border-radius:3px;background:#d97706;flex-shrink:0;margin-top:3px"></div>
+        <div>
+          <div style="font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Semaines vécues</div>
+          <div id="donut-vecues" style="font-size:1.15rem;font-weight:800;color:var(--amber-lt)">—</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div style="width:11px;height:11px;border-radius:3px;background:#3f3f46;flex-shrink:0;margin-top:3px"></div>
+        <div>
+          <div style="font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Semaines restantes</div>
+          <div id="donut-restantes" style="font-size:1.15rem;font-weight:800;color:var(--text)">—</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div id="donut-gain-dot" style="width:11px;height:11px;border-radius:3px;background:#009862;flex-shrink:0;margin-top:3px"></div>
+        <div>
+          <div style="font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Mode de vie</div>
+          <div id="donut-gain" style="font-size:1.15rem;font-weight:800;color:var(--green-lt)">—</div>
+          <div id="donut-gain-ans" style="font-size:.75rem;color:var(--muted);font-weight:600"></div>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:12px;display:flex;align-items:flex-start;gap:10px">
+        <div style="width:11px;height:11px;border-radius:3px;background:var(--amber-dk);opacity:.4;flex-shrink:0;margin-top:3px"></div>
+        <div>
+          <div style="font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Espérance estimée</div>
+          <div id="donut-esperance" style="font-size:1.15rem;font-weight:800;color:var(--text)">— ans</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<div id="grilleTooltip"></div>
 
 <!-- RECOMMANDATIONS -->
 <div class="reco-section" id="recoSection" style="display:none">
@@ -450,7 +477,6 @@ input[type=number]::placeholder{color:var(--muted)}
 </div>
 <div style="text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
 <button class="btn-reset" onclick="resetAll()">↺ Recommencer</button>
-<a href="/grille/" id="btn-grille" class="btn-reset"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="4" rx=".5"/><rect x="10" y="3" width="4" height="4" rx=".5"/><rect x="17" y="3" width="4" height="4" rx=".5"/><rect x="3" y="10" width="4" height="4" rx=".5"/><rect x="10" y="10" width="4" height="4" rx=".5"/><rect x="17" y="10" width="4" height="4" rx=".5"/><rect x="3" y="17" width="4" height="4" rx=".5"/><rect x="10" y="17" width="4" height="4" rx=".5"/><rect x="17" y="17" width="4" height="4" rx=".5"/></svg>Ma vie en semaines</a>
 </div>
 </div>
 </div><!-- #results -->
@@ -512,7 +538,7 @@ function calcImc() {
   wrap.style.display = 'flex';
 }
 
-const PROGRESS_KEYS = ['age','sexe','taille','poids','tabac','alcool','alim','hydratation','sleep_dur','sleep_qual','sport_mod','sport_int','stress','humeur','social','pollution','antecedents'];
+const PROGRESS_KEYS = ['age','sexe','taille','poids','tabac','alcool','alim','hydratation','sleep_dur','sleep_qual','stress','humeur','social','pollution','antecedents'];
 
 function updateProgress() {
   let filled = 0;
@@ -520,7 +546,7 @@ function updateProgress() {
   if (age > 0) filled++;
   if (parseFloat(document.getElementById('taille').value) > 0) filled++;
   if (parseFloat(document.getElementById('poids').value) > 0) filled++;
-  ['sexe','tabac','alcool','alim','hydratation','sleep_dur','sleep_qual','sport_mod','sport_int','stress','humeur','social','pollution','antecedents'].forEach(k => { if (D[k]) filled++; });
+  ['sexe','tabac','alcool','alim','hydratation','sleep_dur','sleep_qual','stress','humeur','social','pollution','antecedents'].forEach(k => { if (D[k]) filled++; });
   const pct = Math.round((filled / PROGRESS_KEYS.length) * 100);
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressPct').textContent = pct + '%';
@@ -540,9 +566,9 @@ function updateBadges() {
   setBadge('badge-life', lifeN >= 3 ? 'ok' : null, lifeN + '/4');
   const slN = ['sleep_dur','sleep_qual'].filter(k => D[k]).length;
   setBadge('badge-sleep', slN >= 2 ? 'ok' : null, slN + '/2');
-  let spN = (D.sport_mod ? 1 : 0) + (D.sport_int ? 1 : 0) + (parseFloat(document.getElementById('sport_mod_h').value) > 0 ? 1 : 0) + (D.renfo ? 1 : 0);
-  spN = Math.min(spN, 4);
-  setBadge('badge-sport', spN >= 3 ? 'ok' : null, spN + '/4');
+  let spN = (parseFloat(document.getElementById('sport_mod_h').value) > 0 ? 1 : 0) + (parseFloat(document.getElementById('sport_int_h').value) > 0 ? 1 : 0) + (D.renfo ? 1 : 0);
+  spN = Math.min(spN, 3);
+  setBadge('badge-sport', spN >= 2 ? 'ok' : null, spN + '/3');
   const mN = ['stress','humeur','anxiete','ikigai','friction_energie'].filter(k => D[k]).length;
   setBadge('badge-mental', mN >= 3 ? 'ok' : null, mN + '/5');
   const soN = ['social','pollution','finance'].filter(k => D[k]).length;
@@ -812,7 +838,7 @@ function afficherResultats(age, bio, chrono) {
   endDate.setFullYear(endDate.getFullYear() + Math.floor(chrono.yearsLeft));
   startCountdown(endDate);
   buildRecos(bio.factors);
-  buildGrille(age, chrono, bio);
+  buildDonut(age, chrono, bio);
 
   const quotes = [
     '« La vie n\'est pas courte, c\'est nous qui la gaspillons. » — Sénèque',
@@ -865,66 +891,79 @@ const RECO_DB = {
 };
 
 
-function buildGrille(age, chrono, bio) {
-  const section = document.getElementById("grilleSection");
-  const inner   = document.getElementById("grilleInner");
-  if (!section || !inner) return;
+function buildDonut(age, chrono, bio) {
+  const section = document.getElementById('donutSection');
+  if (!section) return;
+  const canvas = document.getElementById('donutCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
   const SPY = 52;
-  const totalAns  = chrono.totalLife;
-  const totalSem  = totalAns * SPY;
+  const W = 200, cx = 100, cy = 100, r = 90, ri = 62;
+  const totalSem  = Math.round(chrono.totalLife * SPY);
   const vecuesSem = Math.round(age * SPY);
-  const bonusSem  = bio.delta < 0 ? Math.round(Math.abs(bio.delta) * SPY) : 0;
-  document.getElementById("gs-vecues").textContent    = vecuesSem.toLocaleString("fr-FR");
-  document.getElementById("gs-restantes").textContent = (totalSem - vecuesSem).toLocaleString("fr-FR");
-  document.getElementById("gs-total").textContent     = totalSem.toLocaleString("fr-FR");
-  inner.innerHTML = "";
-  const tooltip = document.getElementById("grilleTooltip");
-  const anneesRow = document.createElement("div");
-  anneesRow.className = "grille-annees-row";
-  for (let a = 0; a < totalAns; a++) {
-    const lbl = document.createElement("div");
-    lbl.className = "grille-annee-lbl";
-    lbl.textContent = (a % 5 === 0) ? a : "";
-    anneesRow.appendChild(lbl);
+  const gainAns   = -bio.delta; // delta négatif = corps plus jeune = gain
+  const gainSem   = Math.round(Math.abs(bio.delta) * SPY);
+  const restSem   = totalSem - vecuesSem;
+  const START = -Math.PI / 2;
+  const TAU   = Math.PI * 2;
+  const GAP   = 0.03;
+  ctx.clearRect(0, 0, W, W);
+  function arc(from, to, color) {
+    if (to <= from) return;
+    ctx.beginPath();
+    ctx.arc(cx, cy, (r + ri) / 2, from, to);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = r - ri;
+    ctx.lineCap = 'butt';
+    ctx.stroke();
   }
-  inner.appendChild(anneesRow);
-  const rowsDiv = document.createElement("div");
-  rowsDiv.className = "grille-rows";
-  for (let sem = 0; sem < SPY; sem++) {
-    const row = document.createElement("div");
-    row.className = "grille-row";
-    for (let an = 0; an < totalAns; an++) {
-      const semAbs = an * SPY + sem;
-      const cell = document.createElement("div");
-      cell.className = "grille-cell";
-      if (semAbs < vecuesSem) { cell.classList.add("passee"); }
-      else if (bonusSem > 0 && semAbs >= totalSem - bonusSem && semAbs < totalSem) { cell.classList.add("bio-bonus"); }
-      else if (semAbs < totalSem) { cell.classList.add("restante"); }
-      else { cell.classList.add("vide"); }
-      cell.addEventListener("mouseenter", function(e) {
-        if (window.matchMedia("(hover:none)").matches) return;
-        let txt = "Année " + an + " · Semaine " + (sem+1);
-        if (cell.classList.contains("passee")) txt += " — vécue";
-        else if (cell.classList.contains("bio-bonus")) txt += " — avantage biologique";
-        tooltip.textContent = txt;
-        tooltip.style.display = "block";
-      });
-      cell.addEventListener("mousemove", function(e) {
-        tooltip.style.left = (e.clientX + 12) + "px";
-        tooltip.style.top  = (e.clientY - 28) + "px";
-      });
-      cell.addEventListener("mouseleave", function() { tooltip.style.display = "none"; });
-      row.appendChild(cell);
-    }
-    rowsDiv.appendChild(row);
+  const ratioVecues = vecuesSem / totalSem;
+  const ratioGain   = gainSem / totalSem;
+  const endVecues   = START + ratioVecues * TAU - GAP;
+  // Arc passé (amber)
+  arc(START, endVecues, '#d97706');
+  if (gainAns > 0) {
+    // Gain (vert) — après les semaines passées
+    const startGain = endVecues + GAP * 2;
+    const endGain   = startGain + ratioGain * TAU - GAP;
+    arc(startGain, endGain, '#009862');
+    // Restant (gris foncé)
+    arc(endGain + GAP * 2, START + TAU - GAP, '#3f3f46');
+  } else if (gainAns < 0) {
+    // Restant (gris)
+    const ratioRest = Math.max(0, (restSem - gainSem) / totalSem);
+    const endRest   = endVecues + GAP * 2 + ratioRest * TAU - GAP;
+    arc(endVecues + GAP * 2, endRest, '#3f3f46');
+    // Perte (rouge)
+    arc(endRest + GAP * 2, START + TAU - GAP, '#e05555');
+  } else {
+    arc(endVecues + GAP * 2, START + TAU - GAP, '#3f3f46');
   }
-  inner.appendChild(rowsDiv);
-  section.style.display = "block";
-  const cells = inner.querySelectorAll(".grille-cell.passee, .grille-cell.restante");
-  cells.forEach(function(c, i) {
-    c.style.opacity = "0";
-    setTimeout(function() { c.style.opacity = ""; }, Math.min(i * 0.15, 600));
-  });
+  // Màj légende
+  document.getElementById('donut-age').textContent      = age;
+  document.getElementById('donut-vecues').textContent   = vecuesSem.toLocaleString('fr-FR') + ' sem.';
+  document.getElementById('donut-restantes').textContent = restSem.toLocaleString('fr-FR') + ' sem.';
+  const gainEl    = document.getElementById('donut-gain');
+  const gainAnsEl = document.getElementById('donut-gain-ans');
+  const gainDotEl = document.getElementById('donut-gain-dot');
+  if (gainAns > 0) {
+    gainEl.textContent    = '+' + gainSem + ' sem.';
+    gainEl.style.color    = 'var(--green-lt)';
+    gainAnsEl.textContent = 'soit +' + gainAns.toFixed(1) + ' ans gagnés';
+    gainDotEl.style.background = '#009862';
+  } else if (gainAns < 0) {
+    gainEl.textContent    = gainSem + ' sem. perdues';
+    gainEl.style.color    = '#fca5a5';
+    gainAnsEl.textContent = 'soit ' + gainAns.toFixed(1) + ' ans';
+    gainDotEl.style.background = '#e05555';
+  } else {
+    gainEl.textContent    = 'Neutre';
+    gainEl.style.color    = 'var(--muted)';
+    gainAnsEl.textContent = 'âge bio = âge chrono';
+    gainDotEl.style.background = '#3f3f46';
+  }
+  document.getElementById('donut-esperance').textContent = chrono.totalLife + ' ans';
+  section.style.display = 'block';
 }
 function buildRecos(factors) {
   if (!factors || factors.length === 0) return;

@@ -232,6 +232,37 @@ input[type=number]::placeholder{color:var(--muted)}
 .grille-cell.restante{background:var(--card2);border:1px solid rgba(255,255,255,.06)}
 .grille-cell.vide{background:transparent;border:none;pointer-events:none}
 #grilleTooltip{position:fixed;background:var(--card);border:1px solid var(--border2);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:.72rem;font-weight:700;padding:5px 10px;border-radius:7px;pointer-events:none;z-index:9999;white-space:nowrap;display:none;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+/* ─── CARTE BIO LIVE ─── */
+.bio-live-card{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120%);
+  z-index:500;background:var(--card);border:1px solid rgba(0,152,98,.35);
+  border-radius:16px;padding:10px 16px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 8px 32px rgba(0,0,0,.45),0 0 0 1px rgba(0,152,98,.15);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+  opacity:0;pointer-events:none;white-space:nowrap;max-width:calc(100vw - 32px)}
+.bio-live-card.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+@media(max-width:480px){
+  .bio-live-card{bottom:16px;padding:8px 13px;gap:9px;border-radius:13px}
+  .bio-live-icon{display:none}
+  .bio-live-age{font-size:1.25rem}
+}
+.bio-live-icon{font-size:1.4rem;flex-shrink:0}
+.bio-live-body{display:flex;flex-direction:column;gap:1px}
+.bio-live-label{font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.bio-live-main{display:flex;align-items:baseline;gap:8px}
+.bio-live-age{font-size:1.5rem;font-weight:800;color:var(--green-lt);letter-spacing:-1px;line-height:1}
+.bio-live-unit{font-size:.8rem;color:var(--muted);font-weight:600}
+.bio-live-delta{font-size:.75rem;font-weight:800;padding:2px 9px;border-radius:20px}
+.bio-live-delta.young{background:rgba(0,152,98,.15);color:var(--green-lt)}
+.bio-live-delta.old{background:rgba(224,85,85,.12);color:#fca5a5}
+.bio-live-delta.neu{background:var(--card2);color:var(--muted)}
+.bio-live-conf{display:flex;align-items:center;gap:5px;margin-top:3px}
+.bio-live-conf-label{font-size:.62rem;color:var(--muted);font-weight:700}
+.bio-live-conf-bar{height:3px;width:60px;background:var(--border);border-radius:2px;overflow:hidden}
+.bio-live-conf-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s ease}
+.bio-live-close{background:transparent;border:none;color:var(--muted);font-size:1.1rem;
+  cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;transition:color .2s}
+.bio-live-close:hover{color:var(--text)}
 .site-footer{background:var(--card);border-top:1px solid var(--border);padding:36px 24px;text-align:center;margin-top:60px;position:relative;z-index:2}
 .site-footer-inner{max-width:1024px;margin:0 auto}
 .footer-links{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}
@@ -418,8 +449,8 @@ input[type=number]::placeholder{color:var(--muted)}
   </div>
   <div style="display:flex;align-items:center;justify-content:flex-start;gap:28px;flex-wrap:wrap">
     <!-- DONUT -->
-    <div style="position:relative;width:200px;height:200px;flex-shrink:0">
-      <canvas id="donutCanvas" width="200" height="200"></canvas>
+    <div style="position:relative;width:260px;height:260px;flex-shrink:0">
+      <canvas id="donutCanvas" width="260" height="260"></canvas>
       <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-align:center">
         <span style="font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Âge</span>
         <span id="donut-age" style="font-size:2.8rem;font-weight:800;line-height:1;color:var(--amber-lt);letter-spacing:-2px">—</span>
@@ -429,32 +460,32 @@ input[type=number]::placeholder{color:var(--muted)}
     <!-- LÉGENDE -->
     <div style="display:flex;flex-direction:column;gap:14px;flex:1;min-width:160px">
       <div style="display:flex;align-items:flex-start;gap:10px">
-        <div style="width:11px;height:11px;border-radius:3px;background:#d97706;flex-shrink:0;margin-top:3px"></div>
+        <div style="width:11px;height:11px;border-radius:3px;background:#d97706;flex-shrink:0;margin-top:4px"></div>
         <div>
-          <div style="font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Semaines vécues</div>
-          <div id="donut-vecues" style="font-size:1.15rem;font-weight:800;color:var(--amber-lt)">—</div>
+          <div style="font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Semaines vécues</div>
+          <div id="donut-vecues" style="font-size:1.25rem;font-weight:800;color:var(--amber-lt);letter-spacing:-.01em">—</div>
         </div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:10px">
-        <div style="width:11px;height:11px;border-radius:3px;background:#3f3f46;flex-shrink:0;margin-top:3px"></div>
+        <div style="width:11px;height:11px;border-radius:3px;background:#3f3f46;flex-shrink:0;margin-top:4px"></div>
         <div>
-          <div style="font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Semaines restantes</div>
-          <div id="donut-restantes" style="font-size:1.15rem;font-weight:800;color:var(--text)">—</div>
+          <div style="font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Semaines restantes</div>
+          <div id="donut-restantes" style="font-size:1.25rem;font-weight:800;color:var(--text);letter-spacing:-.01em">—</div>
         </div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:10px">
-        <div id="donut-gain-dot" style="width:11px;height:11px;border-radius:3px;background:#009862;flex-shrink:0;margin-top:3px"></div>
+        <div id="donut-gain-dot" style="width:11px;height:11px;border-radius:3px;background:#009862;flex-shrink:0;margin-top:4px"></div>
         <div>
-          <div style="font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Mode de vie</div>
-          <div id="donut-gain" style="font-size:1.15rem;font-weight:800;color:var(--green-lt)">—</div>
-          <div id="donut-gain-ans" style="font-size:.75rem;color:var(--muted);font-weight:600"></div>
+          <div style="font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Mode de vie</div>
+          <div id="donut-gain" style="font-size:1.25rem;font-weight:800;color:var(--green-lt);letter-spacing:-.01em">—</div>
+          <div id="donut-gain-ans" style="font-size:.75rem;color:var(--muted);font-weight:700;margin-top:1px"></div>
         </div>
       </div>
       <div style="border-top:1px solid var(--border);padding-top:12px;display:flex;align-items:flex-start;gap:10px">
-        <div style="width:11px;height:11px;border-radius:3px;background:var(--amber-dk);opacity:.4;flex-shrink:0;margin-top:3px"></div>
+        <div style="width:11px;height:11px;border-radius:3px;background:var(--amber-dk);opacity:.4;flex-shrink:0;margin-top:4px"></div>
         <div>
-          <div style="font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Espérance estimée</div>
-          <div id="donut-esperance" style="font-size:1.15rem;font-weight:800;color:var(--text)">— ans</div>
+          <div style="font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Espérance estimée</div>
+          <div id="donut-esperance" style="font-size:1.25rem;font-weight:800;color:var(--text);letter-spacing:-.01em">— ans</div>
         </div>
       </div>
     </div>
@@ -832,8 +863,6 @@ function afficherResultats(age, bio, chrono) {
   const bioTotalEst  = Math.round(bio.bioAge + bioYearsLeft);
   document.getElementById('r-bio-esperance').textContent = bioTotalEst + ' ans';
   document.getElementById('r-bio-restant').textContent = '~' + bioYearsLeft + ' ans';
-  document.getElementById('btn-grille').href = '/grille/?age='+age+'&esperance='+chrono.totalLife;
-
   const endDate = new Date();
   endDate.setFullYear(endDate.getFullYear() + Math.floor(chrono.yearsLeft));
   startCountdown(endDate);
@@ -892,78 +921,57 @@ const RECO_DB = {
 
 
 function buildDonut(age, chrono, bio) {
-  const section = document.getElementById('donutSection');
+  const section = document.getElementById("donutSection");
   if (!section) return;
-  const canvas = document.getElementById('donutCanvas');
+  const canvas = document.getElementById("donutCanvas");
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const SPY = 52;
-  const W = 200, cx = 100, cy = 100, r = 90, ri = 62;
-  const totalSem  = Math.round(chrono.totalLife * SPY);
-  const vecuesSem = Math.round(age * SPY);
-  const gainAns   = -bio.delta; // delta négatif = corps plus jeune = gain
-  const gainSem   = Math.round(Math.abs(bio.delta) * SPY);
-  const restSem   = totalSem - vecuesSem;
-  const START = -Math.PI / 2;
-  const TAU   = Math.PI * 2;
-  const GAP   = 0.03;
-  ctx.clearRect(0, 0, W, W);
-  function arc(from, to, color) {
-    if (to <= from) return;
-    ctx.beginPath();
-    ctx.arc(cx, cy, (r + ri) / 2, from, to);
-    ctx.strokeStyle = color;
-    ctx.lineWidth = r - ri;
-    ctx.lineCap = 'butt';
-    ctx.stroke();
+  const ctx = canvas.getContext("2d");
+  const SIZE = 260;
+  canvas.width = SIZE; canvas.height = SIZE;
+  canvas.style.width = SIZE+"px"; canvas.style.height = SIZE+"px";
+  const cx=SIZE/2, cy=SIZE/2, r=116, ri=78;
+  const mid=(r+ri)/2, lw=r-ri;
+  const SPY=52;
+  const totalSem=Math.round(chrono.totalLife*SPY);
+  const vecuesSem=Math.round(age*SPY);
+  const gainAns=-bio.delta;
+  const gainSem=Math.round(Math.abs(bio.delta)*SPY);
+  const restSem=totalSem-vecuesSem;
+  const START=-Math.PI/2, TAU=Math.PI*2, GAP=0.025;
+  ctx.clearRect(0,0,SIZE,SIZE);
+  function arc(from,to,color,glow){
+    if(to<=from+0.001)return;
+    if(glow){ctx.shadowColor=color;ctx.shadowBlur=11;}
+    ctx.beginPath();ctx.arc(cx,cy,mid,from,to);
+    ctx.strokeStyle=color;ctx.lineWidth=lw;ctx.lineCap="butt";ctx.stroke();
+    ctx.shadowBlur=0;ctx.shadowColor="transparent";
   }
-  const ratioVecues = vecuesSem / totalSem;
-  const ratioGain   = gainSem / totalSem;
-  const endVecues   = START + ratioVecues * TAU - GAP;
-  // Arc passé (amber)
-  arc(START, endVecues, '#d97706');
-  if (gainAns > 0) {
-    // Gain (vert) — après les semaines passées
-    const startGain = endVecues + GAP * 2;
-    const endGain   = startGain + ratioGain * TAU - GAP;
-    arc(startGain, endGain, '#009862');
-    // Restant (gris foncé)
-    arc(endGain + GAP * 2, START + TAU - GAP, '#3f3f46');
-  } else if (gainAns < 0) {
-    // Restant (gris)
-    const ratioRest = Math.max(0, (restSem - gainSem) / totalSem);
-    const endRest   = endVecues + GAP * 2 + ratioRest * TAU - GAP;
-    arc(endVecues + GAP * 2, endRest, '#3f3f46');
-    // Perte (rouge)
-    arc(endRest + GAP * 2, START + TAU - GAP, '#e05555');
-  } else {
-    arc(endVecues + GAP * 2, START + TAU - GAP, '#3f3f46');
-  }
-  // Màj légende
-  document.getElementById('donut-age').textContent      = age;
-  document.getElementById('donut-vecues').textContent   = vecuesSem.toLocaleString('fr-FR') + ' sem.';
-  document.getElementById('donut-restantes').textContent = restSem.toLocaleString('fr-FR') + ' sem.';
-  const gainEl    = document.getElementById('donut-gain');
-  const gainAnsEl = document.getElementById('donut-gain-ans');
-  const gainDotEl = document.getElementById('donut-gain-dot');
-  if (gainAns > 0) {
-    gainEl.textContent    = '+' + gainSem + ' sem.';
-    gainEl.style.color    = 'var(--green-lt)';
-    gainAnsEl.textContent = 'soit +' + gainAns.toFixed(1) + ' ans gagnés';
-    gainDotEl.style.background = '#009862';
-  } else if (gainAns < 0) {
-    gainEl.textContent    = gainSem + ' sem. perdues';
-    gainEl.style.color    = '#fca5a5';
-    gainAnsEl.textContent = 'soit ' + gainAns.toFixed(1) + ' ans';
-    gainDotEl.style.background = '#e05555';
-  } else {
-    gainEl.textContent    = 'Neutre';
-    gainEl.style.color    = 'var(--muted)';
-    gainAnsEl.textContent = 'âge bio = âge chrono';
-    gainDotEl.style.background = '#3f3f46';
-  }
-  document.getElementById('donut-esperance').textContent = chrono.totalLife + ' ans';
-  section.style.display = 'block';
+  const ratioVecues=vecuesSem/totalSem;
+  const endVecues=START+ratioVecues*TAU-GAP;
+  arc(START,endVecues,"#d97706",false);
+  if(gainAns>0){
+    const rg=gainSem/totalSem, sg=endVecues+GAP*2, eg=sg+rg*TAU-GAP;
+    arc(sg,eg,"#009862",true);
+    if(eg+GAP*2<START+TAU-GAP)arc(eg+GAP*2,START+TAU-GAP,"#3f3f46",false);
+  }else if(gainAns<0){
+    const rr=Math.max(0,(restSem-gainSem)/totalSem);
+    const er=endVecues+GAP*2+rr*TAU-GAP;
+    arc(endVecues+GAP*2,er,"#3f3f46",false);
+    if(er+GAP*2<START+TAU-GAP)arc(er+GAP*2,START+TAU-GAP,"#e05555",true);
+  }else{arc(endVecues+GAP*2,START+TAU-GAP,"#3f3f46",false);}
+  document.getElementById("donut-age").textContent=age;
+  document.getElementById("donut-vecues").textContent=vecuesSem.toLocaleString("fr-FR")+" sem.";
+  document.getElementById("donut-restantes").textContent=restSem.toLocaleString("fr-FR")+" sem.";
+  const gEl=document.getElementById("donut-gain");
+  const gAEl=document.getElementById("donut-gain-ans");
+  const gDEl=document.getElementById("donut-gain-dot");
+  if(gainAns>0){gEl.textContent="+"+gainSem+" sem.";gEl.style.color="var(--green-lt)";gAEl.textContent="soit +"+gainAns.toFixed(1)+" ans gagnés ✓";gDEl.style.background="#009862";}
+  else if(gainAns<0){gEl.textContent=gainSem+" sem. perdues";gEl.style.color="#fca5a5";gAEl.textContent="soit "+gainAns.toFixed(1)+" ans";gDEl.style.background="#e05555";}
+  else{gEl.textContent="Neutre";gEl.style.color="var(--muted)";gAEl.textContent="âge bio = âge chrono";gDEl.style.background="#3f3f46";}
+  document.getElementById("donut-esperance").textContent=chrono.totalLife+" ans";
+  const wrap=canvas.parentElement;
+  if(wrap){wrap.style.width=SIZE+"px";wrap.style.height=SIZE+"px";}
+  section.style.display="block";
 }
 function buildRecos(factors) {
   if (!factors || factors.length === 0) return;
@@ -989,6 +997,8 @@ function resetAll() {
   document.getElementById('imcWrap').style.display = 'none';
   document.getElementById('results').style.display = 'none';
   document.getElementById('setup').style.display = 'block';
+  document.getElementById('bioLiveCard').classList.remove('visible');
+  _bioLiveDismissed = false;
   if (_countdownInterval) clearInterval(_countdownInterval);
   updateProgress(); updateBadges();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1188,9 +1198,64 @@ function restoreSession() {
   } catch(e) { return false; }
 }
 
-// Hook saveSession sur onInput et lancerCalcul
+// ── CARTE BIO LIVE ──
+let _bioLiveDismissed = false;
+
+// Facteurs qui comptent pour la confiance
+const BIO_LIVE_FACTORS = ['tabac','alcool','alim','sleep_dur','sleep_qual','stress','humeur','sport_mod_h','sport_int_h','renfo','social','antecedents'];
+
+function updateBioLive() {
+  if (_bioLiveDismissed) return;
+  const age = parseFloat(document.getElementById('age').value);
+  if (!age || !D.sexe) return;
+
+  // Calcul confiance = nb facteurs remplis / total
+  let filled = 0;
+  BIO_LIVE_FACTORS.forEach(k => {
+    if (k === 'sport_mod_h' || k === 'sport_int_h') {
+      if (parseFloat(document.getElementById(k).value) > 0) filled++;
+    } else if (D[k]) filled++;
+  });
+  const confPct = Math.round((filled / BIO_LIVE_FACTORS.length) * 100);
+
+  // N'afficher qu'à partir de 25% de confiance (âge + sexe + 2-3 facteurs)
+  if (confPct < 35) {
+    document.getElementById('bioLiveCard').classList.remove('visible');
+    return;
+  }
+
+  const bio = calcBioAge();
+  if (!bio) return;
+
+  document.getElementById('blc-age').textContent = bio.bioAge;
+  const d = bio.delta;
+  const dEl = document.getElementById('blc-delta');
+  const dStr = (d >= 0 ? '+' : '') + d.toFixed(1) + ' ans';
+  dEl.textContent = dStr;
+  dEl.className = 'bio-live-delta ' + (d < -1 ? 'young' : d > 1 ? 'old' : 'neu');
+
+  document.getElementById('blc-conf').style.width = confPct + '%';
+  document.getElementById('blc-conf-pct').textContent = confPct + '%';
+
+  document.getElementById('bioLiveCard').classList.add('visible');
+}
+
+function dismissBioLive() {
+  _bioLiveDismissed = true;
+  document.getElementById('bioLiveCard').classList.remove('visible');
+}
+
+// Masquer la carte quand les résultats sont affichés
+const _origLancer2 = lancerCalcul;
+lancerCalcul = function() {
+  dismissBioLive();
+  _bioLiveDismissed = false; // reset pour le prochain formulaire
+  _origLancer2();
+};
+
+// Hook updateBioLive sur onInput
 const _origOnInput = onInput;
-onInput = function() { _origOnInput(); saveSession(); };
+onInput = function() { _origOnInput(); saveSession(); updateBioLive(); };
 
 const _origLancer = lancerCalcul;
 lancerCalcul = function() { _origLancer(); saveSession(); };
@@ -1217,6 +1282,24 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!restored) { updateProgress(); updateBadges(); }
 });
 </script>
+<!-- CARTE BIO LIVE -->
+<div class="bio-live-card" id="bioLiveCard">
+  <div class="bio-live-icon">🧬</div>
+  <div class="bio-live-body">
+    <div class="bio-live-label">Âge biologique estimé</div>
+    <div class="bio-live-main">
+      <span class="bio-live-age" id="blc-age">—</span>
+      <span class="bio-live-unit">ans</span>
+      <span class="bio-live-delta" id="blc-delta"></span>
+    </div>
+    <div class="bio-live-conf">
+      <span class="bio-live-conf-label">Précision</span>
+      <div class="bio-live-conf-bar"><div class="bio-live-conf-fill" id="blc-conf" style="width:0%"></div></div>
+      <span class="bio-live-conf-label" id="blc-conf-pct">0%</span>
+    </div>
+  </div>
+  <button class="bio-live-close" onclick="dismissBioLive()" title="Masquer">×</button>
+</div>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
 window.OneSignalDeferred = window.OneSignalDeferred || [];

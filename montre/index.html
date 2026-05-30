@@ -727,7 +727,8 @@ function updateBadges() {
   const poids = parseFloat(document.getElementById('poids').value);
   const profilOk = age > 0 && D.sexe;
   setBadge('badge-profil', profilOk ? 'ok' : 'req', profilOk ? '✓ Requis' : 'Requis');
-  const corpoN = (taille > 0 ? 1 : 0) + (poids > 0 ? 1 : 0) + (D.waist ? 1 : 0);
+  const waistVal = parseFloat(document.getElementById('waist').value) || 0;
+  const corpoN = (taille > 0 ? 1 : 0) + (poids > 0 ? 1 : 0) + (waistVal > 0 ? 1 : 0);
   setBadge('badge-corpo', corpoN >= 2 ? 'ok' : null, corpoN + '/3');
   const lifeN = ['tabac','alcool','alim','hydratation'].filter(k => D[k]).length;
   setBadge('badge-life', lifeN >= 3 ? 'ok' : null, lifeN + '/4');
@@ -1223,8 +1224,10 @@ function renderHistory(history) {
 function drawHistoChart(history) {
   const canvas = document.getElementById('histoCanvas');
   if (!canvas) return;
+  // Attendre que le canvas ait une largeur réelle dans le DOM
+  const W = canvas.offsetWidth || canvas.parentElement?.offsetWidth || 600;
+  if (W < 10) { setTimeout(() => drawHistoChart(history), 80); return; }
   const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth || 600;
   const H = 140;
   canvas.width = W; canvas.height = H;
   ctx.clearRect(0, 0, W, H);
@@ -1805,14 +1808,64 @@ window.addEventListener('pagehide', saveSession);
 window.addEventListener('beforeunload', saveSession);
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Restaurer le mode sauvegardé
-  try {
-    const savedMode = localStorage.getItem('mdv_mode') || 'express';
-    _mode = savedMode;
-    setMode(savedMode);
-  } catch(e) { setMode('express'); }
-  const restored = restoreSession();
-  if (!restored) { updateProgress(); updateBadges(); }
+  // 1. Restaurer la session en premier — avant tout setMode qui écraserait
+  const raw = (function() { try { return localStorage.getItem(LS_KEY); } catch(e) { return null; } })();
+  const session = raw ? (function() { try { return JSON.parse(raw); } catch(e) { return null; } })() : null;
+
+  // 2. Appliquer le mode sans déclencher saveSession
+  const savedMode = (function() { try { return localStorage.getItem('mdv_mode') || 'express'; } catch(e) { return 'express'; } })();
+  _mode = savedMode;
+  // Appliquer visuellement le toggle sans passer par setMode (qui appellerait onInput → saveSession)
+  const isExpress = savedMode === 'express';
+  document.getElementById('btnExpress').classList.toggle('active', isExpress);
+  document.getElementById('btnExpress').classList.toggle('express', isExpress);
+  document.getElementById('btnComplet').classList.toggle('active', !isExpress);
+  EXPRESS_HIDDEN.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (isExpress) el.classList.add('express-hidden');
+    else el.classList.remove('express-hidden');
+  });
+  const desc = document.getElementById('levelDesc');
+  if (desc) desc.textContent = isExpress ? '7 questions — environ 90 secondes' : 'Les fondations — environ 5 min';
+
+  // 3. Restaurer la session si valide
+  if (session && session.savedAt && Date.now() - session.savedAt < 30*24*3600*1000) {
+    // Restaurer D
+    if (session.D) Object.assign(D, session.D);
+    // Restaurer les inputs numériques
+    if (session.numerics) {
+      Object.entries(session.numerics).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      });
+    }
+    // Restaurer les boutons opt
+    Object.entries(D).forEach(([key, val]) => {
+      document.querySelectorAll('.opt').forEach(btn => {
+        const m = (btn.getAttribute('onclick') || '').match(/pick\(this,'([^']+)','([^']+)'\)/);
+        if (m && m[1] === key && m[2] === val) btn.classList.add('sel');
+      });
+    });
+    calcImc();
+    updateProgress();
+    updateBadges();
+
+    // Si un résultat existait, le réafficher
+    if (session.resultState) {
+      _resultState = session.resultState;
+      _canvasDirty = true;
+      document.getElementById('setup').style.display = 'none';
+      const resEl = document.getElementById('results');
+      resEl.style.display = 'block';
+      afficherResultats(_resultState.age, _resultState.bio, _resultState.chrono);
+      // Délai court pour que le DOM soit rendu avant drawHistoChart
+      setTimeout(() => renderHistory(loadHistory()), 50);
+    }
+  } else {
+    updateProgress();
+    updateBadges();
+  }
 });
 </script>
 <!-- CARTE BIO LIVE -->

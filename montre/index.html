@@ -648,9 +648,7 @@ function setMode(mode) {
 
   EXPRESS_HIDDEN.forEach(id => {
     const el = document.getElementById(id);
-    if (!el) return;
-    if (isExpress) el.classList.add('express-hidden');
-    else el.classList.remove('express-hidden');
+    if (el) el.classList.toggle('express-hidden', isExpress);
   });
 
   const desc = document.getElementById('levelDesc');
@@ -1169,7 +1167,14 @@ function renderHistory(history) {
   const msgEl   = document.getElementById('histoMsg');
   const listEl  = document.getElementById('histoList');
   const chartWrap = document.getElementById('histoChartWrap');
-  if (!section) return;
+  if (!section || !msgEl || !listEl) return;
+
+  // S'assurer que #results est visible avant d'afficher histoSection
+  const results = document.getElementById('results');
+  if (results && results.style.display === 'none') {
+    setTimeout(() => renderHistory(history), 100);
+    return;
+  }
 
   section.style.display = 'block';
   listEl.innerHTML = '';
@@ -1324,8 +1329,24 @@ function drawHistoChart(history) {
 }
 
 function buildRecos(factors) {
-  if (!factors || factors.length === 0) return;
-  const sorted = factors.filter(f => f.v > 0).sort((a,b) => b.v - a.v).slice(0,3);
+  if (!factors) return;
+  // Facteurs négatifs triés par impact décroissant
+  let sorted = factors.filter(f => f.v > 0).sort((a,b) => b.v - a.v).slice(0,3);
+
+  // Si moins de 3, compléter avec des recos génériques universelles
+  const generics = [
+    { l:'VO₂max (estimé)', v:0.1 },
+    { l:'Alimentation',    v:0.1 },
+    { l:'Sommeil (durée)', v:0.1 },
+    { l:'Stress chronique',v:0.1 },
+    { l:'Liens sociaux',   v:0.1 },
+  ];
+  let gi = 0;
+  while (sorted.length < 3 && gi < generics.length) {
+    const g = generics[gi++];
+    if (!sorted.find(f => f.l === g.l)) sorted.push(g);
+  }
+
   if (sorted.length === 0) { document.getElementById('recoSection').style.display = 'none'; return; }
   const container = document.getElementById('recoCards');
   container.innerHTML = '';

@@ -266,6 +266,35 @@ input[type=number]::placeholder{color:var(--muted)}
 .bio-live-close{background:transparent;border:none;color:var(--muted);font-size:1.1rem;
   cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;transition:color .2s}
 .bio-live-close:hover{color:var(--text)}
+/* ─── MODE EXPRESS ─── */
+.mode-toggle{display:flex;align-items:center;background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:4px;gap:4px;margin-bottom:20px}
+.mode-toggle-btn{flex:1;padding:9px 14px;border-radius:9px;border:none;cursor:pointer;
+  font-family:'Inter',system-ui,sans-serif;font-size:.82rem;font-weight:700;
+  letter-spacing:.02em;transition:all .2s;background:transparent;color:var(--muted)}
+.mode-toggle-btn.active{background:var(--amber);color:#000;
+  box-shadow:0 2px 8px rgba(245,158,11,.3)}
+.mode-toggle-btn.active.express{background:var(--green);color:#fff;
+  box-shadow:0 2px 8px rgba(0,152,98,.3)}
+.express-badge{display:inline-flex;align-items:center;gap:5px;
+  font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(0,152,98,.12);color:var(--green-lt);
+  border:1px solid rgba(0,152,98,.25);padding:2px 9px;border-radius:20px;margin-left:6px}
+.express-hidden{display:none!important}
+.affiner-banner{background:rgba(0,152,98,.07);border:1px solid rgba(0,152,98,.22);
+  border-radius:14px;padding:16px 20px;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;margin-top:28px;flex-wrap:wrap}
+.affiner-banner-left{display:flex;flex-direction:column;gap:3px}
+.affiner-banner-title{font-size:.9rem;font-weight:800;color:var(--text)}
+.affiner-banner-sub{font-size:.78rem;color:var(--muted);font-weight:600}
+.affiner-banner-sub strong{color:var(--green-lt)}
+.btn-affiner{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;
+  background:var(--green);color:#fff;border:none;
+  font-family:'Inter',system-ui,sans-serif;font-size:.82rem;font-weight:800;
+  padding:10px 18px;border-radius:10px;cursor:pointer;transition:all .2s;
+  box-shadow:0 2px 10px rgba(0,152,98,.25)}
+.btn-affiner:hover{background:var(--green-dk);transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(0,152,98,.35)}
 .site-footer{background:var(--card);border-top:1px solid var(--border);padding:36px 24px;text-align:center;margin-top:60px;position:relative;z-index:2}
 .site-footer-inner{max-width:1024px;margin:0 auto}
 .footer-links{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}
@@ -291,16 +320,27 @@ input[type=number]::placeholder{color:var(--muted)}
 <div id="setup">
 <div class="header"><div class="eyebrow">Memento Mori</div><h1>Ton décompte <em>réel</em></h1><p class="sub">Âge chronologique, âge biologique, années restantes — tout en un seul calcul.</p></div>
 <div class="warning">⚠ Outil indicatif, pas médical. Plus tu réponds honnêtement, plus le calcul sera juste.</div>
+
+<!-- TOGGLE MODE -->
+<div class="mode-toggle" id="modeToggle">
+  <button class="mode-toggle-btn active express" id="btnExpress" onclick="setMode('express')">
+    ⚡ Express <span class="express-badge">90 sec</span>
+  </button>
+  <button class="mode-toggle-btn" id="btnComplet" onclick="setMode('complet')">
+    🔬 Complet — précision maximale
+  </button>
+</div>
+
 <div class="progress-wrap" id="progressWrap"><div class="progress-info"><span class="progress-label">Progression</span><div style="display:flex;align-items:center;gap:10px"><span class="progress-pct" id="progressPct">0%</span><button onclick="resetAll()" title="Réinitialiser toutes les données" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Inter',system-ui,sans-serif;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer;transition:all .2s;letter-spacing:.04em" onmouseover="this.style.borderColor='var(--border2)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">↺ Réinitialiser</button></div></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
 
 <!-- NIVEAU 1 -->
-<div class="level-header"><div><div class="level-num">NIVEAU 01</div><div class="level-title">Profil & Mode de vie</div><div class="level-desc">Les fondations — environ 5 min</div></div></div>
+<div class="level-header"><div><div class="level-num">NIVEAU 01</div><div class="level-title">Profil & Mode de vie</div><div class="level-desc" id="levelDesc">Les fondations — environ 5 min</div></div></div>
 
 <!-- Profil -->
 <div class="qcard"><div class="qcard-header open" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">👤</span><span class="qcard-name">Profil de base</span></div><div class="qcard-right"><span class="qcard-badge req" id="badge-profil">Requis</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body open"><div class="field-row"><div class="field-group"><label class="field-label">Âge</label><input type="number" id="age" min="1" max="120" placeholder="47" oninput="onInput()"></div><div class="field-group"><label class="field-label">Sexe biologique</label><div class="opts"><button class="opt" onclick="pick(this,'sexe','H')">Homme</button><button class="opt" onclick="pick(this,'sexe','F')">Femme</button></div></div></div></div></div>
 
 <!-- Composition corporelle -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">⚖️</span><span class="qcard-name">Composition corporelle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-corpo">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-row"><div class="field-group"><label class="field-label">Taille (cm)</label><input type="number" id="taille" min="140" max="220" placeholder="175" oninput="onInput();calcImc()"></div><div class="field-group"><label class="field-label">Poids (kg)</label><input type="number" id="poids" min="40" max="200" step=".5" placeholder="70" oninput="onInput();calcImc()"></div></div><div id="imcWrap" style="display:none;margin-bottom:14px"><div class="imc-display"><span class="imc-num" id="imcNum">—</span><span class="imc-cat" id="imcCat">IMC</span></div></div><div class="field-row full"><div class="field-group"><label class="field-label">Tour de taille (cm)</label><input type="number" id="waist" min="50" max="160" placeholder="82" oninput="onInput()"><div class="field-hint">Au niveau du nombril. Idéal : H &lt;94 cm · F &lt;80 cm</div></div></div></div></div>
+<div class="qcard express-hidden" id="card-corpo"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">⚖️</span><span class="qcard-name">Composition corporelle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-corpo">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-row"><div class="field-group"><label class="field-label">Taille (cm)</label><input type="number" id="taille" min="140" max="220" placeholder="175" oninput="onInput();calcImc()"></div><div class="field-group"><label class="field-label">Poids (kg)</label><input type="number" id="poids" min="40" max="200" step=".5" placeholder="70" oninput="onInput();calcImc()"></div></div><div id="imcWrap" style="display:none;margin-bottom:14px"><div class="imc-display"><span class="imc-num" id="imcNum">—</span><span class="imc-cat" id="imcCat">IMC</span></div></div><div class="field-row full"><div class="field-group"><label class="field-label">Tour de taille (cm)</label><input type="number" id="waist" min="50" max="160" placeholder="82" oninput="onInput()"><div class="field-hint">Au niveau du nombril. Idéal : H &lt;94 cm · F &lt;80 cm</div></div></div></div></div>
 
 <!-- Mode de vie -->
 <div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🌿</span><span class="qcard-name">Mode de vie</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-life">0/4</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
@@ -311,19 +351,19 @@ input[type=number]::placeholder{color:var(--muted)}
 </div></div>
 
 <!-- Sommeil -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🌙</span><span class="qcard-name">Sommeil</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-sleep">0/2</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard" id="card-sommeil"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🌙</span><span class="qcard-name">Sommeil</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-sleep">0/2</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Durée par nuit</label><div class="opts"><button class="opt bad" onclick="pick(this,'sleep_dur','&lt;6')">Moins de 6h</button><button class="opt mid" onclick="pick(this,'sleep_dur','6')">6h</button><button class="opt" onclick="pick(this,'sleep_dur','7-8')">7 – 8h ✓</button><button class="opt mid" onclick="pick(this,'sleep_dur','&gt;9')">Plus de 9h</button></div></div></div>
 <div class="field-row full"><div class="field-group"><label class="field-label">Qualité subjective</label><div class="opts"><button class="opt bad" onclick="pick(this,'sleep_qual','mauvaise')">Mauvaise — réveils, non récupérateur</button><button class="opt mid" onclick="pick(this,'sleep_qual','moyenne')">Moyenne</button><button class="opt" onclick="pick(this,'sleep_qual','bonne')">Bonne ✓</button><button class="opt" onclick="pick(this,'sleep_qual','excellente')">Excellente — profond, reposant ✓</button></div></div></div>
 </div></div>
 
 <!-- Sport -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🏔️</span><span class="qcard-name">Sport &amp; Activité physique</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-sport">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard" id="card-sport"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🏔️</span><span class="qcard-name">Sport &amp; Activité physique</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-sport">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="field-row" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Sport modéré (h/sem)</label><input type="number" id="sport_mod_h" min="0" max="40" step=".5" placeholder="Ex : 3" oninput="onInput()"><div class="field-hint">Marche, vélo, yoga, natation…</div></div><div class="field-group"><label class="field-label">Sport intense (h/sem)</label><input type="number" id="sport_int_h" min="0" max="40" step=".5" placeholder="Ex : 2" oninput="onInput()"><div class="field-hint">Trail, HIIT, fractionné…</div></div></div>
 <div class="field-row full"><div class="field-group"><label class="field-label">Renforcement musculaire</label><div class="opts"><button class="opt bad" onclick="pick(this,'renfo','jamais')">Jamais</button><button class="opt mid" onclick="pick(this,'renfo','occ')">Occasionnel</button><button class="opt" onclick="pick(this,'renfo','regulier')">Régulier ✓ — 2×/sem ou plus</button></div></div></div>
 </div></div>
 
 <!-- Mental -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🧠</span><span class="qcard-name">Stress &amp; Santé mentale</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-mental">0/5</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard express-hidden" id="card-mental"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🧠</span><span class="qcard-name">Stress &amp; Santé mentale</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-mental">0/5</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Stress chronique</label><div class="opts"><button class="opt bad" onclick="pick(this,'stress','eleve')">Élevé et non géré</button><button class="opt mid" onclick="pick(this,'stress','mod')">Modéré — la vie quoi</button><button class="opt" onclick="pick(this,'stress','faible')">Faible</button><button class="opt" onclick="pick(this,'stress','gere')">Bien géré — méditation, recul ✓</button></div></div></div>
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Humeur générale — 30 derniers jours</label><div class="opts"><button class="opt bad" onclick="pick(this,'humeur','mauvaise')">Souvent sombre ou anxieux</button><button class="opt mid" onclick="pick(this,'humeur','variable')">Variable, hauts et bas</button><button class="opt" onclick="pick(this,'humeur','bonne')">Globalement positif</button><button class="opt" onclick="pick(this,'humeur','excellente')">Stable, serein ✓</button></div></div></div>
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Anxiété chronique</label><div class="opts"><button class="opt bad" onclick="pick(this,'anxiete','eleve')">Élevée — rumination fréquente</button><button class="opt mid" onclick="pick(this,'anxiete','mod')">Modérée</button><button class="opt" onclick="pick(this,'anxiete','faible')">Faible — je gère bien</button><button class="opt" onclick="pick(this,'anxiete','nulle')">Quasi nulle ✓</button></div></div></div>
@@ -332,62 +372,62 @@ input[type=number]::placeholder{color:var(--muted)}
 </div></div>
 
 <!-- Social & Env -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">👥</span><span class="qcard-name">Liens sociaux &amp; Environnement</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-social">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard express-hidden" id="card-social"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">👥</span><span class="qcard-name">Liens sociaux &amp; Environnement</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-social">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Qualité des liens sociaux</label><div class="opts"><button class="opt bad" onclick="pick(this,'social','isole')">Isolé</button><button class="opt mid" onclick="pick(this,'social','superficiel')">Relations superficielles</button><button class="opt" onclick="pick(this,'social','bons')">Bons amis, famille présente</button><button class="opt" onclick="pick(this,'social','fort')">Communauté forte ✓</button></div></div></div>
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Pollution atmosphérique</label><div class="opts"><button class="opt" onclick="pick(this,'pollution','faible')">Faible — campagne, nature ✓</button><button class="opt mid" onclick="pick(this,'pollution','moyenne')">Moyenne — ville standard</button><button class="opt bad" onclick="pick(this,'pollution','eleve')">Élevée — grande ville</button><button class="opt bad" onclick="pick(this,'pollution','tres_eleve')">Très élevée — zone industrielle</button></div></div></div>
 <div class="field-row full"><div class="field-group"><label class="field-label">Santé financière perçue</label><div class="field-hint" style="margin-bottom:8px">Le stress financier chronique accélère le vieillissement biologique.</div><div class="opts"><button class="opt bad" onclick="pick(this,'finance','stress')">Stress financier permanent</button><button class="opt mid" onclick="pick(this,'finance','incertain')">Incertain — dettes ou épargne nulle</button><button class="opt" onclick="pick(this,'finance','correct')">Correct — dépenses couvertes</button><button class="opt" onclick="pick(this,'finance','serein')">Serein — sécurité et épargne ✓</button></div></div></div>
 </div></div>
 
 <!-- Santé & Génétique -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🧬</span><span class="qcard-name">Santé &amp; Génétique</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-gen">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard express-hidden" id="card-gen"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🧬</span><span class="qcard-name">Santé &amp; Génétique</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-gen">0/3</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Bilan médical régulier</label><div class="opts"><button class="opt" onclick="pick(this,'checkup','annuel')">Oui — chaque année ✓</button><button class="opt mid" onclick="pick(this,'checkup','biennal')">Tous les 2–3 ans</button><button class="opt bad" onclick="pick(this,'checkup','jamais')">Jamais — "je me sens bien" 🙈</button></div></div></div>
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Antécédents familiaux</label><div class="opts"><button class="opt" onclick="pick(this,'antecedents','excellents')">Excellents — longévité familiale ✓</button><button class="opt" onclick="pick(this,'antecedents','neutres')">Neutres</button><button class="opt mid" onclick="pick(this,'antecedents','cardio')">Cardio ou cancers après 60 ans ⚠️</button><button class="opt bad" onclick="pick(this,'antecedents','precoces')">Maladies précoces avant 60 ans ❌</button></div></div></div>
 <div class="field-row full"><div class="field-group"><label class="field-label">Méditation / pleine conscience</label><div class="opts"><button class="opt mid" onclick="pick(this,'mindfulness','jamais')">Jamais</button><button class="opt" onclick="pick(this,'mindfulness','occ')">Occasionnelle</button><button class="opt" onclick="pick(this,'mindfulness','regulier')">Régulière ✓ — même 5 min/jour</button></div></div></div>
 </div></div>
 
 <!-- NIVEAU 2 -->
-<div class="level-sep"><div class="level-sep-line"></div><div class="level-sep-dot"></div><div class="level-sep-line"></div></div>
-<div class="level-header"><div><div class="level-num">NIVEAU 02</div><div class="level-title">Capacités physiques <span class="opt-tag">Optionnel</span></div><div class="level-desc">VO₂max, force de préhension, vitesse de marche</div></div></div>
+<div class="level-sep express-hidden" id="sep-n2"><div class="level-sep-line"></div><div class="level-sep-dot"></div><div class="level-sep-line"></div></div>
+<div class="level-header express-hidden" id="head-n2"><div><div class="level-num">NIVEAU 02</div><div class="level-title">Capacités physiques <span class="opt-tag">Optionnel</span></div><div class="level-desc">VO₂max, force de préhension, vitesse de marche</div></div></div>
 
 <!-- VO2max -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">❤️</span><span class="qcard-name">VO₂max</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-vo2">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard express-hidden" id="card-vo2"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">❤️</span><span class="qcard-name">VO₂max</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-vo2">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">VO₂max mesuré (ml/kg/min)</label><input type="number" id="vo2max" min="10" max="90" placeholder="ex : 54" oninput="onInput()"><div class="field-hint">Ta montre GPS (Garmin, COROS, Polar) te donne cette valeur. Laisse vide si inconnu.</div></div></div>
 <div class="field-row full"><div class="field-group"><label class="field-label">Niveau perçu (si VO₂max inconnu)</label><div class="opts"><button class="opt" onclick="pick(this,'vo2_perc','neutre')">Je ne sais pas</button><button class="opt bad" onclick="pick(this,'vo2_perc','faible')">Faible — essoufflé vite</button><button class="opt mid" onclick="pick(this,'vo2_perc','moyen')">Moyen</button><button class="opt" onclick="pick(this,'vo2_perc','bon')">Bon — endurance solide</button><button class="opt" onclick="pick(this,'vo2_perc','elite')">Excellent — athlète confirmé ✓</button></div></div></div>
 </div></div>
 
 <!-- Grip -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🤜</span><span class="qcard-name">Force de préhension</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-grip">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard express-hidden" id="card-grip"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🤜</span><span class="qcard-name">Force de préhension</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-grip">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="grip-accordion"><div class="grip-accordion-header" onclick="this.nextElementSibling.classList.toggle('open')"><span>🤜 MESURER AVEC UN PÈSE-PERSONNE</span><span>▼</span></div><div class="grip-accordion-body"><div class="grip-steps"><div class="grip-step"><span class="grip-step-n">1</span><span><strong>Installation</strong> — Pèse-personne sur table solide à hauteur de taille.</span></div><div class="grip-step"><span class="grip-step-n">2</span><span><strong>Position</strong> — Main dominante à plat sur le plateau, doigts dépassant du bord.</span></div><div class="grip-step"><span class="grip-step-n">3</span><span><strong>Action</strong> — Referme les doigts et serre fort 3 secondes.</span></div><div class="grip-step"><span class="grip-step-n">4</span><span><strong>Lecture</strong> — Note le poids maximal. 3 essais, garde le meilleur.</span></div></div><div class="grip-warning">⚠️ Marge d'erreur ~20% vs dynamomètre médical.</div><div class="grip-thresholds"><div class="grip-th"><div class="grip-th-label">Excellent ✓</div><div class="grip-th-val">H &gt;40kg · F &gt;25kg</div></div><div class="grip-th"><div class="grip-th-label">Normal</div><div class="grip-th-val">H 30–40kg · F 20–25kg</div></div><div class="grip-th"><div class="grip-th-label">Faible ⚠️</div><div class="grip-th-val">H 20–30kg · F 15–20kg</div></div><div class="grip-th"><div class="grip-th-label">Très faible ❌</div><div class="grip-th-val">H &lt;20kg · F &lt;15kg</div></div></div></div></div>
 <div class="field-group" style="margin-top:12px"><label class="field-label">Résultat (kg)</label><input type="number" id="grip" min="5" max="80" placeholder="ex : 42" oninput="onInput()"><div class="field-hint" id="gripFeedback">Saisis ton meilleur essai en kg.</div></div>
 </div></div>
 
 <!-- Marche -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🚶</span><span class="qcard-name">Vitesse de marche</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-walk">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Vitesse de marche (m/s)</label><input type="number" id="walk" min="0.3" max="3" step="0.1" placeholder="ex : 1.4" oninput="onInput()"><div class="field-hint">Test 10m : marche normalement, chronomètre. Vitesse = 10 ÷ secondes.<br>Ex : 7s → 1,43 m/s · Excellent &gt;1,4 · Normal 1,2–1,4 · Vigilance &lt;1,2</div></div></div></div>
+<div class="qcard express-hidden" id="card-marche"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🚶</span><span class="qcard-name">Vitesse de marche</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-walk">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Vitesse de marche (m/s)</label><input type="number" id="walk" min="0.3" max="3" step="0.1" placeholder="ex : 1.4" oninput="onInput()"><div class="field-hint">Test 10m : marche normalement, chronomètre. Vitesse = 10 ÷ secondes.<br>Ex : 7s → 1,43 m/s · Excellent &gt;1,4 · Normal 1,2–1,4 · Vigilance &lt;1,2</div></div></div></div>
 
 <!-- NIVEAU 3 -->
-<div class="level-sep"><div class="level-sep-line"></div><div class="level-sep-dot"></div><div class="level-sep-line"></div></div>
-<div class="level-header"><div><div class="level-num">NIVEAU 03</div><div class="level-title">Bilan sanguin <span class="opt-tag">Optionnel</span></div><div class="level-desc">Cholestérol, tension, glycémie, CRP, ferritine, vitamine D</div></div></div>
+<div class="level-sep express-hidden" id="sep-n3"><div class="level-sep-line"></div><div class="level-sep-dot"></div><div class="level-sep-line"></div></div>
+<div class="level-header express-hidden" id="head-n3"><div><div class="level-num">NIVEAU 03</div><div class="level-title">Bilan sanguin <span class="opt-tag">Optionnel</span></div><div class="level-desc">Cholestérol, tension, glycémie, CRP, ferritine, vitamine D</div></div></div>
 
 <!-- Tension -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">💓</span><span class="qcard-name">Tension artérielle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-tension">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Systolique (mmHg)</label><div class="opts"><button class="opt" onclick="pick(this,'tension','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'tension','&lt;120')">&lt; 120 — Optimal ✓</button><button class="opt" onclick="pick(this,'tension','120-129')">120–129 — Normale</button><button class="opt mid" onclick="pick(this,'tension','130-139')">130–139 — Haute ⚠️</button><button class="opt bad" onclick="pick(this,'tension','140-159')">140–159 — HTA G1 ❌</button><button class="opt bad" onclick="pick(this,'tension','&gt;=160')">≥ 160 — HTA G2 ❌</button></div></div></div></div>
+<div class="qcard express-hidden" id="card-tension"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">💓</span><span class="qcard-name">Tension artérielle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-tension">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Systolique (mmHg)</label><div class="opts"><button class="opt" onclick="pick(this,'tension','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'tension','&lt;120')">&lt; 120 — Optimal ✓</button><button class="opt" onclick="pick(this,'tension','120-129')">120–129 — Normale</button><button class="opt mid" onclick="pick(this,'tension','130-139')">130–139 — Haute ⚠️</button><button class="opt bad" onclick="pick(this,'tension','140-159')">140–159 — HTA G1 ❌</button><button class="opt bad" onclick="pick(this,'tension','&gt;=160')">≥ 160 — HTA G2 ❌</button></div></div></div></div>
 
 <!-- Glycémie -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🍬</span><span class="qcard-name">Glycémie à jeun</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-glyc">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Glycémie à jeun (g/L)</label><div class="opts"><button class="opt" onclick="pick(this,'glycemie','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'glycemie','opt')">0,70–1,00 — Optimal ✓</button><button class="opt mid" onclick="pick(this,'glycemie','limite')">1,01–1,10 — Limite ⚠️</button><button class="opt bad" onclick="pick(this,'glycemie','prediabete')">1,11–1,25 — Prédiabète ❌</button><button class="opt bad" onclick="pick(this,'glycemie','diabete')">≥ 1,26 — Diabète ❌</button></div><div class="field-hint">Pour convertir mg/dL → g/L : divise par 100.</div></div></div></div>
+<div class="qcard express-hidden" id="card-glyc"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🍬</span><span class="qcard-name">Glycémie à jeun</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-glyc">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Glycémie à jeun (g/L)</label><div class="opts"><button class="opt" onclick="pick(this,'glycemie','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'glycemie','opt')">0,70–1,00 — Optimal ✓</button><button class="opt mid" onclick="pick(this,'glycemie','limite')">1,01–1,10 — Limite ⚠️</button><button class="opt bad" onclick="pick(this,'glycemie','prediabete')">1,11–1,25 — Prédiabète ❌</button><button class="opt bad" onclick="pick(this,'glycemie','diabete')">≥ 1,26 — Diabète ❌</button></div><div class="field-hint">Pour convertir mg/dL → g/L : divise par 100.</div></div></div></div>
 
 <!-- LDL -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🩸</span><span class="qcard-name">Cholestérol LDL</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-ldl">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><div class="opts"><button class="opt" onclick="pick(this,'ldl','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'ldl','&lt;1.0')">&lt; 1,00 g/L — Optimal ✓</button><button class="opt" onclick="pick(this,'ldl','1.0-1.29')">1,00–1,29 — Normal</button><button class="opt mid" onclick="pick(this,'ldl','1.3-1.59')">1,30–1,59 — Limite haute ⚠️</button><button class="opt bad" onclick="pick(this,'ldl','1.6-1.89')">1,60–1,89 — Élevé ❌</button><button class="opt bad" onclick="pick(this,'ldl','&gt;=1.9')">≥ 1,90 — Très élevé ❌</button></div></div></div></div>
+<div class="qcard express-hidden" id="card-ldl"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🩸</span><span class="qcard-name">Cholestérol LDL</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-ldl">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><div class="opts"><button class="opt" onclick="pick(this,'ldl','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'ldl','&lt;1.0')">&lt; 1,00 g/L — Optimal ✓</button><button class="opt" onclick="pick(this,'ldl','1.0-1.29')">1,00–1,29 — Normal</button><button class="opt mid" onclick="pick(this,'ldl','1.3-1.59')">1,30–1,59 — Limite haute ⚠️</button><button class="opt bad" onclick="pick(this,'ldl','1.6-1.89')">1,60–1,89 — Élevé ❌</button><button class="opt bad" onclick="pick(this,'ldl','&gt;=1.9')">≥ 1,90 — Très élevé ❌</button></div></div></div></div>
 
 <!-- CRP -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🔥</span><span class="qcard-name">CRP — Inflammation</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-crp">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><div class="opts"><button class="opt" onclick="pick(this,'crp','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'crp','&lt;1')">&lt; 1 mg/L — Excellent ✓</button><button class="opt" onclick="pick(this,'crp','1-3')">1 – 3 mg/L — Normal</button><button class="opt mid" onclick="pick(this,'crp','3-10')">3 – 10 mg/L — Élevé ⚠️</button><button class="opt bad" onclick="pick(this,'crp','&gt;10')">&gt; 10 mg/L — Très élevé ❌</button></div><div class="field-hint">Marqueur d'inflammation systémique. &lt;1 mg/L = excellent.</div></div></div></div>
+<div class="qcard express-hidden" id="card-crp"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🔥</span><span class="qcard-name">CRP — Inflammation</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-crp">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><div class="opts"><button class="opt" onclick="pick(this,'crp','neutre')">Je ne sais pas</button><button class="opt" onclick="pick(this,'crp','&lt;1')">&lt; 1 mg/L — Excellent ✓</button><button class="opt" onclick="pick(this,'crp','1-3')">1 – 3 mg/L — Normal</button><button class="opt mid" onclick="pick(this,'crp','3-10')">3 – 10 mg/L — Élevé ⚠️</button><button class="opt bad" onclick="pick(this,'crp','&gt;10')">&gt; 10 mg/L — Très élevé ❌</button></div><div class="field-hint">Marqueur d'inflammation systémique. &lt;1 mg/L = excellent.</div></div></div></div>
 
 <!-- Ferritine & VitD -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">⚗️</span><span class="qcard-name">Ferritine &amp; Vitamine D</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-ferr">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard express-hidden" id="card-ferr"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">⚗️</span><span class="qcard-name">Ferritine &amp; Vitamine D</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-ferr">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Ferritine (ng/mL)</label><div class="opts"><button class="opt" onclick="pick(this,'ferritine','neutre')">Je ne sais pas</button><button class="opt mid" onclick="pick(this,'ferritine','basse')">&lt; 30 — Basse (carence)</button><button class="opt" onclick="pick(this,'ferritine','normale')">30–200 — Normale ✓</button><button class="opt mid" onclick="pick(this,'ferritine','haute')">200–400 — Haute ⚠️</button><button class="opt bad" onclick="pick(this,'ferritine','tres_haute')">&gt; 400 — Très haute ❌</button></div><div class="field-hint">Optimal : 50–150 ng/mL.</div></div></div>
 <div class="field-row full"><div class="field-group"><label class="field-label">Vitamine D (ng/mL)</label><div class="opts"><button class="opt" onclick="pick(this,'vitD','neutre')">Je ne sais pas</button><button class="opt bad" onclick="pick(this,'vitD','&lt;20')">&lt; 20 — Déficience ❌</button><button class="opt mid" onclick="pick(this,'vitD','20-29')">20–29 — Insuffisance ⚠️</button><button class="opt" onclick="pick(this,'vitD','30-60')">30–60 — Optimal ✓</button><button class="opt mid" onclick="pick(this,'vitD','&gt;60')">&gt; 60 — Trop élevé ⚠️</button></div><div class="field-hint">Optimal : 40–60 ng/mL. Impact sur immunité, récupération, humeur.</div></div></div>
 </div></div>
 
 <!-- Dentaire & Intestin -->
-<div class="qcard"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🦷</span><span class="qcard-name">Santé dentaire &amp; intestinale</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-dent">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
+<div class="qcard express-hidden" id="card-dent"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon">🦷</span><span class="qcard-name">Santé dentaire &amp; intestinale</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-dent">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
 <div class="field-row full" style="margin-bottom:14px"><div class="field-group"><label class="field-label">Santé dentaire</label><div class="opts"><button class="opt" onclick="pick(this,'dents','excellente')">Excellente — détartrage régulier ✓</button><button class="opt" onclick="pick(this,'dents','correcte')">Correcte</button><button class="opt mid" onclick="pick(this,'dents','problemes')">Problèmes ponctuels ⚠️</button><button class="opt bad" onclick="pick(this,'dents','parodontite')">Parodontite / infections ❌</button></div><div class="field-hint">La parodontite est un facteur d'inflammation systémique sous-estimé.</div></div></div>
 <div class="field-row full"><div class="field-group"><label class="field-label">Santé intestinale</label><div class="opts"><button class="opt" onclick="pick(this,'intestin','tres_bonne')">Très bonne — transit régulier ✓</button><button class="opt" onclick="pick(this,'intestin','correcte')">Correcte</button><button class="opt mid" onclick="pick(this,'intestin','troubles')">Troubles fréquents ⚠️</button><button class="opt bad" onclick="pick(this,'intestin','maladie')">Maladie chronique (Crohn, RCH) ❌</button></div><div class="field-hint">Le microbiome intestinal est directement lié à l'immunité et la longévité.</div></div></div>
 </div></div>
@@ -495,8 +535,16 @@ input[type=number]::placeholder{color:var(--muted)}
   </div>
 </div>
 
-<!-- RECOMMANDATIONS -->
-<div class="reco-section" id="recoSection" style="display:none">
+<!-- BANDEAU AFFINER (mode express) -->
+<div id="affinerBanner" style="display:none" class="affiner-banner">
+  <div class="affiner-banner-left">
+    <div class="affiner-banner-title">🔬 Affiner mon résultat</div>
+    <div class="affiner-banner-sub">Ton score actuel est basé sur <strong>7 facteurs</strong>. Le mode Complet en analyse <strong>20+</strong> pour une précision maximale.</div>
+  </div>
+  <button class="btn-affiner" onclick="passerEnComplet()">
+    Compléter le questionnaire →
+  </button>
+</div>
 <div class="reco-title">Tes 3 leviers prioritaires</div>
 <div class="reco-sub">Classés par impact sur ton âge biologique — une action concrète chacun.</div>
 <div class="reco-cards" id="recoCards"></div>
@@ -534,6 +582,46 @@ input[type=number]::placeholder{color:var(--muted)}
 <script>
 'use strict';
 const D = {};
+let _mode = 'express'; // 'express' | 'complet'
+
+// Cartes masquées en mode express
+const EXPRESS_HIDDEN = [
+  'card-corpo','card-mental','card-social','card-gen',
+  'sep-n2','head-n2','card-vo2','card-grip','card-marche',
+  'sep-n3','head-n3','card-tension','card-glyc','card-ldl',
+  'card-crp','card-ferr','card-dent'
+];
+
+function setMode(mode) {
+  _mode = mode;
+  try { localStorage.setItem('mdv_mode', mode); } catch(e) {}
+
+  const isExpress = mode === 'express';
+  document.getElementById('btnExpress').classList.toggle('active', isExpress);
+  document.getElementById('btnExpress').classList.toggle('express', isExpress);
+  document.getElementById('btnComplet').classList.toggle('active', !isExpress);
+  document.getElementById('btnComplet').classList.remove('express');
+
+  EXPRESS_HIDDEN.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (isExpress) el.classList.add('express-hidden');
+    else el.classList.remove('express-hidden');
+  });
+
+  const desc = document.getElementById('levelDesc');
+  if (desc) desc.textContent = isExpress ? '7 questions — environ 90 secondes' : 'Les fondations — environ 5 min';
+
+  onInput();
+}
+
+function passerEnComplet() {
+  // Masquer résultats, revenir au formulaire en mode complet
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('setup').style.display = 'block';
+  setMode('complet');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 let _resultState = null;
 let _countdownInterval = null;
 let _canvasDirty = false;
@@ -873,6 +961,12 @@ function afficherResultats(age, bio, chrono) {
   const bioTotalEst  = Math.round(bio.bioAge + bioYearsLeft);
   document.getElementById('r-bio-esperance').textContent = bioTotalEst + ' ans';
   document.getElementById('r-bio-restant').textContent = '~' + bioYearsLeft + ' ans';
+  document.getElementById('btn-grille') && (document.getElementById('btn-grille').href = '/grille/?age='+age+'&esperance='+chrono.totalLife);
+
+  // Bandeau affiner — visible seulement en mode express
+  const affinerBanner = document.getElementById('affinerBanner');
+  if (affinerBanner) affinerBanner.style.display = _mode === 'express' ? 'flex' : 'none';
+
   const endDate = new Date();
   endDate.setFullYear(endDate.getFullYear() + Math.floor(chrono.yearsLeft));
   startCountdown(endDate);
@@ -1009,6 +1103,8 @@ function resetAll() {
   document.getElementById('setup').style.display = 'block';
   document.getElementById('bioLiveCard').classList.remove('visible');
   _bioLiveDismissed = false;
+  _mode = 'express';
+  setMode('express');
   if (_countdownInterval) clearInterval(_countdownInterval);
   updateProgress(); updateBadges();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1464,6 +1560,12 @@ window.addEventListener('pagehide', saveSession);
 window.addEventListener('beforeunload', saveSession);
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Restaurer le mode sauvegardé
+  try {
+    const savedMode = localStorage.getItem('mdv_mode') || 'express';
+    _mode = savedMode;
+    setMode(savedMode);
+  } catch(e) { setMode('express'); }
   const restored = restoreSession();
   if (!restored) { updateProgress(); updateBadges(); }
 });

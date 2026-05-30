@@ -985,7 +985,8 @@ function lancerCalcul() {
   resEl.style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'instant' });
   afficherResultats(age, bio, chrono);
-  renderHistory(history);
+  // Laisser le navigateur repeindre avant de rendre l'historique
+  requestAnimationFrame(() => renderHistory(history));
 }
 
 function afficherResultats(age, bio, chrono) {
@@ -1163,32 +1164,34 @@ function clearHistory() {
 }
 
 function renderHistory(history) {
-  const section = document.getElementById('histoSection');
-  const msgEl   = document.getElementById('histoMsg');
-  const listEl  = document.getElementById('histoList');
-  const chartWrap = document.getElementById('histoChartWrap');
+  const section  = document.getElementById('histoSection');
+  const msgEl    = document.getElementById('histoMsg');
+  const listEl   = document.getElementById('histoList');
+  const chartWrap= document.getElementById('histoChartWrap');
   if (!section || !msgEl || !listEl) return;
 
-  // S'assurer que #results est visible avant d'afficher histoSection
-  const results = document.getElementById('results');
-  if (results && results.style.display === 'none') {
-    setTimeout(() => renderHistory(history), 100);
+  // Forcer l'affichage — pas de vérification conditionnelle
+  section.style.display = 'block';
+  section.style.removeProperty('visibility');
+  listEl.innerHTML = '';
+
+  if (!history || history.length === 0) {
+    msgEl.className = 'histo-msg first';
+    msgEl.textContent = '⏳ Reviens dans 30 jours pour voir si ton âge biologique a évolué. Chaque mois compte.';
+    if (chartWrap) chartWrap.style.display = 'none';
     return;
   }
 
-  section.style.display = 'block';
-  listEl.innerHTML = '';
-
-  if (history.length <= 1) {
+  if (history.length === 1) {
     // Premier calcul
     msgEl.className = 'histo-msg first';
     msgEl.textContent = '⏳ Reviens dans 30 jours pour voir si ton âge biologique a évolué. Chaque mois compte.';
-    chartWrap.style.display = 'none';
+    if (chartWrap) chartWrap.style.display = 'none';
   } else {
     // Calcul de l'évolution depuis la mesure précédente
     const curr = history[0];
     const prev = history[1];
-    const diffDelta = curr.delta - prev.delta; // négatif = amélioration
+    const diffDelta = curr.delta - prev.delta;
     const diffAbs   = Math.abs(diffDelta).toFixed(1);
     const daysBetween = Math.round((new Date(curr.date) - new Date(prev.date)) / (1000*60*60*24));
 
@@ -1204,9 +1207,8 @@ function renderHistory(history) {
       msgEl.innerHTML = `➡️ Ton âge biologique est <strong>stable</strong> depuis ta dernière mesure <em>(il y a ${daysBetween} jours)</em>.`;
     }
 
-    // Graphique si ≥2 entrées
-    chartWrap.style.display = 'block';
-    drawHistoChart(history);
+    if (chartWrap) chartWrap.style.display = 'block';
+    requestAnimationFrame(() => drawHistoChart(history));
   }
 
   // Liste des entrées
@@ -1742,7 +1744,7 @@ function restoreSession() {
       document.getElementById('setup').style.display = 'none';
       document.getElementById('results').style.display = 'block';
       afficherResultats(_resultState.age, _resultState.bio, _resultState.chrono);
-      renderHistory(loadHistory());
+      requestAnimationFrame(() => renderHistory(loadHistory()));
     }
 
     return true;
@@ -1880,8 +1882,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const resEl = document.getElementById('results');
       resEl.style.display = 'block';
       afficherResultats(_resultState.age, _resultState.bio, _resultState.chrono);
-      // Délai court pour que le DOM soit rendu avant drawHistoChart
-      setTimeout(() => renderHistory(loadHistory()), 50);
+      // Laisser le navigateur repeindre avant de rendre l'historique
+      requestAnimationFrame(() => renderHistory(loadHistory()));
     }
   } else {
     updateProgress();

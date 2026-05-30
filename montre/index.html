@@ -591,9 +591,8 @@ input[type=number]::placeholder{color:var(--muted)}
 <button class="btn-reset" onclick="resetAll()">↺ Recommencer</button>
 </div>
 </div>
-</div><!-- #results -->
 
-<!-- SECTION HISTORIQUE -->
+<!-- SECTION HISTORIQUE — à l'intérieur de #results -->
 <div id="histoSection" class="histo-section" style="display:none">
   <div class="histo-header">
     <div class="histo-title">📈 Mon évolution</div>
@@ -605,6 +604,8 @@ input[type=number]::placeholder{color:var(--muted)}
   </div>
   <div class="histo-list" id="histoList"></div>
 </div>
+
+</div><!-- #results -->
 </div><!-- #app -->
 
 <!-- MODAL PARTAGE -->

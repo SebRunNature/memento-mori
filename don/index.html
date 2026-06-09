@@ -92,33 +92,30 @@ canonical: "https://montre-de-vie.com/don/"
 .don-eng-text { font-size:.85rem;color:var(--muted);line-height:1.6; }
 .don-eng-text strong { color:var(--text);font-weight:700; }
 
-
-/* ══ MUR DES DONATEURS ══ */
-.don-wall { margin:32px 0; }
-.don-wall-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:14px; }
-.don-wall-count { font-size:.72rem;font-weight:700;letter-spacing:.06em;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:3px 12px; }
-
-.don-list { display:flex;flex-direction:column;gap:8px; }
-
-.don-row { display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;transition:border-color .2s; }
-.don-row:hover { border-color:var(--border2); }
-
-.don-avatar { width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;letter-spacing:-.01em; }
-.don-avatar.anon { background:var(--surface2);color:var(--muted); }
-.don-avatar.named { background:rgba(245,158,11,.15);color:var(--amber-lt); }
-
-.don-info { flex:1;min-width:0; }
-.don-name { font-size:.88rem;font-weight:700;color:var(--text); }
-.don-date { font-size:.72rem;color:var(--dim);margin-top:2px; }
-
-.don-right { display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0; }
-.don-amount { font-size:.95rem;font-weight:800;color:#fff;letter-spacing:-.02em; }
-
-.don-via { display:inline-flex;align-items:center;gap:4px;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:20px; }
-.don-via.paypal { background:rgba(0,112,186,.12);color:rgba(0,176,224,.9);border:1px solid rgba(0,112,186,.2); }
-.don-via.payconiq { background:rgba(255,79,0,.1);color:#ff8050;border:1px solid rgba(255,79,0,.2); }
-
-.don-wall-note { text-align:center;font-size:.72rem;color:var(--dim);margin-top:12px;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px; }
+/* ══ BOUTON DONATEURS ══ */
+.don-supporters-cta { margin:40px 0 8px;text-align:center; }
+.don-supporters-btn {
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text);text-decoration:none;
+  padding:16px 28px;border-radius:14px;
+  font-size:.92rem;font-weight:700;letter-spacing:-.01em;
+  transition:all .2s;
+}
+.don-supporters-btn:hover {
+  border-color:var(--amber);
+  color:var(--amber-lt);
+  background:rgba(245,158,11,.05);
+  transform:translateY(-1px);
+}
+.don-supporters-btn svg { opacity:.7; }
+.don-supporters-count {
+  display:inline-flex;align-items:center;
+  font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);background:rgba(245,158,11,.07);
+  border:1px solid rgba(245,158,11,.18);border-radius:20px;padding:3px 10px;
+  margin-left:4px;
+}
 
 /* FOOTER DON */
 .don-footer { text-align:center;margin-top:48px;padding:24px;font-size:.82rem;color:var(--dim);border-top:1px solid var(--border); }
@@ -254,89 +251,14 @@ canonical: "https://montre-de-vie.com/don/"
   </div>
 </div>
 
-
-<!-- ══ MUR DES DONATEURS ══════════════════════════════════════════
-     Pour ajouter un donateur apres avoir reçu son don, copier-coller un bloc .don-row
-     et modifier :
-       - .don-avatar : initiales (named) ou icône (anon)
-       - .don-avatar class : "named" ou "anon"
-       - .don-name : prénom + initiale (ex: "Paul H.") ou "Anonyme"
-       - .don-date : date du don
-       - .don-amount : montant
-       - .don-via class : "paypal" ou "payconiq"
-       - .don-via texte : "PayPal" ou "Payconiq"
-     Penser à mettre à jour le compteur dans .don-wall-count
-═════════════════════════════════════════════════════════════════ -->
-
-<h2 class="don-section-title">Ils ont soutenu le projet</h2>
-
-<div class="don-wall">
-  <div class="don-wall-header">
-    <span style="font-size:.82rem;color:var(--muted)">Merci à eux ♡</span>
-    <!-- ↓ Mettre à jour ce chiffre quand on doit ajouter un donateur et que qu'il est envoyé l'argent via Payconiq ou paypal -->
-    <span class="don-wall-count">3 dons reçus</span>
-  </div>
-
-  <div class="don-list">
-
-    <!-- ══ DONATEUR 1 — Prénom + initiale + Payconiq ══ -->
-    <div class="don-row">
-      <div class="don-avatar named">PH</div>
-      <div class="don-info">
-        <div class="don-name">Paul H.</div>
-        <div class="don-date">📅 18 mai 2026</div>
-      </div>
-      <div class="don-right">
-        <span class="don-amount">10 €</span>
-        <span class="don-via payconiq"><img src="/assets/img/payconiq-logo.png" height="10" alt="" aria-hidden="true" style="vertical-align:middle;filter:brightness(0) invert(1);opacity:.85"> Payconiq</span>
-      </div>
-    </div>
-
-    <!-- ══ DONATEUR 2 — Anonyme + PayPal ══ -->
-    <div class="don-row">
-      <div class="don-avatar anon">?</div>
-      <div class="don-info">
-        <div class="don-name">Anonyme</div>
-        <div class="don-date">📅 21 mai 2026</div>
-      </div>
-      <div class="don-right">
-        <span class="don-amount">5 €</span>
-        <span class="don-via paypal"><img src="/assets/img/paypal-logo.png" height="10" alt="" aria-hidden="true" style="vertical-align:middle;filter:brightness(0) invert(1);opacity:.85"> PayPal</span>
-      </div>
-    </div>
-
-    <!-- ══ DONATEUR 3 — Prénom + initiale + Payconiq ══ -->
-    <div class="don-row">
-      <div class="don-avatar named">CB</div>
-      <div class="don-info">
-        <div class="don-name">Claudine B.</div>
-        <div class="don-date">📅 26 mai 2026</div>
-      </div>
-      <div class="don-right">
-        <span class="don-amount">1 €</span>
-        <span class="don-via paypal"><img src="/assets/img/paypal-logo.png" height="10" alt="" aria-hidden="true" style="vertical-align:middle;filter:brightness(0) invert(1);opacity:.85"> PayPal</span>
-      </div>
-    </div>
-
-    <!-- ══ TEMPLATE — copier ce bloc pour ajouter un donateur ══
-    <div class="don-row">
-      <div class="don-avatar named">XX</div>
-      <div class="don-info">
-        <div class="don-name">Prénom N.</div>
-        <div class="don-date">📅 JJ mois AAAA</div>
-      </div>
-      <div class="don-right">
-        <span class="don-amount">X €</span>
-        <span class="don-via paypal"><img src="/assets/img/paypal-logo.png" height="10" alt="" aria-hidden="true" style="vertical-align:middle;filter:brightness(0) invert(1);opacity:.85"> PayPal</span>
-      </div>
-    </div>
-    ══ FIN TEMPLATE ══════════════════════════════════════════════ -->
-
-  </div>
-
-  <div class="don-wall-note">
-    🔒 Seuls les dons consentis sont affichés · Les anonymes restent anonymes
-  </div>
+<!-- ══ BOUTON VERS LES DONATEURS ══ -->
+<div class="don-supporters-cta">
+  <a href="/don/donateurs/" class="don-supporters-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    Voir ceux qui ont soutenu le projet
+    <span class="don-supporters-count">3 dons</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+  </a>
 </div>
 
 <!-- AUTRES FAÇONS -->

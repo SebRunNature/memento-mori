@@ -31,7 +31,13 @@ canonical: "https://montre-de-vie.com/don/"
 .don-free-badge { display:inline-block;margin-top:10px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-lt);background:rgba(0,152,98,.08);border:1px solid rgba(0,152,98,.2);border-radius:20px;padding:3px 10px; }
 
 /* ══ BLOC PAIEMENT PRINCIPAL ══ */
-.don-pay-wrap { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0; }
+.don-pay-wrap {
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:start;
+  gap:16px;
+  margin:28px 0;
+}
 
 .don-pay-block { border-radius:16px;padding:24px 20px;position:relative;overflow:hidden; }
 
@@ -81,9 +87,14 @@ canonical: "https://montre-de-vie.com/don/"
 
 .don-pay-note { font-size:.68rem;color:var(--dim);text-align:center;margin-top:10px;line-height:1.5; }
 
-/* Séparateur OR entre les deux blocs */
-.don-or { display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:.72rem;font-weight:700;color:var(--dim);letter-spacing:.08em; }
-.don-or::before,.don-or::after { content:'';width:1px;height:40px;background:var(--border); }
+/* Séparateur OU entre les deux blocs */
+.don-or {
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;
+  font-size:.72rem;font-weight:700;color:var(--dim);letter-spacing:.08em;
+  padding-top:48px;
+}
+.don-or::before,.don-or::after { content:'';width:1px;height:36px;background:var(--border); }
 
 /* ENGAGEMENTS */
 .don-engagements { display:flex;flex-direction:column;gap:10px;margin:20px 0; }
@@ -109,21 +120,25 @@ canonical: "https://montre-de-vie.com/don/"
   transform:translateY(-1px);
 }
 .don-supporters-btn svg { opacity:.7; }
-.don-supporters-count {
-  display:inline-flex;align-items:center;
-  font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--muted);background:rgba(245,158,11,.07);
-  border:1px solid rgba(245,158,11,.18);border-radius:20px;padding:3px 10px;
-  margin-left:4px;
-}
+
 
 /* FOOTER DON */
 .don-footer { text-align:center;margin-top:48px;padding:24px;font-size:.82rem;color:var(--dim);border-top:1px solid var(--border); }
 
 /* RESPONSIVE */
-@media(max-width:600px) {
-  .don-pay-wrap { grid-template-columns:1fr;gap:12px; }
-  .don-or { flex-direction:row; }
+@media(max-width:640px) {
+  /* Empile les deux blocs l'un sur l'autre */
+  .don-pay-wrap {
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto auto;
+    gap:12px;
+  }
+  /* Le séparateur OU passe en ligne horizontale */
+  .don-or {
+    flex-direction:row;
+    padding-top:0;
+    gap:12px;
+  }
   .don-or::before,.don-or::after { width:40px;height:1px; }
   .don-hero { padding:28px 0 24px; }
   .don-pay-block { padding:20px 16px; }
@@ -256,7 +271,6 @@ canonical: "https://montre-de-vie.com/don/"
   <a href="/don/donateurs/" class="don-supporters-btn">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
     Voir ceux qui ont soutenu le projet
-    <span class="don-supporters-count">3 dons</span>
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
   </a>
 </div>

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Tikker Watch : la meilleure alternative gratuite en 2026"
 description: "Tikker Watch a fermé. La montre qui comptait ton espérance de vie n'existe plus. Voici une alternative gratuite, en français, et franchement meilleure."
 date: 2026-05-06

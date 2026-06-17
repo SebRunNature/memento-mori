@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Memento Mori — signification, philosophie et pratique moderne (guide complet)"
 description: "Memento Mori : ça veut dire quoi exactement ? Origines romaines, philosophie stoïcienne, Steve Jobs, Marc Aurèle — et comment l'appliquer concrètement aujourd'hui."
 date: 2026-05-06

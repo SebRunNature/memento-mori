@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Pourquoi compter ses secondes change tout"
 description: "Le Memento Mori n'est pas une philosophie morbide. C'est l'outil le plus puissant pour arrêter de procrastiner et vivre vraiment."
 date: 2026-05-05

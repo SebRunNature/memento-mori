@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Courir augmente l'espérance de vie de combien d'années ? La science répond"
 description: "1h de course = 7h de vie gagnées. Les études scientifiques sur la course à pied et la longévité sont bluffantes. Voici ce que la science dit vraiment."
 date: 2026-05-06

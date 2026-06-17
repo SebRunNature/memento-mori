@@ -252,6 +252,20 @@
     .footer-copy a:hover{color:var(--muted)}
 
     @media(max-width:600px){.content-wrap{padding:32px 16px 60px}}
+
+    /* Articles — background moins noir pour meilleure lisibilité */
+    main:has(article) .content-wrap {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 48px 32px 80px;
+      margin: 16px auto;
+    }
+    
+    @media(max-width:600px) {
+      main:has(article) .content-wrap {
+        padding: 32px 20px 60px;
+      }
+    }
   </style>
 </head>
 <body>

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Moringa pour les coureurs — le superaliment que tu n'utilises probablement pas encore"
 description: "Récupération, énergie, inflammation post-effort, fer pour l'endurance... Pourquoi le Moringa est particulièrement intéressant pour les trail runners."
 excerpt: "Plus riche en fer que les épinards, plus dense en protéines que le quinoa : le moringa change la donne pour les coureurs qui veulent du naturel. Comment l'intégrer, et à quelle dose."

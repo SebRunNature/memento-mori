@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Les zones bleues : 5 habitudes de centenaires pour les coureurs de 40+ ans"
 description: "Zones bleues longévité : 5 habitudes des centenaires que tout coureur de 40+ ans devrait adopter pour courir plus longtemps et vivre mieux."
 excerpt: "Les centenaires des zones bleues ne s'entraînent pas comme des athlètes. Ils marchent, jardinent, dansent — et vivent plus longtemps que la plupart des coureurs. Voilà comment t'en inspirer à 40 ans."

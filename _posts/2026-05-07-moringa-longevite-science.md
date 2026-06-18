@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Moringa et longévité — ce que dit vraiment la science en 2026"
 description: "Antioxydants, inflammation, glycémie, neuroprotection... Le Moringa est-il vraiment un allié longévité ? On lit les études à ta place, sans bullshit."
 date: 2026-05-07

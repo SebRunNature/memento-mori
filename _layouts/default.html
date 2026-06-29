@@ -267,6 +267,53 @@
       }
     }
   </style>
+
+  {% if page.layout == 'post' %}
+  <!-- ══ Schema.org BlogPosting — généré automatiquement pour chaque article ══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ page.title | jsonify }},
+    "description": {{ page.description | jsonify }},
+    "image": {
+      "@type": "ImageObject",
+      "url": "https://raw.githubusercontent.com/SebRunNature/memento-mori/refs/heads/main/assets/img/illustration-blog-memento-mori.png"
+    },
+    "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+    "dateModified": "{{ page.date | date: '%Y-%m-%d' }}",
+    "author": {
+      "@type": "Person",
+      "name": {% if page.author %}{{ page.author | jsonify }}{% else %}"Sébastien Salomon"{% endif %},
+      "url": "{{ site.url }}/blog/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Montre de Vie",
+      "url": "{{ site.url }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}/favicon-96x96.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ site.url }}{{ page.url }}"
+    },
+    "url": "{{ site.url }}{{ page.url }}",
+    "inLanguage": "fr",
+    {% if page.schema_wordcount %}"wordCount": {{ page.schema_wordcount }},{% endif %}
+    {% if page.schema_time %}"timeRequired": {{ page.schema_time | jsonify }},{% endif %}
+    "articleSection": "Longévité",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Blog Montre de Vie",
+      "url": "{{ site.url }}/blog/"
+    }
+  }
+  </script>
+  {% endif %}
+
 </head>
 <body>
 

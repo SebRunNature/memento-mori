@@ -30,13 +30,10 @@ canonical: "https://montre-de-vie.com/don/"
 .don-tool-desc { font-size:.78rem;color:var(--muted);line-height:1.5; }
 .don-free-badge { display:inline-block;margin-top:10px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-lt);background:rgba(0,152,98,.08);border:1px solid rgba(0,152,98,.2);border-radius:20px;padding:3px 10px; }
 
-/* ══ BLOC PAIEMENT PRINCIPAL ══ */
+/* ══ BLOC PAIEMENT PRINCIPAL (PayPal uniquement) ══ */
 .don-pay-wrap {
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:start;
-  gap:16px;
-  margin:28px 0;
+  max-width:420px;
+  margin:28px auto;
 }
 
 .don-pay-block { border-radius:16px;padding:24px 20px;position:relative;overflow:hidden; }
@@ -45,19 +42,13 @@ canonical: "https://montre-de-vie.com/don/"
 .don-pay-block.paypal { background:linear-gradient(135deg,rgba(0,112,186,.1),rgba(0,94,166,.05));border:1px solid rgba(0,112,186,.25); }
 .don-pay-block.paypal::before { content:'';position:absolute;top:-30px;right:-20px;width:100px;height:100px;background:rgba(0,112,186,.06);border-radius:50%; }
 
-/* Payconiq */
-.don-pay-block.payconiq { background:linear-gradient(135deg,rgba(255,79,0,.08),rgba(255,79,0,.03));border:1px solid rgba(255,79,0,.2); }
-.don-pay-block.payconiq::before { content:'';position:absolute;top:-30px;right:-20px;width:100px;height:100px;background:rgba(255,79,0,.05);border-radius:50%; }
-
 .don-pay-logo { display:flex;align-items:center;gap:8px;margin-bottom:6px; }
 .don-pay-logo-text { font-size:1.1rem;font-weight:800;letter-spacing:-.03em; }
 .paypal-p1 { color:#009CDE; }
 .paypal-p2 { color:#fff; }
-.pq-logo { color:#FF4F00;font-size:1.1rem;font-weight:800; }
 
 .don-pay-badge { font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-left:auto; }
 .don-pay-block.paypal .don-pay-badge { color:rgba(0,176,224,.8);background:rgba(0,112,186,.12);border:1px solid rgba(0,112,186,.2); }
-.don-pay-block.payconiq .don-pay-badge { color:rgba(255,120,60,.9);background:rgba(255,79,0,.08);border:1px solid rgba(255,79,0,.18); }
 
 .don-pay-subtitle { font-size:.75rem;color:var(--muted);margin-bottom:16px;line-height:1.5; }
 
@@ -70,31 +61,30 @@ canonical: "https://montre-de-vie.com/don/"
 .don-pay-block.paypal .don-amt { background:rgba(0,112,186,.08);border-color:rgba(0,112,186,.2);color:rgba(200,230,255,.7); }
 .don-pay-block.paypal .don-amt:hover,.don-pay-block.paypal .don-amt.active { background:rgba(0,112,186,.22);border-color:rgba(0,176,224,.5);color:#fff;border-width:2px; }
 
-/* Payconiq amounts */
-.don-pay-block.payconiq .don-amt { background:rgba(255,79,0,.06);border-color:rgba(255,79,0,.18);color:rgba(255,180,140,.7); }
-.don-pay-block.payconiq .don-amt:hover,.don-pay-block.payconiq .don-amt.active { background:rgba(255,79,0,.18);border-color:rgba(255,120,60,.5);color:#fff;border-width:2px; }
-
 /* Bouton CTA principal */
 .don-cta-btn { display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 16px;border-radius:11px;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .15s;border:none;letter-spacing:-.01em; }
 
 .don-pay-block.paypal .don-cta-btn { background:#0070BA;color:#fff; }
 .don-pay-block.paypal .don-cta-btn:hover { background:#005EA6;color:#fff;transform:translateY(-1px); }
 
-.don-pay-block.payconiq .don-cta-btn { background:#FF4F00;color:#fff; }
-.don-pay-block.payconiq .don-cta-btn:hover { background:#e04400;color:#fff;transform:translateY(-1px); }
-
 .don-cta-btn:active { transform:translateY(0)!important; }
 
 .don-pay-note { font-size:.68rem;color:var(--dim);text-align:center;margin-top:10px;line-height:1.5; }
 
-/* Séparateur OU entre les deux blocs */
-.don-or {
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:8px;
-  font-size:.72rem;font-weight:700;color:var(--dim);letter-spacing:.08em;
-  padding-top:48px;
+/* ══ ENCART EXPLICATIF (retrait Payconiq) ══ */
+.don-info-note {
+  max-width:420px;
+  margin:16px auto 0;
+  background:var(--surface);
+  border:1px dashed var(--border2);
+  border-radius:12px;
+  padding:14px 18px;
+  font-size:.78rem;
+  color:var(--muted);
+  line-height:1.6;
+  text-align:center;
 }
-.don-or::before,.don-or::after { content:'';width:1px;height:36px;background:var(--border); }
+.don-info-note strong { color:var(--text); }
 
 /* ENGAGEMENTS */
 .don-engagements { display:flex;flex-direction:column;gap:10px;margin:20px 0; }
@@ -127,19 +117,6 @@ canonical: "https://montre-de-vie.com/don/"
 
 /* RESPONSIVE */
 @media(max-width:640px) {
-  /* Empile les deux blocs l'un sur l'autre */
-  .don-pay-wrap {
-    grid-template-columns:1fr;
-    grid-template-rows:auto auto auto;
-    gap:12px;
-  }
-  /* Le séparateur OU passe en ligne horizontale */
-  .don-or {
-    flex-direction:row;
-    padding-top:0;
-    gap:12px;
-  }
-  .don-or::before,.don-or::after { width:40px;height:1px; }
   .don-hero { padding:28px 0 24px; }
   .don-pay-block { padding:20px 16px; }
 }
@@ -215,31 +192,9 @@ canonical: "https://montre-de-vie.com/don/"
     <img alt="" src="https://www.paypal.com/en_LU/i/scr/pixel.gif" width="1" height="1" style="display:none">
   </div>
 
-  <!-- SÉPARATEUR -->
-  <div class="don-or">OU</div>
-
-  <!-- PAYCONIQ -->
-  <div class="don-pay-block payconiq">
-    <div class="don-pay-logo">
-      <img src="/assets/img/payconiq-logo.png" height="22" alt="Payconiq" style="display:block">
-      <span class="don-pay-badge">🇱🇺 Luxembourg</span>
-    </div>
-    <p class="don-pay-subtitle">Via ton app bancaire · BCEE, BIL, BGL, POST…</p>
-
-    <div class="don-amounts">
-      <a class="don-amt" href="https://payconiq.com/payme/1/squa67bhsfmg" target="_blank" rel="noopener" onclick="markDonClick()">3 €</a>
-      <a class="don-amt" href="https://payconiq.com/payme/1/hztf7gnaprev" target="_blank" rel="noopener" onclick="markDonClick()">5 €</a>
-      <a class="don-amt" href="https://payconiq.com/payme/1/2cvv7k7lynkh" target="_blank" rel="noopener" onclick="markDonClick()">10 €</a>
-      <a class="don-amt" href="https://payconiq.com/payme/1/tzh2tnd4n4rt" target="_blank" rel="noopener" onclick="markDonClick()">15 €</a>
-      <a class="don-amt" href="https://payconiq.com/payme/1/h6laowctrtht" target="_blank" rel="noopener" onclick="markDonClick()">20 €</a>
-      <a class="don-amt" href="https://payconiq.com/payme/1/pcccugx772i6" target="_blank" rel="noopener" onclick="markDonClick()">30 €</a>
-    </div>
-
-    <a class="don-cta-btn" href="https://payconiq.com/payme/1/hztf7gnaprev" id="pq-btn" target="_blank" rel="noopener" onclick="markDonClick()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-      Payer avec Payconiq
-    </a>
-    <div class="don-pay-note">📱 S'ouvre dans ton app bancaire · Paiement instantané</div>
+  <!-- ENCART EXPLICATIF -->
+  <div class="don-info-note">
+    ℹ️ <strong>Payconiq n'est plus disponible</strong> ici : les liens de paiement expiraient régulièrement et devenaient trop compliqués à maintenir à jour. PayPal reste le moyen le plus simple et le plus fiable pour soutenir le projet, carte bancaire comprise.
   </div>
 
 </div>
@@ -322,15 +277,6 @@ function ppSelect(btn, amount) {
     ppBtn.href = PP_BASE + '&amount=' + amount;
   }
 }
-
-/* ── Payconiq : highlight au clic ── */
-document.querySelectorAll('.don-pay-block.payconiq .don-amt').forEach(function(a) {
-  a.addEventListener('click', function() {
-    document.querySelectorAll('.don-pay-block.payconiq .don-amt').forEach(function(b){ b.classList.remove('active'); });
-    this.classList.add('active');
-    document.getElementById('pq-btn').href = this.href;
-  });
-});
 
 /* ── Marqueur don cliqué (supprime le bandeau) ── */
 function markDonClick() {

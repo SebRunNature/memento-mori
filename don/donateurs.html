@@ -104,32 +104,22 @@ canonical: "https://montre-de-vie.com/don/donateurs/"
 <!-- ↓ Mettre à jour ces chiffres quand tu ajoutes un don -->
 <div class="don-stats">
   <div class="don-stat">
-    <span class="don-stat-value">4</span>
+    <span class="don-stat-value">5</span>
     <span class="don-stat-label">Dons reçus</span>
   </div>
   <div class="don-stat">
-    <span class="don-stat-value">21 €</span>
+    <span class="don-stat-value">26 €</span>
     <span class="don-stat-label">Total reçu</span>
   </div>
   <div class="don-stat">
-    <span class="don-stat-value">3</span>
+    <span class="don-stat-value">4</span>
     <span class="don-stat-label">Nommés</span>
   </div>
 </div>
 
 
 <!-- ══ MUR DES DONATEURS ══════════════════════════════════════════
-     Pour ajouter un donateur après avoir reçu son don, copier-coller
-     un bloc .don-row depuis le TEMPLATE en bas de cette section et remplir :
-       • .don-avatar class   → "named" (initiales) ou "anon" (point d'interrogation)
-       • .don-avatar texte   → initiales ex: "PH", ou "?" si anonyme
-       • .don-name           → "Prénom N." ou "Anonyme"
-       • .don-date           → date du don, ex: "📅 10 juin 2026"
-       • .don-msg            → message optionnel du donateur (supprimer la ligne si vide)
-       • .don-amount         → montant ex: "10 €"
-       • .don-via class      → "paypal" ou "payconiq"
-       • .don-via texte      → "PayPal" ou "Payconiq"
-     ↑ Penser aussi à mettre à jour les chiffres dans .don-stats ci-dessus
+     Pour ajouter un donateur après avoir reçu son don
 ═════════════════════════════════════════════════════════════════ -->
 
 <h2 class="don-section-title">Tous les donateurs</h2>
@@ -201,8 +191,24 @@ canonical: "https://montre-de-vie.com/don/donateurs/"
     </div>
   </div>
 
+  <!-- ══ DONATEUR 5 — Kim G. · PayPal · 15 juin 2026 ══ -->
+  <div class="don-row">
+    <div class="don-avatar named">KG</div>
+    <div class="don-info">
+      <div class="don-name">Kim G.</div>
+      <div class="don-date">📅 15 juin 2026</div>
+    </div>
+    <div class="don-right">
+      <span class="don-amount">5 €</span>
+      <span class="don-via paypal">
+        
+        PayPal
+      </span>
+    </div>
+  </div>
+
   <!-- ══════════════════════════════════════════════════════════════
-       TEMPLATE — copier ce bloc entier pour ajouter un donateur
+       TEMPLATE — copier ce bloc entier pour ajouter un donateur vérifié
   ═══════════════════════════════════════════════════════════════════
 
   <div class="don-row">

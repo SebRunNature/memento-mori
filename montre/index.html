@@ -11,6 +11,7 @@
 <link rel="manifest" href="/site.webmanifest" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://www.paypal.com/sdk/js?client-id=BAADwYal5Qcv2CSNk-xnwTwTQ8ADYovYOWl0ustJ-JmjkcoeDaNlrTMeAocWEGWQdJurBGsHzt7qDBTWEc&currency=EUR&disable-funding=venmo" defer></script>
 <style>
 :root {
   --bg:#fafaf9; --card:#ffffff; --card2:#f4f4f5;
@@ -170,6 +171,14 @@ input[type=number]::placeholder{color:var(--muted)}
 .result-action.primary:hover{box-shadow:0 4px 16px rgba(245,158,11,.35);transform:translateY(-1px)}
 .btn-reset{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Inter',system-ui,sans-serif;font-size:.82rem;font-weight:700;padding:9px 16px;border-radius:9px;cursor:pointer;transition:all .2s;text-decoration:none}
 .btn-reset:hover{border-color:var(--border2);color:var(--text)}
+.premium-box{background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(217,119,6,.03));border:1px solid rgba(245,158,11,.25);border-radius:var(--radius);padding:22px 24px;margin-top:20px;text-align:center}
+.premium-box-title{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.premium-box-sub{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.premium-box-sub strong{color:var(--amber-lt)}
+#paypalButtonContainer{max-width:280px;margin:0 auto}
+.premium-unlocked{display:none;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.premium-unlocked .result-action{background:var(--green);border-color:var(--green);color:#fff}
+.premium-unlocked .result-action:hover{background:var(--green-dk);color:#fff}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--green);color:var(--green-lt);padding:12px 22px;border-radius:28px;font-size:.85rem;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.14);animation:toastIn .3s ease both}
 @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 .toast.out{animation:toastOut .3s ease both}
@@ -584,6 +593,19 @@ input[type=number]::placeholder{color:var(--muted)}
 <button class="result-action primary" onclick="openShareModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Partager mes résultats</button>
 <button class="result-action" onclick="saveResultPDF()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Sauvegarder PDF</button>
 </div>
+
+<!-- RAPPORT PREMIUM — PDF enrichi avec plan d'action personnalisé -->
+<div class="premium-box" id="premiumBox">
+  <div id="premiumLocked">
+    <div class="premium-box-title">📋 Rapport PDF premium — 2 €</div>
+    <div class="premium-box-sub">Le PDF gratuit résume tes chiffres. Le rapport premium ajoute ton <strong>plan d'action personnalisé</strong> — les leviers qui comptent le plus pour toi, classés par impact.</div>
+    <div id="paypalButtonContainer"></div>
+  </div>
+  <div class="premium-unlocked" id="premiumUnlocked">
+    <button class="result-action" onclick="saveResultPDFPremium()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Télécharger le rapport premium</button>
+  </div>
+</div>
+
 <div style="text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
 <button class="btn-reset" onclick="resetAll()">↺ Recommencer</button>
 </div>
@@ -663,6 +685,8 @@ function passerEnComplet() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 let _resultState = null;
+let _lastRecos = [];
+let _paypalRendered = false;
 let _countdownInterval = null;
 let _canvasDirty = false;
 
@@ -1026,6 +1050,8 @@ function afficherResultats(age, bio, chrono) {
     '« Il n\'y a qu\'une seule façon de vivre longtemps : ne plus gaspiller une journée. » — Épictète'
   ];
   document.getElementById('quote-line').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+  initPremiumSection();
 }
 
 function startCountdown(endDate) {
@@ -1347,6 +1373,7 @@ function buildRecos(factors) {
     if (!sorted.find(f => f.l === g.l)) sorted.push(g);
   }
 
+  _lastRecos = sorted;
   if (sorted.length === 0) { document.getElementById('recoSection').style.display = 'none'; return; }
   const container = document.getElementById('recoCards');
   container.innerHTML = '';
@@ -1671,6 +1698,123 @@ function saveResultPDF() {
   doc.text('Montre de Vie — montre-de-vie.com  ·  Outil indicatif, non médical.', 105, 287, {align:'center'});
   doc.save('montre-de-vie-' + new Date().toISOString().slice(0,10) + '.pdf');
   showToast('✓ PDF téléchargé');
+}
+
+// ── RAPPORT PREMIUM (PayPal) ──
+// Aucune donnée n'est envoyée ni stockée sur un serveur : PayPal gère le
+// paiement dans le navigateur, et le déblocage est mémorisé uniquement en
+// local sur l'appareil du visiteur (localStorage), jamais transmis ailleurs.
+
+function initPremiumSection() {
+  const unlocked = localStorage.getItem('mdv_premium_unlocked') === '1';
+  const lockedEl = document.getElementById('premiumLocked');
+  const unlockedEl = document.getElementById('premiumUnlocked');
+  if (!lockedEl || !unlockedEl) return;
+  if (unlocked) {
+    lockedEl.style.display = 'none';
+    unlockedEl.style.display = 'flex';
+  } else {
+    lockedEl.style.display = 'block';
+    unlockedEl.style.display = 'none';
+    initPaypalButton();
+  }
+}
+
+function initPaypalButton() {
+  if (_paypalRendered) return;
+  if (typeof paypal === 'undefined' || !paypal.Buttons) { setTimeout(initPaypalButton, 400); return; }
+  const container = document.getElementById('paypalButtonContainer');
+  if (!container) return;
+  _paypalRendered = true;
+  paypal.Buttons({
+    style: { layout: 'horizontal', color: 'gold', shape: 'rect', label: 'pay', height: 40, tagline: false },
+    createOrder: function (data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: { value: '2.00', currency_code: 'EUR' },
+          description: 'Rapport PDF premium — Montre de Vie'
+        }]
+      });
+    },
+    onApprove: function (data, actions) {
+      return actions.order.capture().then(function () {
+        try { localStorage.setItem('mdv_premium_unlocked', '1'); } catch (e) {}
+        initPremiumSection();
+        showToast('✓ Paiement confirmé — rapport débloqué');
+      });
+    },
+    onError: function () {
+      showToast('Erreur de paiement — réessaie');
+    }
+  }).render('#paypalButtonContainer');
+}
+
+function saveResultPDFPremium() {
+  if (typeof window.jspdf === 'undefined' && typeof jsPDF === 'undefined') { showToast('PDF en cours de chargement…'); setTimeout(saveResultPDFPremium, 1200); return; }
+  if (!_resultState) return;
+  const { jsPDF } = window.jspdf || window;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const { age, bio, chrono } = _resultState;
+  const today = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+  doc.setFillColor(9, 9, 11); doc.rect(0, 0, 210, 28, 'F');
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(20); doc.setTextColor(245, 158, 11);
+  doc.text('MONTRE DE VIE — RAPPORT PREMIUM', 20, 18);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(113, 113, 122);
+  doc.text(today, 190, 18, { align: 'right' });
+  let y = 46;
+  doc.setTextColor(40, 40, 40); doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
+  doc.text('Âge chronologique', 20, y); y += 9;
+  doc.setDrawColor(220, 220, 220); doc.line(20, y, 190, y); y += 7;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+  doc.text('Âge actuel :', 20, y); doc.setFont('helvetica', 'bold'); doc.text(age + ' ans', 100, y); y += 7;
+  doc.setFont('helvetica', 'normal'); doc.text('Espérance estimée :', 20, y);
+  doc.setFont('helvetica', 'bold'); doc.setTextColor(245, 158, 11); doc.text(chrono.totalLife + ' ans', 100, y); doc.setTextColor(40, 40, 40); y += 7;
+  doc.setFont('helvetica', 'normal'); doc.text('Années restantes :', 20, y);
+  doc.setFont('helvetica', 'bold'); doc.text('~' + chrono.yearsLeft + ' ans', 100, y); y += 14;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
+  doc.text('Âge biologique', 20, y); y += 9;
+  doc.setDrawColor(220, 220, 220); doc.line(20, y, 190, y); y += 7;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+  doc.text('Âge biologique :', 20, y);
+  doc.setFont('helvetica', 'bold'); doc.setTextColor(0, 152, 98); doc.text(bio.bioAge + ' ans', 100, y); doc.setTextColor(40, 40, 40); y += 7;
+  doc.setFont('helvetica', 'normal'); doc.text('Écart vs âge réel :', 20, y);
+  const dSign = bio.delta >= 0 ? '+' : '';
+  doc.setFont('helvetica', 'bold');
+  if (bio.delta < 0) doc.setTextColor(0, 152, 98); else if (bio.delta > 0) doc.setTextColor(180, 60, 60);
+  doc.text(dSign + bio.delta.toFixed(1) + ' ans', 100, y); doc.setTextColor(40, 40, 40); y += 16;
+
+  // ── PLAN D'ACTION PERSONNALISÉ ──
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(40, 40, 40);
+  doc.text('Ton plan d’action personnalisé', 20, y); y += 9;
+  doc.setDrawColor(220, 220, 220); doc.line(20, y, 190, y); y += 10;
+
+  const recos = (_lastRecos && _lastRecos.length ? _lastRecos : []).slice(0, 3);
+  if (recos.length === 0) {
+    doc.setFont('helvetica', 'italic'); doc.setFontSize(10); doc.setTextColor(120, 120, 120);
+    doc.text('Pas assez de données pour un plan personnalisé — relance le calcul en mode Complet.', 20, y);
+    y += 10;
+  } else {
+    recos.forEach((f, i) => {
+      const reco = RECO_DB[f.l];
+      if (!reco) return;
+      if (y > 255) { doc.addPage(); y = 24; }
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(245, 158, 11);
+      doc.text((i + 1) + '. ' + f.l, 20, y); y += 6;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(40, 40, 40);
+      const actionLines = doc.splitTextToSize(reco.action, 170);
+      doc.text(actionLines, 20, y); y += actionLines.length * 5 + 2;
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(90, 90, 90);
+      const detailLines = doc.splitTextToSize(reco.detail, 170);
+      doc.text(detailLines, 20, y); y += detailLines.length * 4.6 + 2;
+      doc.setFont('helvetica', 'italic'); doc.setFontSize(9); doc.setTextColor(0, 152, 98);
+      doc.text('Gain potentiel : ' + reco.gain, 20, y); y += 10;
+    });
+  }
+
+  doc.setFont('helvetica', 'italic'); doc.setFontSize(8); doc.setTextColor(140, 140, 140);
+  doc.text('Montre de Vie — montre-de-vie.com  ·  Outil indicatif, non médical.', 105, 287, { align: 'center' });
+  doc.save('montre-de-vie-premium-' + new Date().toISOString().slice(0, 10) + '.pdf');
+  showToast('✓ Rapport premium téléchargé');
 }
 
 // ── PERSISTENCE LOCALSTORAGE ──

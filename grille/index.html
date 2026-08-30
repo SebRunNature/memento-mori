@@ -13,11 +13,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#09090b;--card:#18181b;--card2:#27272a;
-  --text:#e4e4e7;--muted:#71717a;--dim:#52525b;
-  --border:#27272a;--border2:#3f3f46;
-  --green:#009862;--green-dk:#006b44;--green-lt:#a0facf;
-  --amber:#f59e0b;--amber-dk:#d97706;--amber-lt:#fde68a;
+  --bg:#fafaf9;--card:#ffffff;--card2:#f4f4f5;
+  --text:#18181b;--muted:#52525b;--dim:#71717a;
+  --border:#e4e4e7;--border2:#d4d4d8;
+  --green:#009862;--green-dk:#006b44;--green-lt:#047857;
+  --amber:#f59e0b;--amber-dk:#d97706;--amber-lt:#b45309;
   --radius:14px;--sq-size:9px;--sq-gap:2px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -27,13 +27,13 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
 
 /* NAV FIXE — Header de référence canonique */
 .site-nav{position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(9,9,11,.92);backdrop-filter:blur(16px);
+  background:rgba(250,250,249,.92);backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
 .site-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
   display:flex;align-items:center;justify-content:space-between}
 .nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
   letter-spacing:-.02em;color:var(--text);text-decoration:none;transition:color .2s}
-.nav-brand:hover{color:#fff}
+.nav-brand:hover{color:#000}
 .nav-brand-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .nav-brand-icon svg{width:14px;height:14px;stroke:#000}
@@ -44,7 +44,7 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
 .nav-link.active{color:var(--text)}
 .nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
   border:1px solid rgba(0,152,98,.2);font-weight:600}
-.nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
+.nav-link-score:hover{background:var(--green);color:#fff}
 @media(max-width:600px){
   .site-nav-inner{padding:0 16px}
   .nav-link{font-size:.78rem;padding:5px 8px}
@@ -55,7 +55,7 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
 .bg{position:fixed;inset:0;z-index:0}
 .bg svg{width:100%;height:100%;object-fit:cover}
 .bg-overlay{position:fixed;inset:0;z-index:1;
-  background:linear-gradient(to bottom,rgba(9,9,11,.4) 0%,rgba(9,9,11,.2) 40%,rgba(9,9,11,.7) 75%,rgba(9,9,11,.95) 100%)}
+  background:linear-gradient(to bottom,rgba(250,250,249,.5) 0%,rgba(250,250,249,.25) 40%,rgba(250,250,249,.75) 75%,rgba(250,250,249,.97) 100%)}
 
 #app{position:relative;z-index:2;width:100%;max-width:720px;margin:0 auto;
   padding:84px 16px 60px;animation:fadeUp .8s ease both}
@@ -65,7 +65,7 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;
 .eyebrow{font-size:.72rem;letter-spacing:.2em;color:var(--amber);
   text-transform:uppercase;font-weight:600;margin-bottom:10px;text-align:center}
 h1{font-size:clamp(2rem,6vw,2.8rem);font-weight:800;letter-spacing:-.03em;
-  color:#fff;text-align:center;margin-bottom:10px;line-height:1.1}
+  color:var(--text);text-align:center;margin-bottom:10px;line-height:1.1}
 h1 em{color:var(--amber-lt);font-style:normal}
 .sub{font-size:.92rem;color:var(--muted);line-height:1.6;
   text-align:center;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
@@ -96,19 +96,19 @@ h1 em{color:var(--amber-lt);font-style:normal}
 .grid-year-label{font-size:.65rem;font-weight:600;
   color:rgba(245,158,11,.2);letter-spacing:.02em;
   width:24px;flex-shrink:0;text-align:right;padding-right:4px}
-.grid-year-label.visible{color:rgba(253,230,138,.55)}
+.grid-year-label.visible{color:rgba(180,83,9,.65)}
 .grid-weeks{display:flex;flex-wrap:nowrap;gap:var(--sq-gap)}
 .sq{width:var(--sq-size);height:var(--sq-size);border-radius:1px;flex-shrink:0}
 .sq-done{background:var(--amber-dk)}
 .sq-current{background:var(--amber-lt);box-shadow:0 0 4px rgba(253,230,138,.6)}
-.sq-left{background:#18181b;border:1px solid #27272a}
+.sq-left{background:#f4f4f5;border:1px solid #e4e4e7}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .sq-current{animation:pulse 2s ease infinite}
 
 /* CITATION */
 .citation{background:rgba(245,158,11,.06);border-left:3px solid var(--amber);
   border-radius:0 12px 12px 0;padding:14px 18px;margin:24px 0;
-  font-style:italic;font-size:.9rem;color:rgba(253,230,138,.7);
+  font-style:italic;font-size:.9rem;color:#92400e;
   line-height:1.7;font-weight:500}
 .citation-author{display:block;font-size:.72rem;color:var(--muted);
   margin-top:8px;font-style:normal;font-weight:600;letter-spacing:.04em}
@@ -141,12 +141,12 @@ h1 em{color:var(--amber-lt);font-style:normal}
   border:1px solid var(--border2);color:var(--text);text-decoration:none;
   padding:14px 16px;font-size:.95rem;font-weight:600;letter-spacing:-.01em;
   border-radius:12px;transition:all .2s;display:block}
-.btn-secondary:hover{background:var(--card2);color:#fff}
+.btn-secondary:hover{background:var(--card2);color:#000}
 
 /* NO DATA */
 .no-data{text-align:center;padding:80px 20px;color:var(--muted)}
 .no-data h2{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;
-  color:#fff;margin-bottom:14px}
+  color:var(--text);margin-bottom:14px}
 .no-data p{font-size:.95rem;line-height:1.7;margin-bottom:24px}
 
 /* FOOTER — Référence canonique */
@@ -198,20 +198,20 @@ h1 em{color:var(--amber-lt);font-style:normal}
 <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
   <defs>
     <radialGradient id="sunGlow" cx="35%" cy="38%" r="30%">
-      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#09090b" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#fafaf9" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0a0d"/>
-      <stop offset="45%" stop-color="#13130f"/>
-      <stop offset="100%" stop-color="#09090b"/>
+      <stop offset="0%" stop-color="#fdfaf3"/>
+      <stop offset="45%" stop-color="#f7f2e6"/>
+      <stop offset="100%" stop-color="#fafaf9"/>
     </linearGradient>
   </defs>
   <rect width="1440" height="900" fill="url(#skyGrad)"/>
   <ellipse cx="504" cy="342" rx="430" ry="270" fill="url(#sunGlow)"/>
-  <path d="M0,480 Q80,330 180,380 Q260,290 360,350 Q440,280 530,340 Q620,260 720,320 Q810,250 900,310 Q990,240 1080,295 Q1160,230 1250,280 Q1330,250 1440,290 L1440,900 L0,900 Z" fill="#161310" opacity="0.9"/>
-  <path d="M0,560 Q90,420 200,470 Q300,390 400,450 Q490,400 580,455 Q670,380 770,440 Q850,390 950,445 Q1040,395 1140,450 Q1220,400 1320,440 Q1380,415 1440,440 L1440,900 L0,900 Z" fill="#1e1a16" opacity="0.95"/>
-  <path d="M0,720 Q200,680 400,700 Q600,720 720,690 Q900,660 1100,680 Q1280,695 1440,670 L1440,900 L0,900 Z" fill="#161310" opacity="0.95"/>
+  <path d="M0,480 Q80,330 180,380 Q260,290 360,350 Q440,280 530,340 Q620,260 720,320 Q810,250 900,310 Q990,240 1080,295 Q1160,230 1250,280 Q1330,250 1440,290 L1440,900 L0,900 Z" fill="#e8e2d0" opacity="0.9"/>
+  <path d="M0,560 Q90,420 200,470 Q300,390 400,450 Q490,400 580,455 Q670,380 770,440 Q850,390 950,445 Q1040,395 1140,450 Q1220,400 1320,440 Q1380,415 1440,440 L1440,900 L0,900 Z" fill="#ddd4bb" opacity="0.85"/>
+  <path d="M0,720 Q200,680 400,700 Q600,720 720,690 Q900,660 1100,680 Q1280,695 1440,670 L1440,900 L0,900 Z" fill="#cfc3a3" opacity="0.8"/>
 </svg>
 </div>
 <div class="bg-overlay"></div>
@@ -305,7 +305,7 @@ function render(){
     '<div class="legend">'+
       '<div class="legend-item"><div class="legend-sq" style="background:#d97706"></div>Vécue</div>'+
       '<div class="legend-item"><div class="legend-sq" style="background:#fde68a"></div>En cours</div>'+
-      '<div class="legend-item"><div class="legend-sq" style="background:#18181b;border:1px solid #27272a"></div>Restante</div>'+
+      '<div class="legend-item"><div class="legend-sq" style="background:#f4f4f5;border:1px solid #e4e4e7"></div>Restante</div>'+
     '</div>'+
 
     '<div class="citation">"'+cite.txt+'"<span class="citation-author">— '+cite.aut+'</span></div>'+

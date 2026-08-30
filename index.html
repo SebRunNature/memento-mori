@@ -10,7 +10,7 @@ description: "Calcule ton espérance de vie et ton âge biologique en un seul ou
 /* HERO */
 .home-hero{text-align:center;max-width:700px;margin:0 auto 72px}
 .home-hero h1{font-size:clamp(2.8rem,8vw,5.5rem);font-weight:800;letter-spacing:-.04em;
-  line-height:1.05;color:#fff;margin-bottom:20px}
+  line-height:1.05;color:var(--text);margin-bottom:20px}
 .home-hero h1 em{color:var(--amber-lt);font-style:normal}
 .home-hero>p{font-size:1.05rem;color:var(--muted);line-height:1.75;
   margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto}
@@ -49,7 +49,7 @@ description: "Calcule ton espérance de vie et ton âge biologique en un seul ou
   color:var(--amber);margin-bottom:14px;display:flex;align-items:center;gap:7px}
 .tool-tag::before{content:'';width:18px;height:1px;background:var(--amber)}
 .tool-showcase-title{font-size:2rem;font-weight:800;letter-spacing:-.03em;
-  color:#fff;margin-bottom:12px;line-height:1.1}
+  color:var(--text);margin-bottom:12px;line-height:1.1}
 .tool-showcase-desc{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
 .tool-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
 .tool-features li{display:flex;align-items:flex-start;gap:10px;
@@ -113,7 +113,7 @@ description: "Calcule ton espérance de vie et ton âge biologique en un seul ou
 /* COMMENT ÇA MARCHE */
 .how-section{margin-bottom:72px}
 .section-heading{font-size:1.7rem;font-weight:800;letter-spacing:-.03em;
-  color:#fff;margin-bottom:8px;text-align:center}
+  color:var(--text);margin-bottom:8px;text-align:center}
 .section-sub{font-size:.88rem;color:var(--muted);text-align:center;
   margin-bottom:32px;font-weight:500}
 .how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -142,14 +142,14 @@ description: "Calcule ton espérance de vie et ton âge biologique en un seul ou
 .memento-eyebrow{font-size:.68rem;font-weight:800;letter-spacing:.2em;
   text-transform:uppercase;color:var(--green);margin-bottom:16px}
 .memento-quote{font-size:clamp(1.2rem,3vw,1.6rem);font-weight:700;
-  color:rgba(255,255,255,.85);line-height:1.4;font-style:italic;
+  color:rgba(24,24,27,.85);line-height:1.4;font-style:italic;
   margin-bottom:10px;max-width:560px;margin-left:auto;margin-right:auto}
 .memento-author{font-size:.78rem;color:var(--muted);font-weight:600}
 .memento-cta{margin-top:28px}
 
 /* BLOG */
 .blog-heading{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;
-  color:#fff;margin-bottom:20px}
+  color:var(--text);margin-bottom:20px}
 
 /* ANIMATIONS */
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s ease}
@@ -242,7 +242,7 @@ description: "Calcule ton espérance de vie et ton âge biologique en un seul ou
           <span class="mockup-leg-val" style="color:var(--amber-lt)">2 444</span>
         </div>
         <div class="mockup-leg-row">
-          <div class="mockup-leg-left"><div class="mockup-leg-dot" style="background:#3f3f46"></div><span class="mockup-leg-label">Semaines restantes</span></div>
+          <div class="mockup-leg-left"><div class="mockup-leg-dot" style="background:#d4d4d8"></div><span class="mockup-leg-label">Semaines restantes</span></div>
           <span class="mockup-leg-val">1 716</span>
         </div>
         <div class="mockup-leg-row">
@@ -375,7 +375,7 @@ description: "Calcule ton espérance de vie et ton âge biologique en un seul ou
   arc(START, endV, '#d97706', false);
   const sg = endV+GAP*2, eg = sg+rg*TAU-GAP;
   arc(sg, eg, '#009862', true);
-  arc(eg+GAP*2, START+TAU-GAP, '#3f3f46', false);
+  arc(eg+GAP*2, START+TAU-GAP, '#d4d4d8', false);
 })();
 
 /* ─── REVEAL AU SCROLL ─── */

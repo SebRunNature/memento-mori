@@ -18,20 +18,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:       #09090b;
-      --surface:  #18181b;
-      --surface2: #27272a;
-      --border:   #27272a;
-      --border2:  #3f3f46;
-      --text:     #e4e4e7;
-      --muted:    #71717a;
-      --dim:      #52525b;
+      --bg:       #fafaf9;
+      --surface:  #ffffff;
+      --surface2: #f4f4f5;
+      --border:   #e4e4e7;
+      --border2:  #d4d4d8;
+      --text:     #18181b;
+      --muted:    #52525b;
+      --dim:      #71717a;
       --green:    #009862;
       --green-dk: #006b44;
-      --green-lt: #a0facf;
+      --green-lt: #047857;
       --amber:    #f59e0b;
       --amber-dk: #d97706;
-      --amber-lt: #fde68a;
+      --amber-lt: #b45309;
       --radius:   14px;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -40,78 +40,15 @@
       font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden;
       -webkit-font-smoothing:antialiased}
 
-    /* ══ BANDEAU DON ══════════════════════════════════════════════ */
-    .don-banner{
-      background:#1a1200;
-      background:linear-gradient(90deg,#1c1400,#1a1200,#1c1400);
-      border-bottom:1px solid rgba(245,158,11,.22);
-      padding:8px 20px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:200;
-    }
-    .don-banner-text{
-      font-size:.8rem;
-      color:var(--amber-lt);
-      font-weight:500;
-      line-height:1.4;
-    }
-    .don-banner-text em{color:#fff;font-style:normal;font-weight:700}
-    .don-banner-cta{
-      display:inline-flex;
-      align-items:center;
-      gap:5px;
-      background:var(--amber);
-      color:#000;
-      font-size:.76rem;
-      font-weight:700;
-      padding:5px 14px;
-      border-radius:20px;
-      text-decoration:none;
-      letter-spacing:.01em;
-      white-space:nowrap;
-      transition:background .15s,transform .1s;
-      flex-shrink:0;
-    }
-    .don-banner-cta:hover{background:var(--amber-dk);transform:translateY(-1px)}
-    .don-banner-close{
-      position:absolute;
-      right:12px;
-      top:50%;
-      transform:translateY(-50%);
-      background:none;
-      border:none;
-      color:rgba(253,230,138,.35);
-      font-size:.9rem;
-      cursor:pointer;
-      padding:4px 6px;
-      line-height:1;
-      transition:color .15s;
-      border-radius:4px;
-    }
-    .don-banner-close:hover{color:var(--amber-lt)}
-    .don-banner.hidden{display:none}
-    @media(max-width:600px){
-      .don-banner{padding:8px 36px 8px 16px;gap:8px}
-      .don-banner-text{font-size:.75rem}
-    }
-
     /* NAV */
     .site-nav{position:fixed;top:0;left:0;right:0;z-index:100;
-      background:rgba(9,9,11,.92);backdrop-filter:blur(16px);
+      background:rgba(250,250,249,.92);backdrop-filter:blur(16px);
       -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
     .site-nav-inner{max-width:1024px;margin:0 auto;padding:0 24px;height:60px;
       display:flex;align-items:center;justify-content:space-between}
     .nav-brand{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;
       letter-spacing:-.02em;color:var(--text);text-decoration:none;transition:color .2s}
-    .nav-brand:hover{color:#fff}
+    .nav-brand:hover{color:#000}
     .nav-brand-icon{width:26px;height:26px;background:var(--amber);border-radius:7px;
       display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .nav-brand-icon svg{width:14px;height:14px;stroke:#000}
@@ -122,36 +59,12 @@
     .nav-link.active{color:var(--text)}
     .nav-link-score{background:rgba(0,152,98,.1);color:var(--green-lt);
       border:1px solid rgba(0,152,98,.2);font-weight:600}
-    .nav-link-score:hover{background:rgba(0,152,98,.18);color:#fff}
-
-    /* Lien Don dans la nav — pill amber */
-    .nav-link-don{
-      display:inline-flex;
-      align-items:center;
-      gap:5px;
-      background:rgba(245,158,11,.12);
-      color:var(--amber);
-      border:1px solid rgba(245,158,11,.3);
-      font-size:.82rem;
-      font-weight:700;
-      padding:5px 12px;
-      border-radius:20px;
-      text-decoration:none;
-      letter-spacing:.01em;
-      transition:all .2s;
-    }
-    .nav-link-don:hover{
-      background:rgba(245,158,11,.22);
-      border-color:rgba(245,158,11,.55);
-      color:var(--amber-lt);
-      transform:translateY(-1px);
-    }
+    .nav-link-score:hover{background:var(--green);color:#fff}
 
     @media(max-width:600px){
       .site-nav-inner{padding:0 16px}
       .nav-link{font-size:.78rem;padding:5px 8px}
       .nav-link[href="/apropos/"]{display:none}
-      .nav-link-don{font-size:.75rem;padding:4px 10px}
     }
 
     /* MAIN — padding-top initial, ajusté dynamiquement par JS */
@@ -175,31 +88,31 @@
 
     /* ARTICLE */
     article h1{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:800;
-      letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:16px}
+      letter-spacing:-.03em;line-height:1.15;color:var(--text);margin-bottom:16px}
     article h1 em{color:var(--amber-lt);font-style:normal}
     article .post-meta{display:none}
     article h2{font-size:1.4rem;font-weight:700;letter-spacing:-.02em;
       color:var(--text);margin:40px 0 12px}
     article h3{font-size:1.1rem;font-weight:700;color:var(--text);margin:28px 0 8px}
-    article p{font-size:1rem;line-height:1.8;color:rgba(228,228,231,.85);margin-bottom:16px;text-align:justify}
+    article p{font-size:1rem;line-height:1.8;color:rgba(24,24,27,.85);margin-bottom:16px;text-align:justify}
     article a{color:var(--amber-lt);text-decoration:underline;text-underline-offset:3px}
-    article a:hover{color:#fff}
+    article a:hover{color:var(--amber-dk)}
     article ul,article ol{padding-left:20px;margin-bottom:16px}
-    article li{font-size:1rem;line-height:1.8;color:rgba(228,228,231,.85);margin-bottom:4px;text-align:justify}
+    article li{font-size:1rem;line-height:1.8;color:rgba(24,24,27,.85);margin-bottom:4px;text-align:justify}
     article blockquote{border-left:3px solid var(--amber);padding:12px 18px;
       margin:24px 0;background:rgba(245,158,11,.06);border-radius:0 10px 10px 0}
     article blockquote p{color:var(--amber-lt);font-style:italic;margin:0}
-    article strong{color:#fff;font-weight:700}
+    article strong{color:var(--text);font-weight:700}
     article em{color:var(--amber-lt)}
     article hr{border:none;border-top:1px solid var(--border);margin:36px 0}
     article table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem}
-    article thead tr{background:var(--surface)}
+    article thead tr{background:var(--surface2)}
     article th{padding:11px 14px;text-align:left;font-weight:600;font-size:.78rem;
       letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
       border-bottom:1px solid var(--border)}
     article td{padding:10px 14px;border-bottom:1px solid var(--border);
-      color:rgba(228,228,231,.85);line-height:1.6}
-    article tr:hover td{background:rgba(255,255,255,.02)}
+      color:rgba(24,24,27,.85);line-height:1.6}
+    article tr:hover td{background:rgba(0,0,0,.02)}
     article code{background:var(--surface2);border:1px solid var(--border);
       border-radius:5px;padding:2px 6px;font-size:.84rem;color:var(--amber-lt)}
 
@@ -225,27 +138,6 @@
       text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
     .footer-link:hover{color:var(--text)}
     .footer-sep{color:var(--dim);font-size:.75rem}
-
-    /* Lien Don dans le footer — pill amber discret */
-    .footer-link-don{
-      display:inline-flex;
-      align-items:center;
-      gap:5px;
-      background:rgba(245,158,11,.08);
-      color:var(--amber-lt);
-      border:1px solid rgba(245,158,11,.2);
-      font-size:.82rem;
-      font-weight:700;
-      padding:4px 12px;
-      border-radius:20px;
-      text-decoration:none;
-      transition:all .2s;
-    }
-    .footer-link-don:hover{
-      background:rgba(245,158,11,.16);
-      border-color:rgba(245,158,11,.4);
-      color:#fff;
-    }
 
     .footer-copy{font-size:.8rem;color:var(--dim);line-height:1.6}
     .footer-copy a{color:var(--dim);text-decoration:none}
@@ -317,19 +209,6 @@
 </head>
 <body>
 
-<!-- ══ BANDEAU DON ═════════════════════════════════════════════════
-     Visible sur toutes les pages, fermable, ne réapparaît pas
-     avant 7 jours si l'utilisateur l'a fermé.
-══════════════════════════════════════════════════════════════════ -->
-<div class="don-banner" id="don-banner">
-  <span class="don-banner-text">
-    ☕ Ce site est <em>100 % gratuit</em> — aucune pub, aucune donnée collectée.
-    Si la Montre de Vie t'a été utile, tu peux soutenir le projet.
-  </span>
-  <a class="don-banner-cta" href="/don/">♡ Faire un don</a>
-  <button class="don-banner-close" onclick="closeBanner()" aria-label="Fermer le bandeau">✕</button>
-</div>
-
 <nav class="site-nav">
   <div class="site-nav-inner">
     <a class="nav-brand" href="/">
@@ -343,7 +222,6 @@
     <div class="nav-links">
       <a href="/montre/"  class="nav-link {% if page.url contains '/montre'  %}active{% endif %}">La Montre</a>
       <a href="/blog/"    class="nav-link {% if page.url contains '/blog'    %}active{% endif %}">Blog</a>
-      <a href="/don/"     class="nav-link-don {% if page.url contains '/don'  %}active{% endif %}">♡ Don</a>
     </div>
   </div>
 </nav>
@@ -365,8 +243,6 @@
       <span class="footer-sep">·</span>
       <a class="footer-link" href="/faq/">FAQ</a>
       <span class="footer-sep">·</span>
-      <a class="footer-link-don" href="/don/">♡ Soutenir le projet</a>
-      <span class="footer-sep">·</span>
       <a class="footer-link" href="/apropos/">À propos</a>
     </div>
     <p class="footer-copy">
@@ -386,76 +262,6 @@
       notifyButton: { enable: true },
     });
   });
-</script>
-
-<script>
-/* ── Bandeau Don ─────────────────────────────────────────────────
-   PRINCIPE :
-   • Le bandeau est en position statique — il défile avec la page
-   • La nav (fixed) se positionne sous le bandeau via top dynamique
-   • Au scroll : dès que le bandeau sort de l'écran, nav → top:0
-   • Sur mobile : on attend le layout stable (requestAnimationFrame)
-     avant le premier calcul pour éviter le chevauchement iPhone
-──────────────────────────────────────────────────────────────── */
-(function () {
-  var BANNER_KEY  = 'don_banner_closed';
-  var CLICKED_KEY = 'don_clicked';
-  var DELAY_DAYS  = 7;
-
-  var banner = document.getElementById('don-banner');
-  var nav    = document.querySelector('.site-nav');
-  var mainEl = document.querySelector('main');
-
-  /* ── Faut-il masquer le bandeau ? ── */
-  function shouldHide() {
-    try {
-      if (localStorage.getItem(CLICKED_KEY)) return true;
-      var ts = localStorage.getItem(BANNER_KEY);
-      if (ts && Date.now() - parseInt(ts) < DELAY_DAYS * 86400000) return true;
-    } catch (e) {}
-    return false;
-  }
-
-  var bannerHidden = shouldHide();
-  if (bannerHidden) banner.classList.add('hidden');
-
-  /* ── Ajustement nav + padding main ──
-     Bandeau = fixed z-index:200, nav = fixed z-index:100
-     La nav se place juste sous le bandeau via top = hauteur bandeau
-     Le contenu (main) est décalé de hauteur bandeau + hauteur nav
-  ── */
-  function adjust() {
-    if (bannerHidden || banner.classList.contains('hidden')) {
-      nav.style.top           = '0';
-      mainEl.style.paddingTop = '60px';
-      return;
-    }
-    var bannerH = banner.offsetHeight;
-    nav.style.top           = bannerH + 'px';
-    mainEl.style.paddingTop = (bannerH + 60) + 'px';
-  }
-
-  /* Double rAF : attend que le layout soit stable (fix iPhone/Safari) */
-  if (typeof requestAnimationFrame !== 'undefined') {
-    requestAnimationFrame(function () {
-      requestAnimationFrame(adjust);
-    });
-  } else {
-    adjust();
-  }
-
-  /* Recalcul au resize uniquement (bandeau fixed ne bouge pas au scroll) */
-  window.addEventListener('resize', adjust, { passive: true });
-
-  /* ── Fermeture manuelle ── */
-  window.closeBanner = function () {
-    banner.classList.add('hidden');
-    bannerHidden = true;
-    nav.style.top        = '0';
-    mainEl.style.paddingTop = '60px';
-    try { localStorage.setItem(BANNER_KEY, Date.now()); } catch (e) {}
-  };
-})();
 </script>
 
 </body>

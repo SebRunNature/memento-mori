@@ -8,14 +8,14 @@ canonical: "https://montre-de-vie.com/methodologie/"
 <style>
 .ap-hero { text-align:center; padding:48px 0 44px; }
 .ap-eyebrow { font-size:.72rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;font-weight:700;margin-bottom:14px; }
-.ap-hero h1 { font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:16px;line-height:1.1; }
+.ap-hero h1 { font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-0.03em;color:var(--text);margin-bottom:16px;line-height:1.1; }
 .ap-hero h1 em { color:var(--amber-lt);font-style:normal; }
 .ap-hero p { font-size:.95rem;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7; }
 .ap-section-title { font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:10px;margin:44px 0 20px; }
-.prose { font-size:.96rem;color:rgba(228,228,231,.82);line-height:1.85;margin-bottom:18px; }
-.prose strong { color:#fff;font-weight:700; }
+.prose { font-size:.96rem;color:rgba(24,24,27,.82);line-height:1.85;margin-bottom:18px; }
+.prose strong { color:var(--text);font-weight:700; }
 .prose em { color:var(--amber-lt);font-style:italic; }
-.ap-quote { background:rgba(9,9,11,.4);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 22px;margin:28px 0;font-style:italic;font-size:.95rem;color:rgba(253,230,138,.7);line-height:1.75; }
+.ap-quote { background:rgba(245,158,11,.06);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 22px;margin:28px 0;font-style:italic;font-size:.95rem;color:#92400e;line-height:1.75; }
 .ap-quote-author { display:block;font-size:.72rem;color:var(--muted);margin-top:10px;font-style:normal;font-weight:600;letter-spacing:.05em; }
 
 /* ÉTAPES ALGORITHME */
@@ -30,24 +30,24 @@ canonical: "https://montre-de-vie.com/methodologie/"
 /* TABLEAU FACTEURS */
 .factor-table { width:100%;border-collapse:collapse;margin:20px 0;font-size:.84rem; }
 .factor-table th { background:var(--surface);color:var(--muted);font-weight:700;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase; }
-.factor-table td { padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(228,228,231,.8);vertical-align:top; }
+.factor-table td { padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);color:rgba(24,24,27,.8);vertical-align:top; }
 .factor-table tr:last-child td { border-bottom:none; }
 .factor-table td:first-child { color:var(--text);font-weight:600; }
 .badge { display:inline-block;padding:2px 9px;border-radius:20px;font-size:.68rem;font-weight:700;letter-spacing:.04em; }
 .badge-high { background:rgba(245,158,11,.12);color:var(--amber-lt);border:1px solid rgba(245,158,11,.2); }
 .badge-med { background:rgba(0,152,98,.1);color:var(--green-lt);border:1px solid rgba(0,152,98,.2); }
-.badge-low { background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border); }
+.badge-low { background:rgba(0,0,0,.03);color:var(--muted);border:1px solid var(--border); }
 
 /* FORMULE */
-.formula-box { background:rgba(9,9,11,.5);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:22px 24px;margin:24px 0;font-family:monospace; }
+.formula-box { background:var(--surface2);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:22px 24px;margin:24px 0;font-family:monospace; }
 .formula-label { font-size:.7rem;color:var(--amber);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:block;font-family:sans-serif; }
-.formula-main { font-size:1rem;color:#fff;font-weight:700;line-height:1.8; }
+.formula-main { font-size:1rem;color:var(--text);font-weight:700;line-height:1.8; }
 .formula-note { font-size:.78rem;color:var(--muted);margin-top:10px;display:block;font-family:sans-serif;line-height:1.6; }
 
 /* DISCLAIMER */
-.disclaimer-box { background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.15);border-radius:14px;padding:18px 22px;margin:32px 0; }
-.disclaimer-box p { font-size:.84rem;color:rgba(252,165,165,.7);line-height:1.7;margin:0; }
-.disclaimer-box strong { color:rgba(252,165,165,.9); }
+.disclaimer-box { background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);border-radius:14px;padding:18px 22px;margin:32px 0; }
+.disclaimer-box p { font-size:.84rem;color:#b91c1c;line-height:1.7;margin:0; }
+.disclaimer-box strong { color:#b91c1c; }
 
 .internal-link { display:inline-flex;align-items:center;gap:5px;color:var(--amber-lt);font-size:.84rem;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(245,158,11,.25);padding-bottom:1px;transition:border-color .2s; }
 .internal-link:hover { border-color:var(--amber-lt); }
@@ -257,7 +257,7 @@ canonical: "https://montre-de-vie.com/methodologie/"
 </div>
 
 <div class="disclaimer-box">
-  <p><strong>Avertissement important :</strong> ces outils sont des estimateurs statistiques à usage éducatif. Ils ne constituent pas un diagnostic médical, ne remplacent pas un bilan de santé professionnel, et ne doivent pas être utilisés pour prendre des décisions médicales. Si tu as des préoccupations de santé, consulte un médecin. Pour la liste complète des limites, consulte la <a href="/limites/" style="color:rgba(252,165,165,.8);text-decoration:none;font-weight:600">page Limites</a>.</p>
+  <p><strong>Avertissement important :</strong> ces outils sont des estimateurs statistiques à usage éducatif. Ils ne constituent pas un diagnostic médical, ne remplacent pas un bilan de santé professionnel, et ne doivent pas être utilisés pour prendre des décisions médicales. Si tu as des préoccupations de santé, consulte un médecin. Pour la liste complète des limites, consulte la <a href="/limites/" style="color:#b91c1c;text-decoration:none;font-weight:600">page Limites</a>.</p>
 </div>
 
 <h2 class="ap-section-title">Mises à jour de l'algorithme</h2>

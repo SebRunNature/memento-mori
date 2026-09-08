@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "À propos — Montre de Vie & Score de Vie"
-description: "Qui est derrière la Montre de Vie et le Score de Vie ? Sébastien Salomon, traileur luxembourgeois de 47 ans, VO₂max 54, espérance de vie estimée à 104 ans. L'histoire du projet, la philosophie Memento Mori, les outils et la science derrière."
+title: "À propos — Montre de Vie"
+description: "Qui est derrière la Montre de Vie ? Sébastien Salomon, traileur luxembourgeois de 47 ans, âge biologique 36 ans, espérance de vie estimée à 88 ans. L'histoire du projet, la philosophie Memento Mori, et la science derrière l'outil."
 canonical: "https://montre-de-vie.com/apropos/"
 ---
 
@@ -91,6 +91,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   color: rgba(24,24,27,.82);
   line-height: 1.85;
   margin-bottom: 18px;
+  text-align: justify;
 }
 .prose strong { color: var(--text); font-weight: 700; }
 .prose em { color: var(--amber-lt); font-style: italic; }
@@ -106,6 +107,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   font-size: .95rem;
   color: #92400e;
   line-height: 1.75;
+  text-align: justify;
 }
 .ap-quote-author {
   display: block;
@@ -115,6 +117,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   font-style: normal;
   font-weight: 600;
   letter-spacing: .05em;
+  text-align: left;
 }
 
 /* STATS GRID */
@@ -140,6 +143,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   line-height: 1;
   margin-bottom: 6px;
 }
+.stat-number.green { color: var(--green-lt); }
 .stat-label {
   font-size: .72rem;
   color: var(--muted);
@@ -210,6 +214,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   color: var(--muted);
   line-height: 1.65;
   display: block;
+  text-align: justify;
 }
 
 /* CARTE AUTEUR */
@@ -246,6 +251,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   font-size: .84rem;
   color: var(--muted);
   line-height: 1.65;
+  text-align: justify;
 }
 .author-tags {
   display: flex;
@@ -289,6 +295,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   font-size: .85rem;
   color: var(--muted);
   line-height: 1.6;
+  text-align: justify;
 }
 .credential-text strong { color: var(--text); font-weight: 700; }
 
@@ -313,6 +320,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   font-size: .84rem;
   color: var(--muted);
   line-height: 1.7;
+  text-align: justify;
 }
 .faq-a strong { color: var(--text); font-weight: 600; }
 
@@ -343,7 +351,7 @@ canonical: "https://montre-de-vie.com/apropos/"
 }
 </style>
 
-<!-- Schema.org Person + WebSite -->
+<!-- Schema.org Person + FAQPage -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -356,16 +364,49 @@ canonical: "https://montre-de-vie.com/apropos/"
     "https://strava.app.link/DEw8pXyyl0b"
   ],
   "jobTitle": "Créateur de Montre de Vie",
-  "description": "Traileur luxembourgeois de 47 ans, passionné de longévité et de science du vieillissement. VO₂max 54, espérance de vie estimée à 104 ans.",
+  "description": "Traileur luxembourgeois de 47 ans, passionné de longévité et de science du vieillissement. Âge biologique estimé 36 ans, VO₂max 54, espérance de vie estimée à 88 ans.",
   "knowsAbout": ["âge biologique", "longévité", "trail running", "PhenoAge", "Memento Mori", "endurance"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "L'espérance de vie calculée est-elle précise ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non — et c'est assumé. Aucun algorithme ne peut prédire la date de ta mort. Ce calcul est un estimateur probabiliste basé sur les grandes études épidémiologiques (INSEE, OMS, Framingham Heart Study). Il donne une direction, pas une certitude." }
+    },
+    {
+      "@type": "Question",
+      "name": "Mes données personnelles sont-elles collectées ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non. Tout le calcul se fait dans le navigateur du visiteur. Aucune donnée n'est envoyée à un serveur, aucun compte n'est requis, et aucune publicité ne finance le site." }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi la Montre de Vie est-elle gratuite ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Parce que l'accès à ces informations ne devrait pas coûter 59 dollars, comme le produit physique Tikker Watch dont le projet s'inspire. La Montre de Vie est la version ouverte et accessible, pour tout le monde." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre l'âge affiché et l'âge biologique affiché ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La Montre de Vie calcule deux chiffres en un seul formulaire : l'âge chronologique (ton âge civil, qui détermine ton espérance de vie estimée) et l'âge biologique (l'âge réel de ton corps, basé sur le modèle PhenoAge et une vingtaine de biomarqueurs). L'écart entre les deux montre si ton mode de vie te fait gagner ou perdre du temps." }
+    },
+    {
+      "@type": "Question",
+      "name": "Qui a créé Montre de Vie ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sébastien Salomon, traileur luxembourgeois de 47 ans autodidacte en développement, passionné de longévité et de science du vieillissement. Il utilise lui-même l'outil sur ses propres données." }
+    }
+  ]
 }
 </script>
 
 <!-- ══ HERO ══ -->
 <div class="ap-hero">
   <div class="ap-eyebrow">Memento Mori · Luxembourg</div>
-  <h1>À propos de la <em>Montre de Vie</em> &amp; du <em>Score de Vie</em></h1>
-  <p>Une philosophie vieille de 2 000 ans. Un traileur de 47 ans. Deux outils gratuits — l'un pour voir le temps qui passe, l'autre pour mesurer la vitesse à laquelle tu le brûles.</p>
+  <h1>À propos de la <em>Montre de Vie</em></h1>
+  <p>Une philosophie vieille de 2 000 ans. Un traileur de 47 ans. Un outil gratuit qui affiche deux chiffres : le temps qui te reste, et la vitesse à laquelle tu le brûles.</p>
 </div>
 
 <!-- ══ CITATION ══ -->
@@ -378,26 +419,24 @@ canonical: "https://montre-de-vie.com/apropos/"
 <!-- ══ C'EST QUOI ══ -->
 <h2 class="ap-section-title">C'est quoi la Montre de Vie ?</h2>
 
-<p class="prose">La Montre de Vie est un outil gratuit qui calcule ton espérance de vie estimée à partir de <strong>15 à 23 critères</strong> — mode de vie, biomarqueurs, capacités physiques — et lance un <strong>décompte en temps réel</strong> jusqu'à la dernière seconde.</p>
+<p class="prose">La Montre de Vie est un outil gratuit qui calcule, en un seul formulaire de <strong>15 à 23 critères</strong> — mode de vie, biomarqueurs, capacités physiques — deux chiffres complémentaires : ton <strong>espérance de vie estimée</strong> et ton <strong>âge biologique réel</strong>. Le résultat se traduit en <strong>décompte en temps réel</strong>, jusqu'à la dernière seconde.</p>
 
 <p class="prose">Ce n'est pas un outil médical. Ce n'est pas une prédiction. C'est un <strong>miroir</strong> — il te montre la direction que prennent tes habitudes actuelles, et t'invite à choisir consciemment comment tu veux vivre le temps qu'il te reste.</p>
 
-<p class="prose">La page <strong>"Ta vie en semaines"</strong> va plus loin : chaque carré représente une semaine. Tu vois d'un coup d'œil combien tu en as déjà vécues — et combien il t'en reste. C'est parfois inconfortable. C'est exactement le but.</p>
-
-<!-- ══ ET LE SCORE ══ -->
-<h2 class="ap-section-title">Et le Score de Vie ?</h2>
+<!-- ══ LES DEUX CHIFFRES ══ -->
+<h2 class="ap-section-title">Deux chiffres, un seul outil</h2>
 
 <p class="prose">La Montre de Vie est née d'une question simple : <em>combien de temps me reste-t-il ?</em> Mais très vite, une deuxième question s'est imposée — plus précise, plus actionnable : <strong>est-ce que mon corps a vraiment l'âge de mon acte de naissance ?</strong></p>
 
 <p class="prose">Parce que la réponse est presque toujours non. Ton corps vieillit à sa propre vitesse — plus lentement si tu cours, dors bien, manges juste. Plus vite si tu fumes, t'isoles, restes assis. La science a un nom pour ça : <strong>l'âge biologique</strong>.</p>
 
-<p class="prose">Le <strong>Score de Vie</strong> est venu compléter la Montre. C'est un calculateur qui croise une vingtaine de facteurs — composition corporelle, mode de vie, sommeil, biomarqueurs sanguins, VO₂max, force de préhension, vitesse de marche — pour estimer ton âge biologique réel. Tu peux avoir 47 ans sur ton passeport et 42 dans tes cellules. Ou l'inverse.</p>
+<p class="prose">C'est pour ça que le calculateur croise une vingtaine de facteurs — composition corporelle, mode de vie, sommeil, biomarqueurs sanguins, VO₂max, force de préhension, vitesse de marche — pour estimer, en plus de ton espérance de vie, ton âge biologique réel. Tu peux avoir 47 ans sur ton passeport et 36 dans tes cellules. Ou l'inverse.</p>
 
 <div class="ap-quote">
-  La Montre compte les secondes. Le Score mesure leur valeur.
+  Elle compte tes secondes. Elle mesure aussi leur valeur.
 </div>
 
-<p class="prose">Les deux outils se parlent : ton Score ajuste automatiquement le décompte de ta Montre. Plus tu prends soin de toi, plus la Montre ralentit. C'est le seul tableau de bord qui réagit en temps réel à tes choix. Pour comprendre précisément comment le calcul fonctionne, consulte la <a href="/methodologie/" class="internal-link">page Méthodologie</a>.</p>
+<p class="prose">Les deux chiffres se parlent : ton âge biologique ajuste automatiquement le décompte affiché. Plus tu prends soin de toi, plus la Montre ralentit. C'est un tableau de bord qui réagit en temps réel à tes choix. Pour comprendre précisément comment le calcul fonctionne, consulte la <a href="/methodologie/" class="internal-link">page Méthodologie</a>.</p>
 
 <!-- ══ QUI ══ -->
 <h2 class="ap-section-title">Qui est derrière ce projet ?</h2>
@@ -426,7 +465,7 @@ canonical: "https://montre-de-vie.com/apropos/"
 <!-- ══ MES DONNÉES PERSONNELLES ══ -->
 <h2 class="ap-section-title">Ce que mes propres chiffres disent</h2>
 
-<p class="prose">Je ne parle pas de longévité en théorie. J'utilise moi-même ces outils, et voici ce qu'ils donnent pour un traileur de 47 ans basé au Luxembourg.</p>
+<p class="prose">Je ne parle pas de longévité en théorie. J'utilise moi-même cet outil, et voici ce qu'il donne pour un traileur de 47 ans basé au Luxembourg.</p>
 
 <div class="stats-grid">
   <div class="stat-card">
@@ -434,7 +473,7 @@ canonical: "https://montre-de-vie.com/apropos/"
     <span class="stat-label">Âge chronologique</span>
   </div>
   <div class="stat-card">
-    <span class="stat-number">~42</span>
+    <span class="stat-number green">36</span>
     <span class="stat-label">Âge biologique estimé</span>
   </div>
   <div class="stat-card">
@@ -442,12 +481,12 @@ canonical: "https://montre-de-vie.com/apropos/"
     <span class="stat-label">VO₂max (ml/kg/min)</span>
   </div>
   <div class="stat-card">
-    <span class="stat-number">104</span>
+    <span class="stat-number">88</span>
     <span class="stat-label">Espérance de vie estimée</span>
   </div>
 </div>
 
-<p class="prose">Ces chiffres ne sont pas là pour impressionner. Ils sont là pour montrer que <strong>le mode de vie a un impact réel et mesurable</strong>. Un VO₂max de 54 à 47 ans se situe dans le top 5 % pour l'âge — mais ça ne s'est pas fait tout seul. Des années de trail, de récupération sérieuse, de sommeil géré, et d'alimentation réfléchie.</p>
+<p class="prose">Un écart de <strong>−11,5 ans</strong> entre âge civil et âge biologique — mon corps fonctionne comme celui d'un homme de 36 ans, pas de 47. Ces chiffres ne sont pas là pour impressionner. Ils sont là pour montrer que <strong>le mode de vie a un impact réel et mesurable</strong>. Un VO₂max de 54 à 47 ans se situe dans le top 5 % pour l'âge — mais ça ne s'est pas fait tout seul. Des années de trail, de récupération sérieuse, de sommeil géré, et d'alimentation réfléchie.</p>
 
 <div class="credential-row">
   <div class="credential-item">
@@ -456,7 +495,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   </div>
   <div class="credential-item">
     <span class="credential-icon">📊</span>
-    <span class="credential-text"><strong>Suivi biologique régulier</strong> — bilans sanguins (LDL, glycémie, CRP), tension, composition corporelle, VO₂max mesuré. Les outils que j'ai créés, je les utilise moi-même sur mes propres données.</span>
+    <span class="credential-text"><strong>Suivi biologique régulier</strong> — bilans sanguins (LDL, glycémie, CRP), tension, composition corporelle, VO₂max mesuré. L'outil que j'ai créé, je l'utilise moi-même sur mes propres données, à chaque nouveau bilan.</span>
   </div>
   <div class="credential-item">
     <span class="credential-icon">📚</span>
@@ -464,7 +503,7 @@ canonical: "https://montre-de-vie.com/apropos/"
   </div>
   <div class="credential-item">
     <span class="credential-icon">🛠️</span>
-    <span class="credential-text"><strong>Développement autodidacte</strong> — j'ai construit ces outils de zéro, sans être développeur de formation. Parce que les données existaient mais les outils gratuits, eux, n'existaient pas.</span>
+    <span class="credential-text"><strong>Développement autodidacte</strong> — j'ai construit cet outil de zéro, sans être développeur de formation. Parce que les données existaient mais les outils gratuits, eux, n'existaient pas.</span>
   </div>
 </div>
 
@@ -526,8 +565,8 @@ canonical: "https://montre-de-vie.com/apropos/"
     <div class="tl-dot">VII</div>
     <div class="tl-content">
       <span class="tl-year">2026</span>
-      <span class="tl-title">Le Score de Vie complète la Montre</span>
-      <span class="tl-body">Une question revient en boucle : <em>"OK, mais qu'est-ce que je peux faire concrètement ?"</em> Réponse : un second outil, basé sur les recherches modernes en âge biologique. Plus tu prends soin de toi, plus ta Montre ralentit. Les deux outils ne font qu'un.</span>
+      <span class="tl-title">L'âge biologique rejoint la Montre</span>
+      <span class="tl-body">Une question revient en boucle : <em>"OK, mais qu'est-ce que je peux faire concrètement ?"</em> Réponse : le même formulaire calcule désormais aussi l'âge biologique, basé sur les recherches modernes en la matière. Plus tu prends soin de toi, plus ta Montre ralentit.</span>
     </div>
   </div>
 </div>
@@ -562,11 +601,11 @@ canonical: "https://montre-de-vie.com/apropos/"
   </div>
   <div class="credential-item">
     <span class="credential-icon">🚫</span>
-    <span class="credential-text"><strong>Pas de conseil médical</strong> — ces outils sont des estimateurs statistiques, pas des diagnostics. Si tu as une question de santé sérieuse, tu consultes un médecin. C'est non-négociable. Les <a href="/limites/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">limites de l'outil</a> sont documentées en détail.</span>
+    <span class="credential-text"><strong>Pas de conseil médical</strong> — cet outil est un estimateur statistique, pas un diagnostic. Si tu as une question de santé sérieuse, tu consultes un médecin. C'est non-négociable. Les <a href="/limites/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">limites de l'outil</a> sont documentées en détail.</span>
   </div>
   <div class="credential-item">
     <span class="credential-icon">🚫</span>
-    <span class="credential-text"><strong>Pas de bullshit bien-être</strong> — pas de "5 habitudes des gens qui vivent 100 ans". Juste des données épidémiologiques, des algorithmes documentés, et de la transparence sur ce qu'on sait et ce qu'on ne sait pas.</span>
+    <span class="credential-text"><strong>Pas de bullshit bien-être</strong> — pas de "5 habitudes des gens qui vivent 100 ans". Juste des données épidémiologiques, un algorithme documenté, et de la transparence sur ce qu'on sait et ce qu'on ne sait pas.</span>
   </div>
 </div>
 
@@ -589,8 +628,8 @@ canonical: "https://montre-de-vie.com/apropos/"
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">Quelle différence entre la Montre de Vie et le Score de Vie ?</div>
-  <div class="faq-a">La <strong>Montre</strong> est un décompte en temps réel : elle te montre combien il te reste à vivre, en années, jours, heures, secondes. Elle confronte. Elle crée l'urgence.<br><br>Le <strong>Score</strong> est un diagnostic : il calcule ton âge biologique — l'âge réel de ton corps, qui peut différer de ton âge chronologique. Il s'appuie sur des modèles scientifiques reconnus (<strong>PhenoAge</strong>, <strong>BioAge</strong>, et données de physiologie sportive). Il te donne les leviers d'action concrets.<br><br>Les deux sont complémentaires. Calcule ton Score d'abord — il ajuste automatiquement ta Montre. Lance ensuite la Montre — elle te rappelle pourquoi tout ça compte.</div>
+  <div class="faq-q">Quelle différence entre l'âge affiché et l'âge biologique affiché ?</div>
+  <div class="faq-a">Ce sont les deux résultats d'un <strong>même calcul</strong>, pas deux outils différents. L'<strong>âge chronologique</strong> détermine ton espérance de vie estimée — le décompte en temps réel : années, jours, heures, secondes. L'<strong>âge biologique</strong> est un diagnostic complémentaire : l'âge réel de ton corps, qui peut différer de ton âge civil, basé sur des modèles scientifiques reconnus (<strong>PhenoAge</strong> et données de physiologie sportive). L'écart entre les deux ajuste automatiquement ton décompte, et te donne des leviers d'action concrets.</div>
 </div>
 
 <div class="faq-item">
@@ -617,15 +656,6 @@ canonical: "https://montre-de-vie.com/apropos/"
         <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
       </svg>
       Lancer la Montre
-    </a>
-    <a href="/score/" style="display:inline-flex;align-items:center;gap:8px;
-       background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;
-       padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;
-       border:1px solid rgba(0,152,98,.25);transition:all .2s">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20"/>
-      </svg>
-      Calculer mon Score
     </a>
   </div>
   <p style="font-size:.75rem;color:var(--muted);margin-top:20px;line-height:1.6">

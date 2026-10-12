@@ -219,27 +219,27 @@ author: Sébastien Salomon
   <h2>❓ Questions fréquentes</h2>
 
   <div class="faq-item">
-    <div class="faq-q">Les zones bleues, c'est vraiment prouvé scientifiquement ?</div>
+    <h3 class="faq-q">Les zones bleues, c'est vraiment prouvé scientifiquement ?</h3>
     <div class="faq-a">Les 4 zones principales ont été validées par des études démographiques rigoureuses, avec vérification des actes de naissance et registres civils. Des critiques existent — certaines zones ont vu leur longévité diminuer avec l'occidentalisation — mais les <strong>principes de vie</strong> qu'elles incarnent restent solidement étayés par la science.</div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-q">Que mangent les centenaires des zones bleues au quotidien ?</div>
+    <h3 class="faq-q">Que mangent les centenaires des zones bleues au quotidien ?</h3>
     <div class="faq-a"><strong>Légumineuses quotidiennes</strong>, légumes de saison, céréales complètes, très peu de viande (5 fois par mois). Les Okinawaïens mangeaient à 76% de légumes. Les Ikariens consomment plus de 150 variétés de légumes sauvages. Peu transformé, majoritairement végétal, local et saisonnier.</div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-q">Un coureur de trail peut-il s'inspirer des zones bleues sans arrêter de courir ?</div>
+    <h3 class="faq-q">Un coureur de trail peut-il s'inspirer des zones bleues sans arrêter de courir ?</h3>
     <div class="faq-a">Absolument. L'idée n'est pas d'arrêter le trail, mais de <strong>rééquilibrer</strong> : plus de zone 2, plus de récupération active, moins de séances à haute intensité répétées. Les zones bleues montrent que le mouvement modéré et constant est plus bénéfique pour la longévité que les pics d'intensité chroniques.</div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-q">Combien d'années peut-on gagner en adoptant ces habitudes ?</div>
+    <h3 class="faq-q">Combien d'années peut-on gagner en adoptant ces habitudes ?</h3>
     <div class="faq-a">Selon l'organisation Blue Zones, adopter ce mode de vie peut potentiellement <strong>augmenter l'espérance de vie de 10 à 12 ans</strong>. Les Adventistes végétariens de Loma Linda vivent en moyenne 9,5 ans de plus que les autres Californiens. Ce sont des tendances populationnelles, pas des garanties individuelles.</div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-q">Par quelle habitude commencer si je n'en adopte qu'une seule ?</div>
+    <h3 class="faq-q">Par quelle habitude commencer si je n'en adopte qu'une seule ?</h3>
     <div class="faq-a">L'<strong>alimentation végétale</strong>. C'est le facteur le plus constant dans toutes les zones bleues, le plus étudié. Ajoute des légumineuses à chaque repas cette semaine. Simple, pas cher, et ça change tout sur le long terme.</div>
   </div>
 
@@ -252,6 +252,16 @@ author: Sébastien Salomon
       <li><a href="https://adventisthealthstudy.org/studies/AHS-1/findings-longevity" target="_blank">Adventist Health Study — Findings for Longevity</a></li>
       <li><a href="https://www.health.harvard.edu/healthy-aging-and-longevity/living-in-the-blue-zone" target="_blank">Harvard Health — Living in the Blue Zone</a></li>
       <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12010411/" target="_blank">Overtraining Syndrome — PMC</a></li>
+    </ul>
+  </div>
+
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/blog/2026/06/28/zones-bleues-ce-qu-on-peut-vraiment-appliquer/"><strong>Zones bleues : ce qu'on peut vraiment appliquer</strong></a> — au-delà des habitudes, ce que la science confirme et ce qui reste à démontrer.</li>
+      <li><a href="/blog/2026/05/21/memento-mori-luxembourg/"><strong>Memento Mori au Luxembourg</strong></a> — la philosophie derrière la Montre de Vie.</li>
     </ul>
   </div>
 

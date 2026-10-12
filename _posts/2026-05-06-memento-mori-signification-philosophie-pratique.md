@@ -235,35 +235,35 @@ author: Sébastien Salomon
   <div itemscope itemtype="https://schema.org/FAQPage">
 
     <div class="faq-block" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <div class="faq-q" itemprop="name">Memento Mori — traduction exacte en français ?</div>
+      <h3 class="faq-q" itemprop="name">Memento Mori — traduction exacte en français ?</h3>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
         <div itemprop="text">La traduction littérale du latin est "Souviens-toi que tu vas mourir" — parfois traduit aussi par "Rappelle-toi ta mortalité". La formule complète romaine était : <em>Respice post te. Hominem te esse memento. Memento mori.</em> — "Regarde derrière toi. Souviens-toi que tu es un homme. Souviens-toi que tu vas mourir."</div>
       </div>
     </div>
 
     <div class="faq-block" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <div class="faq-q" itemprop="name">Memento Mori est-il une phrase morbide ?</div>
+      <h3 class="faq-q" itemprop="name">Memento Mori est-il une phrase morbide ?</h3>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
         <div itemprop="text">Non — c'est l'exact opposé. Dans la philosophie stoïcienne, la conscience de la mort est un outil de clarté et de priorités. Elle pousse à vivre pleinement maintenant, à ne pas reporter ce qui compte, et à ne pas gaspiller son temps sur le superflu. C'est une philosophie de vie, pas de mort.</div>
       </div>
     </div>
 
     <div class="faq-block" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <div class="faq-q" itemprop="name">Quelle est la différence entre Memento Mori et Memento Vivere ?</div>
+      <h3 class="faq-q" itemprop="name">Quelle est la différence entre Memento Mori et Memento Vivere ?</h3>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
         <div itemprop="text">Memento Mori signifie "souviens-toi que tu vas mourir" et Memento Vivere signifie "souviens-toi de vivre". Les deux sont complémentaires : le premier rappelle que le temps est fini, le second invite à profiter de ce temps maintenant. Ensemble, ils forment la pratique stoïcienne complète.</div>
       </div>
     </div>
 
     <div class="faq-block" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <div class="faq-q" itemprop="name">C'est quoi une montre de vie Memento Mori ?</div>
+      <h3 class="faq-q" itemprop="name">C'est quoi une montre de vie Memento Mori ?</h3>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
         <div itemprop="text">Une montre de vie Memento Mori est un outil qui calcule ton espérance de vie estimée à partir d'un questionnaire sur tes habitudes de vie (sport, sommeil, alimentation, tabac…) et affiche un décompte en temps réel — années, jours, heures, secondes. C'est une application concrète de la philosophie Memento Mori. La version gratuite et francophone est disponible sur <a href="https://montre-de-vie.com/montre/" style="color:var(--green-lt)">montre-de-vie.com</a>.</div>
       </div>
     </div>
 
     <div class="faq-block" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <div class="faq-q" itemprop="name">Comment Steve Jobs utilisait-il le Memento Mori ?</div>
+      <h3 class="faq-q" itemprop="name">Comment Steve Jobs utilisait-il le Memento Mori ?</h3>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
         <div itemprop="text">Dans son célèbre discours à Stanford en 2005, Steve Jobs a révélé qu'il se regardait chaque matin dans le miroir et se posait la question : "Si aujourd'hui était le dernier jour de ma vie, est-ce que je ferais ce que je m'apprête à faire ?" Les jours où la réponse était non trop souvent, il changeait quelque chose. Une pratique Memento Mori classique, appliquée à la direction d'entreprise.</div>
       </div>
@@ -274,6 +274,15 @@ author: Sébastien Salomon
   <div class="cta-montre" style="margin-top:40px">
     <p>La pratique Memento Mori la plus concrète — ton décompte en temps réel.</p>
     <a href="https://montre-de-vie.com/montre/" target="_blank">⏱ Lancer ma Montre de Vie</a>
+  </div>
+
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/blog/2026/05/21/memento-mori-luxembourg/"><strong>Memento Mori au Luxembourg</strong></a> — comment cette philosophie s'applique concrètement au Grand-Duché.</li>
+    </ul>
   </div>
 
 </article>

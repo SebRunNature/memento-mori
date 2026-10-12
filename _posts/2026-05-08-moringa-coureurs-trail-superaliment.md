@@ -21,7 +21,7 @@ author: Sébastien Salomon
   .protocol-step { display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
   .protocol-step:last-child { margin-bottom: 0; }
   .step-badge { background: rgba(45,158,114,.2); border: 1px solid rgba(45,158,114,.3); border-radius: 6px; padding: 4px 10px; font-family: 'Bebas Neue', sans-serif; font-size: .85rem; letter-spacing: 1px; color: var(--green-lt); flex-shrink: 0; white-space: nowrap; }
-  .step-content { font-size: .85rem; color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.6; padding-top: 3px; }
+  .step-content { font-size: .85rem; color: rgba(24,24,27,.8); font-weight: 600; line-height: 1.6; padding-top: 3px; }
 
   @media(max-width:600px) {
     .use-case-grid { grid-template-columns: 1fr; }
@@ -120,12 +120,12 @@ author: Sébastien Salomon
   <h2>Où en savoir plus</h2>
 
   <p>
-    J'ai rédigé un ebook complet sur le Moringa pour les coureurs — comment le choisir, le doser, et l'intégrer selon tes objectifs. Il est gratuit.
+    J'ai rédigé un ebook complet sur le Moringa pour les coureurs — comment le choisir, le doser, et l'intégrer selon tes objectifs.
   </p>
 
   <div class="cta-montre" style="margin-top:24px">
-    <p>📖 Télécharge l'ebook Moringa gratuit — le carburant naturel du traileur</p>
-    <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank">Télécharger gratuitement →</a>
+    <p>📖 Télécharge l'ebook Moringa — le carburant naturel du traileur</p>
+    <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank">Télécharger →</a>
   </div>
 
   <div class="cta-montre" style="margin-top:16px">

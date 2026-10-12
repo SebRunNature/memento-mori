@@ -19,7 +19,7 @@ author: Sébastien Salomon
   }
   .comparison td {
     padding: 11px 16px; border-bottom: 1px solid var(--border);
-    color: rgba(232,245,240,.8); font-weight: 600; vertical-align: top;
+    color: rgba(24,24,27,.8); font-weight: 600; vertical-align: top;
   }
   .comparison tr:hover td { background: rgba(45,158,114,.04); }
   .win { color: var(--green-lt); }

@@ -13,7 +13,7 @@ author: Sébastien Salomon
   /* FAQ Schema-ready */
   .faq-block { margin-bottom: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   .faq-q { padding: 16px 20px; font-weight: 800; font-size: .95rem; color: var(--green-lt); cursor: pointer; }
-  .faq-a { padding: 0 20px 16px; font-size: .88rem; color: rgba(232,245,240,.8); line-height: 1.75; font-weight: 600; }
+  .faq-a { padding: 0 20px 16px; font-size: .88rem; color: rgba(24,24,27,.8); line-height: 1.75; font-weight: 600; }
 
   /* Timeline */
   .timeline { display: flex; flex-direction: column; gap: 0; margin: 28px 0; position: relative; }
@@ -34,7 +34,7 @@ author: Sébastien Salomon
   /* Encart définition */
   .definition-box { background: linear-gradient(135deg, rgba(26,107,74,.25), rgba(45,158,114,.1)); border: 1px solid rgba(45,158,114,.4); border-radius: 16px; padding: 28px 24px; margin: 28px 0; text-align: center; }
   .definition-latin { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 3px; color: var(--green-lt); display: block; margin-bottom: 8px; }
-  .definition-fr { font-size: 1.1rem; color: rgba(232,245,240,.7); font-style: italic; font-weight: 600; }
+  .definition-fr { font-size: 1.1rem; color: rgba(24,24,27,.7); font-style: italic; font-weight: 600; }
   .definition-sub { font-size: .75rem; color: var(--muted); font-weight: 700; margin-top: 10px; display: block; letter-spacing: .08em; text-transform: uppercase; }
 
   @media(max-width:600px) {

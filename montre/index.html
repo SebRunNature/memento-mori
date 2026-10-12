@@ -46,8 +46,8 @@ html,body{min-height:100%;font-family:'Inter',system-ui,sans-serif;background:va
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .header{text-align:center;margin-bottom:32px;padding-top:8px}
 .eyebrow{font-size:.78rem;letter-spacing:.32em;color:var(--green);text-transform:uppercase;margin-bottom:10px;font-weight:800}
-h1{font-size:clamp(2.2rem,7vw,3.6rem);letter-spacing:1.5px;line-height:1;color:var(--text)}
-h1 em{color:var(--amber-lt);font-style:normal}
+h1,#results h2{font-size:clamp(2.2rem,7vw,3.6rem);letter-spacing:1.5px;line-height:1;color:var(--text)}
+h1 em,#results h2 em{color:var(--amber-lt);font-style:normal}
 .sub{margin-top:12px;font-size:.95rem;color:var(--muted);font-weight:600;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.6}
 .warning{border:1px solid rgba(200,135,58,.4);background:rgba(200,135,58,.08);color:#92400e;font-size:.88rem;line-height:1.7;padding:12px 18px;border-radius:var(--radius);margin-bottom:24px;text-align:center;font-weight:700}
 .progress-wrap{margin:0 0 20px;padding:13px 17px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);transition:opacity .3s}
@@ -480,7 +480,7 @@ input[type=number]::placeholder{color:var(--muted)}
 
 <!-- RÉSULTATS -->
 <div id="results">
-<div class="header" style="margin-bottom:24px"><div class="eyebrow">Memento Mori</div><h1>Tes <em>résultats</em></h1></div>
+<div class="header" style="margin-bottom:24px"><div class="eyebrow">Memento Mori</div><h2>Tes <em>résultats</em></h2></div>
 
 <div class="results-grid">
 <!-- BLOC CHRONO -->

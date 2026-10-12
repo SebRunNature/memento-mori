@@ -3,12 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <title>{% if page.title %}{% if page.title contains site.title %}{{ page.title }}{% else %}{{ page.title }} — {{ site.title }}{% endif %}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
   <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
   <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  {% if page.layout == 'post' %}
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:modified_time" content="{% if page.last_modified_at %}{{ page.last_modified_at | date: '%Y-%m-%d' }}{% else %}{{ page.date | date_to_xmlschema }}{% endif %}">
+  {% endif %}
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/assets/img/illustration-blog-memento-mori.png{% endif %}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="twitter:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/assets/img/illustration-blog-memento-mori.png{% endif %}">
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="shortcut icon" href="/favicon.ico">
@@ -170,10 +179,10 @@
     "description": {{ page.description | jsonify }},
     "image": {
       "@type": "ImageObject",
-      "url": "https://raw.githubusercontent.com/SebRunNature/memento-mori/refs/heads/main/assets/img/illustration-blog-memento-mori.png"
+      "url": "{{ site.url }}/assets/img/illustration-blog-memento-mori.png"
     },
     "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
-    "dateModified": "{{ page.date | date: '%Y-%m-%d' }}",
+    "dateModified": "{% if page.last_modified_at %}{{ page.last_modified_at | date: '%Y-%m-%d' }}{% else %}{{ page.date | date: '%Y-%m-%d' }}{% endif %}",
     "author": {
       "@type": "Person",
       "name": {% if page.author %}{{ page.author | jsonify }}{% else %}"Sébastien Salomon"{% endif %},

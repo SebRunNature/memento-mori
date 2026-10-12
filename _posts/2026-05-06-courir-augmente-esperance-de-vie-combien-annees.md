@@ -36,7 +36,7 @@ author: Sébastien Salomon
   }
   .dose-table td {
     padding: 11px 16px; border-bottom: 1px solid var(--border);
-    color: rgba(232,245,240,.8); font-weight: 600;
+    color: rgba(24,24,27,.8); font-weight: 600;
   }
   .dose-table tr:hover td { background: rgba(45,158,114,.04); }
   .green { color: var(--green-lt); }

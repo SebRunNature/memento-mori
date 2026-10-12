@@ -20,27 +20,27 @@ author: Sébastien Salomon
   /* Tableau zones bleues */
   .zones-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: .85rem; overflow-x: auto; display: block; }
   .zones-table th { background: var(--card2); padding: 11px 14px; text-align: left; font-family: 'Bebas Neue', sans-serif; font-size: .9rem; letter-spacing: 1px; color: var(--green-lt); border-bottom: 2px solid var(--border); white-space: nowrap; }
-  .zones-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.6; vertical-align: top; }
+  .zones-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: rgba(24,24,27,.8); font-weight: 600; line-height: 1.6; vertical-align: top; }
   .zones-table tr:nth-child(even) td { background: rgba(19,26,22,.5); }
 
   /* Habitudes */
   .habit { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 0 14px 14px 0; padding: 20px 22px; margin-bottom: 16px; }
   .habit-num { font-family: 'Bebas Neue', sans-serif; font-size: .75rem; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 6px; }
   .habit h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1px; color: var(--green-lt); margin-bottom: 10px; }
-  .habit p { font-size: .9rem; color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.7; margin-bottom: 8px; text-align: justify; }
+  .habit p { font-size: .9rem; color: rgba(24,24,27,.8); font-weight: 600; line-height: 1.7; margin-bottom: 8px; text-align: justify; }
   .habit p:last-child { margin-bottom: 0; }
 
   /* Semaine type */
   .week-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: .85rem; }
   .week-table th { background: var(--card2); padding: 10px 12px; text-align: left; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; color: var(--green-lt); border-bottom: 2px solid var(--border); }
-  .week-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: rgba(232,245,240,.8); font-weight: 600; font-size: .83rem; }
+  .week-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: rgba(24,24,27,.8); font-weight: 600; font-size: .83rem; }
   .week-table tr:nth-child(even) td { background: rgba(19,26,22,.4); }
 
   /* Règles concrètes */
   .rules { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; margin: 24px 0; }
   .rules-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--green-lt); margin-bottom: 14px; }
   .rules ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .rules li { font-size: .88rem; color: rgba(232,245,240,.8); font-weight: 600; line-height: 1.6; display: flex; gap: 10px; align-items: flex-start; }
+  .rules li { font-size: .88rem; color: rgba(24,24,27,.8); font-weight: 600; line-height: 1.6; display: flex; gap: 10px; align-items: flex-start; }
   .rules li::before { content: "✓"; color: var(--green); font-weight: 900; flex-shrink: 0; margin-top: 2px; }
 
   /* Warning J-curve */

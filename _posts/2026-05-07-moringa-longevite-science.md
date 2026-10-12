@@ -17,11 +17,11 @@ author: Sébastien Salomon
   .v-green { border-left: 3px solid var(--green); }
   .v-green .v-title { color: var(--green-lt); }
   .v-amber { border-left: 3px solid var(--amber); }
-  .v-amber .v-title { color: #e8b070; }
+  .v-amber .v-title { color: var(--amber-lt); }
 
   .nutrient-list { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin: 24px 0; }
   .nutrient-list ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .nutrient-list li { font-size: .85rem; font-weight: 700; color: rgba(232,245,240,.8); display: flex; align-items: center; gap: 8px; }
+  .nutrient-list li { font-size: .85rem; font-weight: 700; color: rgba(24,24,27,.8); display: flex; align-items: center; gap: 8px; }
   .nutrient-list li::before { content: "✓"; color: var(--green); font-weight: 900; }
 
   @media(max-width:600px) {

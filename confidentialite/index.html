@@ -1,0 +1,84 @@
+---
+layout: default
+title: "Confidentialité — Montre de Vie"
+description: "Quelles données tu saisis dans la Montre de Vie, ce qui reste dans ton navigateur, ce qui est sauvegardé en local, et les rares cas où une donnée est transmise à un service tiers."
+canonical: "https://montre-de-vie.com/confidentialite/"
+---
+
+<style>
+.conf-hero { text-align:center; padding:48px 0 32px; }
+.conf-eyebrow { font-size:.72rem; letter-spacing:.3em; color:var(--green); text-transform:uppercase; font-weight:700; margin-bottom:14px; }
+.conf-hero h1 { font-size:clamp(2rem,6vw,2.8rem); font-weight:800; letter-spacing:-0.03em; color:var(--text); margin-bottom:16px; line-height:1.1; }
+.conf-hero p { font-size:.95rem; color:var(--muted); max-width:520px; margin:0 auto; line-height:1.7; text-align:justify; }
+.conf-section-title { font-size:1.1rem; font-weight:700; letter-spacing:-0.01em; color:var(--text); border-bottom:1px solid var(--border); padding-bottom:10px; margin:40px 0 18px; }
+.conf-prose { font-size:.95rem; color:rgba(24,24,27,.85); line-height:1.8; margin-bottom:16px; text-align:justify; }
+.conf-prose strong { color:var(--text); font-weight:700; }
+.conf-table-wrap { overflow-x:auto; margin:16px 0; }
+.conf-table { width:100%; border-collapse:collapse; font-size:.85rem; }
+.conf-table th { background:var(--surface2); padding:10px 12px; text-align:left; font-weight:700; color:var(--text); border-bottom:1px solid var(--border); }
+.conf-table td { padding:10px 12px; border-bottom:1px solid var(--border); color:var(--muted); vertical-align:top; }
+.conf-tag { display:inline-block; font-size:.68rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:20px; }
+.conf-tag.local { background:rgba(0,152,98,.1); color:var(--green-lt); }
+.conf-tag.tiers { background:rgba(245,158,11,.12); color:var(--amber-lt); }
+.conf-confirm { background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.25); border-radius:10px; padding:10px 14px; font-size:.82rem; color:#92400e; margin:12px 0; }
+.conf-updated { font-size:.8rem; color:var(--dim); text-align:center; margin-top:40px; }
+</style>
+
+<div class="conf-hero">
+  <div class="conf-eyebrow">Montre de Vie</div>
+  <h1>Confidentialité</h1>
+  <p>Cette page décrit, de façon aussi précise que possible, ce qui se passe réellement avec les informations que tu saisis dans l'outil — pas une formule type, mais ce qui est vérifiable dans le code du site.</p>
+</div>
+
+<h2 class="conf-section-title">Ce que tu saisis dans l'outil</h2>
+
+<p class="conf-prose">Le calculateur (<a href="/montre/" class="internal-link" style="color:var(--amber-lt);text-decoration:none;font-weight:600">/montre/</a>) te demande, selon le mode choisi : âge, sexe biologique, habitudes de vie (tabac, alcool, sommeil, stress, activité physique, alimentation), et en mode Complet des capacités physiques (VO₂max, force de préhension, vitesse de marche) et éventuellement des biomarqueurs sanguins (LDL, glycémie, tension, etc.) que tu peux renseigner si tu les connais.</p>
+
+<p class="conf-prose"><strong>Le calcul se fait entièrement dans ton navigateur.</strong> Les réponses que tu saisis ne sont jamais transmises à un serveur pour produire ton résultat — tout le traitement (espérance de vie, âge biologique, recommandations) est exécuté en JavaScript, localement, sur ton appareil.</p>
+
+<h2 class="conf-section-title">Ce qui est sauvegardé, et où</h2>
+
+<p class="conf-prose">Pour te permettre de revenir sur tes résultats sans tout ressaisir, le site utilise le <strong>stockage local de ton navigateur</strong> (<code>localStorage</code>) — jamais un serveur :</p>
+
+<div class="conf-table-wrap">
+<table class="conf-table">
+  <thead><tr><th>Donnée sauvegardée</th><th>Où</th><th>Pourquoi</th></tr></thead>
+  <tbody>
+    <tr><td>Tes réponses au formulaire et ton dernier résultat</td><td><span class="conf-tag local">Local</span></td><td>Retrouver ta session si tu reviens sur la page</td></tr>
+    <tr><td>L'historique de tes calculs (jusqu'à 12 entrées)</td><td><span class="conf-tag local">Local</span></td><td>Afficher ton évolution dans le temps (graphique)</td></tr>
+    <tr><td>Le mode choisi (Express / Complet)</td><td><span class="conf-tag local">Local</span></td><td>Mémoriser ta préférence</td></tr>
+    <tr><td>Le déblocage du rapport PDF premium, après paiement</td><td><span class="conf-tag local">Local</span></td><td>Ne pas te redemander de payer sur cet appareil</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="conf-prose">Rien de tout cela ne quitte ton appareil. Tu peux l'effacer à tout moment via le bouton <strong>« Effacer l'historique »</strong> sur la page de résultats, ou en vidant le stockage local de ton navigateur pour ce site.</p>
+
+<h2 class="conf-section-title">Les cas où une information part vers un service tiers</h2>
+
+<p class="conf-prose">Le site n'a pas de serveur propre qui collecte tes données de santé. Mais comme tout site web, il charge quelques services tiers pour fonctionner. Voici ceux identifiés dans le code :</p>
+
+<div class="conf-table-wrap">
+<table class="conf-table">
+  <thead><tr><th>Service</th><th>Quand</th><th>Ce qu'il reçoit</th></tr></thead>
+  <tbody>
+    <tr><td><strong>PayPal</strong></td><td>Uniquement si tu achètes le rapport PDF premium (2 €)</td><td>Les informations de paiement nécessaires à la transaction (traitées par PayPal — jamais reçues ni stockées par ce site). Aucune de tes données de santé n'est transmise à PayPal.</td></tr>
+    <tr><td><strong>OneSignal</strong></td><td>Au chargement de chaque page (notifications push)</td><td>Des données techniques liées à l'abonnement aux notifications (ex. identifiant d'appareil). <span class="conf-tag tiers">À CONFIRMER</span> — le détail exact du traitement dépend de la politique de confidentialité de OneSignal.</td></tr>
+    <tr><td><strong>Google Fonts</strong></td><td>Au chargement de chaque page (polices du site)</td><td>L'adresse IP et les informations techniques standard de toute requête vers un serveur externe.</td></tr>
+    <tr><td><strong>jsPDF (CDN Cloudflare)</strong></td><td>Sur la page /montre/, pour générer le PDF</td><td>Chargement d'un script ; aucune donnée personnelle n'y est envoyée, le PDF est généré localement dans ton navigateur.</td></tr>
+    <tr><td><strong>GitHub Pages</strong> (hébergeur du site)</td><td>À chaque visite</td><td>Journaux techniques standard d'hébergement (adresse IP, requêtes). <span class="conf-tag tiers">À CONFIRMER</span> — durée de conservation définie par GitHub, pas par ce site.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="conf-confirm">⚠️ Les lignes marquées <strong>À CONFIRMER</strong> dépendent de politiques de confidentialité de prestataires tiers que nous ne contrôlons pas directement. Pour le détail exact, consulte la politique de confidentialité du prestataire concerné.</div>
+
+<h2 class="conf-section-title">Ce que le site ne fait pas</h2>
+
+<p class="conf-prose">Vérifié dans le code du site : <strong>aucun outil d'analytics</strong> (type Google Analytics), <strong>aucun pixel publicitaire</strong> (Facebook ou autre), <strong>aucune régie publicitaire</strong>, <strong>aucun compte utilisateur</strong> à créer, et <strong>aucun cookie</strong> n'est posé directement par le code du site lui-même.</p>
+
+<h2 class="conf-section-title">Tes droits et contact</h2>
+
+<p class="conf-prose">Pour toute question sur cette page ou une demande liée à tes données, utilise la page <a href="/contact/" class="internal-link" style="color:var(--amber-lt);text-decoration:none;font-weight:600">Contact</a>. Les informations relatives à l'éditeur du site sont disponibles sur la <a href="https://run-nature.com/mentions-legales-seb-run-nature/" target="_blank" rel="noopener" style="color:var(--amber-lt);text-decoration:none;font-weight:600">page Mentions légales</a>.</p>
+
+<p class="conf-updated">Dernière mise à jour : octobre 2026</p>

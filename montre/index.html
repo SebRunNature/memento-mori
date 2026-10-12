@@ -14,7 +14,6 @@ last_modified_at: 2026-10-12
 <link rel="manifest" href="/site.webmanifest" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://www.paypal.com/sdk/js?client-id=BAAk6pcBbfwceb7l2fJkLrEHBN351X9c8Z_roaQqSjN225aqnADPTxvtlRRfnn_r5mfIbY1hq5fORqWPcQ&currency=EUR&disable-funding=venmo" defer></script>
 <style>
 :root {
   --bg:#fafaf9; --card:#ffffff; --card2:#f4f4f5;
@@ -178,10 +177,17 @@ input[type=number]::placeholder{color:var(--muted)}
 .premium-box-title{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:4px}
 .premium-box-sub{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:16px}
 .premium-box-sub strong{color:var(--amber-lt)}
-#paypalButtonContainer{max-width:280px;margin:0 auto}
 .premium-unlocked{display:none;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
 .premium-unlocked .result-action{background:var(--green);border-color:var(--green);color:#fff}
 .premium-unlocked .result-action:hover{background:var(--green-dk);color:#fff}
+#newsletterForm{max-width:340px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+#newsletterForm input[type=text],#newsletterForm input[type=email]{width:100%;padding:12px 14px;background:var(--card2);border:1px solid var(--border);color:var(--text);border-radius:10px;font-family:'Inter',system-ui,sans-serif;font-size:.9rem;font-weight:500;appearance:none;transition:border-color .2s}
+#newsletterForm input[type=text]:focus,#newsletterForm input[type=email]:focus{outline:none;border-color:var(--amber)}
+.newsletter-submit{width:100%;padding:12px 14px;background:var(--amber);border:none;color:#1a1200;font-weight:800;font-size:.9rem;border-radius:10px;cursor:pointer;transition:background .2s}
+.newsletter-submit:hover{background:var(--amber-dk,#d97706)}
+.newsletter-submit:disabled{opacity:.6;cursor:default}
+.newsletter-consent{display:flex;align-items:flex-start;gap:8px;text-align:left;font-size:.72rem;color:var(--muted);line-height:1.5}
+.newsletter-consent input{margin-top:2px;flex-shrink:0}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--green);color:var(--green-lt);padding:12px 22px;border-radius:28px;font-size:.85rem;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.14);animation:toastIn .3s ease both}
 @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 .toast.out{animation:toastOut .3s ease both}
@@ -597,15 +603,23 @@ input[type=number]::placeholder{color:var(--muted)}
 <button class="result-action" onclick="saveResultPDF()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Sauvegarder PDF</button>
 </div>
 
-<!-- RAPPORT PREMIUM — PDF enrichi avec plan d'action personnalisé -->
+<!-- NEWSLETTER — plan d'action personnalisé débloqué par email -->
 <div class="premium-box" id="premiumBox">
   <div id="premiumLocked">
-    <div class="premium-box-title">📋 Rapport PDF premium — 2 €</div>
-    <div class="premium-box-sub">Le PDF gratuit résume tes chiffres. Le rapport premium ajoute ton <strong>plan d'action personnalisé</strong> — les leviers qui comptent le plus pour toi, classés par impact.</div>
-    <div id="paypalButtonContainer"></div>
+    <div class="premium-box-title">📋 Obtiens ton plan d'action personnalisé</div>
+    <div class="premium-box-sub">Le PDF gratuit résume tes chiffres. Laisse ton email pour débloquer ton <strong>plan d'action personnalisé</strong> — les leviers qui comptent le plus pour toi, classés par impact — et pour être informé des nouveaux calculateurs et guides santé.</div>
+    <form id="newsletterForm">
+      <input type="text" id="newsletterName" placeholder="Nom" autocomplete="name">
+      <input type="email" id="newsletterEmail" placeholder="E-mail" autocomplete="email" required>
+      <button type="submit" class="newsletter-submit">S'abonner</button>
+      <label class="newsletter-consent">
+        <input type="checkbox" id="newsletterConsent" required>
+        J'accepte de recevoir des emails de Run Nature.
+      </label>
+    </form>
   </div>
   <div class="premium-unlocked" id="premiumUnlocked">
-    <button class="result-action" onclick="saveResultPDFPremium()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Télécharger le rapport premium</button>
+    <button class="result-action" onclick="saveResultPDFPremium()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Télécharger mon plan d'action</button>
   </div>
 </div>
 
@@ -689,7 +703,6 @@ function passerEnComplet() {
 }
 let _resultState = null;
 let _lastRecos = [];
-let _paypalRendered = false;
 let _countdownInterval = null;
 let _canvasDirty = false;
 
@@ -1703,10 +1716,12 @@ function saveResultPDF() {
   showToast('✓ PDF téléchargé');
 }
 
-// ── RAPPORT PREMIUM (PayPal) ──
-// Aucune donnée n'est envoyée ni stockée sur un serveur : PayPal gère le
-// paiement dans le navigateur, et le déblocage est mémorisé uniquement en
-// local sur l'appareil du visiteur (localStorage), jamais transmis ailleurs.
+// ── NEWSLETTER (plan d'action personnalisé contre email) ──
+// L'email saisi est envoyé à Formspree (service tiers) qui le transmet
+// directement par email à l'éditeur du site — rien n'est stocké sur un
+// serveur propre à ce site. Le déblocage du plan d'action est mémorisé
+// uniquement en local sur l'appareil du visiteur (localStorage).
+const NEWSLETTER_ENDPOINT = 'https://formspree.io/f/mzdjqvbq';
 
 function initPremiumSection() {
   const unlocked = localStorage.getItem('mdv_premium_unlocked') === '1';
@@ -1719,37 +1734,48 @@ function initPremiumSection() {
   } else {
     lockedEl.style.display = 'block';
     unlockedEl.style.display = 'none';
-    initPaypalButton();
+    initNewsletterForm();
   }
 }
 
-function initPaypalButton() {
-  if (_paypalRendered) return;
-  if (typeof paypal === 'undefined' || !paypal.Buttons) { setTimeout(initPaypalButton, 400); return; }
-  const container = document.getElementById('paypalButtonContainer');
-  if (!container) return;
-  _paypalRendered = true;
-  paypal.Buttons({
-    style: { layout: 'horizontal', color: 'gold', shape: 'rect', label: 'pay', height: 40, tagline: false },
-    createOrder: function (data, actions) {
-      return actions.order.create({
-        purchase_units: [{
-          amount: { value: '2.00', currency_code: 'EUR' },
-          description: 'Rapport PDF premium — Montre de Vie'
-        }]
-      });
-    },
-    onApprove: function (data, actions) {
-      return actions.order.capture().then(function () {
+let _newsletterFormBound = false;
+function initNewsletterForm() {
+  if (_newsletterFormBound) return;
+  const form = document.getElementById('newsletterForm');
+  if (!form) return;
+  _newsletterFormBound = true;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const nameEl = document.getElementById('newsletterName');
+    const emailEl = document.getElementById('newsletterEmail');
+    const consentEl = document.getElementById('newsletterConsent');
+    const submitBtn = form.querySelector('.newsletter-submit');
+    if (!emailEl.value || !consentEl.checked) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi…';
+    const fd = new FormData();
+    fd.append('name', nameEl.value);
+    fd.append('email', emailEl.value);
+    fd.append('consent', 'oui — recevoir des emails de Run Nature');
+    fd.append('source', 'Montre de Vie — plan d\'action personnalisé');
+    fetch(NEWSLETTER_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: fd
+    }).then(function (res) {
+      if (res.ok) {
         try { localStorage.setItem('mdv_premium_unlocked', '1'); } catch (e) {}
         initPremiumSection();
-        showToast('✓ Paiement confirmé — rapport débloqué');
-      });
-    },
-    onError: function () {
-      showToast('Erreur de paiement — réessaie');
-    }
-  }).render('#paypalButtonContainer');
+        showToast('✓ Merci ! Ton plan d\'action est débloqué');
+      } else {
+        throw new Error('submit failed');
+      }
+    }).catch(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'S\'abonner';
+      showToast('Erreur d\'envoi — réessaie');
+    });
+  });
 }
 
 function saveResultPDFPremium() {
@@ -1761,7 +1787,7 @@ function saveResultPDFPremium() {
   const today = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
   doc.setFillColor(9, 9, 11); doc.rect(0, 0, 210, 28, 'F');
   doc.setFont('helvetica', 'bold'); doc.setFontSize(20); doc.setTextColor(245, 158, 11);
-  doc.text('MONTRE DE VIE — RAPPORT PREMIUM', 20, 18);
+  doc.text('MONTRE DE VIE — PLAN D\'ACTION PERSONNALISÉ', 20, 18);
   doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(113, 113, 122);
   doc.text(today, 190, 18, { align: 'right' });
   let y = 46;
@@ -1816,8 +1842,8 @@ function saveResultPDFPremium() {
 
   doc.setFont('helvetica', 'italic'); doc.setFontSize(8); doc.setTextColor(140, 140, 140);
   doc.text('Montre de Vie — montre-de-vie.com  ·  Outil indicatif, non médical.', 105, 287, { align: 'center' });
-  doc.save('montre-de-vie-premium-' + new Date().toISOString().slice(0, 10) + '.pdf');
-  showToast('✓ Rapport premium téléchargé');
+  doc.save('montre-de-vie-plan-action-' + new Date().toISOString().slice(0, 10) + '.pdf');
+  showToast('✓ Plan d\'action téléchargé');
 }
 
 // ── PERSISTENCE LOCALSTORAGE ──

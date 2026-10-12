@@ -255,4 +255,14 @@ author: Sébastien Salomon
     </ul>
   </div>
 
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/blog/2026/06/28/zones-bleues-ce-qu-on-peut-vraiment-appliquer/"><strong>Zones bleues : ce qu'on peut vraiment appliquer</strong></a> — au-delà des habitudes, ce que la science confirme et ce qui reste à démontrer.</li>
+      <li><a href="/blog/2026/05/21/memento-mori-luxembourg/"><strong>Memento Mori au Luxembourg</strong></a> — la philosophie derrière la Montre de Vie.</li>
+    </ul>
+  </div>
+
 </article>

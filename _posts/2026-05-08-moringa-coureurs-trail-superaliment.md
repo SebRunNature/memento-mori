@@ -133,4 +133,13 @@ author: Sébastien Salomon
     <a href="/montre/">⏱ Lancer ma Montre de Vie</a>
   </div>
 
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/blog/2026/05/07/moringa-longevite-science/"><strong>Moringa et longévité : ce que dit vraiment la science</strong></a> — les preuves derrière le "super-aliment", sans survente.</li>
+    </ul>
+  </div>
+
 </article>

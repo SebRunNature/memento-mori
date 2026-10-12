@@ -144,4 +144,13 @@ author: Sébastien Salomon
     <a href="/montre/">⏱ Lancer ma Montre de Vie</a>
   </div>
 
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/blog/2026/05/08/moringa-coureurs-trail-superaliment/"><strong>Moringa pour les coureurs de trail</strong></a> — comment le choisir, le doser et l'intégrer selon tes objectifs.</li>
+    </ul>
+  </div>
+
 </article>

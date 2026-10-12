@@ -276,4 +276,13 @@ author: Sébastien Salomon
     <a href="https://montre-de-vie.com/montre/" target="_blank">⏱ Lancer ma Montre de Vie</a>
   </div>
 
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/blog/2026/05/21/memento-mori-luxembourg/"><strong>Memento Mori au Luxembourg</strong></a> — comment cette philosophie s'applique concrètement au Grand-Duché.</li>
+    </ul>
+  </div>
+
 </article>

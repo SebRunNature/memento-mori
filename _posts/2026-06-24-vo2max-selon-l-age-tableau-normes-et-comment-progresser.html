@@ -5,6 +5,7 @@ description: "Tableau complet du VO₂max par âge et par sexe, comment l'estime
 excerpt: "Ta montre GPS affiche un VO₂max de 42. C'est bien ? C'est insuffisant ? Tout dépend de ton âge et de ton sexe. Tableau de référence complet, méthodes d'estimation, et les protocoles d'entraînement qui font vraiment progresser ce marqueur — celui que la science identifie comme le prédicteur de mortalité numéro un."
 date: 2026-06-24
 author: Sébastien Salomon
+last_modified_at: 2026-10-12
 ---
 
 <a class="back-link" href="/blog/">← Retour au blog</a>
@@ -237,6 +238,25 @@ author: Sébastien Salomon
 
   <p>La conséquence pratique : un coureur de 55 ans qui s'entraîne régulièrement depuis 20 ans peut avoir le même VO₂max qu'un sédentaire de 35 ans. C'est l'illustration la plus concrète de ce que signifie "ralentir le vieillissement biologique" — et c'est directement visible dans le Score de Vie.</p>
 
+  <!-- SVG inline : trajectoire du déclin VO2max avec et sans entraînement -->
+  <div style="margin:2rem 0;overflow-x:auto">
+    <svg width="100%" viewBox="0 0 680 260" role="img" aria-label="Trajectoire du VO2max avec l'âge, avec et sans entraînement régulier, de 25 à 75 ans">
+      <title>Déclin du VO2max avec l'âge — sédentaire vs entraîné</title>
+      <rect x="10" y="10" width="660" height="240" rx="10" fill="#F4F1EA" stroke="#DCD5C4" stroke-width="0.5"/>
+      <text x="340" y="34" text-anchor="middle" font-size="13" font-weight="500" fill="#3A3226">VO₂max selon l'âge — sédentaire vs entraîné régulièrement</text>
+      <line x1="70" y1="200" x2="620" y2="200" stroke="#B8AF98" stroke-width="1"/>
+      <line x1="70" y1="60" x2="70" y2="200" stroke="#B8AF98" stroke-width="1"/>
+      <text x="45" y="200" text-anchor="end" font-size="10" fill="#6B6250">bas</text>
+      <text x="45" y="70" text-anchor="end" font-size="10" fill="#6B6250">haut</text>
+      <text x="70" y="216" text-anchor="middle" font-size="10" fill="#6B6250">25 ans</text>
+      <text x="620" y="216" text-anchor="middle" font-size="10" fill="#6B6250">75 ans</text>
+      <polyline points="70,90 180,110 290,132 400,155 510,175 620,192" fill="none" stroke="#C97B4A" stroke-width="2.5"/>
+      <text x="500" y="205" font-size="10" fill="#C97B4A">Sédentaire (~8–10%/décennie)</text>
+      <polyline points="70,80 180,88 290,98 400,110 510,124 620,140" fill="none" stroke="#3B8C6E" stroke-width="2.5"/>
+      <text x="500" y="128" font-size="10" fill="#3B8C6E">Entraîné régulièrement (~4–5%/décennie)</text>
+    </svg>
+  </div>
+
   <p>J'ai personnellement observé cette dynamique en trail : à 42 ans, mon VO₂max estimé par Garmin était de 48. À 47 ans, après avoir structuré mon entraînement avec davantage de zone 2 et deux séances de fractionné par semaine, il est à 54. Cinq ans de plus, un VO₂max en progression — c'est exactement ce que la littérature prédit, et c'est mesurable.</p>
 
   <h2>Les protocoles d'entraînement pour améliorer son VO₂max</h2>
@@ -300,9 +320,9 @@ author: Sébastien Salomon
   <div class="further-reading">
     <p>📖 Lectures complémentaires</p>
     <ul>
-      <li><a href="/blog/2026/06/15/course-a-pied-et-longevite-ce-que-dit-vraiment-la-science/"><strong>Course à pied et longévité — ce que dit vraiment la science</strong></a> — doses, intensités, trail vs route : le tour complet.</li>
       <li><a href="/blog/2026/06/13/comment-savoir-si-mon-corps-vieillit-bien-5-signaux/"><strong>Comment savoir si mon corps vieillit bien — 5 signaux</strong></a> — VO₂max, force de préhension, vitesse de marche : les tests à faire chez soi.</li>
       <li><a href="/blog/2026/06/07/comment-ameliorer-son-score-de-vie-apres-40-ans/"><strong>Comment améliorer son Score de Vie après 40 ans</strong></a> — le VO₂max comme levier n°1 documenté.</li>
+      <li><a href="/blog/2026/07/02/score-physique-apres-50-ans-courir-soulever-marcher/"><strong>Score physique après 50 ans</strong></a> — VO₂max, force et vitesse de marche : ce qui compte après 50 ans.</li>
       <li><a href="/blog/2026/05/11/force-prehension-predicateur-longevite-test-10-secondes/"><strong>Force de préhension : le test que les médecins oublient</strong></a></li>
       <li><a href="/blog/2026/06/17/sommeil-et-longevite-combien-d-heures-pour-vivre-plus-longtemps/"><strong>Sommeil et longévité</strong></a> — comment le sommeil conditionne la récupération et le VO₂max.</li>
       <li><a href="/score-de-vie/"><strong>Score de Vie : qu'est-ce que c'est et comment le calculer ?</strong></a></li>
@@ -349,28 +369,14 @@ author: Sébastien Salomon
   <div class="sources">
     <p>📚 Sources</p>
     <ul>
-      <li>Mandsager K et al. — Association of cardiorespiratory fitness with long-term mortality among adults undergoing exercise treadmill testing. <em>JAMA Network Open</em>, 2018</li>
-      <li>American College of Sports Medicine (ACSM) — Guidelines for Exercise Testing and Prescription, 11ᵉ édition, 2022</li>
-      <li>Cooper KH. — A means of assessing maximal oxygen intake. <em>JAMA</em>, 1968</li>
-      <li>Milanović Z, Sporiš G, Weston M. — Effectiveness of High-Intensity Interval Training (HIT) and Continuous Endurance Training for VO₂max Improvements. <em>Sports Medicine</em>, 2015</li>
-      <li>Stöggl T, Sperlich B. — Polarized training has greater impact on key endurance variables than threshold, high intensity, or high volume training. <em>Frontiers in Physiology</em>, 2014</li>
-      <li>Hawkins S, Wiswell R. — Rate and mechanism of maximal oxygen consumption decline with aging: implications for exercise training. <em>Sports Medicine</em>, 2003</li>
-      <li>Scharhag-Rosenberger F et al. — VO₂max trainability and high intensity interval training in humans: a meta-analysis. <em>PLOS ONE</em>, 2015</li>
+      <li><a href="https://doi.org/10.1001/jamanetworkopen.2018.3605" target="_blank">Mandsager K et al. — Association of cardiorespiratory fitness with long-term mortality among adults undergoing exercise treadmill testing. <em>JAMA Network Open</em>, 2018</a></li>
+      <li><a href="https://acsm.org/education-resources/books/guidelines-exercise-testing-prescription/" target="_blank">American College of Sports Medicine (ACSM) — Guidelines for Exercise Testing and Prescription, 11ᵉ édition</a></li>
+      <li><a href="https://jamanetwork.com/journals/jama/article-abstract/337382" target="_blank">Cooper KH. — A means of assessing maximal oxygen intake. <em>JAMA</em>, 1968</a></li>
+      <li><a href="https://doi.org/10.1007/s40279-015-0365-0" target="_blank">Milanović Z, Sporiš G, Weston M. — Effectiveness of High-Intensity Interval Training (HIT) and Continuous Endurance Training for VO₂max Improvements. <em>Sports Medicine</em>, 2015</a></li>
+      <li><a href="https://doi.org/10.3389/fphys.2014.00033" target="_blank">Stöggl T, Sperlich B. — Polarized training has greater impact on key endurance variables than threshold, high intensity, or high volume training. <em>Frontiers in Physiology</em>, 2014</a></li>
+      <li><a href="https://doi.org/10.2165/00007256-200333120-00002" target="_blank">Hawkins S, Wiswell R. — Rate and mechanism of maximal oxygen consumption decline with aging: implications for exercise training. <em>Sports Medicine</em>, 2003</a></li>
+      <li><a href="https://doi.org/10.1371/journal.pone.0073182" target="_blank">Bacon AP et al. — VO₂max trainability and high intensity interval training in humans: a meta-analysis. <em>PLOS ONE</em>, 2013</a></li>
     </ul>
   </div>
 
 </article>
-
----
-infographie_brief:
-  titre: "VO₂max par âge et par sexe — zones de risque longévité"
-  type: "tableau visuel codé par couleurs"
-  format: "1200×630px PNG (og:image compatible)"
-  contenu:
-    - "Tableau hommes : 6 tranches d'âge × 6 zones (rouge → orange → jaune → vert clair → vert → vert foncé)"
-    - "Tableau femmes : même structure"
-    - "Légende : Très faible / Faible / Correct / Bon / Excellent / Supérieur"
-    - "Bandeau bas : source ACSM + mention étude JAMA 2018"
-  outil_suggere: "Canva (template tableau) ou Datawrapper (heatmap)"
-  alt_text: "Tableau des normes VO₂max par âge et par sexe — classification ACSM avec zones colorées de très faible à supérieur"
----

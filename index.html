@@ -134,6 +134,19 @@ last_modified_at: 2026-10-12
 .how-step-title{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:6px}
 .how-step-desc{font-size:.78rem;color:var(--muted);line-height:1.6}
 
+/* SCIENCE / VULGARISATION */
+.science-section{margin-bottom:72px}
+.science-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.science-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:22px 20px;transition:border-color .2s}
+.science-card:hover{border-color:var(--border2)}
+.science-card-icon{width:34px;height:34px;border-radius:10px;display:flex;
+  align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px}
+.science-card-title{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.science-card-desc{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.science-card-link{font-size:.76rem;font-weight:700;color:var(--amber-lt);text-decoration:none}
+.science-card-link:hover{text-decoration:underline}
+
 /* MEMENTO MORI QUOTE */
 .memento-section{text-align:center;margin-bottom:72px;padding:40px 24px;
   background:var(--surface);border:1px solid var(--border);border-radius:24px;
@@ -168,7 +181,7 @@ last_modified_at: 2026-10-12
   .mockup-donut-wrap{width:140px;height:140px}
   .mockup-donut-wrap canvas{width:140px;height:140px}
   .mockup-donut-age{font-size:1.8rem}
-  .levels-grid,.how-steps,.proof-grid{grid-template-columns:1fr}
+  .levels-grid,.how-steps,.proof-grid,.science-grid{grid-template-columns:1fr}
   .hero-features{gap:12px}
 }
 </style>
@@ -298,6 +311,38 @@ last_modified_at: 2026-10-12
         <div class="how-step-n">03</div>
         <div class="how-step-title">Tu vois où agir</div>
         <div class="how-step-desc">Le donut de vie te montre tes semaines gagnées ou perdues. Les 3 leviers prioritaires te disent quoi changer — avec des actions concrètes.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE / VULGARISATION -->
+  <div class="science-section reveal">
+    <h2 class="section-heading">La science derrière le calcul</h2>
+    <p class="section-sub">Dit simplement — les détails complets sont sur nos pages dédiées.</p>
+    <div class="science-grid">
+      <div class="science-card">
+        <div class="science-card-icon" style="background:rgba(245,158,11,.12)">📊</div>
+        <div class="science-card-title">Une espérance de vie qui tient compte de ton âge actuel</div>
+        <div class="science-card-desc">On ne part pas d'une moyenne figée à la naissance. On utilise les tables de mortalité par âge <em>et</em> par sexe (INSEE/OMS) : le fait que tu aies déjà survécu jusqu'à ton âge actuel est pris en compte dans le calcul.</div>
+        <a href="/methodologie/" class="science-card-link">Voir la méthodologie complète →</a>
+      </div>
+      <div class="science-card">
+        <div class="science-card-icon" style="background:rgba(0,152,98,.12)">🧬</div>
+        <div class="science-card-title">Un âge biologique inspiré des vraies études épidémiologiques</div>
+        <div class="science-card-desc">Chaque réponse (sommeil, tabac, sport, alimentation...) ajuste un risque relatif, combiné sur une échelle logarithmique — la même logique que les modèles type PhenoAge, pas une simple addition/soustraction d'années par palier.</div>
+        <a href="/sources/" class="science-card-link">Voir les sources scientifiques →</a>
+      </div>
+      <div class="science-card">
+        <div class="science-card-icon" style="background:rgba(245,158,11,.12)">⚡</div>
+        <div class="science-card-title">Un résultat qui bouge pendant que tu réponds</div>
+        <div class="science-card-desc">Pas besoin d'attendre la fin du formulaire : ton âge biologique se recalcule en direct à chaque réponse, pour que tu voies immédiatement l'effet d'un facteur donné (tabac, sommeil, activité...).</div>
+        <a href="/faq/" class="science-card-link">Questions fréquentes →</a>
+      </div>
+      <div class="science-card">
+        <div class="science-card-icon" style="background:rgba(0,152,98,.12)">⚠️</div>
+        <div class="science-card-title">Une estimation indicative, pas un diagnostic</div>
+        <div class="science-card-desc">Comme tout calculateur basé sur le mode de vie, ce n'est pas une mesure clinique (horloge épigénétique, bilan sanguin en laboratoire). C'est un repère pour suivre une tendance et identifier des leviers d'action.</div>
+        <a href="/limites/" class="science-card-link">Voir les limites de l'outil →</a>
       </div>
     </div>
   </div>

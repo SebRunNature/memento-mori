@@ -1460,31 +1460,31 @@ function drawShareCanvas() {
   const restSem   = totalSem - vecueSem;
 
   // ── FOND ──
-  ctx.fillStyle = '#09090b';
+  ctx.fillStyle = '#fdfcfa';
   ctx.fillRect(0, 0, W, H);
   const g1 = ctx.createRadialGradient(160, 160, 20, 160, 160, 480);
-  g1.addColorStop(0, 'rgba(0,152,98,0.18)'); g1.addColorStop(1, 'rgba(9,9,11,0)');
+  g1.addColorStop(0, 'rgba(0,152,98,0.08)'); g1.addColorStop(1, 'rgba(253,252,250,0)');
   ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H);
   const g2 = ctx.createRadialGradient(920, 120, 20, 920, 120, 400);
-  g2.addColorStop(0, 'rgba(217,119,6,0.13)'); g2.addColorStop(1, 'rgba(9,9,11,0)');
+  g2.addColorStop(0, 'rgba(217,119,6,0.07)'); g2.addColorStop(1, 'rgba(253,252,250,0)');
   ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H);
 
   // ── HEADER ──
   ctx.fillStyle = '#f59e0b';
   ctx.fillRect(56, 56, 6, 72);
-  ctx.fillStyle = '#fde68a';
+  ctx.fillStyle = '#18181b';
   ctx.font = '800 44px Inter, system-ui, sans-serif';
   ctx.textAlign = 'left';
   ctx.fillText('MONTRE DE VIE', 80, 100);
-  ctx.fillStyle = '#52525b';
+  ctx.fillStyle = '#71717a';
   ctx.font = '500 22px Inter, system-ui, sans-serif';
   ctx.fillText('montre-de-vie.com', 80, 136);
-  ctx.fillStyle = '#3f3f46';
+  ctx.fillStyle = '#a1a1aa';
   ctx.font = '600 22px Inter, system-ui, sans-serif';
   ctx.textAlign = 'right';
   ctx.fillText(new Date().toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'}), W-56, 100);
 
-  ctx.strokeStyle = '#27272a'; ctx.lineWidth = 1;
+  ctx.strokeStyle = '#e4e4e7'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(56, 164); ctx.lineTo(W-56, 164); ctx.stroke();
 
   // ── DONUT (colonne gauche) ──
@@ -1505,32 +1505,32 @@ function drawShareCanvas() {
   if (gainAns > 0) {
     const rg=gainSem/totalSem, sg=endV+GAP*2, eg=sg+rg*TAU-GAP;
     arc(sg, eg, '#009862', true);
-    if (eg+GAP*2 < START+TAU-GAP) arc(eg+GAP*2, START+TAU-GAP, '#1c1c1f', false);
+    if (eg+GAP*2 < START+TAU-GAP) arc(eg+GAP*2, START+TAU-GAP, '#e4e4e7', false);
   } else if (gainAns < 0) {
     const rr=Math.max(0,(restSem-gainSem)/totalSem);
     const er=endV+GAP*2+rr*TAU-GAP;
-    arc(endV+GAP*2, er, '#1c1c1f', false);
-    if (er+GAP*2 < START+TAU-GAP) arc(er+GAP*2, START+TAU-GAP, '#7f1d1d', true);
+    arc(endV+GAP*2, er, '#e4e4e7', false);
+    if (er+GAP*2 < START+TAU-GAP) arc(er+GAP*2, START+TAU-GAP, '#dc2626', true);
   } else {
-    arc(endV+GAP*2, START+TAU-GAP, '#1c1c1f', false);
+    arc(endV+GAP*2, START+TAU-GAP, '#e4e4e7', false);
   }
 
   // Centre donut
   ctx.fillStyle = '#71717a'; ctx.font = '700 20px Inter, system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('ÂGE', dcx, dcy - 44);
-  ctx.fillStyle = '#fde68a'; ctx.font = '800 92px Inter, system-ui, sans-serif';
+  ctx.fillStyle = '#18181b'; ctx.font = '800 92px Inter, system-ui, sans-serif';
   ctx.fillText(age, dcx, dcy + 32);
-  ctx.fillStyle = '#52525b'; ctx.font = '600 24px Inter, system-ui, sans-serif';
+  ctx.fillStyle = '#71717a'; ctx.font = '600 24px Inter, system-ui, sans-serif';
   ctx.fillText('ans', dcx, dcy + 68);
 
   // Légende donut
   const legItems = [
     { color:'#d97706', label:'Semaines vécues', val: vecueSem.toLocaleString('fr-FR') + ' sem.' },
-    { color: gainAns>=0?'#009862':'#7f1d1d',
+    { color: gainAns>=0?'#009862':'#dc2626',
       label: gainAns>=0?'Gagné — mode de vie':'Perdu — mode de vie',
       val: (gainAns>=0?'+':'-') + gainSem + ' sem.' },
-    { color:'#3f3f46', label:'Semaines restantes', val: restSem.toLocaleString('fr-FR') + ' sem.' },
+    { color:'#a1a1aa', label:'Semaines restantes', val: restSem.toLocaleString('fr-FR') + ' sem.' },
   ];
   let ly = 730;
   legItems.forEach(item => {
@@ -1539,14 +1539,14 @@ function drawShareCanvas() {
     ctx.fillStyle = '#71717a'; ctx.font = '500 22px Inter, system-ui, sans-serif';
     ctx.textAlign = 'left';
     ctx.fillText(item.label, 84, ly);
-    ctx.fillStyle = '#e4e4e7'; ctx.font = '700 22px Inter, system-ui, sans-serif';
+    ctx.fillStyle = '#18181b'; ctx.font = '700 22px Inter, system-ui, sans-serif';
     ctx.textAlign = 'left';
     ctx.fillText(item.val, 360, ly);
     ly += 40;
   });
 
   // ── SÉPARATEUR VERTICAL ──
-  ctx.strokeStyle = '#27272a'; ctx.lineWidth = 1;
+  ctx.strokeStyle = '#e4e4e7'; ctx.lineWidth = 1;
   ctx.setLineDash([8, 8]);
   ctx.beginPath(); ctx.moveTo(592, 184); ctx.lineTo(592, 900); ctx.stroke();
   ctx.setLineDash([]);
@@ -1556,19 +1556,19 @@ function drawShareCanvas() {
   ctx.fillStyle = '#71717a'; ctx.font = '700 18px Inter, system-ui, sans-serif';
   ctx.textAlign = 'left';
   ctx.fillText('ÂGE CHRONOLOGIQUE', rx, 220);
-  ctx.fillStyle = '#fde68a'; ctx.font = '800 128px Inter, system-ui, sans-serif';
+  ctx.fillStyle = '#d97706'; ctx.font = '800 128px Inter, system-ui, sans-serif';
   ctx.fillText(age, rx, 360);
   ctx.fillStyle = '#71717a'; ctx.font = '500 22px Inter, system-ui, sans-serif';
   ctx.fillText('ans', rx + String(age).length*77, 340);
 
   // Infos chrono
   const rows = [
-    ['Espérance estimée', chrono.totalLife + ' ans', '#f59e0b'],
-    ['Années restantes', '~' + chrono.yearsLeft + ' ans', '#e4e4e7'],
+    ['Espérance estimée', chrono.totalLife + ' ans', '#d97706'],
+    ['Années restantes', '~' + chrono.yearsLeft + ' ans', '#18181b'],
   ];
   let ry = 410;
   rows.forEach(([lbl, val, col]) => {
-    ctx.fillStyle = '#52525b'; ctx.font = '500 20px Inter, system-ui, sans-serif';
+    ctx.fillStyle = '#71717a'; ctx.font = '500 20px Inter, system-ui, sans-serif';
     ctx.textAlign = 'left'; ctx.fillText(lbl, rx, ry);
     ctx.fillStyle = col; ctx.font = '700 20px Inter, system-ui, sans-serif';
     ctx.textAlign = 'right'; ctx.fillText(val, W-56, ry);
@@ -1578,16 +1578,16 @@ function drawShareCanvas() {
   // Barre de vie
   const barW = W-56-rx, barH = 8;
   const pct = Math.min(age/chrono.totalLife, 1);
-  ctx.fillStyle = '#1c1c1f';
+  ctx.fillStyle = '#e4e4e7';
   _rrect(ctx, rx, ry+8, barW, barH, 4); ctx.fill();
   const bg = ctx.createLinearGradient(rx, 0, rx+barW*pct, 0);
-  bg.addColorStop(0,'#d97706'); bg.addColorStop(1,'#fde68a');
+  bg.addColorStop(0,'#d97706'); bg.addColorStop(1,'#f59e0b');
   ctx.fillStyle = bg;
   _rrect(ctx, rx, ry+8, barW*pct, barH, 4); ctx.fill();
   ry += 40;
 
   // Séparateur
-  ctx.strokeStyle = '#27272a'; ctx.lineWidth = 1;
+  ctx.strokeStyle = '#e4e4e7'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(rx, ry+16); ctx.lineTo(W-56, ry+16); ctx.stroke();
 
   // ── BLOC BIO (colonne droite bas) ──
@@ -1595,28 +1595,28 @@ function drawShareCanvas() {
   ctx.fillStyle = '#71717a'; ctx.font = '700 18px Inter, system-ui, sans-serif';
   ctx.textAlign = 'left'; ctx.fillText('ÂGE BIOLOGIQUE', rx, ry);
   ry += 14;
-  ctx.fillStyle = '#a0facf'; ctx.font = '800 128px Inter, system-ui, sans-serif';
+  ctx.fillStyle = '#047857'; ctx.font = '800 128px Inter, system-ui, sans-serif';
   ctx.fillText(bio.bioAge, rx, ry+110);
   ctx.fillStyle = '#71717a'; ctx.font = '500 22px Inter, system-ui, sans-serif';
   ctx.fillText('ans', rx + String(bio.bioAge).length*77, ry+90);
   ry += 136;
   const dSign = bio.delta <= 0 ? '' : '+';
-  const dColor = bio.delta < 0 ? '#a0facf' : bio.delta > 0 ? '#fca5a5' : '#71717a';
+  const dColor = bio.delta < 0 ? '#047857' : bio.delta > 0 ? '#dc2626' : '#71717a';
   ctx.fillStyle = dColor; ctx.font = '700 22px Inter, system-ui, sans-serif';
   ctx.textAlign = 'left';
   const dLabel = dSign + bio.delta.toFixed(1) + ' ans — ' + (bio.delta < 0 ? 'corps plus jeune ✓' : bio.delta > 0 ? 'corps plus vieux' : 'aligné');
   ctx.fillText(dLabel, rx, ry);
 
   // ── FOOTER ──
-  ctx.strokeStyle = '#27272a'; ctx.lineWidth = 1;
+  ctx.strokeStyle = '#e4e4e7'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(56, 928); ctx.lineTo(W-56, 928); ctx.stroke();
-  ctx.fillStyle = '#3f3f46'; ctx.font = '500 18px Inter, system-ui, sans-serif';
+  ctx.fillStyle = '#a1a1aa'; ctx.font = '500 18px Inter, system-ui, sans-serif';
   ctx.textAlign = 'left';
   ctx.fillText('Outil indicatif — pas un conseil médical · © 2026 Montre de Vie', 56, 964);
 
   // QR code (120×120)
   _drawQR(ctx, W-56-120, 930);
-  ctx.fillStyle = '#52525b'; ctx.font = '600 16px Inter, system-ui, sans-serif';
+  ctx.fillStyle = '#71717a'; ctx.font = '600 16px Inter, system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('Fais ton calcul', W-56-60, 1062);
 }
@@ -1647,9 +1647,9 @@ function _drawQR(ctx, x, y) {
     [1,0,1,0,0,0,1,0,1],
     [1,1,1,0,1,0,1,1,1],
   ];
-  ctx.fillStyle = '#27272a';
+  ctx.fillStyle = '#f4f4f5';
   ctx.fillRect(x-4, y-4, size+8, size+8);
-  ctx.fillStyle = '#52525b';
+  ctx.fillStyle = '#18181b';
   pat.forEach((row, r) => {
     row.forEach((v, c) => {
       if (v) ctx.fillRect(x + c*cell + 2, y + r*cell + 2, cell-1, cell-1);

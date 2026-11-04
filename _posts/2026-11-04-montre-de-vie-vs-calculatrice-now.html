@@ -1,0 +1,146 @@
+---
+layout: post
+title: "Montre de Vie vs Calculatrice.now : quel calculateur d'âge biologique choisir ?"
+description: "Comparaison honnête entre Montre de Vie et Calculatrice.now, deux calculateurs gratuits d'âge biologique : méthode de calcul, publicités, ce que chacun fait mieux."
+excerpt: "Calculatrice.now ressort régulièrement dans les premiers résultats Google sur \"calcul de l'âge biologique\". J'ai regardé le code de leur calculateur avant d'écrire cet article. Voici ce qu'il fait vraiment, ce qu'il fait bien, et ce que Montre de Vie fait différemment."
+date: 2026-11-04
+author: Sébastien Salomon
+---
+
+<a class="back-link" href="/blog/">← Retour au blog</a>
+
+<article>
+
+  <h1>Montre de Vie vs Calculatrice.now : quel calculateur d'âge biologique choisir ?</h1>
+  <div class="post-meta"><time datetime="2026-11-04">4 novembre 2026</time> &nbsp;·&nbsp; Sébastien Salomon &nbsp;·&nbsp; 9 min de lecture</div>
+
+  <p><strong>Calculatrice.now</strong> ressort régulièrement dans les premiers résultats Google sur "calcul de l'âge biologique". Avant d'écrire cet article, j'ai regardé directement le code source de leur calculateur — la formule, les scripts, tout ce qui tourne sur la page. Voici ce que j'y ai trouvé, ce que l'outil fait bien, et ce que Montre de Vie fait différemment.</p>
+
+  <p>Je ne vais pas prétendre que Montre de Vie est meilleur sur tout. Mais sur ce comparatif précis, il y a des différences factuelles — vérifiables dans le code — qui méritent d'être dites clairement.</p>
+
+  <h2>Les deux en un coup d'œil</h2>
+
+  <div class="vs-table-wrap3">
+  <table class="vs-table">
+    <thead>
+      <tr><th>Critère</th><th>Montre de Vie</th><th>Calculatrice.now</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Prix</td><td>Gratuit</td><td>Gratuit</td></tr>
+      <tr><td>Compte / email requis</td><td>Non — email optionnel pour un plan d'action</td><td>Non, jamais</td></tr>
+      <tr><td>Publicités</td><td>Aucune</td><td>Nombreuses — AdSense, header bidding, bannières et un widget de réservation de voyage</td></tr>
+      <tr><td>Ce qui est calculé</td><td>Espérance de vie <strong>+</strong> âge biologique, dans un seul formulaire</td><td>Âge biologique uniquement</td></tr>
+      <tr><td>Méthode</td><td>Risque relatif composé, pondéré façon PhenoAge</td><td>Modèle additif simple : âge + somme de bonus/malus par facteur</td></tr>
+      <tr><td>Décompte en temps réel</td><td>Oui — années/jours/heures/secondes</td><td>Non</td></tr>
+      <tr><td>Autres outils sur le site</td><td>Aucun — un seul outil, approfondi</td><td>62 autres calculateurs "Santé", plus des centaines dans 5 autres thèmes</td></tr>
+      <tr><td>Réseau multi-domaines</td><td>Non — un seul site</td><td>Oui — même outil décliné sur 25+ domaines, une langue/pays par domaine</td></tr>
+      <tr><td>Widget intégrable / citer / partager</td><td>Oui — iframe, citation, partage</td><td>Oui — citer, lien, partage</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Ce que Calculatrice.now fait bien</h2>
+
+  <p>En lisant leur code, plusieurs choses sont honnêtement bien faites :</p>
+
+  <div class="callout">
+    <strong>Zéro friction, comme toujours</strong>
+    Pas d'email, pas de compte — le calcul tourne entièrement côté client, dans le navigateur, et le résultat s'affiche immédiatement. Standard attendu d'un bon calculateur gratuit, et ils le respectent.
+  </div>
+
+  <p>Le formulaire couvre un éventail large de données : âge, sexe, taille, poids, tension artérielle (systolique <em>et</em> diastolique séparément), fréquence cardiaque au repos, glycémie à jeun (optionnelle), puis des curseurs pour le sommeil, le stress et l'alimentation, et des cases à cocher pour la longévité familiale, les maladies chroniques, les examens réguliers, l'activité cognitive et les liens sociaux. C'est un questionnaire plus détaillé que la plupart des concurrents que j'ai testés jusqu'ici.</p>
+
+  <p>Le résultat est accompagné d'un petit graphique en barres (comparaison âge bio / âge chrono / plage moyenne) et de recommandations textuelles générées automatiquement à partir des facteurs les plus défavorables — un vrai effort de personnalisation du retour.</p>
+
+  <h2>Comment Calculatrice.now calcule ton âge biologique</h2>
+
+  <p>C'est le point le plus intéressant à vérifier, et celui que je ne peux affirmer qu'en ayant lu le code : la page présente un chapitre "théorie" qui cite de vraies publications scientifiques — les horloges épigénétiques de Horvath (2013), le modèle PhenoAge de Levine (2018), GrimAge (2019), et les directives OMS 2020 sur l'activité physique. C'est une base académique sérieuse, correctement référencée.</p>
+
+  <p>Mais le calcul qui tourne réellement dans le formulaire n'implémente aucune de ces méthodes. C'est un modèle additif simple, visible directement dans le JavaScript de la page :</p>
+
+  <div class="formula-box">Âge biologique = Âge chronologique + Σ (modificateurs par facteur)</div>
+
+  <p>Chaque réponse ajoute ou retire un nombre de points fixe — par exemple <code>+4 ans</code> pour un IMC d'obésité de classe II, <code>−3 ans</code> pour une activité physique "active", <code>+3 ans</code> pour un fumeur occasionnel, <code>−1 an</code> fixe si le sexe renseigné est féminin. Ce sont des règles raisonnables et lisibles, mais ce n'est pas une mise en œuvre de PhenoAge ni des horloges épigénétiques citées juste au-dessus dans le texte — ce sont deux choses différentes, présentées l'une à côté de l'autre sans que le lien entre les deux soit établi.</p>
+
+  <h2>Ce que Montre de Vie fait différemment</h2>
+
+  <p>La différence la plus structurante reste la même que sur mes autres comparatifs : Montre de Vie ne calcule pas que l'âge biologique. Un seul formulaire donne <strong>deux chiffres</strong> — ton espérance de vie estimée et ton âge biologique — avec un décompte en temps réel qui tourne pendant que tu lis.</p>
+
+  <p>Sur la méthode : les facteurs ne s'additionnent pas en années brutes avec une règle fixe par réponse. Ils se combinent en <strong>risque relatif composé</strong>, convertis ensuite via des tables actuarielles — l'approche utilisée dans les études de cohorte épidémiologiques réelles, la même famille de méthode que PhenoAge. Le détail complet est sur la <a href="/methodologie/">page méthodologie</a>, qui explique exactement comment chaque facteur pèse dans le calcul — sans citer une science qui ne correspond pas à ce qui tourne réellement.</p>
+
+  <div class="callout">
+    <strong>Une différence de nature, pas seulement de taille</strong>
+    Calculatrice.now est l'un des 62 calculateurs "Santé" du site — qui en propose des centaines d'autres sur la finance, les maths, la nourriture. Le même outil est aussi décliné sur plus de 25 domaines différents, un par langue ou pays. Montre de Vie, c'est un seul outil, pensé pour un seul sujet : combien de temps il te reste, et à quelle vitesse tu l'utilises.
+  </div>
+
+  <p>Et il y a le point que tu as probablement remarqué en premier si tu as visité leur page : la publicité. Script Google AdSense, plateforme de consentement publicitaire (header bidding), et même un widget de réservation de voyage greffé sur une page de calcul d'âge biologique. Rien d'illégal ni de malhonnête — c'est un modèle économique assumé pour un réseau de calculateurs gratuits à grande échelle — mais ça se voit, et ça se ressent à l'usage. Montre de Vie n'affiche aucune publicité, nulle part.</p>
+
+  <h2>Quel outil choisir ?</h2>
+
+  <p>Si tu veux un calculateur d'âge biologique avec un questionnaire détaillé (tension, fréquence cardiaque, glycémie) et que la publicité ne te dérange pas, Calculatrice.now fait le travail, gratuitement.</p>
+
+  <p>Si tu veux une méthode alignée sur la pratique épidémiologique réelle, ton espérance de vie <strong>et</strong> ton âge biologique dans un seul outil, un suivi dans le temps, et une expérience sans aucune publicité — c'est exactement ce pour quoi Montre de Vie a été conçu.</p>
+
+  <div class="cta-montre">
+    <p>Calcule ton espérance de vie et ton âge biologique en un seul formulaire — gratuit, sans publicité, sans widget superflu.</p>
+    <a href="/montre/">⏱ Lancer la Montre de Vie</a>
+  </div>
+
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/methodologie/"><strong>Méthodologie</strong></a> — comment Montre de Vie calcule ton espérance de vie et ton âge biologique, en détail.</li>
+      <li><a href="/blog/2026/10/12/montre-de-vie-vs-calcvita/"><strong>Montre de Vie vs CalcVita</strong></a> — comparatif contre un calculateur basé sur des mesures fonctionnelles.</li>
+      <li><a href="/blog/2026/10/13/montre-de-vie-vs-age-reel/"><strong>Montre de Vie vs Age-Réel</strong></a> — comparatif contre un calculateur à 24 questions.</li>
+      <li><a href="/blog/age-biologique/"><strong>Âge biologique : définition, calcul et comment le réduire</strong></a> — le guide complet.</li>
+    </ul>
+  </div>
+
+  <h2>❓ Questions fréquentes</h2>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Calculatrice.now et Montre de Vie donnent-ils le même résultat ?</h3>
+    <div class="faq-a">Non, et c'est attendu — les méthodes sont différentes. Calculatrice.now additionne des bonus/malus fixes par réponse. Montre de Vie combine les facteurs en risque relatif, convertis via des tables actuarielles. Les deux peuvent diverger de plusieurs années sur le même profil.</div>
+  </div>
+
+  <div class="faq-item">
+    <h3 class="faq-q">La page de Calculatrice.now cite PhenoAge et les horloges épigénétiques — leur calcul est-il basé dessus ?</h3>
+    <div class="faq-a">D'après le code source de la page (consulté en novembre 2026), non. Le texte éducatif cite ces méthodes à titre informatif, mais le calcul réellement exécuté est un modèle additif simple — un nombre d'années fixe ajouté ou retiré par réponse — sans lien direct avec les formules citées.</div>
+  </div>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Pourquoi il y a autant de publicités sur certains calculateurs gratuits ?</h3>
+    <div class="faq-a">C'est leur modèle économique : le calculateur est gratuit pour l'utilisateur, le site se finance par la publicité et le header bidding. C'est un choix légitime, assumé à grande échelle par les réseaux de calculateurs génériques. Montre de Vie fait un choix différent — pas de publicité du tout, projet indépendant.</div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ Avertissement<br>
+    Cet article compare deux outils gratuits d'estimation de l'âge biologique à visée informative. Aucun des deux ne constitue un diagnostic médical. Les observations sur Calculatrice.now sont basées sur une lecture du code source de leur page publique en novembre 2026 et peuvent évoluer si l'outil change.
+  </div>
+
+  <div class="sources">
+    <p>📚 Sources</p>
+    <ul>
+      <li><a href="https://calculatrice.now/calculateur-d-age-biologique/" target="_blank">Calculatrice.now — Calculateur d'âge biologique (code source consulté en novembre 2026)</a></li>
+      <li><a href="https://doi.org/10.18632/aging.101414" target="_blank">Levine ME et al. — An epigenetic biomarker of aging for lifespan and healthspan. <em>Aging</em>, 2018 (PhenoAge)</a></li>
+      <li><a href="/methodologie/">Montre de Vie — Méthodologie scientifique</a></li>
+    </ul>
+  </div>
+
+</article>
+
+<style>
+  .vs-table-wrap3{overflow-x:auto;margin:24px 0}
+  .vs-table-wrap3 .vs-table{width:100%;border-collapse:collapse;font-size:.88rem}
+  .vs-table-wrap3 .vs-table th{background:var(--surface2);padding:12px 14px;text-align:left;font-weight:700;
+    color:var(--text);border-bottom:2px solid var(--border)}
+  .vs-table-wrap3 .vs-table th:first-child{width:30%}
+  .vs-table-wrap3 .vs-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:rgba(24,24,27,.85)}
+  .vs-table-wrap3 .vs-table tbody tr td:first-child{font-weight:600;color:var(--muted)}
+  .vs-table-wrap3 .vs-table tbody tr td:nth-child(2){color:var(--amber-dk);font-weight:600}
+  .formula-box{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface2);
+    border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin:18px 0;font-size:.9rem;
+    color:var(--text);text-align:center}
+</style>

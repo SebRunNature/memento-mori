@@ -1,0 +1,143 @@
+---
+layout: post
+title: "Montre de Vie vs Cleage : le test d'âge biologique d'une clinique esthétique passé au crible"
+description: "Comparaison honnête entre Montre de Vie et le test d'âge biologique de Cleage (clinique esthétique à Lyon) : méthode, calcul automatique ou manuel, ce que chacun fait mieux."
+excerpt: "Le test d'âge biologique de Cleage, une clinique esthétique lyonnaise, ressort en première page Google. J'ai lu le code source de leur page avant d'écrire cet article — et ce n'est pas un calculateur du tout. Voici ce que j'y ai trouvé."
+date: 2026-11-04
+author: Sébastien Salomon
+---
+
+<a class="back-link" href="/blog/">← Retour au blog</a>
+
+<article>
+
+  <h1>Montre de Vie vs Cleage : le test d'âge biologique d'une clinique esthétique passé au crible</h1>
+  <div class="post-meta"><time datetime="2026-11-04">4 novembre 2026</time> &nbsp;·&nbsp; Sébastien Salomon &nbsp;·&nbsp; 8 min de lecture</div>
+
+  <p><strong>Cleage</strong>, une clinique de médecine esthétique à Lyon, ressort en première page Google sur "test gratuit âge biologique". J'ai lu le code source de leur page avant d'écrire cet article. Et la première chose à dire, c'est que ce n'est pas vraiment un comparatif "calculateur contre calculateur" comme mes articles précédents — Cleage ne propose pas de calculateur du tout.</p>
+
+  <p>C'est un tableau de points à additionner à la main. Pas de JavaScript, pas de calcul automatique — juste une grille HTML avec des "+X" et des "-X" que le visiteur doit reporter lui-même, puis une formule à appliquer selon sa tranche d'âge. Voici ce que ça vaut, et pourquoi ça se positionne quand même très bien sur Google.</p>
+
+  <h2>Les deux en un coup d'œil</h2>
+
+  <div class="vs-table-wrap4">
+  <table class="vs-table">
+    <thead>
+      <tr><th>Critère</th><th>Montre de Vie</th><th>Cleage</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Prix</td><td>Gratuit</td><td>Gratuit</td></tr>
+      <tr><td>Nature de l'outil</td><td>Calculateur interactif</td><td>Tableau de points à additionner soi-même, à la main</td></tr>
+      <tr><td>Calcul automatique</td><td>Oui</td><td>Non — aucun JavaScript de calcul sur la page</td></tr>
+      <tr><td>Publicités</td><td>Aucune</td><td>Aucune</td></tr>
+      <tr><td>Ce qui est calculé</td><td>Espérance de vie <strong>+</strong> âge biologique</td><td>Un "âge possible de longévité"</td></tr>
+      <tr><td>Méthode</td><td>Risque relatif composé, pondéré façon PhenoAge</td><td>~15 catégories de points fixes additionnés, puis formule par tranche d'âge (6 tranches)</td></tr>
+      <tr><td>Sources scientifiques citées</td><td>Oui — PhenoAge, Mandsager, INSEE, etc.</td><td>Aucune</td></tr>
+      <tr><td>Décompte en temps réel</td><td>Oui</td><td>Non</td></tr>
+      <tr><td>Objectif du site</td><td>Outil autonome</td><td>Contenu d'appel vers une consultation payante en clinique</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Ce que Cleage fait bien</h2>
+
+  <p>À la différence des calculateurs que j'ai déjà comparés, Cleage n'est pas un site bourré de publicités. C'est le site propre d'un vrai cabinet médical, avec une équipe de médecins identifiée et une page "Revue de presse" — rien à voir avec les réseaux de calculateurs génériques.</p>
+
+  <div class="callout">
+    <strong>Un questionnaire étonnamment complet</strong>
+    Le tableau couvre des catégories que je n'ai vues nulle part ailleurs dans mes comparatifs : hérédité détaillée (âge moyen de décès des 4 grands-parents), examens préventifs différenciés hommes/femmes (mammographie, PSA, recherche de sang dans les selles, coloscopie), lieu de vie (proximité d'une centrale nucléaire, temps de trajet quotidien), et tempérament sur une quinzaine de traits. C'est large, même si — on va le voir — la pondération ne s'appuie sur aucune source vérifiable.
+  </div>
+
+  <p>Et la page a une vraie section FAQ structurée, avec des questions bien choisies : différence âge civil/âge biologique, fiabilité du test, comment aller plus loin. Du bon travail éditorial, même sans calcul automatique.</p>
+
+  <h2>Comment Cleage calcule ton "âge de longévité"</h2>
+
+  <p>C'est le point le plus intéressant une fois qu'on lit le code : il n'y a <strong>aucune formule scientifique citée</strong>, aucune référence à une étude, un modèle ou un auteur. Le visiteur doit :</p>
+
+  <ol>
+    <li>Parcourir une quinzaine de catégories (sexe, âge, hérédité, histoire familiale, lieu de vie, activité, santé, tension, cholestérol, alcool, tabac, exercice, poids, alimentation, examens préventifs, mode de vie, tempérament) et noter un chiffre fixe par réponse — par exemple <code>+7</code> si tu n'as jamais fumé, <code>-23</code> si tu dépasses ton poids idéal de plus de 15 kg.</li>
+    <li>Additionner tous les sous-totaux à la main.</li>
+    <li>Appliquer l'une de ces six formules selon sa tranche d'âge : <code>âge + 30 + (score × 0,3)</code> pour 20-30 ans, jusqu'à <code>âge + 1 + (score × 0,05)</code> au-delà de 83 ans.</li>
+  </ol>
+
+  <p>C'est un format qu'on reconnaît — proche des "quiz de longévité" imprimés dans des magazines santé depuis des décennies, avec des valeurs de points qui semblent avoir été fixées à dire d'expert plutôt que calibrées sur des données de mortalité publiées. Rien d'alarmant ni de malhonnête — la page le dit elle-même ("ce test ne remplace en aucun cas un avis médical") — mais ce n'est clairement pas une démarche PhenoAge, horloge épigénétique, ou même un modèle de risque documenté.</p>
+
+  <p>Un autre détail trouvé en lisant le code : les données structurées (JSON-LD) de la page indiquent une dernière modification au <strong>2 septembre 2025</strong>, alors que le texte visible affiche "Page mise à jour le 28 octobre 2026". Les deux dates de fraîcheur ne correspondent pas — un détail technique, mais qui en dit long sur ce qui compte vraiment pour le référencement d'une page comme celle-ci : afficher une date récente au lecteur, indépendamment de la donnée structurée que lit Google.</p>
+
+  <h2>Ce que Montre de Vie fait différemment</h2>
+
+  <p>La différence la plus simple à voir : chez nous, tout est calculé automatiquement, en temps réel, pendant que tu remplis le formulaire. Pas d'addition à la main, pas de formule à chercher selon ta tranche d'âge. Et le résultat donne <strong>deux chiffres</strong> — espérance de vie et âge biologique — avec un décompte qui tourne en direct.</p>
+
+  <p>Sur la méthode : les facteurs se combinent en risque relatif composé sur une échelle logarithmique, convertis via des tables actuarielles — détaillé et sourcé sur la <a href="/methodologie/">page méthodologie</a>. Chaque étude utilisée est citée sur la <a href="/sources/">page sources</a>. Rien n'est laissé à une pondération arbitraire non documentée.</p>
+
+  <div class="callout">
+    <strong>Deux objectifs différents, et c'est très bien ainsi</strong>
+    Cleage utilise ce test comme porte d'entrée vers une consultation anti-âge payante en clinique — un objectif commercial légitime et transparent, clairement affiché dans l'article. Montre de Vie n'a rien à vendre derrière le calcul : pas de consultation, pas de produit, l'outil est la finalité.
+  </div>
+
+  <h2>Quel outil choisir ?</h2>
+
+  <p>Si tu es à Lyon, que l'idée d'un bilan biologique en clinique t'intéresse, et que tu ne crains pas de sortir une calculatrice, le tableau de Cleage couvre des facteurs qu'on ne demande pas encore chez Montre de Vie — notamment les examens préventifs réguliers.</p>
+
+  <p>Si tu veux un résultat calculé automatiquement, basé sur une méthode documentée et sourcée, et les deux chiffres — espérance de vie <strong>et</strong> âge biologique — réunis, c'est pour ça que Montre de Vie existe.</p>
+
+  <div class="cta-montre">
+    <p>Calcule ton espérance de vie et ton âge biologique en un seul formulaire — gratuit, automatique, sans publicité.</p>
+    <a href="/montre/">⏱ Lancer la Montre de Vie</a>
+  </div>
+
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/methodologie/"><strong>Méthodologie</strong></a> — comment Montre de Vie calcule ton espérance de vie et ton âge biologique, en détail.</li>
+      <li><a href="/blog/2026/10/12/montre-de-vie-vs-calcvita/"><strong>Montre de Vie vs CalcVita</strong></a> — comparatif contre un calculateur basé sur des mesures fonctionnelles.</li>
+      <li><a href="/blog/2026/10/13/montre-de-vie-vs-age-reel/"><strong>Montre de Vie vs Age-Réel</strong></a> — comparatif contre un calculateur à 24 questions.</li>
+      <li><a href="/blog/2026/11/04/montre-de-vie-vs-calculatrice-now/"><strong>Montre de Vie vs Calculatrice.now</strong></a> — comparatif contre un calculateur d'un réseau de 62 outils "Santé".</li>
+      <li><a href="/blog/age-biologique/"><strong>Âge biologique : définition, calcul et comment le réduire</strong></a> — le guide complet.</li>
+    </ul>
+  </div>
+
+  <h2>❓ Questions fréquentes</h2>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Le test de Cleage est-il basé sur une méthode scientifique reconnue ?</h3>
+    <div class="faq-a">D'après la page consultée en novembre 2026, aucune étude, modèle ou source n'est cité. C'est un tableau de points par catégorie (format "quiz de longévité"), avec une formule finale selon la tranche d'âge — pas une méthode publiée ou documentée comme PhenoAge ou les horloges épigénétiques.</div>
+  </div>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Pourquoi comparer Montre de Vie à un test qui n'est même pas un calculateur ?</h3>
+    <div class="faq-a">Parce que cette page se positionne sur les mêmes requêtes Google que les vrais calculateurs — "test gratuit âge biologique" notamment — malgré l'absence de calcul automatique. C'est un cas intéressant pour comprendre ce qui fait réellement remonter une page dans les résultats.</div>
+  </div>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Le résultat du test de Cleage est-il fiable ?</h3>
+    <div class="faq-a">La page elle-même le présente comme une estimation indicative d'un "âge possible de longévité", pas un diagnostic — et précise qu'il ne remplace pas un avis médical. Sans source documentée sur la pondération des points, il est difficile d'évaluer sa fiabilité au-delà de ce que la clinique en dit elle-même.</div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ Avertissement<br>
+    Cet article compare Montre de Vie à un contenu publié par un cabinet de médecine esthétique, à visée informative. Aucun des deux ne constitue un diagnostic médical. Les observations sur Cleage sont basées sur une lecture du code source de leur page publique en novembre 2026 et peuvent évoluer si la page change.
+  </div>
+
+  <div class="sources">
+    <p>📚 Sources</p>
+    <ul>
+      <li><a href="https://www.cleage.fr/quel-est-votre-age-biologique" target="_blank">Cleage — Quel est votre âge biologique ? (code source consulté en novembre 2026)</a></li>
+      <li><a href="/methodologie/">Montre de Vie — Méthodologie scientifique</a></li>
+    </ul>
+  </div>
+
+</article>
+
+<style>
+  .vs-table-wrap4{overflow-x:auto;margin:24px 0}
+  .vs-table-wrap4 .vs-table{width:100%;border-collapse:collapse;font-size:.88rem}
+  .vs-table-wrap4 .vs-table th{background:var(--surface2);padding:12px 14px;text-align:left;font-weight:700;
+    color:var(--text);border-bottom:2px solid var(--border)}
+  .vs-table-wrap4 .vs-table th:first-child{width:30%}
+  .vs-table-wrap4 .vs-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:rgba(24,24,27,.85)}
+  .vs-table-wrap4 .vs-table tbody tr td:first-child{font-weight:600;color:var(--muted)}
+  .vs-table-wrap4 .vs-table tbody tr td:nth-child(2){color:var(--amber-dk);font-weight:600}
+</style>

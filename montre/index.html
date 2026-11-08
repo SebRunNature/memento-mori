@@ -1888,6 +1888,49 @@ function initNewsletterForm() {
   });
 }
 
+// ── PDF PLAN D'ACTION (premium) ──
+// Étapes concrètes par facteur (3 max, courtes) — uniquement pour le PDF.
+const PDF_STEPS = {
+  'Tabac': ['Fixe une date d\'arrêt dans les 14 jours et préviens un proche.', 'Combine substituts nicotiniques (pharmacie) et accompagnement : Tabac Info Service, 39 89.', 'Remplace le geste : verre d\'eau, marche de 5 min, respiration lente.'],
+  'Anxiété chronique': ['Matin et soir : 5 min, inspire 5 s, expire 5 s.', 'Accroche-la à un rituel fixe (café, brossage de dents) pour tenir dans la durée.', 'Note ton niveau de tension (0 à 10) avant et après pendant 2 semaines.'],
+  'Friction quotidienne': ['Liste ce qui t\'agace ou t\'épuise chaque semaine, sans filtrer.', 'Choisis la source la plus fréquente, pas la plus grosse.', 'Supprime-la, délègue-la ou automatise-la ce mois-ci, puis mesure le soulagement.'],
+  'Sommeil (durée)': ['Avance ton coucher de 15 min, puis encore 15 min la semaine suivante.', 'Mets une alarme « fin de journée » 1 h avant et coupe les écrans.', 'Garde un lever à heure fixe, week-end compris.'],
+  'Sommeil (qualité)': ['Règle la chambre à 18–19 °C et aère avant le coucher.', 'Vise l\'obscurité totale : rideaux occultants ou masque.', 'Pas de caféine après 14 h, dîner léger 2 à 3 h avant de dormir.'],
+  'VO₂max': ['Après 10 min d\'échauffement : 30 s d\'effort soutenu, 30 s de récupération.', 'Répète 8 fois, 2 séances par semaine, avec 48 h d\'écart.', 'Vélo, course ou rameur : prends ce qui ménage tes articulations.'],
+  'VO₂max (estimé)': ['Marche rapide, footing lent ou vélo : tu dois pouvoir parler en phrases courtes.', '3 séances de 20 min la première semaine, puis passe à 30 min.', 'Cale-les dans ton agenda comme un rendez-vous.'],
+  'Grip strength': ['Farmer\'s carry : un poids lourd dans chaque main, 20 à 30 m, 3 séries.', 'Ajoute des suspensions à une barre (10 à 30 s).', 'Augmente la charge dès que les 3 séries te paraissent faciles.'],
+  'Alimentation': ['Repère ton repas le plus transformé de la semaine.', 'Remplace-le par des légumes et une source de protéines (oeufs, poisson, légumineuses).', 'Une fois installé, passe au 2e repas. Jamais plus de deux changements à la fois.'],
+  'Alcool': ['Compte tes verres pendant une semaine, sans rien changer.', 'Fixe 3 jours sans alcool par semaine.', 'Prépare une alternative : eau pétillante citronnée, infusion, boisson sans alcool.'],
+  'Stress chronique': ['Bloque 3 créneaux de 30 min dans la semaine, téléphone en mode avion.', 'Choisis un parc, une forêt ou un bord d\'eau : la nature compte.', 'Une marche sur trois sans écouteurs, pour laisser l\'esprit vagabonder.'],
+  'Humeur / stabilité': ['Dans les 30 min après le réveil, sors dehors 10 à 20 min.', 'Même par temps couvert, la lumière extérieure est bien plus forte qu\'à l\'intérieur.', 'Prends ton café ou ton petit-déjeuner près d\'une fenêtre ou sur le balcon.'],
+  'Sens / Ikigai': ['Écris 3 moments récents où tu t\'es senti utile et vivant.', 'Repère le point commun : des personnes, une activité, une valeur.', 'Réserve 2 h par semaine à un projet lié à ce point commun.'],
+  'Liens sociaux': ['Choisis une pratique : course, yoga, rando, club de lecture.', 'Teste 3 groupes près de chez toi et garde celui où tu reviens avec plaisir.', 'Fixe un rendez-vous hebdomadaire, puis invite une personne.'],
+  'Cholestérol LDL': ['Huile d\'olive comme matière grasse principale, noix et amandes en collation.', 'Poisson gras 2 fois par semaine, légumineuses 3 fois.', 'Refais un bilan lipidique après 3 mois avec ton médecin.'],
+  'Tension artérielle': ['Goûte avant de saler et retire la salière de la table.', 'Limite charcuterie, plats préparés et bouillons : ce sont les principales sources de sel.', 'Marche 20 min par jour et suis ta tension à domicile avec un tensiomètre validé.'],
+  'Glycémie': ['Marche 10 min après le déjeuner et le dîner.', 'Commence le repas par les légumes et les protéines, glucides en dernier.', 'Évite boissons sucrées et jus de fruits, même « sans sucre ajouté ».'],
+  'Microbiome': ['Ajoute une cuillère de choucroute crue ou de kimchi à un repas par jour.', 'Alterne avec yaourt nature ou kéfir.', 'Vise 30 végétaux différents par semaine (légumes, fruits, graines, herbes).'],
+  'IMC': ['Retire une portion ou un grignotage par jour (environ 300 kcal).', 'Pèse-toi 1 fois par semaine, même jour, même heure, et suis la tendance.', 'Ajoute 2 séances de renforcement par semaine pour préserver ta masse musculaire.'],
+  'Tour de taille': ['Remplace pain blanc, pâtes blanches et sodas par leurs versions complètes ou sans sucre.', 'Ajoute des fibres à chaque repas : légumes, légumineuses, avoine.', 'Mesure ton tour de taille tous les 15 jours, au niveau du nombril.'],
+  'CRP (inflammation)': ['Poisson gras 2 à 3 fois par semaine, ou huile de lin dans la salade.', 'Limite sucres ajoutés et produits ultra-transformés.', 'Pour un complément d\'oméga-3, demande conseil à ton médecin ou pharmacien.'],
+  'Santé dentaire': ['Brosse-toi les dents 2 minutes, matin et soir, idéalement à la brosse électrique.', 'Ajoute fil ou brossettes interdentaires une fois par jour.', 'Prends rendez-vous pour un détartrage et un contrôle dans le mois.'],
+  'Sécurité financière': ['Programme un virement automatique le jour de ta paie, même 50 €.', 'Fais la liste de tes abonnements et supprime-en un inutile.', 'Vise un coussin équivalent à 3 mois de dépenses, par paliers.']
+};
+
+// Helvetica (police standard du PDF) ne gère que WinAnsi : on remplace tout le reste,
+// sinon jsPDF bascule en UTF-16 et la ligne s'affiche avec des espaces entre les lettres.
+function pdfSafe(t) {
+  return String(t == null ? '' : t)
+    .replace(/−/g, '-').replace(/₂/g, '2')
+    .replace(/[‘’]/g, '\'').replace(/[“”]/g, '"')
+    .replace(/→/g, '>').replace(/≥/g, '>=').replace(/≈/g, '~')
+    .replace(/[  ]/g, ' ')
+    .replace(/[^ -~¡-ÿ–—…€Œœ]/g, '');
+}
+
+function pdfGain(g) {
+  return pdfSafe(g).replace(/-\s?/g, '').replace(/(\d)\.(\d)/g, '$1,$2') + ' en moins';
+}
+
 function saveResultPDFPremium() {
   if (typeof window.jspdf === 'undefined' && typeof jsPDF === 'undefined') { showToast('PDF en cours de chargement…'); setTimeout(saveResultPDFPremium, 1200); return; }
   if (!_resultState) return;
@@ -1895,63 +1938,166 @@ function saveResultPDFPremium() {
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
   const { age, bio, chrono } = _resultState;
   const today = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
-  doc.setFillColor(9, 9, 11); doc.rect(0, 0, 210, 28, 'F');
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(20); doc.setTextColor(245, 158, 11);
-  doc.text('MONTRE DE VIE — PLAN D\'ACTION PERSONNALISÉ', 20, 18);
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(113, 113, 122);
-  doc.text(today, 190, 18, { align: 'right' });
-  let y = 46;
-  doc.setTextColor(40, 40, 40); doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
-  doc.text('Âge chronologique', 20, y); y += 9;
-  doc.setDrawColor(220, 220, 220); doc.line(20, y, 190, y); y += 7;
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
-  doc.text('Âge actuel :', 20, y); doc.setFont('helvetica', 'bold'); doc.text(age + ' ans', 100, y); y += 7;
-  doc.setFont('helvetica', 'normal'); doc.text('Espérance estimée :', 20, y);
-  doc.setFont('helvetica', 'bold'); doc.setTextColor(245, 158, 11); doc.text(chrono.totalLife + ' ans', 100, y); doc.setTextColor(40, 40, 40); y += 7;
-  doc.setFont('helvetica', 'normal'); doc.text('Années restantes :', 20, y);
-  doc.setFont('helvetica', 'bold'); doc.text('~' + chrono.yearsLeft + ' ans', 100, y); y += 14;
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
-  doc.text('Âge biologique', 20, y); y += 9;
-  doc.setDrawColor(220, 220, 220); doc.line(20, y, 190, y); y += 7;
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
-  doc.text('Âge biologique :', 20, y);
-  doc.setFont('helvetica', 'bold'); doc.setTextColor(0, 152, 98); doc.text(bio.bioAge + ' ans', 100, y); doc.setTextColor(40, 40, 40); y += 7;
-  doc.setFont('helvetica', 'normal'); doc.text('Écart vs âge réel :', 20, y);
-  const dSign = bio.delta >= 0 ? '+' : '';
-  doc.setFont('helvetica', 'bold');
-  if (bio.delta < 0) doc.setTextColor(0, 152, 98); else if (bio.delta > 0) doc.setTextColor(180, 60, 60);
-  doc.text(dSign + bio.delta.toFixed(1) + ' ans', 100, y); doc.setTextColor(40, 40, 40); y += 16;
 
-  // ── PLAN D'ACTION PERSONNALISÉ ──
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(40, 40, 40);
-  doc.text('Ton plan d’action personnalisé', 20, y); y += 9;
-  doc.setDrawColor(220, 220, 220); doc.line(20, y, 190, y); y += 10;
+  const W = 210, M = 18, CW = W - 2 * M, BOTTOM = 276;
+  const INK = [24, 24, 27], MUTED = [82, 82, 91], AMBER = [245, 158, 11], AMBER_DK = [180, 83, 9], GREEN = [0, 152, 98], RED = [198, 47, 47];
+  doc.setLineHeightFactor(1.3);
+  const LH = pt => pt * 1.3 * 0.3528; // hauteur de ligne en mm
+  const font = (style, size, c) => { doc.setFont('helvetica', style); doc.setFontSize(size); doc.setTextColor(c[0], c[1], c[2]); };
+  const T = (txt, x, y, opt) => doc.text(pdfSafe(txt), x, y, opt);
+  const wrap = (txt, w) => doc.splitTextToSize(pdfSafe(txt), w);
+  let y;
 
-  const recos = (_lastRecos && _lastRecos.length ? _lastRecos : []).slice(0, 3);
+  // ── En-tête ──
+  doc.setFillColor(9, 9, 11); doc.rect(0, 0, W, 40, 'F');
+  doc.setFillColor(AMBER[0], AMBER[1], AMBER[2]); doc.rect(0, 40, W, 1.2, 'F');
+  font('bold', 9, AMBER); T('MONTRE DE VIE', M, 15);
+  font('bold', 21, [255, 255, 255]); T('Ton plan d\'action personnalisé', M, 27);
+  font('normal', 9, [161, 161, 170]); T('Généré le ' + today, M, 35);
+
+  // ── Chiffres clés ──
+  y = 52;
+  const cw = (CW - 12) / 3;
+  const delta = bio.delta;
+  const bioCol = delta < -0.05 ? GREEN : (delta > 0.05 ? RED : INK);
+  const stats = [
+    ['ÂGE RÉEL', String(age), INK],
+    ['ÂGE BIOLOGIQUE', String(bio.bioAge), bioCol],
+    ['ANNÉES RESTANTES', '~' + chrono.yearsLeft, AMBER_DK]
+  ];
+  stats.forEach((s, i) => {
+    const x = M + i * (cw + 6);
+    doc.setFillColor(244, 244, 245); doc.roundedRect(x, y, cw, 26, 3, 3, 'F');
+    font('bold', 7.5, MUTED); T(s[0], x + 5, y + 8);
+    font('bold', 22, s[2]); T(s[1], x + 5, y + 20);
+    const vw = doc.getTextWidth(pdfSafe(s[1]));
+    font('normal', 9, MUTED); T('ans', x + 5 + vw + 2, y + 20);
+  });
+  y += 26 + 9;
+
+  const dSign = delta >= 0 ? '+' : '';
+  const interp = delta < -2
+    ? 'Ton corps vieillit plus lentement que ton calendrier : tes habitudes travaillent pour toi. L\'objectif est de consolider.'
+    : delta > 2
+      ? 'Ton corps vieillit plus vite que ton calendrier. Bonne nouvelle : c\'est en grande partie réversible, et c\'est précisément l\'objet de ce plan.'
+      : 'Ton âge biologique est proche de ton âge réel : quelques leviers ciblés peuvent te faire passer du bon côté.';
+  font('normal', 10, INK);
+  const sumL = wrap('Espérance de vie estimée : ' + chrono.totalLife + ' ans. Écart entre âge biologique et âge réel : ' + dSign + delta.toFixed(1) + ' an(s). ' + interp, CW);
+  doc.text(sumL, M, y); y += sumL.length * LH(10) + 8;
+
+  const heading = txt => {
+    if (y > BOTTOM - 40) { doc.addPage(); y = 22; }
+    doc.setFillColor(AMBER[0], AMBER[1], AMBER[2]); doc.rect(M, y - 5, 1.6, 7, 'F');
+    font('bold', 13, INK); T(txt, M + 5, y); y += 8;
+  };
+
+  // ── Priorités ──
+  const recos = (_lastRecos && _lastRecos.length ? _lastRecos : []).filter(f => RECO_DB[f.l]).slice(0, 3);
+  heading('Tes ' + (recos.length || 3) + ' priorités');
   if (recos.length === 0) {
-    doc.setFont('helvetica', 'italic'); doc.setFontSize(10); doc.setTextColor(120, 120, 120);
-    doc.text('Pas assez de données pour un plan personnalisé — relance le calcul en mode Complet.', 20, y);
-    y += 10;
+    font('normal', 10, MUTED);
+    T('Pas assez de données pour un plan personnalisé. Relance le calcul en mode Complet.', M, y); y += 10;
   } else {
+    font('normal', 9.5, MUTED);
+    const introL = wrap('Classées par impact estimé sur ton âge biologique. Une à la fois : la régularité compte plus que l\'intensité.', CW);
+    doc.text(introL, M, y); y += introL.length * LH(9.5) + 5;
+
     recos.forEach((f, i) => {
       const reco = RECO_DB[f.l];
-      if (!reco) return;
-      if (y > 255) { doc.addPage(); y = 24; }
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(245, 158, 11);
-      doc.text((i + 1) + '. ' + f.l, 20, y); y += 6;
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(40, 40, 40);
-      const actionLines = doc.splitTextToSize(reco.action, 170);
-      doc.text(actionLines, 20, y); y += actionLines.length * 5 + 2;
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(90, 90, 90);
-      const detailLines = doc.splitTextToSize(reco.detail, 170);
-      doc.text(detailLines, 20, y); y += detailLines.length * 4.6 + 2;
-      doc.setFont('helvetica', 'italic'); doc.setFontSize(9); doc.setTextColor(0, 152, 98);
-      doc.text('Gain potentiel : ' + reco.gain, 20, y); y += 10;
+      const steps = PDF_STEPS[f.l] || [];
+      const tx = M + 17, tw = CW - 17 - 6;
+      font('bold', 11, INK); const aL = wrap(reco.action, tw);
+      font('normal', 9.5, MUTED); const dL = wrap(reco.detail, tw);
+      font('normal', 9, INK); const sL = steps.map(s => wrap(s, tw - 5));
+
+      const layout = (draw, y0) => {
+        let cy = y0 + 9;
+        if (draw) { font('bold', 7.5, AMBER_DK); T(f.l.toUpperCase(), tx, cy); }
+        cy += 6;
+        font('bold', 11, INK); if (draw) doc.text(aL, tx, cy); cy += aL.length * LH(11) + 1;
+        font('normal', 9.5, MUTED); if (draw) doc.text(dL, tx, cy); cy += dL.length * LH(9.5) + 2.5;
+        if (sL.length) {
+          if (draw) { font('bold', 7.5, INK); T('COMMENT S\'Y PRENDRE', tx, cy); }
+          cy += 5;
+          sL.forEach(l => {
+            if (draw) {
+              doc.setFillColor(AMBER[0], AMBER[1], AMBER[2]); doc.circle(tx + 1.2, cy - 1.1, 0.9, 'F');
+              font('normal', 9, INK); doc.text(l, tx + 5, cy);
+            }
+            cy += l.length * LH(9) + 1.4;
+          });
+          cy += 1.5;
+        }
+        const gt = 'Gain potentiel : ' + pdfGain(reco.gain);
+        if (draw) {
+          font('bold', 8.5, GREEN);
+          const pw = doc.getTextWidth(pdfSafe(gt)) + 8;
+          doc.setFillColor(220, 245, 235); doc.roundedRect(tx, cy - 4.4, pw, 6.6, 3.3, 3.3, 'F');
+          T(gt, tx + 4, cy);
+        }
+        cy += 9;
+        return cy - y0;
+      };
+
+      const h = layout(false, y);
+      if (y + h > BOTTOM) { doc.addPage(); y = 22; }
+      doc.setFillColor(250, 250, 249); doc.setDrawColor(228, 228, 231); doc.setLineWidth(0.3);
+      doc.roundedRect(M, y, CW, h, 3, 3, 'FD');
+      doc.setFillColor(AMBER[0], AMBER[1], AMBER[2]); doc.rect(M, y + 4, 1.8, h - 8, 'F');
+      doc.circle(M + 9, y + 10, 4.6, 'F');
+      font('bold', 11, [255, 255, 255]); T(String(i + 1), M + 9, y + 11.8, { align: 'center' });
+      layout(true, y);
+      y += h + 6;
     });
+
+    // ── Calendrier 4 semaines ──
+    const rows = [
+      ['SEMAINE 1', 'Lance la priorité 1 : ' + RECO_DB[recos[0].l].action],
+      ['SEMAINE 2', recos[1] ? 'Installe la priorité 2 : ' + RECO_DB[recos[1].l].action : 'Garde le rythme de la priorité 1 et note ce qui devient facile.'],
+      ['SEMAINE 3', recos[2] ? 'Ajoute la priorité 3 : ' + RECO_DB[recos[2].l].action : 'Consolide : ajuste ce qui coince, garde ce qui marche.'],
+      ['SEMAINE 4', 'Fais le bilan : refais le test sur montre-de-vie.com pour mesurer ton évolution.']
+    ];
+    font('normal', 9.5, INK);
+    const rowL = rows.map(r => wrap(r[1], CW - 30));
+    const calH = 12 + rowL.reduce((a, l) => a + Math.max(1, l.length) * LH(9.5) + 4.5, 0);
+    if (y + calH > BOTTOM) { doc.addPage(); y = 22; }
+    y += 5;
+    heading('Ton calendrier sur 4 semaines');
+    rows.forEach((r, i) => {
+      doc.setFillColor(AMBER[0], AMBER[1], AMBER[2]); doc.roundedRect(M, y - 4.2, 23, 6.4, 3.2, 3.2, 'F');
+      font('bold', 7, [255, 255, 255]); T(r[0], M + 11.5, y, { align: 'center' });
+      font('normal', 9.5, INK); doc.text(rowL[i], M + 28, y);
+      y += Math.max(1, rowL[i].length) * LH(9.5) + 4.5;
+    });
+    y += 2;
   }
 
-  doc.setFont('helvetica', 'italic'); doc.setFontSize(8); doc.setTextColor(140, 140, 140);
-  doc.text('Montre de Vie — montre-de-vie.com  ·  Outil indicatif, non médical.', 105, 287, { align: 'center' });
+  // ── Mot de la fin ──
+  font('normal', 9.5, INK);
+  const endL = wrap('Refais le test dans 4 à 6 semaines : ton historique te montrera l\'évolution de ton âge biologique. Chaque petit changement tenu compte plus qu\'un grand plan abandonné.', CW - 12);
+  const endH = endL.length * LH(9.5) + 15;
+  if (y + endH > BOTTOM) { doc.addPage(); y = 22; }
+  doc.setFillColor(255, 251, 235); doc.setDrawColor(253, 230, 138); doc.setLineWidth(0.3);
+  doc.roundedRect(M, y, CW, endH, 3, 3, 'FD');
+  font('bold', 10, AMBER_DK); T('Et ensuite ?', M + 6, y + 8);
+  font('normal', 9.5, INK); doc.text(endL, M + 6, y + 14);
+  y += endH + 6;
+
+  font('italic', 7.5, [113, 113, 122]);
+  const disc = wrap('Document indicatif de sensibilisation, il ne constitue pas un avis médical. En cas de pathologie, de traitement en cours ou de doute, consulte un professionnel de santé avant de modifier ton alimentation, ton activité ou tes habitudes.', CW);
+  if (y + disc.length * LH(7.5) > BOTTOM + 6) { doc.addPage(); y = 22; }
+  doc.text(disc, M, y);
+
+  // ── Pied de page sur chaque page ──
+  const n = doc.getNumberOfPages();
+  for (let p = 1; p <= n; p++) {
+    doc.setPage(p);
+    doc.setDrawColor(228, 228, 231); doc.setLineWidth(0.3); doc.line(M, 284, W - M, 284);
+    font('normal', 8, [140, 140, 140]);
+    T('Montre de Vie  ·  montre-de-vie.com', M, 289);
+    T('Page ' + p + ' / ' + n, W - M, 289, { align: 'right' });
+  }
+
   doc.save('montre-de-vie-plan-action-' + new Date().toISOString().slice(0, 10) + '.pdf');
   showToast('✓ Plan d\'action téléchargé');
 }

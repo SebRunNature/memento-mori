@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Montre de Vie vs Cleage : le test d'âge biologique d'une clinique esthétique passé au crible"
-description: "Comparaison honnête entre Montre de Vie et le test d'âge biologique de Cleage (clinique esthétique à Lyon) : méthode, calcul automatique ou manuel, ce que chacun fait mieux."
+description: "Le test d'âge biologique de Cleage est un tableau à additionner à la main, sans calcul automatique. Ce que le code montre, comparé à Montre de Vie."
 excerpt: "Le test d'âge biologique de Cleage, une clinique esthétique lyonnaise, apparaît dans les résultats Google. J'ai lu le code source de leur page avant d'écrire cet article — et ce n'est pas un calculateur du tout. Voici ce que j'y ai trouvé."
 date: 2026-11-04
 author: Sébastien Salomon
@@ -60,9 +60,9 @@ author: Sébastien Salomon
     <li>Appliquer l'une de ces six formules selon sa tranche d'âge : <code>âge + 30 + (score × 0,3)</code> pour 20-30 ans, jusqu'à <code>âge + 1 + (score × 0,05)</code> au-delà de 83 ans.</li>
   </ol>
 
-  <p>C'est un format qu'on reconnaît — proche des "quiz de longévité" imprimés dans des magazines santé depuis des décennies, avec des valeurs de points qui semblent avoir été fixées à dire d'expert plutôt que calibrées sur des données de mortalité publiées. Rien d'alarmant ni de malhonnête — la page le dit elle-même ("ce test ne remplace en aucun cas un avis médical") — mais ce n'est clairement pas une démarche PhenoAge, horloge épigénétique, ou même un modèle de risque documenté.</p>
+  <p>C'est un format qu'on reconnaît — proche des "quiz de longévité" imprimés dans des magazines santé depuis des décennies. La page ne documente pas l'origine des valeurs de points. Elle précise elle-même que "ce test ne remplace en aucun cas un avis médical", et ce n'est clairement pas une démarche PhenoAge, horloge épigénétique, ou même un modèle de risque documenté.</p>
 
-  <p>Un autre détail trouvé en lisant le code : les données structurées (JSON-LD) de la page indiquent une dernière modification au <strong>2 septembre 2025</strong>, alors que le texte visible affiche "Page mise à jour le 28 octobre 2026". Les deux dates de fraîcheur ne correspondent pas — un détail technique, mais qui en dit long sur ce qui compte vraiment pour le référencement d'une page comme celle-ci : afficher une date récente au lecteur, indépendamment de la donnée structurée que lit Google.</p>
+  <p>Un autre détail trouvé en lisant le code : les données structurées (JSON-LD) de la page indiquent une dernière modification au <strong>2 septembre 2025</strong>, alors que le texte visible affiche "Page mise à jour le 28 octobre 2026". Les deux dates de fraîcheur ne correspondent pas : un détail technique, mais qui montre que la date affichée au lecteur et celle lue par Google ne sont pas alignées.</p>
 
   <h2>Ce que Montre de Vie fait différemment</h2>
 

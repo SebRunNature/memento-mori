@@ -763,7 +763,7 @@ function setMode(mode) {
   });
 
   const desc = document.getElementById('levelDesc');
-  if (desc) desc.textContent = isExpress ? '7 questions — environ 90 secondes' : 'Les fondations — environ 5 min';
+  if (desc) desc.textContent = isExpress ? '11 questions — environ 90 secondes' : 'Les fondations — environ 5 min';
 
   onInput();
 }
@@ -2270,7 +2270,7 @@ document.addEventListener('DOMContentLoaded', function() {
     else el.classList.remove('express-hidden');
   });
   const desc = document.getElementById('levelDesc');
-  if (desc) desc.textContent = isExpress ? '7 questions — environ 90 secondes' : 'Les fondations — environ 5 min';
+  if (desc) desc.textContent = isExpress ? '11 questions — environ 90 secondes' : 'Les fondations — environ 5 min';
 
   // 3. Restaurer la session si valide
   if (session && session.savedAt && Date.now() - session.savedAt < 30*24*3600*1000) {

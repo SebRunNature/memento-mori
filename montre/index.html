@@ -206,6 +206,15 @@ input[type=number]::placeholder{color:var(--muted)}
 .share-modal-actions .result-action{flex:1;justify-content:center;min-width:140px}
 .share-modal-hint{font-size:.73rem;color:var(--muted);text-align:center;margin-top:14px;font-weight:600;line-height:1.5}
 
+/* IMPRESSION — uniquement les résultats */
+@media print{
+  .bg,.bg-overlay,.site-nav,#setup,#actions,.embed-attribution,.share-overlay,.site-footer,#toast,.toast{display:none!important}
+  html,body{background:#fff!important;overflow:visible}
+  #app{padding:0!important;max-width:none!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #results>*{break-inside:avoid}
+}
+
 /* WIDGET — Citer / Intégrer / Partager l'outil */
 .embed-widget{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-top:20px}
 .embed-widget-title{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:2px}
@@ -628,6 +637,7 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
 <div style="text-align:center;font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">⤓ Garder une trace</div>
 <div class="result-actions">
 <button class="result-action primary" onclick="openShareModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Partager mes résultats</button>
+<button class="result-action" onclick="printResult()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Imprimer</button>
 <button class="result-action" onclick="saveResultPDF()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Sauvegarder PDF</button>
 </div>
 
@@ -1765,6 +1775,11 @@ function shareEmbedTo(network) {
 /* Mode embed (?embed=true) — version allégée pour iframe tiers */
 if (new URLSearchParams(location.search).get('embed') === 'true') {
   document.body.classList.add('embed-mode');
+}
+
+function printResult() {
+  if (!_resultState) return;
+  window.print();
 }
 
 function saveResultPDF() {

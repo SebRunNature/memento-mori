@@ -25,5 +25,6 @@ plugins:
 # Exclusions
 exclude:
   - README.md
+  - CLAUDE.md
   - Gemfile
   - Gemfile.lock

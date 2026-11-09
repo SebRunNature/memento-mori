@@ -733,7 +733,7 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
 </div>
 
 <!-- FOOTER -->
-<footer class="site-footer"><div class="site-footer-inner"><div class="footer-links"><a class="footer-link" href="/">Accueil</a><span class="footer-sep">·</span><a class="footer-link" href="/montre/">La Montre</a><span class="footer-sep">·</span><a class="footer-link" href="/blog/">Blog</a><span class="footer-sep">·</span><a class="footer-link" href="/faq/">FAQ</a><span class="footer-sep">·</span><a class="footer-link" href="/apropos/">À propos</a><span class="footer-sep">·</span><a class="footer-link" href="/confidentialite/">Confidentialité</a><span class="footer-sep">·</span><a class="footer-link" href="/contact/">Contact</a><span class="footer-sep">·</span><a class="footer-link" href="https://run-nature.com/mentions-legales-seb-run-nature/" target="_blank" rel="noopener">Mentions légales</a></div><p class="footer-copy">Outil indicatif — pas un conseil médical · © 2026 Sébastien Salomon — Montre de Vie</p></div></footer>
+<footer class="site-footer"><div class="site-footer-inner"><div class="footer-links"><a class="footer-link" href="/">Accueil</a><span class="footer-sep">·</span><a class="footer-link" href="/montre/">La Montre</a><span class="footer-sep">·</span><a class="footer-link" href="/blog/">Blog</a><span class="footer-sep">·</span><a class="footer-link" href="/faq/">FAQ</a><span class="footer-sep">·</span><a class="footer-link" href="/apropos/">À propos</a><span class="footer-sep">·</span><a class="footer-link" href="/confidentialite/">Confidentialité</a><span class="footer-sep">·</span><a class="footer-link" href="/contact/">Contact</a><span class="footer-sep">·</span><a class="footer-link" href="https://x.com/Montredevie" target="_blank" rel="noopener">X</a><span class="footer-sep">·</span><a class="footer-link" href="https://run-nature.com/mentions-legales-seb-run-nature/" target="_blank" rel="noopener">Mentions légales</a></div><p class="footer-copy">Outil indicatif — pas un conseil médical · © 2026 Sébastien Salomon — Montre de Vie</p></div></footer>
 <script>
 'use strict';
 const D = {};
@@ -1821,7 +1821,7 @@ function saveResultPDF() {
     : 'Ton âge biologique est proche de ton âge chronologique.';
   doc.text(interp, 20, y); y+=14;
   doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(140,140,140);
-  doc.text('Montre de Vie — montre-de-vie.com  ·  Outil indicatif, non médical.', 105, 287, {align:'center'});
+  doc.text('Montre de Vie — montre-de-vie.com  ·  X @Montredevie  ·  Outil indicatif, non médical.', 105, 287, {align:'center'});
   doc.save('montre-de-vie-' + new Date().toISOString().slice(0,10) + '.pdf');
   showToast('✓ PDF téléchargé');
 }
@@ -2094,7 +2094,7 @@ function saveResultPDFPremium() {
     doc.setPage(p);
     doc.setDrawColor(228, 228, 231); doc.setLineWidth(0.3); doc.line(M, 284, W - M, 284);
     font('normal', 8, [140, 140, 140]);
-    T('Montre de Vie  ·  montre-de-vie.com', M, 289);
+    T('Montre de Vie  ·  montre-de-vie.com  ·  X @Montredevie', M, 289);
     T('Page ' + p + ' / ' + n, W - M, 289, { align: 'right' });
   }
 

@@ -12,3 +12,12 @@ layout: default
 
 <!-- Le contenu de l'article (titre h1 + texte) -->
 {{ content }}
+
+{% if page.retenir %}
+<!-- L'idée à retenir : une phrase de l'article, avec un lien de partage sur X (simple lien, sans script) -->
+<div class="callout" style="margin-top:28px">
+  <strong>L'idée à retenir</strong>
+  {{ page.retenir }}
+  <a href="https://x.com/intent/post?text={{ page.retenir | url_encode }}&amp;url={{ site.url | append: page.url | url_encode }}&amp;via=Montredevie" target="_blank" rel="noopener" style="display:block;width:fit-content;margin-top:10px;font-weight:700;color:var(--amber-lt)">Poster cette idée sur X →</a>
+</div>
+{% endif %}

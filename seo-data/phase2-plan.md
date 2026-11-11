@@ -92,3 +92,9 @@ Rappel : sur GitHub Pages ces redirections répondent 200 avec refresh + canonic
 1. Retraite : page principale 26 mai (recommandé) ou 13 mai ?
 2. `vo2max-longevite` : garder et recentrer (recommandé) ou fusionner dans l'article du 24 juin ?
 3. Moringa, Score de vie, Luxembourg : tu valides « laisser / différencier » ?
+
+## Décisions validées (11 novembre 2026)
+- Retraite : page principale = article du 26 mai. Fusion appliquée ; le 13 mai redirige vers lui (page statique `blog/2026/05/13/…/index.html`, hors sitemap).
+- `vo2max-longevite` : garder et recentrer (à faire).
+- Moringa : relire, sourcer et corriger les erreurs (à faire, liste des affirmations non sourcées d'abord).
+- Éléments non repris du 13 mai : tableau « années de dépendance estimées » et chiffres de healthspan non sourcés, anecdote « j'ai côtoyé des dizaines de collègues », section ILQVT (offre non vérifiée), chiffre 83,4 ans (l'article du 26 mai garde 83,2).

@@ -16,7 +16,7 @@ Version 2 : les pages concurrentes ont été lues (via `curl`, après autorisati
 |---|---|---|
 | VO2 max (24 juin) | VO₂max selon l'âge — tableau de normes et comment progresser — Montre de Vie | 76 |
 | Luxembourg vs France | Luxembourg vs France : qui vit le plus longtemps en 2026 ? (Moselle, Metz, Nancy vs Grand-Duché) — Montre de Vie | 112 |
-| PhenoAge | PhenoAge : calcule ton âge biologique gratuitement (formule Levine 2018) — Montre de Vie | 87 |
+| PhenoAge | PhenoAge : calcule ton âge biologique gratuitement (formule Levine 2018) — Montre de Vie | 88 |
 
    Google coupe autour de 60 caractères : la fin du titre (et donc l'argument qui donne envie de cliquer) n'est pas visible. **Proposition :** ne plus ajouter le suffixe sur les articles, et écrire des titres de 60 caractères maximum. Changement d'une ligne dans le layout.
 2. **« VO₂max » avec indice.** Les deux pages concurrentes lues écrivent « VO2max » / « VO2 Max » sans indice, comme les requêtes. Hypothèse (non démontrée) : écrire « VO2 max » dans le title et la meta aide la correspondance ; garder « VO₂max » dans le texte.
@@ -89,7 +89,7 @@ Requêtes : « espérance de vie luxembourg » (125 imp., pos 8,7) ; « vit-on p
 **Chiffres divergents** (résultats de recherche) : 83,4 en 2023 (STATEC, Paperjam) ; 83,2 en 2024 (Observatoire de la santé) ; 83,5 en 2024 (Eurostat, d'après un article non lu). Nos articles citent 83, 83,2 et 83,4 selon la page : **à harmoniser** sur une source datée `[CHECK]`.
 
 **Répartition proposée :**
-- **30 mai** = page principale. Title (51 car.) : `Espérance de vie au Luxembourg : et en bonne santé ?`
+- **30 mai** = page principale. Title (52 car.) : `Espérance de vie au Luxembourg : et en bonne santé ?`
 - **24 mai** = comparaison. Title (52 car.) : `Luxembourg ou France : où vit-on le plus longtemps ?` ; description actuelle de 185 caractères à ramener à ~150.
 - **10 mai** = angle « temps vraiment vivant ». Title (59 car.) : `Années vraiment vivant au Luxembourg : le calcul sur 83 ans`.
 - « niveau de vie luxembourg vs france » : intention différente (revenus, coût de la vie) ; ne pas poursuivre sans données.

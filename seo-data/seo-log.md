@@ -34,3 +34,4 @@ Une ligne par modification de fond. Les pages modifiées depuis moins de 60 jour
 | 2026-11-11 | /blog/2026/05/08/moringa-coureurs-trail-superaliment/ | Réécrit d'après Dong 2024 et Gallaher 2017 ; retire « superaliment », « plus riche en fer que les épinards », magnésium, « fenêtre anabolique » et la dose « raisonnable » ; nouveau titre |
 | 2026-11-11 | /montre/ | Ajout du canonical et d'un JSON-LD `WebApplication` (gratuit, fr, sans `aggregateRating`) |
 | 2026-11-11 | Articles 05-17, 05-21, 05-22, 05-24, 05-26, 05-28 | Suppression du JSON-LD `BlogPosting`/`Article` en double (le layout en génère déjà un) ; `FAQPage` conservé |
+| 2026-11-11 | /blog/2026/05/17/age-biologique-luxembourg-… | Réécrit : chiffres Eurostat (83,2 ans en 2024 ; 60,2 ans en bonne santé en 2022) ; retire parts de décès, âge de retraite, gains en années, tarifs, laboratoires, « multilinguisme », encadré personnel (47 → 43 ans) ; nouveau titre ; liens entrants depuis le pilier et le 30 mai |

@@ -26,5 +26,6 @@ plugins:
 exclude:
   - README.md
   - CLAUDE.md
+  - seo-data
   - Gemfile
   - Gemfile.lock

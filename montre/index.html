@@ -1079,7 +1079,8 @@ function calcChronoExpectancy() {
   // Sport heures
   const smod = parseFloat(document.getElementById('sport_mod_h').value) || 0;
   const sint = parseFloat(document.getElementById('sport_int_h').value) || 0;
-  deltaEV += Math.min((smod*0.8)+(sint*1.5), 8);
+  // Plafond de 3 ans : l'ordre de grandeur des études d'observation sur l'activité physique (Lee et al., JACC 2014 ; Wen et al., Lancet 2011).
+  deltaEV += Math.min((smod*0.8)+(sint*1.5), 3);
   // IMC
   const hv = parseFloat(document.getElementById('taille').value);
   const wv = parseFloat(document.getElementById('poids').value);

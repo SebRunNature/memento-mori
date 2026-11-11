@@ -3,7 +3,7 @@ layout: default
 title: "Méthodologie du calcul d'espérance de vie"
 description: "Comment fonctionne le calcul de la Montre de Vie : algorithme, pondérations, modèle PhenoAge, études Framingham et INTERHEART."
 canonical: "https://montre-de-vie.com/methodologie/"
-last_modified_at: 2026-09-08
+last_modified_at: 2026-11-11
 ---
 
 <style>
@@ -154,8 +154,8 @@ last_modified_at: 2026-09-08
     </tr>
     <tr>
       <td>Activité physique régulière</td>
-      <td>+3 à +7 ans</td>
-      <td>Wen et al., Lancet 2011</td>
+      <td>environ +3 ans (plafond appliqué par le calculateur)</td>
+      <td>Wen et al., Lancet 2011 ; Lee et al., JACC 2014</td>
       <td><span class="badge badge-high">Élevé</span></td>
     </tr>
     <tr>
@@ -208,6 +208,8 @@ last_modified_at: 2026-09-08
     </tr>
   </tbody>
 </table>
+<p class="prose"><strong>Le sport dans le calcul.</strong> Les heures de sport déclarées ajoutent 0,8 an par heure hebdomadaire de sport modéré et 1,5 an par heure de sport intense à l'espérance de vie estimée, avec un <strong>plafond de 3 ans</strong>. Ce plafond reprend l'ordre de grandeur des études d'observation (environ 3 ans de plus pour les coureurs que pour les non-coureurs, Lee et al. 2014 et 2017). C'est une règle d'estimation de l'outil, pas un résultat d'étude, et pas une promesse individuelle.</p>
+
 
 <!-- ══ LE SCORE ══ -->
 <h2 class="ap-section-title">Le Score de Vie — le modèle PhenoAge</h2>
@@ -238,7 +240,7 @@ last_modified_at: 2026-09-08
     <div class="algo-num">✗</div>
     <div class="algo-content">
       <span class="algo-title">On n'additionne pas les années directement</span>
-      <span class="algo-body">Additionner "−12 ans de tabac + +7 ans de sport = −5 ans" serait faux mathématiquement. Les effets interagissent. On travaille sur le <strong>risque relatif composé</strong>, qui est ensuite converti en ajustement d'espérance de vie via les tables actuarielles.</span>
+      <span class="algo-body">Additionner "−12 ans de tabac + 3 ans de sport = −9 ans" serait faux mathématiquement. Les effets interagissent. On travaille sur le <strong>risque relatif composé</strong>, qui est ensuite converti en ajustement d'espérance de vie via les tables actuarielles.</span>
     </div>
   </div>
   <div class="algo-step">

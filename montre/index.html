@@ -542,7 +542,7 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
 <div class="level-header express-hidden" id="head-n3"><div><div class="level-num">NIVEAU 03</div><div class="level-title">Bilan sanguin <span class="opt-tag">Optionnel</span></div><div class="level-desc">Cholestérol, tension, glycémie, CRP, ferritine, vitamine D</div></div></div>
 
 <!-- Tension -->
-<div class="qcard express-hidden" id="card-tension"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="qcard-name">Tension artérielle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-tension">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Valeur exacte (mmHg, optionnel)</label><input type="number" id="sys_val" min="0" step="1" placeholder="ex : 125" oninput="onInput()"><div class="field-hint conv-hint" id="hint-sys" style="margin-bottom:14px"></div></div><div class="field-group"><label class="field-label">Ou une fourchette (ignorée si tu saisis la valeur)</label><select class="field-select" onchange="pick(this,'tension',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="&lt;120">&lt; 120 — Optimal</option><option value="120-129">120–129 — Normale</option><option value="130-139">130–139 — Haute</option><option value="140-159">140–159 — HTA G1</option><option value="&gt;=160">≥ 160 — HTA G2</option></select></div></div></div>
+<div class="qcard express-hidden" id="card-tension"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="qcard-name">Tension artérielle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-tension">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><div class="field-row"><div class="field-group"><label class="field-label">Systolique (mmHg)</label><input type="number" id="sys_val" min="0" step="1" placeholder="ex : 125" oninput="onInput()"></div><div class="field-group"><label class="field-label">Diastolique (mmHg)</label><input type="number" id="dia_val" min="0" step="1" placeholder="ex : 80" oninput="onInput()"></div></div><div class="field-hint conv-hint" id="hint-sys" style="margin:-6px 0 4px"></div><div class="field-hint conv-hint" id="hint-dia" style="margin-bottom:6px"></div><div class="field-hint" style="margin-bottom:14px">Valeurs exactes, optionnelles. Si tu renseignes les deux, l'outil retient la catégorie la plus élevée des deux, comme le font les recommandations européennes (ESC/ESH 2018).</div></div><div class="field-group"><label class="field-label">Systolique : ou une fourchette (ignorée si tu saisis la valeur)</label><select class="field-select" onchange="pick(this,'tension',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="&lt;120">&lt; 120 — Optimal</option><option value="120-129">120–129 — Normale</option><option value="130-139">130–139 — Haute</option><option value="140-159">140–159 — HTA G1</option><option value="&gt;=160">≥ 160 — HTA G2</option></select></div></div></div>
 
 <!-- Glycémie -->
 <div class="qcard express-hidden" id="card-glyc"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6 7 6 11.5a6 6 0 1 1-12 0c0-4.5 6-11.5 6-11.5z"/></svg></span><span class="qcard-name">Glycémie &amp; HbA1c</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-glyc">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-row"><div class="field-group"><label class="field-label">Glycémie à jeun — valeur exacte (optionnel)</label><input type="number" id="gly_val" min="0" step="0.01" placeholder="ex : 0,95" oninput="onInput()"></div><div class="field-group"><label class="field-label">Unité</label><select class="field-select" onchange="pick(this,'u_gly',this.value)"><option value="gl">g/L</option><option value="mgdl">mg/dL</option><option value="mmol">mmol/L</option></select></div></div><div class="field-hint conv-hint" id="hint-gly" style="margin:-6px 0 14px"></div><div class="field-row"><div class="field-group"><label class="field-label">HbA1c — valeur exacte (optionnel)</label><input type="number" id="hba1c_val" min="0" step="0.1" placeholder="ex : 5,4" oninput="onInput()"></div><div class="field-group"><label class="field-label">Unité</label><select class="field-select" onchange="pick(this,'u_hba1c',this.value)"><option value="pct">%</option><option value="mmolmol">mmol/mol</option></select></div></div><div class="field-hint conv-hint" id="hint-hba1c" style="margin:-6px 0 14px"></div><div class="field-group"><label class="field-label">Glycémie à jeun : ou une fourchette (g/L, ignorée si tu saisis la valeur)</label><select class="field-select" onchange="pick(this,'glycemie',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="opt">0,70–1,00 — Optimal</option><option value="limite">1,01–1,10 — Limite</option><option value="prediabete">1,11–1,25 — Prédiabète</option><option value="diabete">≥ 1,26 — Diabète</option></select><div class="field-hint">Si tu renseignes la glycémie et l'HbA1c, l'outil retient la plus défavorable des deux, pour ne pas compter deux fois la même chose.</div></div></div></div>
@@ -1005,6 +1005,7 @@ const fmtN = (x, d) => x.toLocaleString('fr-FR', { maximumFractionDigits: d });
 // Chaque valeur est ramenée à une unité de référence puis contrôlée (plage plausible), sinon ignorée.
 function bioInputs() {
   const sys = inRange(readNum('sys_val'), 70, 260);
+  const dia = inRange(readNum('dia_val'), 40, 150);
   const rhr = inRange(readNum('rhr_val'), 30, 200);
   // Glycémie → mg/dL
   let gly = readNum('gly_val');
@@ -1019,14 +1020,28 @@ function bioInputs() {
   const toMg = (v, u) => v == null ? null : u === 'gl' ? v * 100 : u === 'mmol' ? v * CHOL_MGDL_PER_MMOL : v;
   const ldl = inRange(toMg(readNum('ldl_val'), D.u_ldl || 'gl'), 20, 400);
   const hdl = inRange(toMg(readNum('hdl_val'), D.u_hdl || 'gl'), 10, 150);
-  return { sys, rhr, gly, a1c, ldl, hdl };
+  return { sys, dia, rhr, gly, a1c, ldl, hdl };
 }
 
 // Classes identiques à celles des menus déroulants : la valeur exacte prime sur la fourchette choisie.
-function sysClass() {
+const TENS_ORDER = ['<120','120-129','130-139','140-159','>=160'];
+const DIA_RANGE = ['< 80','80–84','85–89','90–99','≥ 100'];
+function sysOnlyClass() {
   const v = bioInputs().sys;
   if (v == null) return D.tension;
-  return v < 120 ? '<120' : v < 130 ? '120-129' : v < 140 ? '130-139' : v < 160 ? '140-159' : '>=160';
+  return TENS_ORDER[v < 120 ? 0 : v < 130 ? 1 : v < 140 ? 2 : v < 160 ? 3 : 4];
+}
+// Diastolique : mêmes catégories que la systolique (ESC/ESH 2018 : < 80, 80–84, 85–89, 90–99, ≥ 100 mmHg).
+function diaIdx() {
+  const v = bioInputs().dia;
+  return v == null ? -1 : v < 80 ? 0 : v < 85 ? 1 : v < 90 ? 2 : v < 100 ? 3 : 4;
+}
+// Tension : la catégorie la plus élevée des deux valeurs est retenue (on ne les additionne pas).
+function sysClass() {
+  const a = sysOnlyClass(), di = diaIdx();
+  const ai = TENS_ORDER.indexOf(a);
+  if (di < 0) return a;
+  return TENS_ORDER[Math.max(ai, di)];
 }
 function ldlClass() {
   const mg = bioInputs().ldl;
@@ -1064,7 +1079,9 @@ function updateConv() {
   const has = id => { const el = document.getElementById(id); return el && el.value !== ''; };
   const bad = 'Valeur hors plage plausible : ignorée dans le calcul.';
   // Tension
-  setHint('hint-sys', !has('sys_val') ? '' : b.sys == null ? bad : 'Fourchette retenue : ' + sysClass().replace('>=','≥ ').replace('<','< ').replace('-','–') + ' mmHg');
+  setHint('hint-sys', !has('sys_val') ? '' : b.sys == null ? bad : 'Systolique : ' + sysOnlyClass().replace('>=','≥ ').replace('<','< ').replace('-','–') + ' mmHg');
+  setHint('hint-dia', !has('dia_val') ? '' : b.dia == null ? bad : 'Diastolique : ' + DIA_RANGE[diaIdx()] + ' mmHg'
+    + (sysClass() ? ' — catégorie retenue : ' + String(sysClass()).replace('>=','≥ ').replace('<','< ').replace('-','–') + ' mmHg (échelle systolique)' : ''));
   setHint('hint-rhr', !has('rhr_val') ? '' : b.rhr == null ? bad : '');
   // Glycémie
   if (!has('gly_val')) setHint('hint-gly', '');
@@ -1155,7 +1172,7 @@ function calcBioAge() {
   // 4. Tension
   const tensionMap = { neutre:0,'<120':-1,'120-129':0,'130-139':+2,'140-159':+4,'>=160':+6 };
   const sysC = sysClass();
-  if (sysC) { const v=cap(tensionMap[sysC]??0,-1,+4); delta+=v; factors.push({l:'Tension artérielle',v, n: bi.sys!=null ? bi.sys+' mmHg' : undefined}); }
+  if (sysC) { const v=cap(tensionMap[sysC]??0,-1,+4); delta+=v; factors.push({l:'Tension artérielle',v, n: bi.sys!=null||bi.dia!=null ? (bi.sys!=null && bi.dia!=null ? bi.sys+'/'+bi.dia : bi.sys!=null ? String(bi.sys) : 'diastolique '+bi.dia)+' mmHg' : undefined}); }
   if (bi.rhr != null) { const v=cap(rhrToDelta(bi.rhr),-0.5,+1.5); delta+=v; factors.push({l:'Fréquence cardiaque au repos',v, n: bi.rhr+' bpm'}); }
 
   // 5. Glycémie
@@ -2354,7 +2371,7 @@ function saveResultPDFPremium() {
 const LS_KEY = 'mdv_unified_session';
 
 // Inputs numériques à persister
-const NUMERIC_IDS = ['age','taille','poids','waist','sport_mod_h','sport_int_h','vo2max','grip','walk','sys_val','gly_val','hba1c_val','ldl_val','hdl_val','rhr_val'];
+const NUMERIC_IDS = ['age','taille','poids','waist','sport_mod_h','sport_int_h','vo2max','grip','walk','sys_val','dia_val','gly_val','hba1c_val','ldl_val','hdl_val','rhr_val'];
 
 function saveSession() {
   try {

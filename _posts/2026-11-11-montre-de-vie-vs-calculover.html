@@ -31,7 +31,7 @@ retenir: "Calculover saisit de vraies valeurs de bilan, mais d'après le code de
       <tr><td>Ce qui est calculé</td><td>Espérance de vie <strong>+</strong> âge biologique</td><td>Âge biologique et un score de santé sur 100</td></tr>
       <tr><td>Champs à remplir</td><td>11 en mode express, plus des niveaux optionnels en mode complet</td><td>13, tous nécessaires pour obtenir un résultat, tous préremplis</td></tr>
       <tr><td>Bilan sanguin</td><td>Optionnel : valeur exacte ou fourchette, en g/L, mg/dL ou mmol/L (HbA1c en % ou mmol/mol)</td><td>Valeurs exactes en mg/dL (HbA1c en %)</td></tr>
-      <tr><td>Marqueurs demandés</td><td>Tension systolique, glycémie, HbA1c, LDL, HDL, fréquence cardiaque, CRP, ferritine, vitamine D (tous optionnels)</td><td>Fréquence cardiaque, tension systolique et diastolique, HbA1c ou glycémie à jeun, cholestérol total, HDL, LDL</td></tr>
+      <tr><td>Marqueurs demandés</td><td>Tension systolique et diastolique, glycémie, HbA1c, LDL, HDL, fréquence cardiaque, CRP, ferritine, vitamine D (tous optionnels)</td><td>Fréquence cardiaque, tension systolique et diastolique, HbA1c ou glycémie à jeun, cholestérol total, HDL, LDL</td></tr>
       <tr><td>Mesures physiques</td><td>VO₂max, force de préhension, vitesse de marche, tour de taille (optionnels)</td><td>IMC uniquement</td></tr>
       <tr><td>Sexe</td><td>Demandé</td><td>Absent du formulaire et du code de calcul</td></tr>
       <tr><td>Méthode</td><td>Années ajoutées ou retirées par facteur, avec plafonds (voir <a href="/methodologie/">Méthodologie</a>)</td><td>Somme de termes linéaires sur les valeurs saisies ; un score sur 100 calculé à part, par tranches</td></tr>
@@ -78,7 +78,7 @@ retenir: "Calculover saisit de vraies valeurs de bilan, mais d'après le code de
 
   <p>Montre de Vie donne <strong>deux chiffres</strong> (espérance de vie et âge biologique) et un décompte en direct. Il couvre davantage de facteurs que le bilan sanguin : VO₂max, force de préhension, vitesse de marche, sommeil, stress, liens sociaux. Depuis novembre 2026, le niveau « bilan sanguin » accepte des valeurs exactes avec conversion d'unités (g/L, mg/dL, mmol/L ; HbA1c en % ou mmol/mol), et les résultats sont détaillés par catégorie.</p>
 
-  <p>Il a ses limites, comparables à celles de l'autre outil. Le calcul n'est <strong>pas PhenoAge</strong> non plus : c'est une somme d'années par classe de valeur, et le nombre d'années de chaque classe est une règle de l'outil, pas un résultat d'étude (voir <a href="/methodologie/">Méthodologie</a>). Le mode express repose sur des habitudes déclarées. La tension diastolique n'est pas demandée. Le cholestérol total non plus : il recoupe le LDL et le HDL, et l'outil évite de compter la même chose deux fois. Glycémie et HbA1c, si tu renseignes les deux, ne s'additionnent pas : l'outil retient la plus défavorable.</p>
+  <p>Il a ses limites, comparables à celles de l'autre outil. Le calcul n'est <strong>pas PhenoAge</strong> non plus : c'est une somme d'années par classe de valeur, et le nombre d'années de chaque classe est une règle de l'outil, pas un résultat d'étude (voir <a href="/methodologie/">Méthodologie</a>). Le mode express repose sur des habitudes déclarées. Le cholestérol total n'est pas demandé : il recoupe le LDL et le HDL, et l'outil évite de compter la même chose deux fois. Glycémie et HbA1c, si tu renseignes les deux, ne s'additionnent pas : l'outil retient la plus défavorable.</p>
 
   <div class="callout">
     <strong>Valeurs exactes ou fourchettes : ça ne change pas la nature de l'outil</strong>

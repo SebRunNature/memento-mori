@@ -220,13 +220,19 @@ last_modified_at: 2026-11-11
 
 <h2 class="ap-section-title">Saisie du bilan sanguin et conversions d'unités</h2>
 
-<p class="prose">Dans le mode complet, tension, glycémie, HbA1c, LDL, HDL et fréquence cardiaque au repos peuvent être saisis en <strong>valeur exacte</strong>, avec l'unité de ton bilan (g/L, mg/dL ou mmol/L ; % ou mmol/mol pour l'HbA1c). La valeur est convertie, puis rangée dans l'une des fourchettes de l'outil. Si tu renseignes à la fois une valeur exacte et une fourchette, <strong>la valeur exacte prime</strong>. Une valeur hors plage plausible est ignorée plutôt que comptée. Les conversions utilisées : glucose, 1 mmol/L = 18,016 mg/dL ; cholestérol, 1 mmol/L = 38,67 mg/dL ; HbA1c, mmol/mol = (% − 2,15) × 10,929 (Hoelzel et al., <em>Clinical Chemistry</em>, 2004).</p>
+<p class="prose">Dans le mode complet, tension (systolique et diastolique), glycémie, HbA1c, LDL, HDL et fréquence cardiaque au repos peuvent être saisis en <strong>valeur exacte</strong>, avec l'unité de ton bilan (g/L, mg/dL ou mmol/L ; % ou mmol/mol pour l'HbA1c). La valeur est convertie, puis rangée dans l'une des fourchettes de l'outil. Si tu renseignes à la fois une valeur exacte et une fourchette, <strong>la valeur exacte prime</strong>. Une valeur hors plage plausible est ignorée plutôt que comptée. Les conversions utilisées : glucose, 1 mmol/L = 18,016 mg/dL ; cholestérol, 1 mmol/L = 38,67 mg/dL ; HbA1c, mmol/mol = (% − 2,15) × 10,929 (Hoelzel et al., <em>Clinical Chemistry</em>, 2004).</p>
 
 <table class="factor-table">
   <thead>
     <tr><th>Mesure</th><th>Classes de l'outil</th><th>Ajustement d'âge biologique</th><th>Repère</th></tr>
   </thead>
   <tbody>
+    <tr>
+      <td>Tension artérielle (systolique, diastolique)</td>
+      <td>systolique : moins de 120 · 120–129 · 130–139 · 140–159 · 160 mmHg ou plus ; diastolique : moins de 80 · 80–84 · 85–89 · 90–99 · 100 mmHg ou plus</td>
+      <td>−1 · 0 · +2 · +4 · +4 (plafond) an(s)</td>
+      <td>Catégories ESC/ESH, <em>European Heart Journal</em>, 2018. Si les deux valeurs sont saisies, la catégorie la plus élevée est retenue, sans addition</td>
+    </tr>
     <tr>
       <td>HbA1c</td>
       <td>moins de 5,7 % · 5,7 à 6,4 % · 6,5 % ou plus</td>
@@ -326,8 +332,8 @@ last_modified_at: 2026-11-11
     </tr>
     <tr>
       <td>Novembre 2026</td>
-      <td>Saisie numérique du bilan sanguin avec conversions d'unités (g/L, mg/dL, mmol/L ; % et mmol/mol) ; ajout de l'HbA1c, du HDL et de la fréquence cardiaque au repos ; détail du résultat par catégorie</td>
-      <td>Seuils ADA 2025 et NCEP ATP III 2001, Aune et al. 2017 ; le nombre d'années par classe reste une règle de l'outil</td>
+      <td>Saisie numérique du bilan sanguin avec conversions d'unités (g/L, mg/dL, mmol/L ; % et mmol/mol) ; ajout de la tension diastolique, de l'HbA1c, du HDL et de la fréquence cardiaque au repos ; détail du résultat par catégorie</td>
+      <td>Seuils ESC/ESH 2018, ADA 2025 et NCEP ATP III 2001, Aune et al. 2017 ; le nombre d'années par classe reste une règle de l'outil</td>
     </tr>
   </tbody>
 </table>

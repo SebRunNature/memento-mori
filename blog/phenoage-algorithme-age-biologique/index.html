@@ -1,9 +1,9 @@
 ---
 layout: default
-title: "PhenoAge : calcule ton âge biologique gratuitement (formule Levine 2018)"
-description: "PhenoAge (Morgan Levine, Yale 2018) : le modèle qui calcule ton âge biologique réel à partir de 9 biomarqueurs sanguins. Formule complète + calculateur gratuit, sans inscription."
+title: "PhenoAge : les 9 biomarqueurs et la formule de Levine (2018)"
+description: "PhenoAge (Levine et al., Aging, 2018) : les 9 marqueurs sanguins, leurs coefficients publiés, ce que le modèle mesure, ses limites, et ce que le calculateur du site fait (ou non) avec."
 canonical: "https://montre-de-vie.com/blog/phenoage-algorithme-age-biologique/"
-last_modified_at: 2026-08-30
+last_modified_at: 2026-11-11
 ---
 
 <style>
@@ -73,13 +73,24 @@ last_modified_at: 2026-08-30
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "PhenoAge : calcule ton âge biologique gratuitement (formule Levine 2018)",
-  "description": "PhenoAge (Morgan Levine, Yale 2018) : le modèle qui calcule ton âge biologique réel à partir de 9 biomarqueurs sanguins. Formule complète et calculateur gratuit.",
-  "author": { "@type": "Person", "name": "Sébastien Salomon", "url": "https://montre-de-vie.com/apropos/" },
-  "publisher": { "@type": "Organization", "name": "Montre de Vie", "url": "https://montre-de-vie.com" },
+  "headline": "PhenoAge : les 9 biomarqueurs et la formule de Levine (2018)",
+  "description": "PhenoAge (Levine et al., Aging, 2018) : les 9 marqueurs sanguins, leurs coefficients publiés, ce que le modèle mesure, ses limites, et ce que le calculateur du site fait (ou non) avec.",
+  "author": {
+    "@type": "Person",
+    "name": "Sébastien Salomon",
+    "url": "https://montre-de-vie.com/apropos/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Montre de Vie",
+    "url": "https://montre-de-vie.com"
+  },
   "datePublished": "2026-05-18",
   "dateModified": "2026-08-10",
-  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://montre-de-vie.com/blog/phenoage-algorithme-age-biologique/" }
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://montre-de-vie.com/blog/phenoage-algorithme-age-biologique/"
+  }
 }
 </script>
 
@@ -91,17 +102,34 @@ last_modified_at: 2026-08-30
     {
       "@type": "Question",
       "name": "C'est quoi PhenoAge ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "PhenoAge est un modèle scientifique développé par Morgan Levine (Yale, 2018) qui calcule l'âge biologique à partir de 9 biomarqueurs sanguins. Il prédit mieux la mortalité toutes causes que l'âge chronologique seul, et a été validé sur une cohorte de plus de 11 000 personnes (NHANES III)." }
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PhenoAge est un âge « phénotypique » calculé à partir de 9 marqueurs sanguins et de l'âge, proposé par Levine et al. (Aging, 2018). Il a été construit sur 9 926 adultes de l'étude NHANES III, à partir de 42 marqueurs candidats, et validé sur NHANES IV, où l'article le décrit comme un fort prédicteur de la morbidité et de la mortalité."
+      }
     },
     {
       "@type": "Question",
       "name": "Quels sont les 9 biomarqueurs de PhenoAge ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Les 9 biomarqueurs PhenoAge sont : l'albumine, la créatinine, la glycémie à jeun, la CRP (protéine C-réactive), le pourcentage de lymphocytes, le volume corpusculaire moyen (VCM), la largeur de distribution des érythrocytes (RDW), la phosphatase alcaline, et le nombre de leucocytes. Tous sont disponibles dans un bilan sanguin standard." }
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Albumine, créatinine, glycémie, CRP (en logarithme), pourcentage de lymphocytes, volume globulaire moyen (VGM), largeur de distribution des globules rouges (RDW), phosphatase alcaline et nombre de globules blancs. C'est ton médecin qui décide des analyses utiles."
+      }
     },
     {
       "@type": "Question",
-      "name": "Comment améliorer son score PhenoAge ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Les leviers les plus efficaces pour améliorer son PhenoAge sont : l'endurance aérobie régulière (réduit la CRP et améliore la glycémie), l'alimentation anti-inflammatoire (réduit la CRP, améliore l'albumine), l'optimisation du sommeil, et l'arrêt du tabac. Des améliorations mesurables sont observées en 3 à 6 mois." }
+      "name": "Le calculateur du site applique-t-il PhenoAge ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. D'après le code du calculateur, il n'applique pas la formule PhenoAge : il s'en inspire pour le choix des facteurs et accepte certaines valeurs (CRP, glycémie, par tranches) comme facteurs optionnels. Sa méthode est décrite sur la page Méthodologie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on faire baisser son PhenoAge ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les 9 marqueurs varient avec la santé et le mode de vie, mais je n'ai pas de source qui chiffre un délai ou un gain général. Pour ce que disent les études sur les leviers, voir l'article sur la réduction de l'âge biologique."
+      }
     }
   ]
 }
@@ -115,282 +143,148 @@ last_modified_at: 2026-08-30
   <span>›</span>
   PhenoAge
 </div>
-
 <!-- HERO -->
 <div class="ap-hero">
   <div class="ap-eyebrow">Article 2 · Cluster Âge biologique</div>
-  <h1><em>PhenoAge</em> : l'algorithme qui calcule<br>ton vrai âge biologique</h1>
-  <p>9 biomarqueurs sanguins. Une formule validée sur 11 000 personnes. Le modèle scientifique le plus fiable pour mesurer l'âge réel de ton corps.</p>
+  <h1><em>PhenoAge</em> : les 9 biomarqueurs<br>et la formule de Levine</h1>
+  <p>Un modèle publié en 2018 qui estime un âge « phénotypique » à partir de 9 marqueurs sanguins. Ce qu'il mesure, ses coefficients, ses limites.</p>
 </div>
-
 <!-- ANSWER BOX -->
 <div class="answer-box">
   <span class="ab-label">Réponse rapide</span>
-  <p><strong>PhenoAge</strong> est un modèle développé par Morgan Levine (Yale, 2018) qui calcule l'âge biologique à partir de <strong>9 biomarqueurs sanguins</strong> issus d'un bilan standard. Il prédit mieux la mortalité toutes causes que l'âge chronologique seul, validé sur une cohorte NHANES III de plus de <strong>11 000 personnes</strong>. C'est la base du Score de Vie sur montre-de-vie.com.</p>
+  <p><strong>PhenoAge</strong> est un âge « phénotypique » calculé à partir de <strong>9 marqueurs sanguins</strong> et de l'âge civil (Levine et al., <em>Aging</em>, 2018). Il a été construit sur <strong>9 926 adultes</strong> de l'étude NHANES III, à partir de 42 marqueurs candidats, puis validé sur NHANES IV. <strong>Le calculateur de ce site n'applique pas cette formule</strong> : il s'en inspire pour choisir ses facteurs (voir plus bas).</p>
 </div>
-
 <!-- INTRO -->
-<p class="prose">Pendant longtemps, mesurer l'âge biologique relevait de la science-fiction ou de la médecine de luxe. En 2018, Morgan Levine — alors chercheuse à Yale, aujourd'hui à Altos Labs — a changé la donne en publiant <strong>PhenoAge</strong> dans la revue <em>Aging</em>.</p>
-
-<p class="prose">L'idée est simple et puissante : utiliser des biomarqueurs sanguins disponibles dans n'importe quel bilan médical standard pour calculer un "âge phénotypique" — l'âge réel du corps, indépendamment de la date de naissance. Et ce calcul prédit mieux qui va mourir dans les 10 prochaines années que l'âge chronologique seul.</p>
-
-<p class="prose">Voilà pourquoi PhenoAge est devenu la référence mondiale pour mesurer l'âge biologique. Et voilà pourquoi c'est le modèle qu'on utilise dans le <a href="/score/" class="internal-link">Score de Vie</a>.</p>
-
-<!-- QUI EST LEVINE -->
-<h2 class="ap-section-title">Morgan Levine — la scientifique derrière PhenoAge</h2>
-
-<p class="prose">Morgan Levine a développé PhenoAge dans le cadre de ses recherches sur la biologie du vieillissement à l'Université Yale. Ses travaux s'inscrivent dans un champ plus large : comprendre pourquoi certaines personnes vieillissent plus vite que d'autres, et identifier des biomarqueurs modifiables pour intervenir.</p>
-
-<p class="prose">PhenoAge est issu d'une double modélisation : d'abord, un modèle de mortalité phénotypique sur des données cliniques (cohorte NHANES III), puis une conversion de cet index de mortalité en un âge biologique interprétable. Le modèle a été validé sur plusieurs cohortes indépendantes aux États-Unis et en Europe.</p>
-
-<div class="ap-quote">
-  L'âge biologique capture quelque chose que l'âge chronologique ne peut pas voir : la vitesse à laquelle le corps accumule les dommages et perd sa résilience.
-  <br><br>— Paraphrase de Morgan Levine, Aging 2018
-</div>
-
+<p>Cette page a été corrigée en novembre 2026. La première version affichait une formule dont plusieurs coefficients étaient faux (RDW, phosphatase alcaline, leucocytes et âge étaient décalés ou erronés), un lien vers un autre article, l'affiliation de l'autrice à Yale au lieu de l'UCLA, un effectif de « 11 000 personnes » au lieu de 9 926, et elle laissait croire que le Score de Vie applique PhenoAge sans modification. Les coefficients ci-dessous viennent du tableau 1 de l'article original.</p>
+<p>PhenoAge est un outil de recherche. Un résultat ne constitue pas un diagnostic, et c'est ton médecin qui décide des analyses utiles dans ton cas.</p>
+<!-- L'ARTICLE -->
+<h2>L'article de Levine et al. (2018)</h2>
+<p>Morgan Levine et ses collègues (alors à l'UCLA) ont publié PhenoAge dans <em>Aging</em> en 2018. La démarche : à partir de 42 marqueurs cliniques et de l'âge dans l'étude NHANES III (9 926 adultes avec données complètes, plus de vingt ans de suivi de la mortalité), un modèle de régression pénalisée a retenu 9 marqueurs plus l'âge civil. Ils ont servi à estimer la mortalité à 10 ans (modèle de Gompertz), convertie ensuite en une valeur exprimée en années. Le modèle a été validé dans NHANES IV, où l'article le décrit comme un fort prédicteur de la morbidité et de la mortalité. Les auteurs ont aussi construit à partir de cet âge une version épigénétique (« DNAm PhenoAge »), qui est un autre objet.</p>
 <!-- LES 9 BIOMARQUEURS -->
-<h2 class="ap-section-title">Les 9 biomarqueurs de PhenoAge</h2>
-
-<p class="prose">Tous ces biomarqueurs sont disponibles dans un bilan sanguin standard demandé à ton médecin généraliste. Aucun test exotique ou coûteux requis.</p>
-
+<h2>Les 9 biomarqueurs</h2>
+<p>Ce sont des analyses courantes, mais c'est ton médecin qui décide lesquelles prescrire. Les rôles ci-dessous sont des descriptions générales, pas des seuils d'interprétation.</p>
 <div class="biomarker-card">
   <div class="bm-num">1</div>
   <div class="bm-content">
-    <span class="bm-name">Albumine (g/dL)</span>
-    <p class="bm-desc">Protéine principale du sang, marqueur de l'état nutritionnel et de la fonction hépatique. <strong>Un taux bas indique inflammation chronique et malnutrition</strong> — deux accélérateurs du vieillissement. Valeur optimale : > 4,0 g/dL.</p>
+    <span class="bm-name">Albumine (g/L)</span>
+    <p>Protéine principale du plasma, produite par le foie.</p>
   </div>
 </div>
-
 <div class="biomarker-card">
   <div class="bm-num">2</div>
   <div class="bm-content">
-    <span class="bm-name">Créatinine (mg/dL)</span>
-    <p class="bm-desc">Déchet métabolique filtré par les reins. <strong>Marqueur de la fonction rénale</strong> — les reins vieillissent avec le reste du corps. Un taux élevé signale une fonction rénale dégradée. Valeur optimale : 0,6 à 1,1 mg/dL selon le sexe.</p>
+    <span class="bm-name">Créatinine (µmol/L)</span>
+    <p>Déchet du métabolisme musculaire filtré par les reins ; sert à évaluer la fonction rénale.</p>
   </div>
 </div>
-
 <div class="biomarker-card">
   <div class="bm-num">3</div>
   <div class="bm-content">
-    <span class="bm-name">Glycémie à jeun (mg/dL)</span>
-    <p class="bm-desc">Taux de glucose dans le sang après 8h de jeûne. <strong>Marqueur clé du métabolisme glucidique</strong>. Une glycémie élevée chronique accélère la glycation des protéines et le vieillissement cellulaire. Valeur optimale : 70 à 90 mg/dL.</p>
+    <span class="bm-name">Glycémie (mmol/L)</span>
+    <p>Taux de glucose dans le sang.</p>
   </div>
 </div>
-
 <div class="biomarker-card">
   <div class="bm-num">4</div>
   <div class="bm-content">
-    <span class="bm-name">CRP — Protéine C-réactive (mg/L)</span>
-    <p class="bm-desc">Marqueur d'inflammation systémique. <strong>L'un des biomarqueurs les plus sensibles aux changements de mode de vie</strong> — l'exercice régulier et l'alimentation anti-inflammatoire le réduisent en 8 à 12 semaines. Valeur optimale : < 1,0 mg/L (idéalement < 0,5).</p>
+    <span class="bm-name">CRP, en logarithme (mg/dL)</span>
+    <p>Marqueur d'inflammation. Attention à l'unité : le modèle utilise des mg/dL (1 mg/dL = 10 mg/L).</p>
   </div>
 </div>
-
 <div class="biomarker-card">
   <div class="bm-num">5</div>
   <div class="bm-content">
     <span class="bm-name">Lymphocytes (%)</span>
-    <p class="bm-desc">Pourcentage de lymphocytes parmi les globules blancs. <strong>Marqueur de la fonction immunitaire</strong>. Un pourcentage bas indique un système immunitaire affaibli — souvent lié au stress chronique, à la malnutrition ou aux infections récurrentes.</p>
+    <p>Part des lymphocytes parmi les globules blancs.</p>
   </div>
 </div>
-
 <div class="biomarker-card">
   <div class="bm-num">6</div>
   <div class="bm-content">
-    <span class="bm-name">VCM — Volume Corpusculaire Moyen (fL)</span>
-    <p class="bm-desc">Taille moyenne des globules rouges. <strong>Marqueur de la qualité des globules rouges</strong> et de l'état nutritionnel (carence en B12, folates). Des globules rouges anormalement grands ou petits signalent un vieillissement accéléré de la production sanguine.</p>
+    <span class="bm-name">Volume globulaire moyen, VGM (fL)</span>
+    <p>Taille moyenne des globules rouges.</p>
   </div>
 </div>
-
 <div class="biomarker-card">
   <div class="bm-num">7</div>
   <div class="bm-content">
-    <span class="bm-name">RDW — Largeur de distribution des érythrocytes (%)</span>
-    <p class="bm-desc">Variabilité de la taille des globules rouges. <strong>Un RDW élevé est associé à un risque accru de mortalité toutes causes</strong> — c'est l'un des marqueurs les moins connus mais les plus prédictifs du modèle PhenoAge.</p>
+    <span class="bm-name">RDW (%)</span>
+    <p>Variabilité de la taille des globules rouges.</p>
   </div>
 </div>
-
 <div class="biomarker-card">
   <div class="bm-num">8</div>
   <div class="bm-content">
     <span class="bm-name">Phosphatase alcaline (U/L)</span>
-    <p class="bm-desc">Enzyme présente dans le foie, les os et les intestins. <strong>Marqueur de la santé hépatique et osseuse</strong>. Un taux élevé peut indiquer une inflammation hépatique ou une maladie osseuse — deux pathologies dont l'incidence augmente avec le vieillissement accéléré.</p>
+    <p>Enzyme présente dans le foie, les os et l'intestin.</p>
   </div>
 </div>
-
 <div class="biomarker-card">
   <div class="bm-num">9</div>
   <div class="bm-content">
-    <span class="bm-name">Leucocytes — Globules blancs (10³/µL)</span>
-    <p class="bm-desc">Nombre total de cellules immunitaires. <strong>Un taux chroniquement élevé indique une inflammation ou une infection persistante</strong> — accélérateur du vieillissement biologique. Un taux trop bas signale un système immunitaire déficient.</p>
+    <span class="bm-name">Globules blancs (milliers de cellules/µL)</span>
+    <p>Nombre total de globules blancs.</p>
   </div>
 </div>
-
-<!-- LA FORMULE -->
-<h2 class="ap-section-title">La formule PhenoAge (simplifiée)</h2>
-
-<p class="prose">Le modèle fonctionne en deux étapes : d'abord un calcul d'index de mortalité phénotypique (xb), puis une conversion en âge biologique interprétable.</p>
-
-<div class="formula-box">
-  <span class="formula-label">Étape 1 — Index de mortalité phénotypique</span>
-  <div class="formula-main">
-    xb = −19.907 − 0.0336 × Albumine<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; + 0.0095 × Créatinine<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; + 0.1953 × Glycémie<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; + 0.0954 × log(CRP)<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; − 0.0120 × Lymphocytes%<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; + 0.0268 × VCM<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; + 1.0596 × RDW<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; + 0.3306 × Phosphatase alcaline<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; + 0.00188 × Leucocytes<br>
-    &nbsp;&nbsp;&nbsp;&nbsp; + 0.0554 × Âge chronologique
-  </div>
-  <span class="formula-note">Coefficients publiés dans Levine, M.E. et al., <em>An epigenetic biomarker of aging for lifespan and healthspan</em>, Aging (Albany NY), 2018. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6366976/" class="internal-link" target="_blank" rel="noopener">DOI: 10.18632/aging.101414</a></span>
-</div>
-
-<div class="formula-box">
-  <span class="formula-label">Étape 2 — Conversion en âge biologique</span>
-  <div class="formula-main">
-    PhenoAge = 141.50 + log(−0.00553 × log(1 − M)) / 0.0553
-  </div>
-  <span class="formula-note">M = mortalité à 10 ans estimée = 1 − e^(−e^xb × (e^(0.0553×10) − 1) / 0.0553)<br>Le Score de Vie utilise ces coefficients publiés sans modification.</span>
-</div>
-
-<!-- CE QUE PRÉDIT PHENOAGE -->
-<h2 class="ap-section-title">Ce que PhenoAge prédit mieux que l'âge chronologique</h2>
-
+<!-- COEFFICIENTS -->
+<h2>Les coefficients publiés</h2>
+<p>Le tableau 1 de l'article donne les coefficients du modèle de Gompertz pour chaque variable. Ils s'appliquent aux valeurs exprimées dans les unités indiquées.</p>
 <table class="data-table">
   <thead>
-    <tr>
-      <th>Outcome prédit</th>
-      <th>Âge chronologique</th>
-      <th>PhenoAge</th>
-    </tr>
+    <tr><th>Variable</th><th>Unité</th><th>Coefficient</th></tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Mortalité toutes causes</td>
-      <td>Prédicteur modéré</td>
-      <td><span class="badge badge-high">Meilleur prédicteur</span></td>
-    </tr>
-    <tr>
-      <td>Mortalité cardiovasculaire</td>
-      <td>Prédicteur modéré</td>
-      <td><span class="badge badge-high">Meilleur prédicteur</span></td>
-    </tr>
-    <tr>
-      <td>Mortalité par cancer</td>
-      <td>Prédicteur faible</td>
-      <td><span class="badge badge-med">Meilleur prédicteur</span></td>
-    </tr>
-    <tr>
-      <td>Incapacité physique</td>
-      <td>Prédicteur modéré</td>
-      <td><span class="badge badge-high">Meilleur prédicteur</span></td>
-    </tr>
-    <tr>
-      <td>Multimorbidité</td>
-      <td>Prédicteur faible</td>
-      <td><span class="badge badge-med">Meilleur prédicteur</span></td>
-    </tr>
+    <tr><td>Albumine</td><td>g/L</td><td>−0,0336</td></tr>
+    <tr><td>Créatinine</td><td>µmol/L</td><td>0,0095</td></tr>
+    <tr><td>Glycémie</td><td>mmol/L</td><td>0,1953</td></tr>
+    <tr><td>CRP (logarithme)</td><td>mg/dL</td><td>0,0954</td></tr>
+    <tr><td>Lymphocytes</td><td>%</td><td>−0,0120</td></tr>
+    <tr><td>VGM</td><td>fL</td><td>0,0268</td></tr>
+    <tr><td>RDW</td><td>%</td><td>0,3306</td></tr>
+    <tr><td>Phosphatase alcaline</td><td>U/L</td><td>0,0019</td></tr>
+    <tr><td>Globules blancs</td><td>10³ cellules/µL</td><td>0,0554</td></tr>
+    <tr><td>Âge</td><td>années</td><td>0,0804</td></tr>
   </tbody>
 </table>
-
-<!-- COMMENT AMÉLIORER -->
-<h2 class="ap-section-title">Comment améliorer son score PhenoAge concrètement</h2>
-
-<p class="prose">La puissance de PhenoAge, c'est que ses 9 biomarqueurs sont tous <strong>modifiables par le mode de vie</strong>. Voici les leviers les plus efficaces par biomarqueur :</p>
-
-<table class="data-table">
-  <thead>
-    <tr><th>Biomarqueur</th><th>Levier principal</th><th>Délai d'effet</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Glycémie ↓</td>
-      <td>Réduire sucres rapides, augmenter fibres, exercice post-repas</td>
-      <td>4 à 8 semaines</td>
-    </tr>
-    <tr>
-      <td>CRP ↓</td>
-      <td>Endurance aérobie, alimentation anti-inflammatoire, sommeil</td>
-      <td>8 à 12 semaines</td>
-    </tr>
-    <tr>
-      <td>Albumine ↑</td>
-      <td>Apport protéique suffisant, réduction alcool, arrêt tabac</td>
-      <td>4 à 12 semaines</td>
-    </tr>
-    <tr>
-      <td>Leucocytes ↓</td>
-      <td>Gestion du stress chronique, sommeil, réduction infections</td>
-      <td>4 à 8 semaines</td>
-    </tr>
-    <tr>
-      <td>Lymphocytes ↑</td>
-      <td>Nutrition équilibrée, réduction stress, exercice modéré</td>
-      <td>8 à 16 semaines</td>
-    </tr>
-    <tr>
-      <td>RDW ↓</td>
-      <td>Apport en fer, B12, folates — bilan nutritionnel</td>
-      <td>8 à 16 semaines</td>
-    </tr>
-  </tbody>
-</table>
-
-<p class="prose">Le guide complet des leviers pratiques est dans l'article : <a href="/blog/reduire-age-biologique/" class="internal-link">Réduire son âge biologique : ce que montrent les études</a>.</p>
-
+<p>La constante du modèle et la conversion de la mortalité à 10 ans en « âge » en années sont décrites dans le supplément de l'article. Je ne les reproduis pas ici : la version précédente de cette page en donnait une forme simplifiée que je n'ai pas pu confirmer.</p>
 <!-- LIMITES -->
-<h2 class="ap-section-title">Les limites de PhenoAge</h2>
-
-<p class="prose">PhenoAge est robuste mais pas parfait. Quelques limites à connaître :</p>
-
-<p class="prose"><strong>Développé sur une cohorte américaine des années 1988-1994</strong> — les normes biologiques et les standards de traitement ont évolué depuis. Le modèle reste valide mais des ajustements pourraient être nécessaires pour les populations très différentes.</p>
-
-<p class="prose"><strong>Ne capture pas les mesures physiques</strong> — le VO₂max, la force de préhension et la vitesse de marche sont des prédicteurs puissants de longévité non inclus dans PhenoAge. C'est pourquoi le Score de Vie les intègre en complément. Pour comprendre l'importance du VO₂max : <a href="/blog/vo2max-longevite/" class="internal-link">VO₂max et longévité : le biomarqueur qui prédit ta durée de vie</a>.</p>
-
-<p class="prose"><strong>Sensible aux variations ponctuelles</strong> — une infection récente, un stress aigu, ou un effort intense la veille du bilan peuvent temporairement modifier certains biomarqueurs (CRP, leucocytes notamment). Faire le bilan dans des conditions basales stables.</p>
-
-<p class="prose">Pour la liste complète des limites de nos outils : <a href="/limites/" class="internal-link">page Limites de l'outil</a>.</p>
-
+<h2>Les limites de PhenoAge</h2>
+<p><strong>Un modèle de population, pas un diagnostic.</strong> Il a été construit sur une cohorte américaine (NHANES III, enquête menée dans les années 1988-1994 avec un suivi de plus de vingt ans). Rien ne garantit qu'il s'applique de la même façon à tous les profils.</p>
+<p><strong>Il n'inclut ni VO₂max, ni force de préhension, ni vitesse de marche.</strong> Ces mesures sont associées à la mortalité dans d'autres études (voir <a href="/blog/vo2max-longevite/" class="internal-link">VO₂max et espérance de vie</a>), mais elles ne font pas partie du modèle.</p>
+<p><strong>Sensible aux variations ponctuelles.</strong> Une infection récente, par exemple, peut modifier la CRP ou les globules blancs. L'interprétation d'un résultat revient à ton médecin.</p>
+<p>Pour les limites de l'outil de ce site : <a href="/limites/" class="internal-link">page Limites</a>.</p>
+<!-- CE QUE FAIT LE SITE -->
+<h2>Ce que fait le calculateur de ce site</h2>
+<p>D'après le code du calculateur, la Montre de Vie n'applique pas la formule PhenoAge. Elle additionne des années attribuées par des règles propres à l'outil à chaque facteur que tu renseignes (habitudes, mesures optionnelles, CRP et glycémie par tranches), puis borne le total. PhenoAge est une inspiration pour le choix des facteurs. La méthode est sur la page <a href="/methodologie/" class="internal-link">Méthodologie</a>. Pour les leviers d'action et leurs preuves : <a href="/blog/reduire-age-biologique/" class="internal-link">Réduire son âge biologique : ce que montrent les études</a>.</p>
 <!-- FAQ -->
-<h2 class="ap-section-title">Questions fréquentes</h2>
-
+<h2>Questions fréquentes</h2>
 <div class="faq-item">
   <h3 class="faq-q">C'est quoi PhenoAge ?</h3>
-  <div class="faq-a">PhenoAge est un modèle scientifique développé par Morgan Levine (Yale, 2018) qui calcule l'âge biologique à partir de <strong>9 biomarqueurs sanguins</strong>. Il prédit mieux la mortalité toutes causes que l'âge chronologique seul, validé sur plus de 11 000 personnes.</div>
+  <div class="faq-a">PhenoAge est un âge « phénotypique » calculé à partir de 9 marqueurs sanguins et de l'âge, proposé par Levine et al. (Aging, 2018). Il a été construit sur 9 926 adultes de l'étude NHANES III, à partir de 42 marqueurs candidats, et validé sur NHANES IV, où l'article le décrit comme un fort prédicteur de la morbidité et de la mortalité.</div>
 </div>
-
 <div class="faq-item">
   <h3 class="faq-q">Quels sont les 9 biomarqueurs de PhenoAge ?</h3>
-  <div class="faq-a">Albumine, créatinine, glycémie à jeun, CRP (protéine C-réactive), pourcentage de lymphocytes, VCM (volume corpusculaire moyen), RDW (largeur de distribution des érythrocytes), phosphatase alcaline, leucocytes. <strong>Tous disponibles dans un bilan sanguin standard</strong> chez ton médecin généraliste.</div>
+  <div class="faq-a">Albumine, créatinine, glycémie, CRP (en logarithme), pourcentage de lymphocytes, volume globulaire moyen (VGM), largeur de distribution des globules rouges (RDW), phosphatase alcaline et nombre de globules blancs. C'est ton médecin qui décide des analyses utiles.</div>
 </div>
-
 <div class="faq-item">
-  <h3 class="faq-q">Comment améliorer son score PhenoAge ?</h3>
-  <div class="faq-a">Les leviers les plus efficaces : <strong>endurance aérobie régulière</strong> (réduit CRP et glycémie), <strong>alimentation anti-inflammatoire</strong> (réduit CRP, améliore albumine), <strong>optimisation du sommeil</strong>, et <strong>arrêt du tabac</strong>. Des améliorations mesurables sont observées en <strong>3 à 6 mois</strong>. Guide complet : <a href="/blog/reduire-age-biologique/">Réduire son âge biologique : ce que montrent les études</a>.</div>
+  <h3 class="faq-q">Le calculateur du site applique-t-il PhenoAge ?</h3>
+  <div class="faq-a">Non. D'après le code du calculateur, il n'applique pas la formule PhenoAge : il s'en inspire pour le choix des facteurs et accepte certaines valeurs (CRP, glycémie, par tranches) comme facteurs optionnels. Sa méthode est décrite sur la page Méthodologie.</div>
 </div>
-
 <div class="faq-item">
-  <h3 class="faq-q">PhenoAge est-il disponible gratuitement ?</h3>
-  <div class="faq-a">Oui — le <a href="/score/">Score de Vie</a> intègre le modèle PhenoAge gratuitement. Tu entres tes biomarqueurs sanguins et tes mesures physiques, et l'outil calcule ton âge biologique localement dans ton navigateur. Aucune donnée n'est collectée.</div>
+  <h3 class="faq-q">Peut-on faire baisser son PhenoAge ?</h3>
+  <div class="faq-a">Les 9 marqueurs varient avec la santé et le mode de vie, mais je n'ai pas de source qui chiffre un délai ou un gain général. Pour ce que disent les études sur les leviers, voir l'article sur la réduction de l'âge biologique.</div>
 </div>
-
 <!-- SOURCES -->
-<h2 class="ap-section-title">📚 Sources</h2>
-
-<p class="prose" style="font-size:.84rem;color:var(--muted)">
-  Levine M.E. et al. — <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6366976/" class="internal-link" target="_blank" rel="noopener">An epigenetic biomarker of aging for lifespan and healthspan</a>. <em>Aging (Albany NY)</em>, 2018.<br>
-  Mandsager K. et al. — <a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2707428" class="internal-link" target="_blank" rel="noopener">Association of Cardiorespiratory Fitness With Long-term Mortality</a>. <em>JAMA Network Open</em>, 2018.<br>
-  National Health and Nutrition Examination Survey (NHANES III) — <a href="https://www.cdc.gov/nchs/nhanes/index.htm" class="internal-link" target="_blank" rel="noopener">CDC / National Center for Health Statistics</a>.<br>
-  <a href="/methodologie/" class="internal-link">Montre de Vie — Méthodologie scientifique du Score de Vie</a>
+<h2>📚 Sources</h2>
+<p>
+  Levine M.E. et al. — <a href="https://doi.org/10.18632/aging.101414" class="internal-link" target="_blank" rel="noopener">An epigenetic biomarker of aging for lifespan and healthspan</a>. <em>Aging (Albany NY)</em>, 2018 (tableau 1 ; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5940111/" class="internal-link" target="_blank" rel="noopener">texte intégral sur PMC</a>).<br>
+  <a href="/methodologie/" class="internal-link">Montre de Vie — Méthodologie</a> · <a href="/sources/" class="internal-link">Sources</a>
 </p>
-
 <!-- LIENS SŒURS -->
 <div class="sister-links">
   <span class="sister-title">Dans le même cluster — Âge biologique & Score de Vie</span>
   <div class="sister-grid">
-    <a href="/blog/age-biologique/" class="sister-link">Guide complet : Âge biologique — définition, calcul et comment le réduire</a>
+    <a href="/blog/age-biologique/" class="sister-link">Guide complet : Âge biologique — définition, calcul et ce que disent les études</a>
     <a href="/blog/age-biologique-vs-age-chronologique/" class="sister-link">Âge biologique vs âge chronologique : quelle différence ?</a>
     <a href="/blog/vo2max-longevite/" class="sister-link">VO₂max et longévité : le biomarqueur qui prédit ta durée de vie</a>
     <a href="/blog/reduire-age-biologique/" class="sister-link">Réduire son âge biologique : ce que montrent les études</a>
@@ -398,20 +292,19 @@ last_modified_at: 2026-08-30
     <a href="/blog/2026/06/01/comment-connaitre-son-age-biologique/" class="sister-link">Comment connaître son âge biologique — les méthodes disponibles</a>
     <a href="/blog/2026/06/03/calculateur-age-biologique-comment-ca-marche/" class="sister-link">Calculateur âge biologique — comment ça marche ?</a>
     <a href="/score-de-vie/" class="sister-link">Score de Vie : qu'est-ce que c'est et comment le calculer ?</a>
-    <a href="/blog/2026/06/30/age-biologique-femme-vs-homme-les-differences-documentees/" class="sister-link">Âge biologique femme vs homme — les différences documentées</a>
+    <a href="/blog/2026/06/30/age-biologique-femme-vs-homme-les-differences-documentees/" class="sister-link">Âge biologique : femmes et hommes, ce que disent les chiffres</a>
   </div>
 </div>
-
 <!-- CTA -->
 <div style="text-align:center;margin-top:32px;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px">
-  <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
-    Tu as tes biomarqueurs sanguins ? Calcule ton PhenoAge maintenant.
+  <p>
+    Le calculateur du site estime un âge biologique à partir de tes habitudes : une estimation indicative, pas le calcul PhenoAge.
   </p>
   <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-    <a href="/score/" aria-label="Calculer mon âge biologique avec PhenoAge" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700">
-      Calculer mon âge biologique
+    <a href="/montre/" aria-label="Estimer mon âge biologique" style="display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#000;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700">
+      Estimer mon âge biologique
     </a>
-    <a href="/sources/" aria-label="Voir les sources scientifiques de PhenoAge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
+    <a href="/sources/" aria-label="Voir les sources scientifiques" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,152,98,.1);color:var(--green-lt);text-decoration:none;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid rgba(0,152,98,.25)">
       Voir les sources scientifiques
     </a>
   </div>

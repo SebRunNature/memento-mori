@@ -661,7 +661,7 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
 </div>
 <div class="reco-section" id="recoSection" style="display:none">
 <div class="reco-title">Tes 3 leviers prioritaires</div>
-<div class="reco-sub">Classés par impact sur ton âge biologique — une action concrète chacun.</div>
+<div class="reco-sub">Classés par impact dans les règles de l'outil — une action concrète chacun. Ce sont des pistes, pas des prescriptions : les gains affichés sont ceux de la règle d'estimation, pas des résultats d'études.</div>
 <div class="reco-cards" id="recoCards"></div>
 </div>
 
@@ -1214,31 +1214,43 @@ function startCountdown(endDate) {
   _countdownInterval = setInterval(tick, 1000);
 }
 
+// Les « min » sont les valeurs les plus basses (en années d'âge biologique) que les règles de l'outil
+// peuvent attribuer à chaque facteur : le gain affiché est l'écart entre la valeur actuelle et ce minimum.
+// Ce sont des règles d'estimation de l'outil, pas des résultats d'études. Voir /methodologie/.
 const RECO_DB = {
-  'Tabac':             { action:'Arrêter ou réduire le tabac', detail:'Même une réduction de 50% divise par deux l\'impact sur l\'âge bio. Après 5 ans sans tabac, l\'écart se réduit quasi complètement.', gain:'Jusqu\'à −9 ans' },
-  'Anxiété chronique': { action:'10 min de cohérence cardiaque par jour', detail:'4-7 respirations par minute, matin et soir. Documenté pour réduire le cortisol en 6 semaines. App gratuite : RespiRelax.', gain:'−2 à −4 ans' },
-  'Friction quotidienne':{ action:'Identifier et éliminer 1 source de friction récurrente', detail:'Pas toutes. Une seule. L\'énergie libérée a un effet cascade sur tous les autres facteurs.', gain:'−2 à −5 ans' },
-  'Sommeil (durée)':   { action:'Décaler le coucher de 30 min cette semaine', detail:'30 min de plus par nuit = impact mesurable sur les biomarqueurs en 2 semaines. Évite les écrans 1h avant.', gain:'−2 à −5 ans' },
-  'Sommeil (qualité)': { action:'Chambre à 18–19°C pour un sommeil profond', detail:'La thermorégulation est le signal le plus puissant pour déclencher le sommeil profond. Documenté par Matthew Walker.', gain:'−1 à −2 ans' },
-  'VO₂max':            { action:'Ajouter 2 séances de fractionné/semaine', detail:'30s effort / 30s récup × 8 répétitions. Amélioration mesurable du VO₂max en 4 à 6 semaines.', gain:'−2 à −7 ans' },
-  'VO₂max (estimé)':   { action:'Démarrer 3×/semaine 20 min à allure confortable', detail:'Le VO₂max est le biomarqueur avec le plus fort impact sur la longévité toutes causes confondues.', gain:'−3 à −5 ans' },
-  'Grip strength':     { action:'3 séries de farmer\'s carries 2×/semaine', detail:'Porte des charges lourdes sur 20-30m. La force de préhension répond en 4-8 semaines.', gain:'−2 à −3.5 ans' },
-  'Alimentation':      { action:'Remplacer un repas transformé par légumes + protéines', detail:'Pas de régime. Un seul repas. L\'effet sur l\'inflammation (CRP) est visible en 3 semaines.', gain:'−1.5 à −3.5 ans' },
-  'Alcool':            { action:'Passer sous les 7 verres/semaine', detail:'En dessous de 7 verres, l\'impact cardiovasculaire devient marginal. Remplacer par des alternatives sans alcool le soir.', gain:'−1 à −2.5 ans' },
-  'Stress chronique':  { action:'30 min de marche en nature 3×/semaine', detail:'Le régulateur le plus puissant du système nerveux autonome, documenté. Pas besoin de courir.', gain:'−1 à −3 ans' },
-  'Humeur / stabilité':{ action:'10-20 min de lumière naturelle dès le réveil', detail:'Régule la sérotonine et le cortisol. Gratuit, immédiat, documenté.', gain:'−1 à −2.5 ans' },
-  'Sens / Ikigai':     { action:'Identifier une activité qui combine plaisir + utilité', detail:'Pas une révolution. Un projet 2h/semaine aligné avec tes valeurs suffit à déplacer le sentiment de sens.', gain:'−0.5 à −3 ans' },
-  'Liens sociaux':     { action:'Rejoindre un groupe de pratique partagée', detail:'Running, yoga, rando — peu importe. L\'isolement social a le même effet sur la mortalité que 15 cigarettes/jour.', gain:'−1 à −2 ans' },
-  'Cholestérol LDL':   { action:'Régime méditerranéen : huile d\'olive, poisson, légumineuses', detail:'3 mois réduisent le LDL de 15-20% sans médicament.', gain:'−1 à −3 ans' },
-  'Tension artérielle':{ action:'Réduire le sel et ajouter 20 min de marche/jour', detail:'Combinaison la plus efficace non médicamenteuse. Résultats visibles en 4 semaines.', gain:'−2 à −4 ans' },
-  'Glycémie':          { action:'Marche de 10 min après chaque repas', detail:'Réduit le pic glycémique de 30-40%. Simple, accessible, immédiat.', gain:'−1 à −3 ans' },
-  'Microbiome':        { action:'Ajouter des légumes fermentés à chaque repas', detail:'Choucroute, kimchi, kéfir : diversifient le microbiome en 2-3 semaines.', gain:'−0.5 à −1.5 ans' },
-  'IMC':               { action:'Déficit calorique modéré — 300 kcal/jour', detail:'Soit 1 repas légèrement réduit. -4 kg en 3 mois sans frustration. Associer à du sport.', gain:'−1 à −2 ans' },
-  'Tour de taille':    { action:'Remplacer les glucides rapides par des fibres', detail:'Le tour de taille répond fortement à la réduction des glucides raffinés. Résultats en 6-8 semaines.', gain:'−0.5 à −2 ans' },
-  'CRP (inflammation)':{ action:'Ajouter 2g d\'oméga-3 par jour + réduire le sucre', detail:'Poisson gras, huile de lin ou complément. La CRP répond en 4-6 semaines.', gain:'−0.5 à −2 ans' },
-  'Santé dentaire':    { action:'Détartrage + brossage 2× par jour à la brosse électrique', detail:'La parodontite génère une inflammation systémique. Un détartrage annuel divise le risque par 3.', gain:'−0.5 à −1.5 ans' },
-  'Sécurité financière':{ action:'Virement automatique épargne — même 50€/mois', detail:'Ce n\'est pas le montant qui compte : c\'est la sensation de contrôle sur l\'avenir.', gain:'−1 à −2 ans' },
+  'Tabac':             { min:0,    action:'Arrêter ou réduire le tabac', detail:'Parle à ton médecin ou à ton pharmacien des aides à l\'arrêt. Le tabac est le facteur qui pèse le plus dans les règles de l\'outil.' },
+  'Anxiété chronique': { min:-0.5, action:'10 min de respiration lente par jour', detail:'Par exemple 5 secondes d\'inspiration, 5 secondes d\'expiration, matin et soir. Un repère de pratique, dont cet outil ne chiffre pas l\'effet.' },
+  'Friction quotidienne':{ min:-0.5, action:'Identifier et éliminer 1 source de friction récurrente', detail:'Pas toutes. Une seule, la plus fréquente.' },
+  'Sommeil (durée)':   { min:-2,   action:'Décaler le coucher de 30 min cette semaine', detail:'Vise 7 à 8 heures par nuit, des horaires réguliers et moins d\'écrans avant de dormir. Voir l\'article sur le sommeil pour ce que les études montrent.' },
+  'Sommeil (qualité)': { min:-1.5, action:'Soigner les conditions de sommeil', detail:'Chambre fraîche, sombre et calme, horaires réguliers. Un repère de pratique, dont cet outil ne chiffre pas l\'effet.' },
+  'VO₂max':            { min:-5,   action:'Ajouter 2 séances de fractionné/semaine', detail:'Par exemple 30 s d\'effort / 30 s de récupération × 8 répétitions, après échauffement. Demande conseil à un médecin ou à un coach si tu as des facteurs de risque cardiovasculaire.' },
+  'VO₂max (estimé)':   { min:-4,   action:'Démarrer 3×/semaine 20 min à allure confortable', detail:'Marche rapide, footing lent ou vélo. Le VO₂max est associé à la survie dans les études d\'observation (Mandsager 2018).' },
+  'Grip strength':     { min:-2,   action:'3 séries de farmer\'s carries 2×/semaine', detail:'Porte des charges lourdes sur 20 à 30 m, en augmentant progressivement. La force de préhension est associée à la survie dans les études d\'observation (Leong 2015).' },
+  'Alimentation':      { min:-2,   action:'Remplacer un repas transformé par légumes + protéines', detail:'Pas de régime. Un seul repas pour commencer.' },
+  'Alcool':            { min:0,    action:'Réduire la consommation d\'alcool', detail:'Compte tes verres pendant une semaine, puis fixe quelques jours sans alcool.' },
+  'Stress chronique':  { min:-0.5, action:'30 min de marche en nature 3×/semaine', detail:'Une habitude agréable et accessible. Les études associent les espaces verts à une mortalité plus basse, sans prouver un effet sur le stress (Twohig-Bennett 2018).' },
+  'Humeur / stabilité':{ min:-0.5, action:'10-20 min de lumière naturelle dès le réveil', detail:'Une habitude simple et gratuite, dont cet outil ne chiffre pas l\'effet.' },
+  'Sens / Ikigai':     { min:-1,   action:'Identifier une activité qui combine plaisir + utilité', detail:'Un projet de 2 h par semaine aligné avec tes valeurs, pour commencer.' },
+  'Liens sociaux':     { min:-1,   action:'Rejoindre un groupe de pratique partagée', detail:'Running, yoga, rando, peu importe. L\'isolement social est associé à une mortalité plus élevée (Holt-Lunstad 2010).' },
+  'Cholestérol LDL':   { min:-2,   action:'Parler de ton LDL avec ton médecin', detail:'L\'alimentation (par exemple de type méditerranéen) en fait partie ; c\'est ton médecin qui décide d\'un éventuel traitement.' },
+  'Tension artérielle':{ min:-1,   action:'Parler de ta tension avec ton médecin', detail:'Moins de sel et plus d\'activité physique font partie des pistes courantes ; c\'est ton médecin qui décide du suivi.' },
+  'Glycémie':          { min:-1,   action:'Marche de 10 min après chaque repas', detail:'Une habitude accessible. Parle de ta glycémie avec ton médecin, qui décide des analyses utiles.' },
+  'Microbiome':        { min:0,    action:'Ajouter des légumes fermentés ou des fibres à tes repas', detail:'Choucroute, kimchi, kéfir, légumineuses. Un petit essai de 10 semaines associe des aliments fermentés à plus de diversité du microbiome (Wastyk 2021).' },
+  'IMC':               { min:-1,   action:'Viser une perte de poids progressive', detail:'Un déficit modéré, associé à de l\'activité physique. Un médecin ou un diététicien peut t\'aider à fixer un objectif adapté.' },
+  'Tour de taille':    { min:-0.5, action:'Remplacer les glucides rapides par des fibres', detail:'Pain, pâtes et céréales complets, légumes, légumineuses.' },
+  'CRP (inflammation)':{ min:-1,   action:'Parler de ta CRP avec ton médecin', detail:'Une CRP élevée est peu spécifique (infection, blessure) : c\'est ton médecin qui en cherche la cause et décide d\'un contrôle.' },
+  'Santé dentaire':    { min:0,    action:'Détartrage et brossage 2× par jour', detail:'Un contrôle chez le dentiste dans le mois, puis un suivi régulier.' },
+  'Sécurité financière':{ min:-0.5, action:'Virement automatique d\'épargne, même 50 €/mois', detail:'Ce n\'est pas le montant qui compte, mais la sensation de contrôle sur l\'avenir.' },
 };
+
+// Gain potentiel selon la règle de l'outil : écart entre la valeur actuelle du facteur et son minimum.
+function recoGainYears(f, reco) {
+  return Math.max(0, +((f.v ?? 0) - reco.min).toFixed(1));
+}
+function recoGainText(f, reco) {
+  const g = recoGainYears(f, reco);
+  return g > 0 ? 'jusqu\'à −' + String(g).replace('.', ',') + ' an' + (g >= 2 ? 's' : '') + ' d\'âge biologique (règle de l\'outil)' : 'déjà au mieux dans l\'outil';
+}
 
 
 function buildDonut(age, chrono, bio) {
@@ -1527,7 +1539,7 @@ function buildRecos(factors) {
     if (!reco) return;
     const card = document.createElement('div');
     card.className = 'reco-card';
-    card.innerHTML = `<div class="reco-rank">${i+1}</div><div class="reco-body"><div class="reco-factor">${f.l}</div><div class="reco-action">${reco.action}</div><div class="reco-detail">${reco.detail}</div><span class="reco-gain">Gain potentiel : ${reco.gain}</span></div>`;
+    card.innerHTML = `<div class="reco-rank">${i+1}</div><div class="reco-body"><div class="reco-factor">${f.l}</div><div class="reco-action">${reco.action}</div><div class="reco-detail">${reco.detail}</div><span class="reco-gain">Gain potentiel : ${recoGainText(f, reco)}</span></div>`;
     container.appendChild(card);
   });
   document.getElementById('recoSection').style.display = 'block';
@@ -1950,7 +1962,7 @@ function initNewsletterForm() {
 // ── PDF PLAN D'ACTION (premium) ──
 // Étapes concrètes par facteur (3 max, courtes) — uniquement pour le PDF.
 const PDF_STEPS = {
-  'Tabac': ['Fixe une date d\'arrêt dans les 14 jours et préviens un proche.', 'Combine substituts nicotiniques (pharmacie) et accompagnement : Tabac Info Service, 39 89.', 'Remplace le geste : verre d\'eau, marche de 5 min, respiration lente.'],
+  'Tabac': ['Fixe une date d\'arrêt dans les 14 jours et préviens un proche.', 'Parle à ton médecin ou à ton pharmacien des aides à l\'arrêt : substituts nicotiniques, accompagnement.', 'Remplace le geste : verre d\'eau, marche de 5 min, respiration lente.'],
   'Anxiété chronique': ['Matin et soir : 5 min, inspire 5 s, expire 5 s.', 'Accroche-la à un rituel fixe (café, brossage de dents) pour tenir dans la durée.', 'Note ton niveau de tension (0 à 10) avant et après pendant 2 semaines.'],
   'Friction quotidienne': ['Liste ce qui t\'agace ou t\'épuise chaque semaine, sans filtrer.', 'Choisis la source la plus fréquente, pas la plus grosse.', 'Supprime-la, délègue-la ou automatise-la ce mois-ci, puis mesure le soulagement.'],
   'Sommeil (durée)': ['Avance ton coucher de 15 min, puis encore 15 min la semaine suivante.', 'Mets une alarme « fin de journée » 1 h avant et coupe les écrans.', 'Garde un lever à heure fixe, week-end compris.'],
@@ -1984,10 +1996,6 @@ function pdfSafe(t) {
     .replace(/→/g, '>').replace(/≥/g, '>=').replace(/≈/g, '~')
     .replace(/[  ]/g, ' ')
     .replace(/[^ -~¡-ÿ–—…€Œœ]/g, '');
-}
-
-function pdfGain(g) {
-  return pdfSafe(g).replace(/-\s?/g, '').replace(/(\d)\.(\d)/g, '$1,$2') + ' en moins';
 }
 
 function saveResultPDFPremium() {
@@ -2087,7 +2095,7 @@ function saveResultPDFPremium() {
           });
           cy += 1.5;
         }
-        const gt = 'Gain potentiel : ' + pdfGain(reco.gain);
+        const gt = 'Gain potentiel : ' + pdfSafe(recoGainText(f, reco));
         if (draw) {
           font('bold', 8.5, GREEN);
           const pw = doc.getTextWidth(pdfSafe(gt)) + 8;

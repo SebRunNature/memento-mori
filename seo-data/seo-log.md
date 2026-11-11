@@ -23,3 +23,6 @@ Une ligne par modification de fond. Les pages modifiées depuis moins de 60 jour
 | 2026-11-11 | /blog/2026/05/22/trail-grande-region-mullerthal-… | Correction de l'attribution « 4,7 ans » (athlètes d'élite), nouveau titre et meta |
 | 2026-11-11 | /blog/2026/05/06/tikker-watch-alternative-gratuite/ | Réécriture en comparatif factuel (gabarit §5) |
 | 2026-11-11 | /grille/ | Canonical vers /grille/ |
+| 2026-11-11 | /blog/2026/05/22/trail-grande-region-mullerthal-… | Section VO₂max réécrite d'après Mandsager 2018 ; retire des affirmations non sourcées et un faux calcul « modèle PhenoAge » |
+| 2026-11-11 | /montre/ | Correction d'une erreur de signe (VO₂max et IMC) ; plafond de 3 ans pour le sport |
+| 2026-11-11 | /methodologie/ | Méthode décrite comme elle est calculée ; ligne au journal des mises à jour |

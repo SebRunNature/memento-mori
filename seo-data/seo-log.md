@@ -32,3 +32,5 @@ Une ligne par modification de fond. Les pages modifiées depuis moins de 60 jour
 | 2026-11-11 | /blog/2026/05/10/…, /05/12/…, /05/14/… | « 7e rang OCDE / 83,4 ans » remplacé par Eurostat 2024 |
 | 2026-11-11 | /blog/2026/05/26/retraite-anticipee-luxembourg-annees-longevite/ | Réécrit d'après la page officielle de la réforme, Eurostat (espérance de vie à 65 ans), van der Heide 2013 et Holt-Lunstad 2010 ; retire les chiffres DREES (France), les promesses d'années et le « choc de la retraite » ; nouveau titre |
 | 2026-11-11 | /blog/2026/05/08/moringa-coureurs-trail-superaliment/ | Réécrit d'après Dong 2024 et Gallaher 2017 ; retire « superaliment », « plus riche en fer que les épinards », magnésium, « fenêtre anabolique » et la dose « raisonnable » ; nouveau titre |
+| 2026-11-11 | /montre/ | Ajout du canonical et d'un JSON-LD `WebApplication` (gratuit, fr, sans `aggregateRating`) |
+| 2026-11-11 | Articles 05-17, 05-21, 05-22, 05-24, 05-26, 05-28 | Suppression du JSON-LD `BlogPosting`/`Article` en double (le layout en génère déjà un) ; `FAQPage` conservé |

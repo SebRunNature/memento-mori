@@ -5,6 +5,7 @@ description: "Le test d'âge biologique de Cleage est un tableau à additionner 
 excerpt: "Le test d'âge biologique de Cleage, une clinique esthétique lyonnaise, apparaît dans les résultats Google. J'ai lu le code source de leur page avant d'écrire cet article — et ce n'est pas un calculateur du tout. Voici ce que j'y ai trouvé."
 date: 2026-11-04
 author: Sébastien Salomon
+last_modified_at: 2026-11-11
 retenir: "Le test de Cleage est un tableau de points à additionner à la main, sans calcul automatique et sans source scientifique citée sur la page (consultée en novembre 2026)."
 ---
 
@@ -32,8 +33,8 @@ retenir: "Le test de Cleage est un tableau de points à additionner à la main, 
       <tr><td>Calcul automatique</td><td>Oui</td><td>Non — aucun JavaScript de calcul sur la page</td></tr>
       <tr><td>Publicités</td><td>Aucune</td><td>Aucune</td></tr>
       <tr><td>Ce qui est calculé</td><td>Espérance de vie <strong>+</strong> âge biologique</td><td>Un "âge possible de longévité"</td></tr>
-      <tr><td>Méthode</td><td>Risque relatif composé, pondéré façon PhenoAge</td><td>~15 catégories de points fixes additionnés, puis formule par tranche d'âge (6 tranches)</td></tr>
-      <tr><td>Sources scientifiques citées</td><td>Oui — PhenoAge, Mandsager, INSEE, etc.</td><td>Aucune</td></tr>
+      <tr><td>Méthode</td><td>Ajustements en années additionnés par facteur, avec plafonds (voir <a href="/methodologie/">Méthodologie</a>)</td><td>~15 catégories de points fixes additionnés, puis formule par tranche d'âge (6 tranches)</td></tr>
+      <tr><td>Sources scientifiques citées</td><td>Oui — page <a href="/sources/">Sources</a> (Mandsager, INSEE, etc.)</td><td>Aucune</td></tr>
       <tr><td>Décompte en temps réel</td><td>Oui</td><td>Non</td></tr>
       <tr><td>Objectif du site</td><td>Outil autonome</td><td>Contenu d'appel vers une consultation payante en clinique</td></tr>
     </tbody>
@@ -61,7 +62,7 @@ retenir: "Le test de Cleage est un tableau de points à additionner à la main, 
     <li>Appliquer l'une de ces six formules selon sa tranche d'âge : <code>âge + 30 + (score × 0,3)</code> pour 20-30 ans, jusqu'à <code>âge + 1 + (score × 0,05)</code> au-delà de 83 ans.</li>
   </ol>
 
-  <p>C'est un format qu'on reconnaît — proche des "quiz de longévité" imprimés dans des magazines santé depuis des décennies. La page ne documente pas l'origine des valeurs de points. Elle précise elle-même que "ce test ne remplace en aucun cas un avis médical", et ce n'est clairement pas une démarche PhenoAge, horloge épigénétique, ou même un modèle de risque documenté.</p>
+  <p>C'est un format qu'on reconnaît — proche des "quiz de longévité" imprimés dans des magazines santé depuis des décennies. La page ne documente pas l'origine des valeurs de points. Elle précise elle-même que "ce test ne remplace en aucun cas un avis médical", et la page ne présente pas de modèle de risque documenté.</p>
 
   <p>Un autre détail trouvé en lisant le code : les données structurées (JSON-LD) de la page indiquent une dernière modification au <strong>2 septembre 2025</strong>, alors que le texte visible affiche "Page mise à jour le 28 octobre 2026". Les deux dates de fraîcheur ne correspondent pas : un détail technique, mais qui montre que la date affichée au lecteur et celle lue par Google ne sont pas alignées.</p>
 
@@ -69,7 +70,7 @@ retenir: "Le test de Cleage est un tableau de points à additionner à la main, 
 
   <p>La différence la plus simple à voir : chez nous, tout est calculé automatiquement, en temps réel, pendant que tu remplis le formulaire. Pas d'addition à la main, pas de formule à chercher selon ta tranche d'âge. Et le résultat donne <strong>deux chiffres</strong> — espérance de vie et âge biologique — avec un décompte qui tourne en direct.</p>
 
-  <p>Sur la méthode : les facteurs se combinent en risque relatif composé sur une échelle logarithmique, convertis via des tables actuarielles — détaillé et sourcé sur la <a href="/methodologie/">page méthodologie</a>. Chaque étude utilisée est citée sur la <a href="/sources/">page sources</a>. Rien n'est laissé à une pondération arbitraire non documentée.</p>
+  <p>Sur la méthode : le principe n'est pas si éloigné, puisque Montre de Vie additionne aussi des années ajoutées ou retirées par réponse. Ce qui change : le calcul est automatique, le point de départ et les plafonds par facteur sont décrits sur la page <a href="/methodologie/">Méthodologie</a>, et les études utilisées sont citées sur la page <a href="/sources/">Sources</a>. Ce sont des ordres de grandeur, pas un modèle épidémiologique complet.</p>
 
   <div class="callout">
     <strong>Deux objectifs différents, et c'est très bien ainsi</strong>
@@ -105,7 +106,7 @@ retenir: "Le test de Cleage est un tableau de points à additionner à la main, 
 
   <div class="faq-item">
     <h3 class="faq-q">Le test de Cleage est-il basé sur une méthode scientifique reconnue ?</h3>
-    <div class="faq-a">D'après la page consultée en novembre 2026, aucune étude, modèle ou source n'est cité. C'est un tableau de points par catégorie (format "quiz de longévité"), avec une formule finale selon la tranche d'âge — pas une méthode publiée ou documentée comme PhenoAge ou les horloges épigénétiques.</div>
+    <div class="faq-a">D'après la page consultée en novembre 2026, aucune étude, modèle ou source n'est cité. C'est un tableau de points par catégorie (format "quiz de longévité"), avec une formule finale selon la tranche d'âge — pas une méthode publiée ou documentée.</div>
   </div>
 
   <div class="faq-item">

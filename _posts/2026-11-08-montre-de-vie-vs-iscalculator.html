@@ -5,6 +5,7 @@ description: "isCalculator demande 7 champs et affiche un seul chiffre. Ce que l
 excerpt: "isCalculator ressort quand on cherche « avis calculateur âge biologique en ligne ». J'ai lu le code source de la page : sept champs, un seul chiffre en sortie, et un calculateur chargé dans une iframe. Voici ce que ça vaut vraiment."
 date: 2026-11-08
 author: Sébastien Salomon
+last_modified_at: 2026-11-11
 retenir: "Un calculateur fondé sur quelques habitudes déclarées donne un repère. Plus il couvre de facteurs et documente ses pondérations, plus il est informatif."
 ---
 
@@ -32,8 +33,8 @@ retenir: "Un calculateur fondé sur quelques habitudes déclarées donne un rep�
       <tr><td>Ce qui est calculé</td><td>Espérance de vie <strong>+</strong> âge biologique</td><td>Âge biologique uniquement</td></tr>
       <tr><td>Champs à remplir</td><td>11 en mode express, 25 en mode complet, jusqu'à 36 avec les niveaux optionnels</td><td>7, tous obligatoires</td></tr>
       <tr><td>Données mesurées (VO₂max, force, prise de sang)</td><td>Oui, en option</td><td>Absentes</td></tr>
-      <tr><td>Méthode</td><td>Risque relatif composé, pondéré façon PhenoAge</td><td>Formule « affichée sous le résultat », non visible dans la page</td></tr>
-      <tr><td>Sources scientifiques citées</td><td>Oui — PhenoAge, Mandsager, INSEE, etc.</td><td>Aucune sur la page</td></tr>
+      <tr><td>Méthode</td><td>Ajustements en années additionnés par facteur, avec plafonds (voir <a href="/methodologie/">Méthodologie</a>)</td><td>Formule « affichée sous le résultat », non visible dans la page</td></tr>
+      <tr><td>Sources scientifiques citées</td><td>Oui — page <a href="/sources/">Sources</a> (Mandsager, INSEE, etc.)</td><td>Aucune sur la page</td></tr>
       <tr><td>Publicités</td><td>Aucune</td><td>Oui — régie et 3 emplacements</td></tr>
       <tr><td>Relecture</td><td>Auteur nommé, méthode publiée</td><td>Comité de 5 professionnels de santé, rattaché à toute la catégorie Santé</td></tr>
       <tr><td>Après le calcul</td><td>Décompte en direct, PDF, impression, image de partage, historique</td><td>PDF, impression, partage, intégration, historique avec comparaison</td></tr>
@@ -77,9 +78,9 @@ retenir: "Un calculateur fondé sur quelques habitudes déclarées donne un rep�
 
   <p>Deuxième différence : l'étendue. Le mode express demande 11 champs, le mode complet en propose 25 sur le profil et le mode de vie, et deux niveaux optionnels y ajoutent des <strong>capacités physiques mesurées</strong> (VO₂max, force de préhension, vitesse de marche) puis un bilan sanguin : 36 champs au total.</p>
 
-  <p>Troisième différence : la méthode est publiée. Les facteurs se combinent en risque relatif composé, pondéré façon PhenoAge (Levine et al., 2018, construit sur 9 biomarqueurs sanguins). Tout est détaillé sur la <a href="/methodologie/">page méthodologie</a> et la <a href="/sources/">page sources</a>.</p>
+  <p>Troisième différence : la méthode est publiée. Les réponses se traduisent en années ajoutées ou retirées, additionnées avec des plafonds, à partir d'un point de départ fixe selon le sexe. Montre de Vie n'applique pas la formule PhenoAge (Levine et al., 2018, construite sur 9 biomarqueurs sanguins) : elle s'en inspire pour le choix de certains marqueurs. Tout est détaillé sur la page <a href="/methodologie/">Méthodologie</a> et la page <a href="/sources/">Sources</a>.</p>
 
-  <p>Le mode express repose lui aussi sur des habitudes déclarées, comme isCalculator. L'écart tient au nombre de facteurs, à des pondérations documentées et à la possibilité d'affiner avec des données mesurées. Aucun questionnaire de mode de vie ne remplace une prise de sang ou un test d'effort. Montre de Vie n'a en revanche rien à vendre : ni publicité, ni régie, ni consultation.</p>
+  <p>Le mode express repose lui aussi sur des habitudes déclarées, comme isCalculator. L'écart tient au nombre de facteurs, à des ordres de grandeur documentés et à la possibilité d'affiner avec des données mesurées. Aucun questionnaire de mode de vie ne remplace une prise de sang ou un test d'effort. Montre de Vie n'a en revanche rien à vendre : ni publicité, ni régie, ni consultation.</p>
 
   <h2>Quel outil choisir ?</h2>
 

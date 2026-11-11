@@ -1,9 +1,9 @@
 ---
 layout: default
 title: "Méthodologie du calcul d'espérance de vie"
-description: "Comment fonctionne le calcul de la Montre de Vie : algorithme, pondérations, modèle PhenoAge, études Framingham et INTERHEART."
+description: "Comment fonctionne le calcul de la Montre de Vie : point de départ, ajustements par facteur, limites de la méthode et études citées."
 canonical: "https://montre-de-vie.com/methodologie/"
-last_modified_at: 2026-09-08
+last_modified_at: 2026-11-11
 ---
 
 <style>
@@ -66,7 +66,7 @@ last_modified_at: 2026-09-08
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": "Méthodologie — Comment on calcule ton espérance de vie et ton âge biologique",
-  "description": "Documentation complète de l'algorithme de la Montre de Vie et du Score de Vie : modèle PhenoAge, études Framingham, INTERHEART, pondérations des facteurs.",
+  "description": "Description de la méthode de calcul de la Montre de Vie : point de départ, ajustements par facteur, limites et études citées.",
   "author": { "@type": "Person", "name": "Sébastien Salomon", "url": "https://montre-de-vie.com/apropos/" },
   "publisher": { "@type": "Organization", "name": "Montre de Vie", "url": "https://montre-de-vie.com" },
   "datePublished": "2026-01-01",
@@ -85,7 +85,7 @@ last_modified_at: 2026-09-08
 
 <p class="prose">La Montre de Vie ne prédit pas ta date de mort. Personne ne peut faire ça. Ce qu'elle calcule, c'est une <strong>espérance de vie ajustée selon tes habitudes</strong> — la moyenne statistique de personnes qui ont les mêmes profils de risque que toi, selon les grandes études épidémiologiques.</p>
 
-<p class="prose">Concrètement : on part d'une espérance de vie de référence selon ton pays, ton âge et ton sexe (données OMS / INSEE 2023), puis on <strong>ajuste à la hausse ou à la baisse</strong> en fonction de tes réponses. Chaque facteur de risque documenté dans la littérature scientifique a un poids proportionnel à son impact mesuré.</p>
+<p class="prose">Concrètement : on part d'une espérance de vie de départ qui dépend du sexe, puis on <strong>ajoute ou on retire des années</strong> selon tes réponses. Chaque ajustement est un ordre de grandeur tiré des études citées dans le tableau ci-dessous, pas un coefficient calculé sur une cohorte précise. Le résultat est une estimation indicative.</p>
 
 <div class="ap-quote">
   Ce n'est pas une boule de cristal. C'est un miroir statistique — il reflète la direction que prennent tes choix, pas la date gravée quelque part dans le futur.
@@ -99,29 +99,29 @@ last_modified_at: 2026-09-08
   <div class="algo-step">
     <div class="algo-num">1</div>
     <div class="algo-content">
-      <span class="algo-title">Espérance de vie de référence</span>
-      <span class="algo-body">On récupère l'espérance de vie nationale par sexe et par âge (tables de mortalité OMS 2023, Institut Grand-Ducal de la Statistique pour le Luxembourg). Ce chiffre est la <strong>médiane populationnelle</strong> — le point de départ avant toute personnalisation.</span>
+      <span class="algo-title">Espérance de vie de départ</span>
+      <span class="algo-body">Le point de départ est une valeur fixe selon le sexe : <strong>80,0 ans pour un homme et 85,7 ans pour une femme</strong>, proche des données récentes de l'INSEE pour la France (80,3 et 85,9 ans en 2025, données provisoires). Il n'y a pas de table par âge ni par pays : le même point de départ s'applique à tous les âges et à tous les pays. Le résultat ne peut pas être inférieur à ton âge plus un an.</span>
     </div>
   </div>
   <div class="algo-step">
     <div class="algo-num">2</div>
     <div class="algo-content">
-      <span class="algo-title">Application des facteurs de risque (questionnaire)</span>
-      <span class="algo-body">Chacune des 15 à 23 questions du questionnaire correspond à un facteur documenté dans la littérature. On applique un <strong>coefficient multiplicateur</strong> basé sur le risque relatif mesuré dans les études de référence. Les coefficients sont additifs sur l'échelle logarithmique du risque relatif, pas sur l'espérance de vie brute — pour éviter les effets de sommation irréalistes.</span>
+      <span class="algo-title">Ajustements par facteur</span>
+      <span class="algo-body">Le mode express pose 11 questions ; le mode complet va jusqu'à 36 champs. Chaque réponse correspond à un nombre d'années <strong>ajoutées ou retirées</strong> (par exemple pour le tabac, l'alcool, le sommeil, le stress, les liens sociaux, l'alimentation, le poids, les biomarqueurs déclarés et le VO₂max). Ces ajustements sont <strong>additionnés</strong>, avec un plafond par facteur : l'effet des heures de sport, par exemple, est limité à 3 ans. Ce n'est pas une composition de risques relatifs.</span>
     </div>
   </div>
   <div class="algo-step">
     <div class="algo-num">3</div>
     <div class="algo-content">
-      <span class="algo-title">Calcul du score composite</span>
-      <span class="algo-body">Les facteurs sont <strong>pondérés par leur impact relatif</strong> mesuré dans les méta-analyses. Le tabac pèse plus que la consommation de légumes — parce que les données épidémiologiques le disent. Les pondérations sont détaillées dans le tableau ci-dessous.</span>
+      <span class="algo-title">Âge biologique</span>
+      <span class="algo-body">Chaque facteur ajoute ou retire quelques années à ton âge, avec un plafond par facteur. L'écart total est limité entre −12 et +18 ans et arrondi au demi-an. C'est un indicateur de tendance, pas une mesure biologique.</span>
     </div>
   </div>
   <div class="algo-step">
     <div class="algo-num">4</div>
     <div class="algo-content">
-      <span class="algo-title">Ajustement par le Score de Vie (si disponible)</span>
-      <span class="algo-body">Si tu as rempli le Score de Vie (biomarqueurs), l'écart entre ton âge biologique et ton âge chronologique <strong>ajuste le résultat de la Montre</strong>. Un âge biologique de 42 ans à 47 ans chronologiques ajoute environ 3 à 5 ans d'espérance de vie estimée.</span>
+      <span class="algo-title">Lien entre les deux résultats</span>
+      <span class="algo-body">Pour certains facteurs (le poids et le VO₂max), l'écart d'âge biologique est converti en années d'espérance de vie avec un coefficient qui augmente avec l'âge, de 0,6 avant 25 ans à 1,2 après 80 ans.</span>
     </div>
   </div>
   <div class="algo-step">
@@ -154,8 +154,8 @@ last_modified_at: 2026-09-08
     </tr>
     <tr>
       <td>Activité physique régulière</td>
-      <td>+3 à +7 ans</td>
-      <td>Wen et al., Lancet 2011</td>
+      <td>environ +3 ans (plafond appliqué par le calculateur)</td>
+      <td>Wen et al., Lancet 2011 ; Lee et al., JACC 2014</td>
       <td><span class="badge badge-high">Élevé</span></td>
     </tr>
     <tr>
@@ -208,51 +208,40 @@ last_modified_at: 2026-09-08
     </tr>
   </tbody>
 </table>
+<p class="prose"><strong>Le sport dans le calcul.</strong> Les heures de sport déclarées ajoutent 0,8 an par heure hebdomadaire de sport modéré et 1,5 an par heure de sport intense à l'espérance de vie estimée, avec un <strong>plafond de 3 ans</strong>. Ce plafond reprend l'ordre de grandeur des études d'observation (environ 3 ans de plus pour les coureurs que pour les non-coureurs, Lee et al. 2014 et 2017). C'est une règle d'estimation de l'outil, pas un résultat d'étude, et pas une promesse individuelle.</p>
+
 
 <!-- ══ LE SCORE ══ -->
-<h2 class="ap-section-title">Le Score de Vie — le modèle PhenoAge</h2>
+<h2 class="ap-section-title">Le Score de Vie et PhenoAge : ce que fait (et ne fait pas) l'outil</h2>
 
-<p class="prose">Le Score de Vie s'appuie sur deux modèles scientifiques complémentaires : <strong>PhenoAge</strong> (Levine et al., 2018) pour les biomarqueurs sanguins, et un score composite de physiologie sportive pour les mesures de performance physique.</p>
+<p class="prose"><strong>PhenoAge</strong> (Levine et al., 2018) est un modèle publié qui calcule un « âge phénotypique » à partir de 9 biomarqueurs sanguins, avec des coefficients issus de la cohorte NHANES. <strong>Le calculateur de Montre de Vie n'applique pas cette formule</strong> : il ne demande pas ces 9 mesures. Il s'en inspire pour le choix de certains marqueurs (la CRP et la glycémie, que tu renseignes par tranches). Pour calculer PhenoAge à partir d'un bilan sanguin, la formule est détaillée dans l'article <a href="/blog/phenoage-algorithme-age-biologique/" style="color:var(--amber-lt);text-decoration:none;font-weight:600">PhenoAge : l'algorithme qui calcule ton âge biologique</a>.</p>
 
-<p class="prose"><strong>PhenoAge</strong> est un modèle développé par Morgan Levine (Yale, puis Altos Labs) à partir des données NHANES. Il utilise 9 biomarqueurs sanguins pour calculer un "âge phénotypique" — l'âge biologique réel de ton corps, indépendamment de ton âge civil. Ce modèle prédit mieux la mortalité toutes causes que l'âge chronologique seul.</p>
+<p class="prose">Pour les mesures de performance physique, le calculateur utilise des repères simples : VO₂max, force de préhension, vitesse de marche sur 4 mètres et tour de taille, comparés à des valeurs attendues selon l'âge et le sexe. Le VO₂max est fortement associé à la mortalité dans les méta-analyses (Kodama et al., JAMA 2009) ; c'est une association observée, pas une preuve de causalité.</p>
 
-<div class="formula-box">
-  <span class="formula-label">Formule simplifiée PhenoAge (Levine 2018)</span>
-  <div class="formula-main">
-    PhenoAge = β₀ + β₁×Albumine + β₂×Créatinine + β₃×Glucose<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + β₄×CRP + β₅×Lymphocytes% + β₆×VCM<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + β₇×Largeur distribution érythrocytes + β₈×PAlc<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + β₉×Leucocytes
-  </div>
-  <span class="formula-note">Les coefficients β sont issus de la régression sur la cohorte NHANES III et publiés dans Levine et al., Aging (Albany NY), 2018. Nous utilisons les coefficients publiés sans modification.</span>
-</div>
+<h2 class="ap-section-title">Les limites de cette méthode</h2>
 
-<p class="prose">Pour les utilisateurs qui n'ont pas leurs biomarqueurs sanguins, le Score s'appuie sur les <strong>facteurs physiologiques de performance</strong> : VO₂max (le prédicteur le plus puissant de longévité selon les méta-analyses de Kodama et al., JAMA 2009), force de préhension, vitesse de marche sur 4 mètres, et tour de taille.</p>
-
-<h2 class="ap-section-title">Ce qu'on ne fait pas (et pourquoi)</h2>
-
-<p class="prose">Quelques choix méthodologiques méritent d'être expliqués explicitement :</p>
+<p class="prose">Quelques choix méritent d'être dits explicitement :</p>
 
 <div class="algo-steps">
   <div class="algo-step">
-    <div class="algo-num">✗</div>
+    <div class="algo-num">!</div>
     <div class="algo-content">
-      <span class="algo-title">On n'additionne pas les années directement</span>
-      <span class="algo-body">Additionner "−12 ans de tabac + +7 ans de sport = −5 ans" serait faux mathématiquement. Les effets interagissent. On travaille sur le <strong>risque relatif composé</strong>, qui est ensuite converti en ajustement d'espérance de vie via les tables actuarielles.</span>
+      <span class="algo-title">Les années sont additionnées, ce qui est une simplification</span>
+      <span class="algo-body">Les effets réels interagissent. Deux facteurs liés, comme le sport et le VO₂max, peuvent être comptés deux fois, et des ordres de grandeur issus d'études différentes ne s'additionnent pas toujours. C'est une limite connue de l'outil.</span>
     </div>
   </div>
   <div class="algo-step">
-    <div class="algo-num">✗</div>
+    <div class="algo-num">!</div>
     <div class="algo-content">
-      <span class="algo-title">On ne plafonne pas à 100 ans par défaut</span>
-      <span class="algo-body">Des profils très favorables peuvent donner des estimations de 105-110 ans. C'est mathématiquement cohérent avec les distributions de longévité observées dans les zones bleues. Ce n'est pas une promesse — c'est une projection probabiliste sur l'extrémité de la distribution.</span>
+      <span class="algo-title">Pas de plafond d'âge</span>
+      <span class="algo-body">Le calcul n'impose pas de plafond d'âge : un profil qui cumule beaucoup de facteurs favorables peut produire une estimation élevée. Ce n'est pas une prévision, et ce sont justement ces profils pour lesquels l'estimation est la moins fiable.</span>
     </div>
   </div>
   <div class="algo-step">
-    <div class="algo-num">✗</div>
+    <div class="algo-num">!</div>
     <div class="algo-content">
-      <span class="algo-title">On n'inclut pas l'hérédité comme facteur principal</span>
-      <span class="algo-body">Les études récentes (Wilcox et al., Plos ONE 2006 ; Fridell et al.) suggèrent que la génétique explique seulement 20-25 % de la variance de longévité. Les habitudes de vie en expliquent 75-80 %. On ne peut pas agir sur ses gènes — on peut agir sur ses habitudes.</span>
+      <span class="algo-title">L'hérédité n'est pas un facteur principal</span>
+      <span class="algo-body">Seule la question sur les antécédents familiaux en tient compte, avec un poids limité. Les études récentes (Wilcox et al., PLOS ONE 2006 ; Fridell et al.) suggèrent que la génétique explique 20 à 25 % de la variance de longévité. On ne peut pas agir sur ses gènes, on peut agir sur ses habitudes.</span>
     </div>
   </div>
 </div>
@@ -284,6 +273,11 @@ last_modified_at: 2026-09-08
       <td>Mai 2026</td>
       <td>Ajout force de préhension et vitesse de marche</td>
       <td>Méta-analyse Leong et al., Lancet 2015</td>
+    </tr>
+    <tr>
+      <td>Novembre 2026</td>
+      <td>Effet des heures de sport plafonné à 3 ans (8 ans auparavant) ; description de la méthode corrigée</td>
+      <td>Cohérence avec Lee et al., JACC 2014 ; la description précédente (risque relatif composé, formule PhenoAge) ne correspondait pas au calcul réel</td>
     </tr>
   </tbody>
 </table>

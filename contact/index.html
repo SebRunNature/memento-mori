@@ -1,48 +1,76 @@
 ---
 layout: default
-title: "Contact"
-description: "Comment contacter l'éditeur de la Montre de Vie par email, pour une question, un signalement ou une demande liée au site."
+title: "Contact — Montre de Vie"
+description: "Une question sur ton résultat, une erreur à signaler ou une remarque sur un article : écris à l'éditeur de la Montre de Vie."
 canonical: "https://montre-de-vie.com/contact/"
-last_modified_at: 2026-10-12
+last_modified_at: 2026-11-11
 ---
 
 <style>
-.contact-hero { text-align:center; padding:48px 0 32px; }
+.contact-hero { text-align:center; padding:48px 0 28px; }
 .contact-eyebrow { font-size:.72rem; letter-spacing:.3em; color:var(--green); text-transform:uppercase; font-weight:700; margin-bottom:14px; }
 .contact-hero h1 { font-size:clamp(2rem,6vw,2.8rem); font-weight:800; letter-spacing:-0.03em; color:var(--text); margin-bottom:16px; line-height:1.1; }
-.contact-hero p { font-size:.95rem; color:var(--muted); max-width:480px; margin:0 auto; line-height:1.7; text-align:justify; }
-.contact-row { display:flex; flex-direction:column; gap:10px; margin:28px 0; }
-.contact-item { display:flex; align-items:flex-start; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 18px; }
-.contact-icon { font-size:1.2rem; flex-shrink:0; margin-top:1px; }
-.contact-text { font-size:.9rem; color:var(--muted); line-height:1.6; }
-.contact-text strong { color:var(--text); font-weight:700; }
-.contact-text a { color:var(--amber-lt); text-decoration:none; font-weight:600; }
-.contact-note { font-size:.82rem; color:var(--muted); margin-top:24px; text-align:justify; }
+.contact-hero p { font-size:.95rem; color:var(--muted); max-width:520px; margin:0 auto; line-height:1.7; }
+.contact-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; text-align:center; margin:12px 0 36px; }
+.contact-card .label { font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); font-weight:700; margin-bottom:10px; }
+.contact-mail { font-size:clamp(1.05rem,3.6vw,1.35rem); font-weight:700; color:var(--text); letter-spacing:-.01em; word-break:break-word; }
+.contact-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+.contact-btn { font:inherit; font-size:.88rem; font-weight:700; padding:10px 20px; border-radius:10px; border:1px solid var(--border2); background:var(--surface2); color:var(--text); cursor:pointer; text-decoration:none; }
+.contact-btn.primary { background:var(--green); border-color:var(--green); color:#fff; }
+.contact-btn:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+.contact-hint { font-size:.8rem; color:var(--dim); margin-top:14px; min-height:1.2em; }
+.contact-h2 { font-size:1.05rem; font-weight:700; color:var(--text); border-bottom:1px solid var(--border); padding-bottom:10px; margin:36px 0 16px; }
+.contact-list { list-style:none; padding:0; display:flex; flex-direction:column; gap:10px; }
+.contact-list li { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 18px; font-size:.9rem; color:var(--muted); line-height:1.6; }
+.contact-list strong { color:var(--text); }
+.contact-list a, .contact-note a { color:var(--amber-lt); text-decoration:none; font-weight:600; }
+.contact-note { font-size:.85rem; color:var(--muted); line-height:1.7; margin-top:20px; }
 </style>
 
 <div class="contact-hero">
   <div class="contact-eyebrow">Montre de Vie</div>
   <h1>Contact</h1>
-  <p>Une question sur l'outil, un signalement, une remarque sur un article ? Voici comment joindre l'éditeur du site.</p>
+  <p>Pas de formulaire : un simple email à l'éditeur du site, Sébastien Salomon.</p>
 </div>
 
-<div class="contact-row">
-  <div class="contact-item">
-    <span class="contact-icon">✉️</span>
-    <span class="contact-text"><strong>Email</strong> — <a href="mailto:sebrunnature@gmail.com">sebrunnature@gmail.com</a></span>
+<div class="contact-card">
+  <div class="label">Écrire à l'éditeur</div>
+  <div class="contact-mail" id="mail-visible">sebrunnature [at] gmail [dot] com</div>
+  <div class="contact-actions">
+    <a class="contact-btn primary" id="mail-open" href="#" role="button">Écrire un email</a>
+    <button class="contact-btn" id="mail-copy" type="button">Copier l'adresse</button>
   </div>
-  <div class="contact-item">
-    <span class="contact-icon">🌐</span>
-    <span class="contact-text"><strong>Run Nature</strong> — <a href="https://run-nature.com" target="_blank" rel="noopener">run-nature.com</a>, le site du créateur de la Montre de Vie.</span>
-  </div>
-  <div class="contact-item">
-    <span class="contact-icon">📷</span>
-    <span class="contact-text"><strong>Instagram</strong> — <a href="https://www.instagram.com/seb_run_lux" target="_blank" rel="noopener">@seb_run_lux</a></span>
-  </div>
-  <div class="contact-item">
-    <span class="contact-icon">🏃</span>
-    <span class="contact-text"><strong>Strava</strong> — <a href="https://strava.app.link/DEw8pXyyl0b" target="_blank" rel="noopener">profil Strava</a></span>
-  </div>
+  <p class="contact-hint" id="mail-hint" aria-live="polite">L'adresse est écrite avec [at] et [dot] pour éviter les robots d'indexation de courriels. Remplace-les par @ et un point si tu l'écris à la main.</p>
 </div>
 
-<p class="contact-note">Pour toute demande liée aux mentions légales ou à l'éditeur du site, consulte la <a href="https://run-nature.com/mentions-legales-seb-run-nature/" target="_blank" rel="noopener" style="color:var(--amber-lt);text-decoration:none;font-weight:600">page Mentions légales</a>.</p>
+<h2 class="contact-h2">Ce qui est utile de m'écrire</h2>
+<ul class="contact-list">
+  <li><strong>Une erreur ou une source à corriger.</strong> Indique la page et la phrase concernée, avec le lien vers l'étude si tu l'as.</li>
+  <li><strong>Un résultat que tu ne comprends pas.</strong> Précise le mode utilisé (express ou complet) et ce que tu as renseigné. Rien n'est enregistré côté serveur : je ne vois pas tes réponses, donc j'ai besoin que tu me les décrives.</li>
+  <li><strong>Une remarque sur un article</strong> ou une question que le blog ne traite pas encore.</li>
+  <li><strong>Un problème technique</strong> : appareil, navigateur et ce qui s'est passé.</li>
+</ul>
+
+<p class="contact-note">Je ne donne pas d'avis médical et je ne peux pas interpréter un bilan de santé : l'outil est indicatif et l'éditeur n'est pas un professionnel de santé. Pour une question de santé, consulte un médecin. Avant d'écrire, la <a href="/faq/">FAQ</a>, la <a href="/methodologie/">méthodologie</a> et la page <a href="/limites/">limites de l'outil</a> répondent aux questions les plus courantes. Les informations légales sont sur la page <a href="/mentions-legales/">Mentions légales</a>.</p>
+
+<script>
+(function () {
+  // L'adresse n'existe jamais en clair dans le HTML : elle est assemblée au clic.
+  var u = ['sebrunnature'], d = ['gmail', 'com'];
+  function addr() { return u.join('') + String.fromCharCode(64) + d.join('.'); }
+  var open = document.getElementById('mail-open');
+  var copy = document.getElementById('mail-copy');
+  var hint = document.getElementById('mail-hint');
+  open.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.href = 'mailto:' + addr();
+  });
+  copy.addEventListener('click', function () {
+    var a = addr();
+    function done(ok) { hint.textContent = ok ? 'Adresse copiée : ' + a : 'Copie impossible. Adresse : ' + a; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(a).then(function () { done(true); }, function () { done(false); });
+    } else { done(false); }
+  });
+})();
+</script>

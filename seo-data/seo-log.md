@@ -26,3 +26,7 @@ Une ligne par modification de fond. Les pages modifiées depuis moins de 60 jour
 | 2026-11-11 | /blog/2026/05/22/trail-grande-region-mullerthal-… | Section VO₂max réécrite d'après Mandsager 2018 ; retire des affirmations non sourcées et un faux calcul « modèle PhenoAge » |
 | 2026-11-11 | /montre/ | Correction d'une erreur de signe (VO₂max et IMC) ; plafond de 3 ans pour le sport |
 | 2026-11-11 | /methodologie/ | Méthode décrite comme elle est calculée ; ligne au journal des mises à jour |
+| 2026-11-11 | /blog/2026/05/24/luxembourg-vs-france-… | Réécrit d'après STATEC 2024, INSEE 2025 (départements) et Eurostat 2024 ; retire chiffres et profils sans source |
+| 2026-11-11 | /blog/2026/05/30/vit-on-plus-longtemps-luxembourg/ | Réécrit d'après Eurostat 2024 (rang UE : 5e) et espérance de vie en bonne santé 2022 |
+| 2026-11-11 | /blog/2026/06/22/esperance-de-vie-en-bonne-sante-… | Réécrit d'après Eurostat hlth_hlye (60,2 ans en 2022) ; retire « 63-65 ans » et le classement mondial |
+| 2026-11-11 | /blog/2026/05/10/…, /05/12/…, /05/14/… | « 7e rang OCDE / 83,4 ans » remplacé par Eurostat 2024 |

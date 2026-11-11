@@ -87,10 +87,6 @@ retenir: "Un seul petit essai pilote suggère un effet du moringa sur des tests 
     Dans ma routine, je prends 1 à 2 g de poudre dans de l'eau avec du citron le matin, ou dans un smoothie après une sortie. C'est une habitude, pas un protocole validé : le citron apporte de la vitamine C, qui favorise en général l'absorption du fer non héminique, mais cela ne change pas le constat sur la biodisponibilité du fer des feuilles.
   </p>
 
-  <p>
-    J'ai aussi rédigé un ebook sur le moringa pour les coureurs, <a href="https://run-nature.com/le-carburant-naturel-du-traileur-le-pouvoir-du-moringa/" target="_blank" rel="noopener">disponible sur Run Nature</a>. Son contenu n'a pas été revu pour cette mise à jour.
-  </p>
-
   <div class="cta-montre">
     <p>Estime ton espérance de vie et ton âge biologique à partir de facteurs dont l'effet est mieux établi.</p>
     <a href="/montre/">⏱ Lancer ma Montre de Vie</a>

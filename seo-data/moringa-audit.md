@@ -12,7 +12,7 @@ Affirmations de la première version et ce que montrent les sources consultées 
 | « Dans la Montre de Vie, il compte +1 an dans le calcul » | **Faux d'après le code** : aucun champ moringa dans le calculateur. Retiré. |
 | Dosage 2 à 8 g/jour | Aucune dose établie (Drugs.com). Retiré. |
 
-## Article du 8 mai (coureurs) — NON modifié, à traiter
+## Article du 8 mai (coureurs) — réécrit le 11 novembre 2026 (voir seo-log)
 Affirmations sans source dans l'article :
 - « Plus riche en fer que les épinards, plus dense en protéines que le quinoa » (extrait) ;
 - « le Moringa adresse [fer, inflammation, magnésium] » ; lien fer → VO2max présenté comme acquis ;

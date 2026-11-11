@@ -5,6 +5,7 @@ description: "Age-Réel ajoute un facteur pollution par code postal mais plafonn
 excerpt: "Age-Réel apparaît dans les résultats Google quand on cherche \"âge biologique\". J'ai testé leur outil en répondant honnêtement à leurs 24 questions avant d'écrire cet article. Voici ce qu'il fait bien, ce qui m'a surpris, et comment ça se compare à Montre de Vie."
 date: 2026-10-13
 author: Sébastien Salomon
+last_modified_at: 2026-11-11
 retenir: "Une espérance de vie à la naissance ignore que tu as déjà survécu jusqu'à ton âge : partir d'une espérance de vie par âge et par sexe est statistiquement plus pertinent."
 ---
 
@@ -30,7 +31,7 @@ retenir: "Une espérance de vie à la naissance ignore que tu as déjà survécu
       <tr><td>Nombre de questions</td><td>11 en mode express, 25 en mode complet (jusqu'à 36 avec les niveaux optionnels)</td><td>24</td></tr>
       <tr><td>Ce qui est calculé</td><td>Espérance de vie <strong>+</strong> âge biologique, dans un seul formulaire</td><td>Âge physiologique uniquement</td></tr>
       <tr><td>Base du calcul</td><td>Espérance de vie par âge <strong>et</strong> par sexe (tables OMS/INSEE)</td><td>Espérance de vie à la naissance (INSEE), non ajustée à l'âge actuel</td></tr>
-      <tr><td>Méthode d'ajustement</td><td>Risque relatif composé, échelle logarithmique</td><td>Années ajoutées/retirées par palier, plafonné à ±15 ans</td></tr>
+      <tr><td>Méthode d'ajustement</td><td>Années ajoutées/retirées par facteur, plafonnées (3 ans au maximum pour le sport, par exemple)</td><td>Années ajoutées/retirées par palier, plafonné à ±15 ans</td></tr>
       <tr><td>Facteur pollution/région</td><td>Non</td><td>Oui — via code postal (France uniquement)</td></tr>
       <tr><td>Décompte en temps réel</td><td>Oui</td><td>Non</td></tr>
       <tr><td>Publicités</td><td>Aucune</td><td>Non vérifié sur les pages testées</td></tr>
@@ -67,7 +68,7 @@ retenir: "Une espérance de vie à la naissance ignore que tu as déjà survécu
 
   <p>La différence de méthode la plus importante : Montre de Vie part d'une espérance de vie <strong>par âge et par sexe</strong> (tables de mortalité actuelles), pas d'une moyenne de naissance figée. Concrètement, ça veut dire que le point de départ tient déjà compte du fait que tu as survécu jusqu'à ton âge actuel — statistiquement pertinent, alors qu'une espérance de vie à la naissance ne le fait pas.</p>
 
-  <p>Les facteurs ne s'additionnent pas non plus en années brutes avec un plafond arbitraire. Ils se combinent en <strong>risque relatif composé sur une échelle logarithmique</strong>, converti ensuite via des tables actuarielles — la méthode utilisée dans les études de cohorte épidémiologiques, plutôt qu'une addition/soustraction par palier.</p>
+  <p>Sur la méthode, les deux outils fonctionnent par ajustements en années, sans formule épidémiologique complète. Les différences de Montre de Vie tiennent à un point de départ fixe selon le sexe, à des plafonds par facteur, à un âge biologique borné entre −12 et +18 ans et à la possibilité d'affiner avec des mesures (VO₂max, force de préhension). La méthode est décrite sur la page <a href="/methodologie/">Méthodologie</a>, avec ses limites.</p>
 
   <p>Et comme pour la comparaison avec CalcVita, Montre de Vie calcule <strong>deux chiffres liés</strong> — espérance de vie et âge biologique — avec un décompte en temps réel, plutôt qu'un seul chiffre statique.</p>
 
@@ -80,7 +81,7 @@ retenir: "Une espérance de vie à la naissance ignore que tu as déjà survécu
 
   <p>Si tu es en France et que tu veux un facteur pollution localisé avec un questionnaire tabac très détaillé, Age-Réel a des aspects que je n'ai pas encore sur Montre de Vie.</p>
 
-  <p>Si tu veux une méthode de calcul alignée sur la pratique épidémiologique standard, un résultat qui réagit finement à tes réponses plutôt que par paliers larges, et les deux chiffres — espérance de vie et âge biologique — ensemble avec un suivi dans le temps, Montre de Vie coche ces cases.</p>
+  <p>Si tu veux une méthode décrite publiquement avec ses limites, un résultat qui réagit finement à tes réponses plutôt que par paliers larges, et les deux chiffres — espérance de vie et âge biologique — ensemble avec un suivi dans le temps, Montre de Vie coche ces cases.</p>
 
   <div class="cta-montre">
     <p>Calcule ton espérance de vie et ton âge biologique en un seul formulaire — gratuit, sans publicité, sans lien d'affiliation.</p>
@@ -115,7 +116,7 @@ retenir: "Une espérance de vie à la naissance ignore que tu as déjà survécu
 
   <div class="faq-item">
     <h3 class="faq-q">Lequel est le plus précis ?</h3>
-    <div class="faq-a">Aucun des deux ne remplace une mesure clinique (horloge épigénétique, bilan sanguin analysé en laboratoire). Les deux sont des estimations indicatives basées sur le mode de vie. La méthode de Montre de Vie (risque relatif composé sur tables de mortalité actuelles) suit de plus près la pratique épidémiologique standard que le système à paliers plafonnés d'Age-Réel — mais "plus rigoureux méthodologiquement" ne veut pas dire "mesure exacte de ton vieillissement réel".</div>
+    <div class="faq-a">Aucun des deux ne remplace une mesure clinique (horloge épigénétique, bilan sanguin analysé en laboratoire). Les deux sont des estimations indicatives basées sur le mode de vie, et les deux fonctionnent par ajustements en années. Les différences portent sur le point de départ, les plafonds et les facteurs pris en compte, pas sur une rigueur épidémiologique supérieure de l'un des deux.</div>
   </div>
 
   <div class="disclaimer">

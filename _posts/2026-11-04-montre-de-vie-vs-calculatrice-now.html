@@ -5,7 +5,8 @@ description: "Calculatrice.now cite PhenoAge mais calcule par addition de points
 excerpt: "Calculatrice.now apparaît dans les résultats Google quand on cherche \"calcul de l'âge biologique\". J'ai regardé le code de leur calculateur avant d'écrire cet article. Voici ce qu'il fait vraiment, ce qu'il fait bien, et ce que Montre de Vie fait différemment."
 date: 2026-11-04
 author: Sébastien Salomon
-retenir: "Calculatrice.now cite PhenoAge dans son texte, mais son calcul ajoute ou retire un nombre d'années fixe par réponse (code consulté en novembre 2026)."
+last_modified_at: 2026-11-11
+retenir: "Calculatrice.now cite PhenoAge dans son texte, mais son calcul ajoute ou retire un nombre d'années fixe par réponse (code consulté en novembre 2026). Celui de Montre de Vie est aussi additif."
 ---
 
 <a class="back-link" href="/blog/">← Retour au blog</a>
@@ -31,7 +32,7 @@ retenir: "Calculatrice.now cite PhenoAge dans son texte, mais son calcul ajoute 
       <tr><td>Compte / email requis</td><td>Non — email optionnel pour un plan d'action</td><td>Non, jamais</td></tr>
       <tr><td>Publicités</td><td>Aucune</td><td>Nombreuses — AdSense, header bidding, bannières et un widget de réservation de voyage</td></tr>
       <tr><td>Ce qui est calculé</td><td>Espérance de vie <strong>+</strong> âge biologique, dans un seul formulaire</td><td>Âge biologique uniquement</td></tr>
-      <tr><td>Méthode</td><td>Risque relatif composé, pondéré façon PhenoAge</td><td>Modèle additif simple : âge + somme de bonus/malus par facteur</td></tr>
+      <tr><td>Méthode</td><td>Ajustements en années additionnés par facteur, avec plafonds (voir <a href="/methodologie/">Méthodologie</a>)</td><td>Modèle additif simple : âge + somme de bonus/malus par facteur</td></tr>
       <tr><td>Décompte en temps réel</td><td>Oui — années/jours/heures/secondes</td><td>Non</td></tr>
       <tr><td>Autres outils sur le site</td><td>Aucun — un seul outil, approfondi</td><td>62 autres calculateurs "Santé", plus des centaines dans 5 autres thèmes</td></tr>
       <tr><td>Réseau multi-domaines</td><td>Non — un seul site</td><td>Oui — même outil décliné sur 25+ domaines, une langue/pays par domaine</td></tr>
@@ -67,7 +68,7 @@ retenir: "Calculatrice.now cite PhenoAge dans son texte, mais son calcul ajoute 
 
   <p>La différence la plus structurante reste la même que sur mes autres comparatifs : Montre de Vie ne calcule pas que l'âge biologique. Un seul formulaire donne <strong>deux chiffres</strong> — ton espérance de vie estimée et ton âge biologique — avec un décompte en temps réel qui tourne pendant que tu lis.</p>
 
-  <p>Sur la méthode : les facteurs ne s'additionnent pas en années brutes avec une règle fixe par réponse. Ils se combinent en <strong>risque relatif composé</strong>, convertis ensuite via des tables actuarielles — l'approche utilisée dans les études de cohorte épidémiologiques, la même famille de méthode que PhenoAge. Le détail complet est sur la <a href="/methodologie/">page méthodologie</a>, qui explique comment chaque facteur pèse dans le calcul.</p>
+  <p>Sur la méthode, il faut être honnête : les deux outils reposent sur le même principe de base, des années ajoutées ou retirées par réponse, puis additionnées. Montre de Vie n'applique pas non plus la formule PhenoAge : elle s'en inspire pour le choix de certains marqueurs. Ce qui change : un point de départ fixe selon le sexe, un plafond par facteur (3 ans au maximum pour le sport, par exemple), un âge biologique borné entre −12 et +18 ans, et une méthode décrite sur la page <a href="/methodologie/">Méthodologie</a>, avec ses limites. Les ordres de grandeur utilisés sont rattachés aux études de la page <a href="/sources/">Sources</a>.</p>
 
   <div class="callout">
     <strong>Une différence de nature, pas seulement de taille</strong>
@@ -80,7 +81,7 @@ retenir: "Calculatrice.now cite PhenoAge dans son texte, mais son calcul ajoute 
 
   <p>Si tu veux un calculateur d'âge biologique avec un questionnaire détaillé (tension, fréquence cardiaque, glycémie) et que la publicité ne te dérange pas, Calculatrice.now fait le travail, gratuitement.</p>
 
-  <p>Si tu veux une méthode alignée sur la pratique épidémiologique réelle, ton espérance de vie <strong>et</strong> ton âge biologique dans un seul outil, un suivi dans le temps, et une expérience sans aucune publicité, c'est de ce côté-ci qu'il faut regarder.</p>
+  <p>Si tu veux une méthode décrite publiquement avec ses limites, ton espérance de vie <strong>et</strong> ton âge biologique dans un seul outil, un suivi dans le temps, et une expérience sans aucune publicité, c'est de ce côté-ci qu'il faut regarder.</p>
 
   <div class="cta-montre">
     <p>Calcule ton espérance de vie et ton âge biologique en un seul formulaire — gratuit, sans publicité.</p>
@@ -105,7 +106,7 @@ retenir: "Calculatrice.now cite PhenoAge dans son texte, mais son calcul ajoute 
 
   <div class="faq-item">
     <h3 class="faq-q">Calculatrice.now et Montre de Vie donnent-ils le même résultat ?</h3>
-    <div class="faq-a">Non, et c'est attendu — les méthodes sont différentes. Calculatrice.now additionne des bonus/malus fixes par réponse. Montre de Vie combine les facteurs en risque relatif, convertis via des tables actuarielles. Les deux peuvent diverger de plusieurs années sur le même profil.</div>
+    <div class="faq-a">Non, et c'est attendu. Calculatrice.now additionne des bonus et malus fixes par réponse ; Montre de Vie additionne aussi des ajustements en années, mais avec un point de départ fixe selon le sexe, des plafonds par facteur et d'autres facteurs. Les deux peuvent diverger de plusieurs années sur le même profil.</div>
   </div>
 
   <div class="faq-item">

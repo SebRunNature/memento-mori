@@ -4,7 +4,7 @@ Date de l'audit : 11 novembre 2026. Sources : code du dépôt, sitemap et codes 
 
 ## Exports Search Console
 - `gsc-pages.csv` et `gsc-requetes.csv` : copiés dans ce dossier.
-- Période exportée : depuis le 4 mai 2026 (indiquée par Sébastien ; date de fin à préciser). Les fichiers actuellement dans ce dossier sont un premier export de période inconnue, à remplacer.
+- Période exportée : depuis le 4 mai 2026 (indiquée par Sébastien ; date de fin à préciser). Les fichiers de ce dossier sont l'export complet depuis cette date (282 clics, 10 638 impressions toutes pages confondues).
 - `gsc-requetes.csv` donne les requêtes sans la page associée : l'association requête → page sera une déduction par le sens, marquée comme telle.
 
 ## Stack

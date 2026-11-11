@@ -4,7 +4,7 @@ Date de l'audit : 11 novembre 2026. Sources : code du dépôt, sitemap et codes 
 
 ## Exports Search Console
 - `gsc-pages.csv` et `gsc-requetes.csv` : copiés dans ce dossier.
-- Période exportée : **non indiquée** (à compléter par Sébastien). Les exports ne contiennent pas de dates.
+- Période exportée : depuis le 4 mai 2026 (indiquée par Sébastien ; date de fin à préciser). Les fichiers actuellement dans ce dossier sont un premier export de période inconnue, à remplacer.
 - `gsc-requetes.csv` donne les requêtes sans la page associée : l'association requête → page sera une déduction par le sens, marquée comme telle.
 
 ## Stack
@@ -40,8 +40,8 @@ Date de l'audit : 11 novembre 2026. Sources : code du dépôt, sitemap et codes 
 
 ## Constats importants pour la suite
 1. **La fusion VO2max a déjà été faite le 12/10/2026** (commit `cb189a9`) : l'URL du 24 juin est la version canonique, l'URL du 10 août est une redirection HTML. La ligne « 2 clics, 268 impressions » de l'export GSC correspond donc probablement à une URL déjà redirigée, ou à des données antérieures. Dépend de la période exportée : à vérifier.
-2. `blog/vo2max-longevite/index.html` pointe encore vers l'ancienne URL du 10 août (lien interne à corriger).
-3. `/don/` apparaît dans l'export (2 clics, 17 impressions) mais **n'existe pas** dans le dépôt et renvoie 404 en ligne. À investiguer (page supprimée ? lien externe ?).
+2. ~~`blog/vo2max-longevite/index.html` pointe vers l'ancienne URL~~ : erreur d'audit. Le lien (ligne 330) pointe déjà vers l'URL du 24 juin. Rien à corriger.
+3. `/don/` apparaît dans l'export (2 clics, 17 impressions) mais n'existe pas dans le dépôt et renvoie 404 en ligne. Sébastien confirme que la page n'existe plus : Google garde l'ancienne adresse en mémoire, aucune action.
 4. `/grille/?age` est enregistré à part dans GSC : URL avec paramètre, sans canonical propre à la variante.
 5. Pas de page 404 personnalisée.
 6. Les articles datés ne portent pas de champ `canonical` dans leur front matter : le canonical est calculé, ce qui est correct.

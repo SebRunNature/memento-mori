@@ -4,6 +4,7 @@ title: "Memento Mori — signification, philosophie et pratique moderne (guide c
 description: "Memento Mori : ça veut dire quoi exactement ? Origines romaines, philosophie stoïcienne, Steve Jobs, Marc Aurèle — et comment l'appliquer concrètement aujourd'hui."
 date: 2026-05-06
 author: Sébastien Salomon
+last_modified_at: 2026-11-11
 ---
 
 <style>
@@ -228,6 +229,20 @@ author: Sébastien Salomon
     <p>« Je ne cours pas pour vivre plus longtemps. Je cours pour que les années que je vis aient du poids. »</p>
     <footer style="font-size:.75rem;color:var(--muted);margin-top:8px;font-weight:700;">— Sébastien, Run Nature · Luxembourg</footer>
   </blockquote>
+
+  <h2>Pourquoi un décompte en secondes</h2>
+
+  <p>
+    Il y a quelques années, mon grand-père est mort. Pas une mort dramatique : une mort tranquille, dans un lit, à 87 ans, entouré des siens. Et pourtant ça m'a secoué comme rien d'autre ne l'avait jamais fait. Pas de tristesse, pas d'angoisse. Juste une clarté soudaine : le temps passe, et on fait comme s'il ne passait pas.
+  </p>
+
+  <p>
+    Quand tu cours un ultra, tu apprends à décomposer le temps. Pas 80 km, pas 20 heures : le prochain ravitaillement, la prochaine montée, la prochaine seconde. C'est l'idée de la <a href="/montre/">Montre de Vie</a> : elle ne te dit pas que tu vas mourir dans X années pour te faire peur, elle affiche un temps restant estimé, en secondes, pour que le temps fini devienne concret.
+  </p>
+
+  <p>
+    Les personnes qui ont essayé la montre m'ont rapporté des choses simples : arrêter de remettre à demain l'appel à leurs parents, reprendre la course à pied, regarder leurs enfants différemment. Rien de spectaculaire. Ce sont des témoignages, pas des résultats mesurés, et l'estimation affichée reste indicative.
+  </p>
 
   <!-- FAQ SCHEMA -->
   <h2>Questions fréquentes sur le Memento Mori</h2>

@@ -16,3 +16,10 @@ Une ligne par modification de fond. Les pages modifiées depuis moins de 60 jour
 | 2026-11-11 | /don/ | Redirection vers l'accueil |
 | 2026-11-11 | Layout articles | Suppression du suffixe « — Montre de Vie » dans le titre |
 | 2026-11-11 | /contact/, /mentions-legales/ | Refonte, nouvelle page de mentions légales |
+| 2026-11-11 | /blog/2026/06/11/score-de-vie-et-montre-… | Fusion dans « calculateur âge biologique — comment ça marche » ; redirection |
+| 2026-11-11 | /blog/2026/05/05/pourquoi-compter-ses-secondes/ | Fusion dans « Memento Mori — signification » ; redirection |
+| 2026-11-11 | /blog/2026/05/08/zones-bleues-habitudes-… | Fusion dans l'article du 28 juin ; redirection |
+| 2026-11-11 | /blog/2026/05/07/trail-running-nature-longevite/ | Fusion dans l'article Mullerthal ; redirection ; lien vers Run Nature (À propos) |
+| 2026-11-11 | /blog/2026/05/22/trail-grande-region-mullerthal-… | Correction de l'attribution « 4,7 ans » (athlètes d'élite), nouveau titre et meta |
+| 2026-11-11 | /blog/2026/05/06/tikker-watch-alternative-gratuite/ | Réécriture en comparatif factuel (gabarit §5) |
+| 2026-11-11 | /grille/ | Canonical vers /grille/ |

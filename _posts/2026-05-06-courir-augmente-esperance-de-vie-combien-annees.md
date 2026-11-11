@@ -147,7 +147,7 @@ retenir: "Dans les études d'observation, les coureurs vivent en moyenne environ
     <p>📖 Lectures complémentaires</p>
     <ul>
       <li><a href="/blog/vo2max-longevite/"><strong>VO2 max et espérance de vie</strong></a> — ce que disent trois grandes études sur la forme cardiorespiratoire.</li>
-      <li><a href="/blog/2026/05/07/trail-running-nature-longevite/"><strong>Trail running et nature</strong></a> — courir en pleine nature.</li>
+      <li><a href="/blog/2026/05/22/trail-grande-region-mullerthal-esperance-vie/"><strong>Trail dans le Mullerthal et la Grande Région</strong></a> — nature et longévité.</li>
       <li><a href="/blog/2026/08/30/comment-calculer-son-esperance-de-vie/"><strong>Calculer son espérance de vie</strong></a> — la méthode et les chiffres INSEE.</li>
     </ul>
   </div>

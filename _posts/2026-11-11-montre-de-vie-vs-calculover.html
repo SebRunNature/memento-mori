@@ -1,0 +1,162 @@
+---
+layout: post
+title: "Montre de Vie vs Calculover : un calculateur d'âge biologique qui part de ton bilan sanguin"
+description: "Calculover exige 13 champs, dont HbA1c et bilan lipidique, et affiche un score sur 100. Ce que le code de la page montre, comparé à Montre de Vie."
+excerpt: "Le calculateur d'âge biologique de Calculover part de vraies valeurs de bilan : fréquence cardiaque, tension, HbA1c, cholestérol. D'après le code de la page, consulté en novembre 2026, la formule affichée n'est pas celle qui produit l'âge. Voici ce que ça change."
+date: 2026-11-11
+author: Sébastien Salomon
+retenir: "Calculover saisit de vraies valeurs de bilan, mais d'après le code de la page (novembre 2026), la formule affichée n'est pas celle qui produit l'âge biologique."
+---
+
+<a class="back-link" href="/blog/">← Retour au blog</a>
+
+<article>
+
+  <h1>Montre de Vie vs Calculover : un calculateur d'âge biologique qui part de ton bilan sanguin</h1>
+  <div class="post-meta"><time datetime="2026-11-11">11 novembre 2026</time> &nbsp;·&nbsp; Sébastien Salomon &nbsp;·&nbsp; 9 min de lecture</div>
+
+  <p><strong>Calculover</strong> est un site de calculateurs généralistes (« 1 620 calculateurs dans 15 catégories », d'après son pied de page). Son calculateur d'âge biologique ne pose pas de questions sur les habitudes : il demande des valeurs de bilan, comme la fréquence cardiaque au repos, la tension, l'HbA1c et le cholestérol. C'est ce qui le rapproche de la partie « bilan sanguin » optionnelle de Montre de Vie.</p>
+
+  <p>Cet article s'appuie sur la page et sur le fichier JavaScript qui calcule le résultat, consultés en novembre 2026. N'ont pas été analysés : l'envoi du PDF par e-mail, le fonctionnement du lien de partage et un script tiers chargé par la page.</p>
+
+  <h2>Les deux en un coup d'œil</h2>
+
+  <div class="vs-table-wrap8">
+  <table class="vs-table">
+    <thead>
+      <tr><th>Critère</th><th>Montre de Vie</th><th>Calculover</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Prix</td><td>Gratuit, sans compte</td><td>Gratuit (« Sans inscription » en pied de page)</td></tr>
+      <tr><td>Ce qui est calculé</td><td>Espérance de vie <strong>+</strong> âge biologique</td><td>Âge biologique et un score de santé sur 100</td></tr>
+      <tr><td>Champs à remplir</td><td>11 en mode express, plus des niveaux optionnels en mode complet</td><td>13, tous nécessaires pour obtenir un résultat, tous préremplis</td></tr>
+      <tr><td>Bilan sanguin</td><td>Optionnel : valeur exacte ou fourchette, en g/L, mg/dL ou mmol/L (HbA1c en % ou mmol/mol)</td><td>Valeurs exactes en mg/dL (HbA1c en %)</td></tr>
+      <tr><td>Marqueurs demandés</td><td>Tension systolique et diastolique, glycémie, HbA1c, LDL, HDL, fréquence cardiaque, CRP, ferritine, vitamine D (tous optionnels)</td><td>Fréquence cardiaque, tension systolique et diastolique, HbA1c ou glycémie à jeun, cholestérol total, HDL, LDL</td></tr>
+      <tr><td>Mesures physiques</td><td>VO₂max, force de préhension, vitesse de marche, tour de taille (optionnels)</td><td>IMC uniquement</td></tr>
+      <tr><td>Sexe</td><td>Demandé</td><td>Absent du formulaire et du code de calcul</td></tr>
+      <tr><td>Méthode</td><td>Années ajoutées ou retirées par facteur, avec plafonds (voir <a href="/methodologie/">Méthodologie</a>)</td><td>Somme de termes linéaires sur les valeurs saisies ; un score sur 100 calculé à part, par tranches</td></tr>
+      <tr><td>Écart maximal avec l'âge réel</td><td>−12 à +18 ans</td><td>−20 à +25 ans</td></tr>
+      <tr><td>Sources citées</td><td>Page <a href="/sources/">Sources</a></td><td>Trois pages des CDC (IMC et perte de poids)</td></tr>
+      <tr><td>Détail du résultat</td><td>Somme d'années par catégorie, puis par facteur</td><td>Cinq sous-scores sur 20 et les ajustements</td></tr>
+      <tr><td>Après le calcul</td><td>Décompte en direct, PDF, impression, image de partage, historique</td><td>Partage par lien, intégration, copie, export CSV, impression</td></tr>
+      <tr><td>Publicités</td><td>Aucune</td><td>Non déterminé : un script tiers est chargé, son rôle n'a pas été analysé</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Ce que Calculover fait bien</h2>
+
+  <p>La saisie part de <strong>vraies valeurs</strong>, une par champ, avec un contrôle de plage (par exemple 18 à 100 ans pour l'âge, 40 à 120 bpm pour la fréquence cardiaque). Le calculateur demande la tension diastolique en plus de la systolique, et le cholestérol total en plus du HDL et du LDL. Pour la glycémie, une bascule permet de saisir l'HbA1c ou la glycémie à jeun.</p>
+
+  <p>Le résultat est <strong>lisible</strong> : un score sur 100, cinq sous-scores sur 20 (cardiovasculaire, métabolique, composition corporelle, mode de vie, facteurs de risque), et pour chacun les valeurs qui ont été prises en compte. Les deux exemples de la page (une personne de 32 ans, une de 45 ans) affichent leurs valeurs d'entrée, ce qui permet de se situer. La page propose aussi un export CSV et dit clairement que le résultat n'est pas un diagnostic et ne remplace ni une horloge épigénétique ni un avis médical.</p>
+
+  <h2>Ce que le code de la page montre</h2>
+
+  <h3>La formule affichée n'est pas celle du code</h3>
+
+  <p>La section « Formule » de la page donne : <code>bioAge = chronologicalAge − (totalScore − 50) × ageAdjustFactor</code>. Dans le fichier JavaScript, ni <code>ageAdjustFactor</code> ni <code>totalScore</code> n'apparaissent. L'âge biologique y est calculé en partant de l'âge saisi, auquel s'ajoutent des termes linéaires sur les valeurs brutes. Quelques exemples : 0,1 an par battement par minute d'écart avec 70 ; 2,2 ans par point d'HbA1c d'écart avec 5,4 ; 0,35 an par point d'IMC au-dessus de 25 ; −0,5 an par jour d'exercice par semaine ; +7,5 ans pour un fumeur actuel, +2,5 ans pour un ancien fumeur. Le résultat est ensuite borné entre l'âge moins 20 ans et l'âge plus 25 ans.</p>
+
+  <p>Le score sur 100, lui, est calculé séparément, par tranches de valeurs, et n'entre pas dans l'âge. Quand le visiteur saisit une glycémie à jeun au lieu de l'HbA1c, le code la convertit en HbA1c avec <code>glycémie × 0,031 + 2,38</code> ; aucune des trois sources listées sur la page (CDC, IMC et perte de poids) ne porte sur cette conversion.</p>
+
+  <h3>Un texte de limites qui ne correspond pas au formulaire</h3>
+
+  <p>La page indique s'appuyer sur « des concepts adaptés de l'algorithme PhenoAge ». Les champs demandés ne reprennent pas les neuf biomarqueurs de ce modèle (albumine, créatinine, CRP, lymphocytes, VGM, largeur de distribution des érythrocytes, phosphatase alcaline, leucocytes, glycémie). Seule la glycémie figure dans les deux, sous forme d'HbA1c ou de glycémie à jeun chez Calculover.</p>
+
+  <p>Autres écarts entre texte et code : l'article de la page écrit que le calcul ne prend pas en compte le sommeil, le tabagisme, l'alcool ni l'activité physique, alors que le formulaire les demande et que le code les utilise. Le paragraphe de méthodologie parle de « sexe » et de « tour de taille », absents du formulaire. Le texte ne précise pas laquelle des deux descriptions est exacte ; seul le code indique ce qui est calculé.</p>
+
+  <h3>Tout est obligatoire, tout est prérempli</h3>
+
+  <p>Le code n'affiche un résultat que si l'âge, la fréquence cardiaque, les deux tensions, l'HbA1c (ou la glycémie), les trois valeurs de cholestérol, l'IMC, le sommeil, l'exercice et l'alcool sont renseignés. Le tabac est réglé par défaut sur « Jamais ». Les champs sont préremplis avec des valeurs d'exemple (35 ans, 72 bpm, 120/80 mmHg, HbA1c 5,4 %, etc.) : un champ que tu ne modifies pas entre dans le calcul avec sa valeur d'exemple.</p>
+
+  <p>Autre contrainte pratique : glycémie et lipides se saisissent uniquement en mg/dL, l'HbA1c uniquement en %. Le code ne contient aucune conversion vers les g/L ou mmol/L, unités que des laboratoires utilisent selon les pays.</p>
+
+  <h3>Deux dates et trois sources</h3>
+
+  <p>La page affiche « Mis à jour le 2026-05-11 ». Ses données structurées (JSON-LD) indiquent une publication au 23 mars 2026 et une dernière modification au 1<sup>er</sup> mars 2026. Ces dates ne correspondent pas entre elles, comme sur la page de Cleage comparée plus haut sur ce blog. Les ordres de grandeur du texte d'explication (« 5 à 8 ans » pour le tabac, « 3 à 7 ans » pour l'effet combiné du mode de vie) ne sont rattachés à aucune référence dans la page.</p>
+
+  <h2>Ce que Montre de Vie fait différemment</h2>
+
+  <p>Montre de Vie donne <strong>deux chiffres</strong> (espérance de vie et âge biologique) et un décompte en direct. Il couvre davantage de facteurs que le bilan sanguin : VO₂max, force de préhension, vitesse de marche, sommeil, stress, liens sociaux. Depuis novembre 2026, le niveau « bilan sanguin » accepte des valeurs exactes avec conversion d'unités (g/L, mg/dL, mmol/L ; HbA1c en % ou mmol/mol), et les résultats sont détaillés par catégorie.</p>
+
+  <p>Il a ses limites, comparables à celles de l'autre outil. Le calcul n'est <strong>pas PhenoAge</strong> non plus : c'est une somme d'années par classe de valeur, et le nombre d'années de chaque classe est une règle de l'outil, pas un résultat d'étude (voir <a href="/methodologie/">Méthodologie</a>). Le mode express repose sur des habitudes déclarées. Le cholestérol total n'est pas demandé : il recoupe le LDL et le HDL, et l'outil évite de compter la même chose deux fois. Glycémie et HbA1c, si tu renseignes les deux, ne s'additionnent pas : l'outil retient la plus défavorable.</p>
+
+  <div class="callout">
+    <strong>Valeurs exactes ou fourchettes : ça ne change pas la nature de l'outil</strong>
+    Saisir ton HbA1c à la décimale rend le classement plus précis, mais l'écart d'âge qui en sort reste une estimation indicative, avec des années par classe fixées par l'outil.
+  </div>
+
+  <h2>Quel outil choisir ?</h2>
+
+  <p>Si tu as sous la main un bilan récent en mg/dL et que tu veux un score par domaine, Calculover le fait, à condition de remplir les treize champs et de vérifier qu'aucune valeur d'exemple ne reste. Garde en tête que le texte de la page et le code ne décrivent pas la même formule.</p>
+
+  <p>Si tu veux partir de tes habitudes, ajouter ton bilan seulement si tu en as un, saisir tes valeurs dans l'unité de ton laboratoire et obtenir aussi une espérance de vie, c'est le cas d'usage de Montre de Vie.</p>
+
+  <div class="cta-montre">
+    <p>Calcule ton espérance de vie et ton âge biologique en un seul formulaire — gratuit, automatique, avec ou sans bilan sanguin.</p>
+    <a href="/montre/">⏱ Lancer la Montre de Vie</a>
+  </div>
+
+  <h2>Pour aller plus loin sur le blog</h2>
+
+  <div class="further-reading">
+    <p>📖 Lectures complémentaires</p>
+    <ul>
+      <li><a href="/methodologie/"><strong>Méthodologie</strong></a> — comment Montre de Vie calcule ton espérance de vie et ton âge biologique, en détail.</li>
+      <li><a href="/blog/2026/10/12/montre-de-vie-vs-calcvita/"><strong>Montre de Vie vs CalcVita</strong></a> — comparatif contre un calculateur basé sur des mesures fonctionnelles.</li>
+      <li><a href="/blog/2026/10/13/montre-de-vie-vs-age-reel/"><strong>Montre de Vie vs Age-Réel</strong></a> — comparatif contre un calculateur à 24 questions.</li>
+      <li><a href="/blog/2026/11/04/montre-de-vie-vs-calculatrice-now/"><strong>Montre de Vie vs Calculatrice.now</strong></a> — comparatif contre un calculateur d'un réseau de 62 outils "Santé".</li>
+      <li><a href="/blog/2026/11/04/montre-de-vie-vs-cleage/"><strong>Montre de Vie vs Cleage</strong></a> — comparatif contre le test d'une clinique esthétique.</li>
+      <li><a href="/blog/2026/11/08/montre-de-vie-vs-iscalculator/"><strong>Montre de Vie vs isCalculator</strong></a> — comparatif contre le calculateur d'un répertoire d'outils générés avec l'IA.</li>
+      <li><a href="/blog/age-biologique/"><strong>Âge biologique : définition, calcul et ce que disent les études</strong></a> — le guide complet.</li>
+    </ul>
+  </div>
+
+  <h2>❓ Questions fréquentes</h2>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Le calculateur d'âge biologique de Calculover utilise-t-il PhenoAge ?</h3>
+    <div class="faq-a">La page parle de « concepts adaptés » de PhenoAge. D'après le code de la page consulté en novembre 2026, l'âge est calculé avec des termes linéaires sur la fréquence cardiaque, la tension, l'HbA1c, les lipides, l'IMC, le sommeil, l'exercice, le tabac et l'alcool. Les champs ne correspondent pas aux neuf biomarqueurs du modèle publié par Levine et al. en 2018, et Montre de Vie n'applique pas non plus ce modèle (voir la <a href="/methodologie/">Méthodologie</a>).</div>
+  </div>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Faut-il un bilan sanguin pour utiliser le calculateur de Calculover ?</h3>
+    <div class="faq-a">D'après le code, un résultat n'est calculé que si HbA1c (ou glycémie à jeun), cholestérol total, HDL et LDL sont renseignés, avec les autres champs. Les champs étant préremplis, un résultat peut apparaître avec des valeurs d'exemple : il ne dit alors rien de toi. Sur Montre de Vie, le bilan est optionnel.</div>
+  </div>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Peut-on saisir ses résultats en g/L ou en mmol/L ?</h3>
+    <div class="faq-a">Chez Calculover, d'après la page et le code consultés en novembre 2026, glycémie et lipides se saisissent en mg/dL et l'HbA1c en %. Sur Montre de Vie, la glycémie, le LDL et le HDL se saisissent en g/L, mg/dL ou mmol/L, et l'HbA1c en % ou en mmol/mol (conversion d'après <a href="/sources/">Hoelzel et al., 2004</a>).</div>
+  </div>
+
+  <div class="faq-item">
+    <h3 class="faq-q">Quelle différence entre le score de santé sur 100 et l'âge biologique chez Calculover ?</h3>
+    <div class="faq-a">D'après le code, ce sont deux calculs séparés à partir des mêmes valeurs : le score additionne cinq sous-scores par tranches, l'âge biologique additionne des termes linéaires. Le score n'entre pas dans le calcul de l'âge.</div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ Avertissement<br>
+    Cet article compare Montre de Vie à un calculateur tiers, à visée informative. Aucun des deux ne constitue un diagnostic médical ni un avis de santé. Les observations sur Calculover sont datées de novembre 2026 (page et fichier JavaScript de calcul) et peuvent évoluer si la page change.
+  </div>
+
+  <div class="sources">
+    <p>📚 Sources</p>
+    <ul>
+      <li><a href="https://calculover.com/fr/health-fitness/clinical/biological-age/" target="_blank" rel="noopener">Calculover — Calculateur d'âge biologique (page consultée en novembre 2026)</a></li>
+      <li><a href="https://calculover.com/health-fitness/clinical/biological-age/logic.7c7cb96b.min.js" target="_blank" rel="noopener">Calculover — fichier JavaScript du calculateur (consulté en novembre 2026)</a></li>
+      <li><a href="/methodologie/">Montre de Vie — Méthodologie scientifique</a></li>
+      <li><a href="/sources/">Montre de Vie — Sources</a></li>
+    </ul>
+  </div>
+
+</article>
+
+<style>
+  .vs-table-wrap8{overflow-x:auto;margin:24px 0}
+  .vs-table-wrap8 .vs-table{width:100%;border-collapse:collapse;font-size:.88rem}
+  .vs-table-wrap8 .vs-table th{background:var(--surface2);padding:12px 14px;text-align:left;font-weight:700;
+    color:var(--text);border-bottom:2px solid var(--border)}
+  .vs-table-wrap8 .vs-table th:first-child{width:24%}
+  .vs-table-wrap8 .vs-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:rgba(24,24,27,.85)}
+  .vs-table-wrap8 .vs-table tbody tr td:first-child{font-weight:600;color:var(--muted)}
+  .vs-table-wrap8 .vs-table tbody tr td:nth-child(2){color:var(--amber-dk);font-weight:600}
+</style>

@@ -162,6 +162,10 @@ h1 em{color:var(--amber-lt);font-style:normal}
   text-decoration:none;padding:4px 8px;border-radius:6px;transition:color .2s}
 .footer-link:hover{color:var(--text)}
 .footer-sep{color:var(--dim);font-size:.75rem}
+.footer-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 48px;max-width:440px;margin:0 auto 22px;text-align:left}
+.footer-col{display:flex;flex-direction:column;gap:2px}
+.footer-title{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;padding:0 8px}
+.site-footer .footer-copy{border-top:1px solid var(--border);padding-top:18px}
 .footer-copy{font-size:.8rem;color:var(--dim);line-height:1.6}
 .footer-copy a{color:var(--dim);text-decoration:none}
 .footer-copy a:hover{color:var(--muted)}
@@ -226,25 +230,23 @@ h1 em{color:var(--amber-lt);font-style:normal}
 <!-- FOOTER — Canonique -->
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <div class="footer-links">
-      <a class="footer-link" href="/">Accueil</a>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="/montre/">La Montre</a>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="/score/">Score de Vie</a>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="/blog/">Blog</a>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="/apropos/">À propos</a>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="/confidentialite/">Confidentialité</a>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="/contact/">Contact</a>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="https://x.com/Montredevie" target="_blank" rel="noopener">X</a>
-      <span class="footer-sep">·</span>
-      <a class="footer-link" href="/mentions-legales/">Mentions légales</a>
-    </div>
+    <nav class="footer-cols" aria-label="Pied de page">
+      <div class="footer-col">
+        <span class="footer-title">Le site</span>
+        <a class="footer-link" href="/">Accueil</a>
+        <a class="footer-link" href="/montre/">La Montre</a>
+        <a class="footer-link" href="/blog/">Blog</a>
+        <a class="footer-link" href="/faq/">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-title">Informations</span>
+        <a class="footer-link" href="/apropos/">À propos</a>
+        <a class="footer-link" href="/contact/">Contact</a>
+        <a class="footer-link" href="/confidentialite/">Confidentialité</a>
+        <a class="footer-link" href="/mentions-legales/">Mentions légales</a>
+        <a class="footer-link" href="https://x.com/Montredevie" target="_blank" rel="noopener">X (@Montredevie)</a>
+      </div>
+    </nav>
     <p class="footer-copy">
       Outil indicatif — pas un conseil médical ·
       © 2026 Sébastien Salomon — Montre de Vie

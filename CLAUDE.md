@@ -11,6 +11,7 @@ Les consignes explicites données pour un article précis priment sur ce fichier
 3. **Honnêteté avant mise en scène.** Reconnaître les limites (du sujet, de la méthode, de notre propre outil). Ne jamais embellir.
 4. **Pas de ton marketing.** Pas de superlatifs ni de promesses vagues : « révolutionnaire », « incontournable », « game changer », « exceptionnel ». Une recommandation repose sur des raisons précises.
 5. **Distinguer mesure, ressenti et interprétation.** Une expérience personnelle ne prouve rien de général.
+6. **Éléments personnels de Sébastien.** Ce que Sébastien dit de lui-même (vécu, famille, âge, pratique sportive, observations de son entourage, années d'expérience) n'a besoin ni de source ni de confirmation supplémentaire : sa relecture suffit. Ne jamais en ajouter de nouveaux de ma propre initiative ; si un détail personnel manque, poser la question. Un élément personnel présent dans un ancien texte et non confirmé par lui reste à signaler.
 
 ## 2. Voix
 
@@ -82,7 +83,7 @@ Gabarit de référence : `_posts/2026-11-04-montre-de-vie-vs-cleage.html`.
 
 - [ ] Chaque fait sur un tiers est retrouvable dans la source consultée, avec sa date.
 - [ ] Chaque chiffre de santé a une source.
-- [ ] Aucune expérience ou opinion inventée ; les « j'ai » sont vrais.
+- [ ] Aucune expérience ou opinion inventée ; les « j'ai » sont vrais, soit fournis ou confirmés par Sébastien, soit signalés.
 - [ ] Les limites de l'analyse sont dites (iframe, etc.).
 - [ ] Pas de ton marketing, pas de tics d'IA, pas de conclusion qui répète.
 - [ ] Front matter complet, un seul H1, FAQ, disclaimer, sources.

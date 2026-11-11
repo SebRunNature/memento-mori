@@ -70,7 +70,7 @@ last_modified_at: 2026-11-11
   "author": { "@type": "Person", "name": "Sébastien Salomon", "url": "https://montre-de-vie.com/apropos/" },
   "publisher": { "@type": "Organization", "name": "Montre de Vie", "url": "https://montre-de-vie.com" },
   "datePublished": "2026-01-01",
-  "dateModified": "2026-05-17"
+  "dateModified": "2026-11-11"
 }
 </script>
 
@@ -121,7 +121,7 @@ last_modified_at: 2026-11-11
     <div class="algo-num">4</div>
     <div class="algo-content">
       <span class="algo-title">Lien entre les deux résultats</span>
-      <span class="algo-body">Pour certains facteurs (le poids et le VO₂max), l'écart d'âge biologique est converti en années d'espérance de vie avec un coefficient qui augmente avec l'âge, de 0,6 avant 25 ans à 1,2 après 80 ans.</span>
+      <span class="algo-body">Pour certains facteurs (le poids, le VO₂max, la fréquence cardiaque au repos et le HDL), l'écart d'âge biologique est converti en années d'espérance de vie avec un coefficient qui augmente avec l'âge, de 0,6 avant 25 ans à 1,2 après 80 ans.</span>
     </div>
   </div>
   <div class="algo-step">
@@ -218,6 +218,46 @@ last_modified_at: 2026-11-11
 
 <p class="prose">Pour les mesures de performance physique, le calculateur utilise des repères simples : VO₂max, force de préhension, vitesse de marche sur 4 mètres et tour de taille, comparés à des valeurs attendues selon l'âge et le sexe. Le VO₂max est fortement associé à la mortalité dans les méta-analyses (Kodama et al., JAMA 2009) ; c'est une association observée, pas une preuve de causalité.</p>
 
+<h2 class="ap-section-title">Saisie du bilan sanguin et conversions d'unités</h2>
+
+<p class="prose">Dans le mode complet, tension, glycémie, HbA1c, LDL, HDL et fréquence cardiaque au repos peuvent être saisis en <strong>valeur exacte</strong>, avec l'unité de ton bilan (g/L, mg/dL ou mmol/L ; % ou mmol/mol pour l'HbA1c). La valeur est convertie, puis rangée dans l'une des fourchettes de l'outil. Si tu renseignes à la fois une valeur exacte et une fourchette, <strong>la valeur exacte prime</strong>. Une valeur hors plage plausible est ignorée plutôt que comptée. Les conversions utilisées : glucose, 1 mmol/L = 18,016 mg/dL ; cholestérol, 1 mmol/L = 38,67 mg/dL ; HbA1c, mmol/mol = (% − 2,15) × 10,929 (Hoelzel et al., <em>Clinical Chemistry</em>, 2004).</p>
+
+<table class="factor-table">
+  <thead>
+    <tr><th>Mesure</th><th>Classes de l'outil</th><th>Ajustement d'âge biologique</th><th>Repère</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HbA1c</td>
+      <td>moins de 5,7 % · 5,7 à 6,4 % · 6,5 % ou plus</td>
+      <td>0 · +3,5 · +5 an(s)</td>
+      <td>Seuils de classification ADA, <em>Diabetes Care</em>, 2025</td>
+    </tr>
+    <tr>
+      <td>Glycémie à jeun</td>
+      <td>0,70–1,00 · 1,01–1,10 · 1,11–1,25 · 1,26 g/L ou plus</td>
+      <td>−1 · +1,5 · +3,5 · +5 an(s)</td>
+      <td>Seuils de classification ADA, <em>Diabetes Care</em>, 2025</td>
+    </tr>
+    <tr>
+      <td>HDL</td>
+      <td>moins de 40 mg/dL · 40 mg/dL ou plus</td>
+      <td>+0,5 · 0 an</td>
+      <td>NCEP ATP III, <em>JAMA</em>, 2001. Seul un HDL bas est compté : l'effet d'un HDL élevé est discuté</td>
+    </tr>
+    <tr>
+      <td>Fréquence cardiaque au repos</td>
+      <td>moins de 60 · 60–69 · 70–79 · 80–89 · 90 bpm ou plus</td>
+      <td>−0,5 · 0 · +0,5 · +1 · +1,5 an(s)</td>
+      <td>Aune et al., 2017 : association observée avec la mortalité. Tranches propres à l'outil</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="prose">Ce que ces chiffres ne sont pas : les seuils viennent des références citées, mais <strong>le nombre d'années attribué à chaque classe est une règle de l'outil</strong>, pas un résultat d'étude. Pour la fréquence cardiaque au repos et le HDL, les valeurs ont été choisies volontairement modestes : la première dépend aussi de la forme physique (déjà comptée par ailleurs) et le second est un marqueur dont le rôle causal reste discuté. Glycémie à jeun et HbA1c mesurent le même domaine : si tu renseignes les deux, <strong>l'outil retient la plus défavorable</strong> au lieu de les additionner. Le cholestérol total n'est pas demandé, car il recoupe le LDL et le HDL.</p>
+
+<p class="prose">Dans les résultats, le <strong>détail par catégorie</strong> regroupe les facteurs renseignés (cœur et métabolisme, corps et capacités physiques, mode de vie, stress et liens, environnement et santé générale) et affiche la somme brute des années de chacun. Cette somme peut différer de l'écart affiché en haut, car celui-ci applique les plafonds par facteur et par regroupement, puis la limite de −12 à +18 ans.</p>
+
 <h2 class="ap-section-title">Les limites de cette méthode</h2>
 
 <p class="prose">Quelques choix méritent d'être dits explicitement :</p>
@@ -283,6 +323,11 @@ last_modified_at: 2026-11-11
       <td>Novembre 2026</td>
       <td>Leviers prioritaires : le « gain potentiel » est calculé d'après les règles de l'outil (écart entre ta valeur actuelle et la valeur la plus basse de la règle) ; textes d'accompagnement sans chiffre d'efficacité non sourcé</td>
       <td>Les fourchettes fixes précédentes (« −2 à −5 ans », « divise par trois le risque »…) n'avaient pas de source et ne correspondaient pas aux règles de calcul</td>
+    </tr>
+    <tr>
+      <td>Novembre 2026</td>
+      <td>Saisie numérique du bilan sanguin avec conversions d'unités (g/L, mg/dL, mmol/L ; % et mmol/mol) ; ajout de l'HbA1c, du HDL et de la fréquence cardiaque au repos ; détail du résultat par catégorie</td>
+      <td>Seuils ADA 2025 et NCEP ATP III 2001, Aune et al. 2017 ; le nombre d'années par classe reste une règle de l'outil</td>
     </tr>
   </tbody>
 </table>

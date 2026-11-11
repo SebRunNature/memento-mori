@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2026-10-12
+last_modified_at: 2026-11-11
 ---
 <!DOCTYPE html>
 <html lang="fr">
@@ -176,6 +176,22 @@ input[type=number]::placeholder{color:var(--muted)}
 .cd-val{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;color:var(--amber-lt);display:block;letter-spacing:-1px;line-height:1}
 .cd-lbl{display:block;font-size:.6rem;font-weight:800;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:5px}
 .quote-line{font-size:.93rem;font-style:italic;color:rgba(4,120,87,.55);text-align:center;margin:20px 0 28px;font-weight:600;line-height:1.7}
+.cat-section{margin-top:28px}
+.cat-row{border:1px solid var(--border);background:var(--card);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.cat-row summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:12px 14px}
+.cat-row summary::-webkit-details-marker{display:none}
+.cat-name{font-size:.92rem;font-weight:700;color:var(--text)}
+.cat-val{font-size:.92rem;font-weight:800;font-variant-numeric:tabular-nums}
+.cat-val.neg{color:var(--green-lt)}.cat-val.pos{color:#dc2626}.cat-val.zero{color:var(--muted)}
+.cat-bar{grid-column:1 / -1;position:relative;height:6px;border-radius:3px;background:var(--card2)}
+.cat-bar::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--border2)}
+.cat-bar i{position:absolute;top:0;bottom:0;border-radius:3px}
+.cat-bar i.neg{right:50%;background:var(--green)}.cat-bar i.pos{left:50%;background:#dc2626}
+.cat-list{margin:0;padding:0 14px 12px;list-style:none;font-size:.82rem;color:var(--muted);font-weight:600}
+.cat-list li{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-top:1px solid var(--border)}
+.cat-list li b{font-variant-numeric:tabular-nums;color:var(--text)}
+.cat-foot{font-size:.76rem;color:var(--muted);font-weight:600;line-height:1.55;margin-top:10px}
+.conv-hint{min-height:1em}
 .reco-section{margin-top:28px}
 .reco-title{font-size:1.25rem;font-weight:800;color:var(--text);margin-bottom:4px}
 .reco-sub{font-size:.8rem;color:var(--muted);font-weight:600;margin-bottom:16px;font-style:italic}
@@ -501,7 +517,10 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
 
 <!-- NIVEAU 2 -->
 <div class="level-sep express-hidden" id="sep-n2"><div class="level-sep-line"></div><div class="level-sep-dot"></div><div class="level-sep-line"></div></div>
-<div class="level-header express-hidden" id="head-n2"><div><div class="level-num">NIVEAU 02</div><div class="level-title">Capacités physiques <span class="opt-tag">Optionnel</span></div><div class="level-desc">VO₂max, force de préhension, vitesse de marche</div></div></div>
+<div class="level-header express-hidden" id="head-n2"><div><div class="level-num">NIVEAU 02</div><div class="level-title">Capacités physiques <span class="opt-tag">Optionnel</span></div><div class="level-desc">Fréquence cardiaque au repos, VO₂max, force de préhension, vitesse de marche</div></div></div>
+
+<!-- Fréquence cardiaque au repos -->
+<div class="qcard express-hidden" id="card-rhr"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="qcard-name">Fréquence cardiaque au repos</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-rhr">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Fréquence cardiaque au repos (bpm)</label><input type="number" id="rhr_val" min="0" step="1" placeholder="ex : 62" oninput="onInput()"><div class="field-hint conv-hint" id="hint-rhr"></div><div class="field-hint">Au réveil, allongé, avant de te lever : compte les pulsations pendant 60 secondes, ou prends la valeur d'une montre ou d'un tensiomètre. Le chiffre varie avec le stress, le sommeil, la caféine et certains médicaments : prends la moyenne de quelques matins.</div></div></div></div>
 
 <!-- VO2max -->
 <div class="qcard express-hidden" id="card-vo2"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5C.8 9 2 5 5.5 5c2 0 3.5 1.2 4.5 2.8C11 6.2 12.5 5 14.5 5 18 5 19.2 9 17.5 12.5 15 16.65 12 21 12 21z"/></svg></span><span class="qcard-name">VO₂max</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-vo2">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body">
@@ -523,13 +542,13 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
 <div class="level-header express-hidden" id="head-n3"><div><div class="level-num">NIVEAU 03</div><div class="level-title">Bilan sanguin <span class="opt-tag">Optionnel</span></div><div class="level-desc">Cholestérol, tension, glycémie, CRP, ferritine, vitamine D</div></div></div>
 
 <!-- Tension -->
-<div class="qcard express-hidden" id="card-tension"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="qcard-name">Tension artérielle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-tension">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Systolique (mmHg)</label><select class="field-select" onchange="pick(this,'tension',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="&lt;120">&lt; 120 — Optimal</option><option value="120-129">120–129 — Normale</option><option value="130-139">130–139 — Haute</option><option value="140-159">140–159 — HTA G1</option><option value="&gt;=160">≥ 160 — HTA G2</option></select></div></div></div>
+<div class="qcard express-hidden" id="card-tension"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="qcard-name">Tension artérielle</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-tension">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Valeur exacte (mmHg, optionnel)</label><input type="number" id="sys_val" min="0" step="1" placeholder="ex : 125" oninput="onInput()"><div class="field-hint conv-hint" id="hint-sys" style="margin-bottom:14px"></div></div><div class="field-group"><label class="field-label">Ou une fourchette (ignorée si tu saisis la valeur)</label><select class="field-select" onchange="pick(this,'tension',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="&lt;120">&lt; 120 — Optimal</option><option value="120-129">120–129 — Normale</option><option value="130-139">130–139 — Haute</option><option value="140-159">140–159 — HTA G1</option><option value="&gt;=160">≥ 160 — HTA G2</option></select></div></div></div>
 
 <!-- Glycémie -->
-<div class="qcard express-hidden" id="card-glyc"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6 7 6 11.5a6 6 0 1 1-12 0c0-4.5 6-11.5 6-11.5z"/></svg></span><span class="qcard-name">Glycémie à jeun</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-glyc">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><label class="field-label">Glycémie à jeun (g/L)</label><select class="field-select" onchange="pick(this,'glycemie',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="opt">0,70–1,00 — Optimal</option><option value="limite">1,01–1,10 — Limite</option><option value="prediabete">1,11–1,25 — Prédiabète</option><option value="diabete">≥ 1,26 — Diabète</option></select><div class="field-hint">Pour convertir mg/dL → g/L : divise par 100.</div></div></div></div>
+<div class="qcard express-hidden" id="card-glyc"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6 7 6 11.5a6 6 0 1 1-12 0c0-4.5 6-11.5 6-11.5z"/></svg></span><span class="qcard-name">Glycémie &amp; HbA1c</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-glyc">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-row"><div class="field-group"><label class="field-label">Glycémie à jeun — valeur exacte (optionnel)</label><input type="number" id="gly_val" min="0" step="0.01" placeholder="ex : 0,95" oninput="onInput()"></div><div class="field-group"><label class="field-label">Unité</label><select class="field-select" onchange="pick(this,'u_gly',this.value)"><option value="gl">g/L</option><option value="mgdl">mg/dL</option><option value="mmol">mmol/L</option></select></div></div><div class="field-hint conv-hint" id="hint-gly" style="margin:-6px 0 14px"></div><div class="field-row"><div class="field-group"><label class="field-label">HbA1c — valeur exacte (optionnel)</label><input type="number" id="hba1c_val" min="0" step="0.1" placeholder="ex : 5,4" oninput="onInput()"></div><div class="field-group"><label class="field-label">Unité</label><select class="field-select" onchange="pick(this,'u_hba1c',this.value)"><option value="pct">%</option><option value="mmolmol">mmol/mol</option></select></div></div><div class="field-hint conv-hint" id="hint-hba1c" style="margin:-6px 0 14px"></div><div class="field-group"><label class="field-label">Glycémie à jeun : ou une fourchette (g/L, ignorée si tu saisis la valeur)</label><select class="field-select" onchange="pick(this,'glycemie',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="opt">0,70–1,00 — Optimal</option><option value="limite">1,01–1,10 — Limite</option><option value="prediabete">1,11–1,25 — Prédiabète</option><option value="diabete">≥ 1,26 — Diabète</option></select><div class="field-hint">Si tu renseignes la glycémie et l'HbA1c, l'outil retient la plus défavorable des deux, pour ne pas compter deux fois la même chose.</div></div></div></div>
 
 <!-- LDL -->
-<div class="qcard express-hidden" id="card-ldl"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v8.5l-5 8A2.2 2.2 0 0 0 7 23h10a2.2 2.2 0 0 0 2-3.5l-5-8V3"/></svg></span><span class="qcard-name">Cholestérol LDL</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-ldl">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><select class="field-select" onchange="pick(this,'ldl',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="&lt;1.0">&lt; 1,00 g/L — Optimal</option><option value="1.0-1.29">1,00–1,29 — Normal</option><option value="1.3-1.59">1,30–1,59 — Limite haute</option><option value="1.6-1.89">1,60–1,89 — Élevé</option><option value="&gt;=1.9">≥ 1,90 — Très élevé</option></select></div></div></div>
+<div class="qcard express-hidden" id="card-ldl"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v8.5l-5 8A2.2 2.2 0 0 0 7 23h10a2.2 2.2 0 0 0 2-3.5l-5-8V3"/></svg></span><span class="qcard-name">Cholestérol LDL &amp; HDL</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-ldl">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-row"><div class="field-group"><label class="field-label">LDL — valeur exacte (optionnel)</label><input type="number" id="ldl_val" min="0" step="0.01" placeholder="ex : 1,15" oninput="onInput()"></div><div class="field-group"><label class="field-label">Unité</label><select class="field-select" onchange="pick(this,'u_ldl',this.value)"><option value="gl">g/L</option><option value="mgdl">mg/dL</option><option value="mmol">mmol/L</option></select></div></div><div class="field-hint conv-hint" id="hint-ldl" style="margin:-6px 0 14px"></div><div class="field-row"><div class="field-group"><label class="field-label">HDL — valeur exacte (optionnel)</label><input type="number" id="hdl_val" min="0" step="0.01" placeholder="ex : 0,55" oninput="onInput()"></div><div class="field-group"><label class="field-label">Unité</label><select class="field-select" onchange="pick(this,'u_hdl',this.value)"><option value="gl">g/L</option><option value="mgdl">mg/dL</option><option value="mmol">mmol/L</option></select></div></div><div class="field-hint conv-hint" id="hint-hdl" style="margin:-6px 0 14px"></div><div class="field-group"><label class="field-label">LDL : ou une fourchette (g/L, ignorée si tu saisis la valeur)</label><select class="field-select" onchange="pick(this,'ldl',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="&lt;1.0">&lt; 1,00 g/L — Optimal</option><option value="1.0-1.29">1,00–1,29 — Normal</option><option value="1.3-1.59">1,30–1,59 — Limite haute</option><option value="1.6-1.89">1,60–1,89 — Élevé</option><option value="&gt;=1.9">≥ 1,90 — Très élevé</option></select><div class="field-hint">Le cholestérol total n'est pas demandé : il recoupe le LDL et le HDL, l'outil éviterait de le compter deux fois.</div></div></div></div>
 
 <!-- CRP -->
 <div class="qcard express-hidden" id="card-crp"><div class="qcard-header" onclick="toggleCard(this)"><div class="qcard-left"><span class="qcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5a2.5 2.5 0 0 0 2.5-2.5c0-1.4-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span><span class="qcard-name">CRP — Inflammation</span></div><div class="qcard-right"><span class="qcard-badge" id="badge-crp">Optionnel</span><span class="qcard-chevron">▼</span></div></div><div class="qcard-body"><div class="field-group"><select class="field-select" onchange="pick(this,'crp',this.value)"><option value="" disabled selected>Choisir…</option><option value="neutre">Je ne sais pas</option><option value="&lt;1">&lt; 1 mg/L — Excellent</option><option value="1-3">1 – 3 mg/L — Normal</option><option value="3-10">3 – 10 mg/L — Élevé</option><option value="&gt;10">&gt; 10 mg/L — Très élevé</option></select><div class="field-hint">Marqueur d'inflammation systémique. &lt;1 mg/L = excellent.</div></div></div></div>
@@ -549,7 +568,7 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
 <!-- BOUTON -->
 <div class="btn-wrap">
 <button class="btn-launch" onclick="lancerCalcul()">⏱ Lancer le calcul</button>
-<p class="btn-disclaimer">Outil indicatif — pas un conseil médical. Repères : INSEE, Mandsager 2018, Leong Lancet 2015 ; facteurs inspirés de PhenoAge. Voir la Méthodologie.</p>
+<p class="btn-disclaimer">Outil indicatif — pas un conseil médical. Repères : INSEE, Mandsager 2018, Leong Lancet 2015, ADA 2025, NCEP ATP III, Aune 2017 ; facteurs inspirés de PhenoAge. Voir la Méthodologie.</p>
 </div>
 </div><!-- #setup -->
 
@@ -658,6 +677,12 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
   <button class="btn-affiner" onclick="passerEnComplet()">
     Compléter le questionnaire →
   </button>
+</div>
+<div class="cat-section" id="catSection" style="display:none">
+<div class="reco-title">Détail par catégorie</div>
+<div class="reco-sub">D'où vient ton écart d'âge biologique, regroupé par domaine. Les années sont celles des règles de l'outil (voir la Méthodologie), pas des mesures.</div>
+<div id="catRows"></div>
+<p class="cat-foot" id="catFoot"></p>
 </div>
 <div class="reco-section" id="recoSection" style="display:none">
 <div class="reco-title">Tes 3 leviers prioritaires</div>
@@ -799,7 +824,7 @@ let _mode = 'express'; // 'express' | 'complet'
 // Cartes masquées en mode express
 const EXPRESS_HIDDEN = [
   'card-corpo','card-mental','card-social','card-gen',
-  'sep-n2','head-n2','card-vo2','card-grip','card-marche',
+  'sep-n2','head-n2','card-rhr','card-vo2','card-grip','card-marche',
   'sep-n3','head-n3','card-tension','card-glyc','card-ldl',
   'card-crp','card-ferr','card-dent'
 ];
@@ -916,6 +941,7 @@ function setBadge(id, cls, text) {
 }
 
 function onInput() {
+  updateConv();
   updateProgress();
   updateBadges();
   saveSession();
@@ -960,6 +986,144 @@ function lifeExpectancyDeltaFromBio(deltaBio, chronoAge) {
   return -deltaBio * coef;
 }
 
+// ── BILAN SANGUIN : valeurs exactes, conversions d'unités ──
+// Facteurs de conversion : glucose 180,16 g/mol (1 mmol/L = 18,016 mg/dL) ; cholestérol 386,65 g/mol (1 mmol/L = 38,67 mg/dL) ;
+// HbA1c : équation maîtresse NGSP/IFCC (Hoelzel 2004), IFCC (mmol/mol) = (NGSP % − 2,15) × 10,929.
+const GLU_MGDL_PER_MMOL = 18.016, CHOL_MGDL_PER_MMOL = 38.67;
+const GLYC_BIO = { neutre:0, opt:-1, limite:+1.5, prediabete:+3.5, diabete:+5 };
+const GLYC_LABEL = { opt:'0,70–1,00 g/L — Optimal', limite:'1,01–1,10 g/L — Limite', prediabete:'1,11–1,25 g/L — Prédiabète', diabete:'≥ 1,26 g/L — Diabète' };
+
+function readNum(id) {
+  const el = document.getElementById(id);
+  if (!el || el.value === '') return null;
+  const v = parseFloat(el.value);
+  return isFinite(v) ? v : null;
+}
+const inRange = (v, a, b) => (v != null && v >= a && v <= b) ? v : null;
+const fmtN = (x, d) => x.toLocaleString('fr-FR', { maximumFractionDigits: d });
+
+// Chaque valeur est ramenée à une unité de référence puis contrôlée (plage plausible), sinon ignorée.
+function bioInputs() {
+  const sys = inRange(readNum('sys_val'), 70, 260);
+  const rhr = inRange(readNum('rhr_val'), 30, 200);
+  // Glycémie → mg/dL
+  let gly = readNum('gly_val');
+  const ug = D.u_gly || 'gl';
+  if (gly != null) gly = ug === 'gl' ? gly * 100 : ug === 'mmol' ? gly * GLU_MGDL_PER_MMOL : gly;
+  gly = inRange(gly, 40, 600);
+  // HbA1c → % (NGSP)
+  let a1c = readNum('hba1c_val');
+  if (a1c != null && (D.u_hba1c || 'pct') === 'mmolmol') a1c = a1c / 10.929 + 2.15;
+  a1c = inRange(a1c, 3, 18);
+  // LDL, HDL → mg/dL
+  const toMg = (v, u) => v == null ? null : u === 'gl' ? v * 100 : u === 'mmol' ? v * CHOL_MGDL_PER_MMOL : v;
+  const ldl = inRange(toMg(readNum('ldl_val'), D.u_ldl || 'gl'), 20, 400);
+  const hdl = inRange(toMg(readNum('hdl_val'), D.u_hdl || 'gl'), 10, 150);
+  return { sys, rhr, gly, a1c, ldl, hdl };
+}
+
+// Classes identiques à celles des menus déroulants : la valeur exacte prime sur la fourchette choisie.
+function sysClass() {
+  const v = bioInputs().sys;
+  if (v == null) return D.tension;
+  return v < 120 ? '<120' : v < 130 ? '120-129' : v < 140 ? '130-139' : v < 160 ? '140-159' : '>=160';
+}
+function ldlClass() {
+  const mg = bioInputs().ldl;
+  if (mg == null) return D.ldl;
+  const g = mg / 100;
+  return g < 1.0 ? '<1.0' : g < 1.3 ? '1.0-1.29' : g < 1.6 ? '1.3-1.59' : g < 1.9 ? '1.6-1.89' : '>=1.9';
+}
+function glyFastClass() {
+  const mg = bioInputs().gly;
+  if (mg == null) return undefined;
+  const r = Math.round(mg);
+  if (r < 70) return undefined; // sous 0,70 g/L : hors du barème de l'outil
+  return r <= 100 ? 'opt' : r <= 110 ? 'limite' : r <= 125 ? 'prediabete' : 'diabete';
+}
+function hbaClass() {
+  const v = bioInputs().a1c;
+  if (v == null) return undefined;
+  const r = Math.round(v * 10) / 10;
+  return r < 5.7 ? 'neutre' : r < 6.5 ? 'prediabete' : 'diabete';
+}
+// Glycémie à jeun et HbA1c mesurent le même domaine : on retient la plus défavorable des deux.
+function glyClass() {
+  const list = [glyFastClass() || D.glycemie, hbaClass()].filter(Boolean);
+  if (!list.length) return undefined;
+  return list.reduce((a, b) => (GLYC_BIO[b] ?? 0) > (GLYC_BIO[a] ?? 0) ? b : a);
+}
+// Seuils : <40 mg/dL = HDL bas (NCEP ATP III, 2001). Seul un HDL bas est pénalisé, l'effet d'un HDL élevé étant discuté.
+function hdlToDelta(mg) { return mg < 40 ? +0.5 : 0; }
+// Fréquence cardiaque au repos : tranches de l'outil, volontairement modestes (voir /methodologie/).
+function rhrToDelta(b) { return b < 60 ? -0.5 : b < 70 ? 0 : b < 80 ? +0.5 : b < 90 ? +1 : +1.5; }
+
+function setHint(id, txt) { const el = document.getElementById(id); if (el) el.textContent = txt; }
+function updateConv() {
+  const b = bioInputs();
+  const has = id => { const el = document.getElementById(id); return el && el.value !== ''; };
+  const bad = 'Valeur hors plage plausible : ignorée dans le calcul.';
+  // Tension
+  setHint('hint-sys', !has('sys_val') ? '' : b.sys == null ? bad : 'Fourchette retenue : ' + sysClass().replace('>=','≥ ').replace('<','< ').replace('-','–') + ' mmHg');
+  setHint('hint-rhr', !has('rhr_val') ? '' : b.rhr == null ? bad : '');
+  // Glycémie
+  if (!has('gly_val')) setHint('hint-gly', '');
+  else if (b.gly == null) setHint('hint-gly', bad);
+  else setHint('hint-gly', '= ' + fmtN(b.gly / 100, 2) + ' g/L · ' + fmtN(b.gly, 0) + ' mg/dL · ' + fmtN(b.gly / GLU_MGDL_PER_MMOL, 1) + ' mmol/L'
+    + (glyFastClass() ? ' — ' + GLYC_LABEL[glyFastClass()] : ' — sous 0,70 g/L : non pris en compte'));
+  // HbA1c
+  if (!has('hba1c_val')) setHint('hint-hba1c', '');
+  else if (b.a1c == null) setHint('hint-hba1c', bad);
+  else setHint('hint-hba1c', '= ' + fmtN(b.a1c, 1) + ' % · ' + fmtN((b.a1c - 2.15) * 10.929, 0) + ' mmol/mol');
+  // LDL / HDL
+  const chol = mg => '= ' + fmtN(mg / 100, 2) + ' g/L · ' + fmtN(mg, 0) + ' mg/dL · ' + fmtN(mg / CHOL_MGDL_PER_MMOL, 2) + ' mmol/L';
+  setHint('hint-ldl', !has('ldl_val') ? '' : b.ldl == null ? bad : chol(b.ldl));
+  setHint('hint-hdl', !has('hdl_val') ? '' : b.hdl == null ? bad : chol(b.hdl) + (b.hdl < 40 ? ' — bas (< 40 mg/dL)' : ''));
+}
+
+// ── DÉTAIL PAR CATÉGORIE ──
+const FACTOR_CATS = [
+  { name:'Cœur & métabolisme', labels:['Tension artérielle','Fréquence cardiaque au repos','Cholestérol LDL','HDL','Glycémie','CRP (inflammation)'] },
+  { name:'Corps & capacités physiques', labels:['IMC','Tour de taille','VO₂max','VO₂max (estimé)','Grip strength','Vitesse marche'] },
+  { name:'Mode de vie', labels:['Tabac','Alcool','Alimentation','Sommeil (durée)','Sommeil (qualité)','Sport modéré','Sport intense','Renforcement muscu'] },
+  { name:'Stress, sens & liens', labels:['Stress chronique','Humeur / stabilité','Anxiété chronique','Sens / Ikigai','Friction quotidienne','Sécurité financière','Liens sociaux'] },
+  { name:'Environnement & santé générale', labels:['Pollution','Ferritine','Vitamine D','Santé dentaire','Microbiome','Génétique','Suivi médical'] },
+];
+function fmtYears(v) {
+  const a = Math.abs(v);
+  if (a < 0.05) return '0 an';
+  return (v > 0 ? '+' : '−') + String(a.toFixed(1)).replace('.', ',') + (a >= 2 ? ' ans' : ' an');
+}
+function buildCats(bio) {
+  const sec = document.getElementById('catSection');
+  const wrap = document.getElementById('catRows');
+  if (!sec || !wrap || !bio || !bio.factors || !bio.factors.length) { if (sec) sec.style.display = 'none'; return; }
+  const known = new Set(FACTOR_CATS.flatMap(c => c.labels));
+  const groups = FACTOR_CATS.map(c => ({ name: c.name, items: bio.factors.filter(f => c.labels.includes(f.l)) }));
+  const other = bio.factors.filter(f => !known.has(f.l));
+  if (other.length) groups.push({ name:'Autres facteurs', items: other });
+  wrap.innerHTML = '';
+  let raw = 0;
+  groups.filter(g => g.items.length).forEach(g => {
+    const sum = g.items.reduce((t, f) => t + (f.v || 0), 0);
+    raw += sum;
+    const cls = sum < -0.04 ? 'neg' : sum > 0.04 ? 'pos' : 'zero';
+    const pct = Math.min(Math.abs(sum) / 6, 1) * 50;
+    const det = document.createElement('details');
+    det.className = 'cat-row';
+    det.innerHTML = '<summary><span class="cat-name">' + g.name + '</span><span class="cat-val ' + cls + '">' + fmtYears(sum) + '</span>'
+      + '<span class="cat-bar" aria-hidden="true">' + (cls === 'zero' ? '' : '<i class="' + cls + '" style="width:' + pct + '%"></i>') + '</span></summary>'
+      + '<ul class="cat-list">' + g.items.map(f => '<li><span>' + f.l + (f.n ? ' · ' + f.n : '') + '</span><b>' + fmtYears(f.v || 0) + '</b></li>').join('') + '</ul>';
+    wrap.appendChild(det);
+  });
+  const missing = groups.filter(g => !g.items.length).map(g => g.name);
+  document.getElementById('catFoot').textContent =
+    'Somme des facteurs renseignés : ' + fmtYears(raw) + ' · écart retenu après plafonds : ' + fmtYears(bio.delta)
+    + ' (plafonds par facteur et par regroupement, puis entre −12 et +18 ans).'
+    + (missing.length ? ' Non renseigné : ' + missing.join(', ') + '.' : '');
+  sec.style.display = 'block';
+}
+
 function calcBioAge() {
   const age = parseFloat(document.getElementById('age').value);
   if (!age || !D.sexe) return null;
@@ -983,15 +1147,24 @@ function calcBioAge() {
 
   // 3. LDL
   const ldlMap = { neutre:0,'<1.0':-2,'1.0-1.29':0,'1.3-1.59':+1.5,'1.6-1.89':+4,'>=1.9':+6 };
-  if (D.ldl) { const v=cap(ldlMap[D.ldl]??0,-2,+6); delta+=v; factors.push({l:'Cholestérol LDL',v}); }
+  const bi = bioInputs();
+  const ldlC = ldlClass();
+  if (ldlC) { const v=cap(ldlMap[ldlC]??0,-2,+6); delta+=v; factors.push({l:'Cholestérol LDL',v, n: bi.ldl!=null ? fmtN(bi.ldl/100,2)+' g/L' : undefined}); }
+  if (bi.hdl != null) { const v=cap(hdlToDelta(bi.hdl),0,+0.5); delta+=v; factors.push({l:'HDL',v, n: fmtN(bi.hdl,0)+' mg/dL'}); }
 
   // 4. Tension
   const tensionMap = { neutre:0,'<120':-1,'120-129':0,'130-139':+2,'140-159':+4,'>=160':+6 };
-  if (D.tension) { const v=cap(tensionMap[D.tension]??0,-1,+4); delta+=v; factors.push({l:'Tension artérielle',v}); }
+  const sysC = sysClass();
+  if (sysC) { const v=cap(tensionMap[sysC]??0,-1,+4); delta+=v; factors.push({l:'Tension artérielle',v, n: bi.sys!=null ? bi.sys+' mmHg' : undefined}); }
+  if (bi.rhr != null) { const v=cap(rhrToDelta(bi.rhr),-0.5,+1.5); delta+=v; factors.push({l:'Fréquence cardiaque au repos',v, n: bi.rhr+' bpm'}); }
 
   // 5. Glycémie
-  const glycMap = { neutre:0, opt:-1, limite:+1.5, prediabete:+3.5, diabete:+5 };
-  if (D.glycemie) { const v=cap(glycMap[D.glycemie]??0,-1,+5); delta+=v; factors.push({l:'Glycémie',v}); }
+  const glyC = glyClass();
+  if (glyC) {
+    const v = cap(GLYC_BIO[glyC]??0,-1,+5); delta+=v;
+    const nn = []; if (bi.gly!=null) nn.push(fmtN(bi.gly/100,2)+' g/L'); if (bi.a1c!=null) nn.push('HbA1c '+fmtN(bi.a1c,1)+' %');
+    factors.push({l:'Glycémie',v, n: nn.length ? nn.join(' · ') : undefined});
+  }
 
   // 6. Obésité
   const h = parseFloat(document.getElementById('taille').value) || null;
@@ -1123,9 +1296,12 @@ function calcChronoExpectancy() {
   const ldlEV  = { neutre:0,'<1.0':+1,'1.0-1.29':0,'1.3-1.59':-1,'1.6-1.89':-3,'>=1.9':-5 };
   const tensEV = { neutre:0,'<120':+1,'120-129':0,'130-139':-1,'140-159':-4,'>=160':-6 };
   const glycEV = { neutre:0, opt:+1, limite:-1, prediabete:-4, diabete:-7 };
-  if (D.ldl)     deltaEV += ldlEV[D.ldl]??0;
-  if (D.tension) deltaEV += tensEV[D.tension]??0;
-  if (D.glycemie)deltaEV += glycEV[D.glycemie]??0;
+  const ldlC2 = ldlClass(), sysC2 = sysClass(), glyC2 = glyClass(), bi2 = bioInputs();
+  if (ldlC2)  deltaEV += ldlEV[ldlC2]??0;
+  if (sysC2)  deltaEV += tensEV[sysC2]??0;
+  if (glyC2)  deltaEV += glycEV[glyC2]??0;
+  if (bi2.hdl != null) deltaEV += lifeExpectancyDeltaFromBio(hdlToDelta(bi2.hdl), age);
+  if (bi2.rhr != null) deltaEV += lifeExpectancyDeltaFromBio(rhrToDelta(bi2.rhr), age);
   const vo2v = parseFloat(document.getElementById('vo2max').value) || null;
   if (vo2v && D.sexe) deltaEV += lifeExpectancyDeltaFromBio(vo2maxToDelta(vo2v, age, D.sexe), age);
   const totalLife = Math.round(Math.max(base + deltaEV, age + 1));
@@ -1186,6 +1362,7 @@ function afficherResultats(age, bio, chrono) {
   endDate.setFullYear(endDate.getFullYear() + Math.floor(chrono.yearsLeft));
   startCountdown(endDate);
   buildRecos(bio.factors);
+  buildCats(bio);
   buildDonut(age, chrono, bio);
 
   const quotes = [
@@ -1234,6 +1411,8 @@ const RECO_DB = {
   'Liens sociaux':     { min:-1,   action:'Rejoindre un groupe de pratique partagée', detail:'Running, yoga, rando, peu importe. L\'isolement social est associé à une mortalité plus élevée (Holt-Lunstad 2010).' },
   'Cholestérol LDL':   { min:-2,   action:'Parler de ton LDL avec ton médecin', detail:'L\'alimentation (par exemple de type méditerranéen) en fait partie ; c\'est ton médecin qui décide d\'un éventuel traitement.' },
   'Tension artérielle':{ min:-1,   action:'Parler de ta tension avec ton médecin', detail:'Moins de sel et plus d\'activité physique font partie des pistes courantes ; c\'est ton médecin qui décide du suivi.' },
+  'Fréquence cardiaque au repos': { min:-0.5, action:'Marche rapide, vélo ou footing lent, 20 à 30 min, 3 fois par semaine', detail:'La fréquence cardiaque au repos varie avec la forme physique, le stress, le sommeil, la caféine et certains médicaments. Si elle reste élevée sur plusieurs matins, parles-en à ton médecin.' },
+  'HDL':               { min:0,    action:'Parler de ton HDL avec ton médecin', detail:'Un HDL bas se lit avec le reste du bilan (LDL, tension, glycémie) : c\'est ton médecin qui interprète et décide du suivi.' },
   'Glycémie':          { min:-1,   action:'Marche de 10 min après chaque repas', detail:'Une habitude accessible. Parle de ta glycémie avec ton médecin, qui décide des analyses utiles.' },
   'Microbiome':        { min:0,    action:'Ajouter des légumes fermentés ou des fibres à tes repas', detail:'Choucroute, kimchi, kéfir, légumineuses. Un petit essai de 10 semaines associe des aliments fermentés à plus de diversité du microbiome (Wastyk 2021).' },
   'IMC':               { min:-1,   action:'Viser une perte de poids progressive', detail:'Un déficit modéré, associé à de l\'activité physique. Un médecin ou un diététicien peut t\'aider à fixer un objectif adapté.' },
@@ -1550,6 +1729,7 @@ function resetAll() {
   document.querySelectorAll('.field-select').forEach(sel => { sel.selectedIndex = 0; });
   document.querySelectorAll('input[type=number]').forEach(el => { el.value = ''; });
   document.getElementById('imcWrap').style.display = 'none';
+  updateConv();
   document.getElementById('results').style.display = 'none';
   document.getElementById('histoSection').style.display = 'none';
   document.getElementById('setup').style.display = 'block';
@@ -2174,7 +2354,7 @@ function saveResultPDFPremium() {
 const LS_KEY = 'mdv_unified_session';
 
 // Inputs numériques à persister
-const NUMERIC_IDS = ['age','taille','poids','waist','sport_mod_h','sport_int_h','vo2max','grip','walk'];
+const NUMERIC_IDS = ['age','taille','poids','waist','sport_mod_h','sport_int_h','vo2max','grip','walk','sys_val','gly_val','hba1c_val','ldl_val','hdl_val','rhr_val'];
 
 function saveSession() {
   try {
@@ -2221,6 +2401,7 @@ function restoreSession() {
 
     // Recalculer l'IMC si taille+poids présents
     calcImc();
+    updateConv();
     updateProgress();
     updateBadges();
 

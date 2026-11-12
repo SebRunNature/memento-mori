@@ -106,6 +106,7 @@ retenir: "Aucune étude humaine ne montre que le moringa allonge la vie, et la m
       <li><a href="/blog/2026/05/08/moringa-coureurs-trail-superaliment/"><strong>Moringa pour les coureurs</strong></a> — l'usage côté trail, avec ses propres limites.</li>
       <li><a href="/blog/2026/06/18/alimentation-anti-vieillissement-ce-qui-agit-vraiment-sur-l-age-biologique/"><strong>Alimentation anti-vieillissement</strong></a> — ce qui agit vraiment sur l'âge biologique.</li>
       <li><a href="/methodologie/"><strong>Méthodologie</strong></a> et <a href="/sources/"><strong>sources</strong></a> du calculateur.</li>
+      <li><a href="/blog/2026/11/12/biohacking-longevite-ce-qui-est-etaye-et-comment-mesurer/"><strong>Biohacking et longévité</strong></a> — ce qui est étayé, les erreurs à éviter et comment mesurer simplement.</li>
     </ul>
   </div>
 

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Guide pratique : suivre sa longévité sans se prendre la tête</title>
+<style>
+  @page { size: A5; margin: 13mm 12mm 15mm; }
+  :root { --ink:#18181b; --muted:#52525b; --line:#d4d4d8; --green:#047857; --amber:#b45309; --soft:#f4f4f5; }
+  * { box-sizing:border-box; }
+  html { font-family: "Helvetica Neue", Arial, "Liberation Sans", sans-serif; color:var(--ink); font-size:9.6pt; line-height:1.5; }
+  body { margin:0; }
+  section.page { page-break-after:always; break-after:page; }
+  section.page:last-child { page-break-after:auto; break-after:auto; }
+  h1 { font-size:24pt; line-height:1.1; letter-spacing:-.02em; margin:0 0 6mm; }
+  h2 { font-size:14pt; line-height:1.2; margin:0 0 3.5mm; padding-bottom:2mm; border-bottom:1.5px solid var(--green); }
+  h3 { font-size:10.5pt; margin:4mm 0 1.5mm; color:var(--green); }
+  p { margin:0 0 2.6mm; }
+  ul, ol { margin:0 0 3mm; padding-left:5mm; }
+  li { margin-bottom:1.3mm; }
+  a { color:var(--green); text-decoration:none; border-bottom:1px solid rgba(4,120,87,.35); }
+  small, .small { font-size:8pt; color:var(--muted); }
+  .cover { display:flex; flex-direction:column; justify-content:space-between; min-height:178mm; }
+  .eyebrow { font-size:8pt; letter-spacing:.22em; text-transform:uppercase; color:var(--green); font-weight:700; margin-bottom:5mm; }
+  .sub { font-size:11.5pt; color:var(--muted); max-width:90mm; }
+  .box { background:var(--soft); border-left:3px solid var(--amber); padding:3mm 4mm; margin:3mm 0; border-radius:0 2mm 2mm 0; }
+  .box strong.t { display:block; margin-bottom:1mm; }
+  table { width:100%; border-collapse:collapse; margin:2mm 0 3mm; font-size:8.4pt; }
+  th { text-align:left; background:var(--soft); padding:1.8mm 2mm; border-bottom:1.5px solid var(--line); }
+  td { padding:1.8mm 2mm; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.sheet td { height:9.2mm; }
+  table.sheet td:first-child { width:17mm; font-weight:600; color:var(--muted); }
+  .write { border:1px solid var(--line); min-height:11mm; margin:1.2mm 0 3mm; padding:1.5mm 2mm; color:var(--muted); font-size:8pt; }
+  .foot { font-size:8pt; color:var(--muted); margin-top:5mm; }
+  .src li { font-size:7.1pt; line-height:1.3; margin-bottom:.7mm; }
+  .foot { margin-top:3mm; }
+  .toc li { margin-bottom:1mm; }
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div>
+    <div class="eyebrow">Guide gratuit · Novembre 2026</div>
+    <h1>Suivre sa longévité sans se prendre la tête</h1>
+    <p class="sub">Sommeil, repos, alimentation, compléments : ce que disent les études, les erreurs à éviter, et trois façons de mesurer simplement.</p>
+  </div>
+  <div>
+    <p><strong>Sébastien Salomon</strong><br><a href="https://montre-de-vie.com/">montre-de-vie.com</a> · <a href="https://run-nature.com/">run-nature.com</a></p>
+    <p class="small">Guide gratuit, à partager librement en conservant les liens. Page de référence : <a href="https://montre-de-vie.com/guide-longevite/">montre-de-vie.com/guide-longevite</a>. Ce guide n'est pas un avis de santé.</p>
+  </div>
+</section>
+
+<section class="page">
+  <h2>Avant de commencer</h2>
+  <p>Le mot « biohacking » recouvre beaucoup de choses : dormir à heures fixes, suivre son VO₂max, empiler des compléments, tester des molécules. Dans ce guide, il veut dire <strong>mesurer, ajuster une habitude, regarder si quelque chose change</strong>.</p>
+  <div class="box"><strong class="t">Ce que ce guide ne promet pas</strong>Aucun nombre d'années gagnées. Aucune des habitudes décrites n'a de gain en années garanti, et la plupart des études citées sont des études d'observation : elles montrent des <em>associations</em>, pas des preuves de cause à effet.</div>
+  <p>Je suis traileur et je dirige Montre de Vie, un calculateur gratuit d'espérance de vie et d'âge biologique. Je ne suis pas professionnel de santé : pour un complément, une analyse sanguine ou un traitement, demande l'avis d'un médecin ou d'un pharmacien. Ce guide ne constitue pas un avis de santé, et les gains en années de la Montre de Vie sont des règles d'estimation indicatives, pas des résultats d'études.</p>
+  <h3>Au programme</h3>
+  <ol class="toc">
+    <li>Sommeil et repos</li>
+    <li>Alimentation</li>
+    <li>Compléments</li>
+    <li>Les erreurs qui reviennent</li>
+    <li>Mesurer en trois niveaux : papier, montre, prise de sang</li>
+    <li>Feuille de suivi imprimable</li>
+    <li>Aller plus loin et sources</li>
+  </ol>
+  <p class="small">Les études citées sont listées avec leur référence en fin de guide.</p>
+</section>
+
+<section class="page">
+  <h2>1. Sommeil et repos</h2>
+  <h3>La durée</h3>
+  <p>La méta-analyse de Cappuccio et al. (<em>Sleep</em>, 2010) associe 7 à 8 heures de sommeil à la mortalité la plus basse, avec une courbe en U : le risque augmente aussi bien pour les sommeils courts que pour les sommeils longs. La durée était déclarée par les participants, et un sommeil long peut être une conséquence de la maladie plutôt qu'une cause. Détails : <a href="https://montre-de-vie.com/blog/2026/06/17/sommeil-et-longevite-combien-d-heures-pour-vivre-plus-longtemps/">Sommeil et longévité</a>.</p>
+  <h3>La régularité</h3>
+  <p>Windred et al. (<em>Sleep</em>, 2024) ont mesuré le sommeil de 60 977 participants de la UK Biobank avec un accéléromètre, puis suivi leur mortalité pendant environ six ans. Les participants aux horaires les plus réguliers avaient un risque de décès toutes causes plus bas de 20 à 48 % (selon le groupe) que les moins réguliers, et la régularité prédisait mieux la mortalité que la durée. Association observée, sur des adultes d'environ 63 ans en moyenne : elle ne prouve pas qu'aligner ses horaires fait vivre plus longtemps. Elle a un intérêt pratique, car la régularité se mesure sans appareil : l'heure de coucher et de lever, sur sept jours.</p>
+  <h3>Le repos</h3>
+  <p>Aucune source citée ici ne chiffre l'effet d'un jour de repos ou d'une pause sur la durée de vie. Le sujet le mieux traité dans ce domaine est le stress chronique, dont les liens avec le vieillissement sont des associations (<a href="https://montre-de-vie.com/blog/2026/06/26/stress-chronique-et-vieillissement-biologique/">Stress chronique et vieillissement biologique</a>). Deux repères se suivent facilement : l'énergie au réveil sur une échelle de 1 à 5, et la fréquence cardiaque au repos, en tendance.</p>
+  <p>Une fréquence cardiaque au repos plus élevée est associée à un risque plus élevé de maladie cardiovasculaire et de mortalité (Aune et al., 2017). Elle varie aussi avec la forme physique, le stress, la caféine et certains médicaments : ce n'est pas une preuve de cause.</p>
+</section>
+
+<section class="page">
+  <h2>2. Alimentation</h2>
+  <p>Les études portent surtout sur des <strong>profils alimentaires entiers</strong>, le régime méditerranéen en tête, plutôt que sur un aliment « anti-âge » ou un jeûne précis. L'essai PREDIMED concernait des personnes à haut risque cardiovasculaire et ne dit pas qu'un tel régime fait vivre plus longtemps à tout le monde ; les méta-analyses d'observation associent une meilleure adhérence à une mortalité plus basse, sans prouver la cause.</p>
+  <p>L'article <a href="https://montre-de-vie.com/blog/2026/06/18/alimentation-anti-vieillissement-ce-qui-agit-vraiment-sur-l-age-biologique/">Alimentation anti-vieillissement</a> détaille ce qui est étayé et ce qui reste discuté, avec les références.</p>
+  <p>Côté mesure, un indicateur simple suffit : le nombre de repas par semaine qui suivent le profil que tu cherches à tenir.</p>
+
+  <h2 style="margin-top:7mm">3. Compléments</h2>
+  <p>C'est le point où le biohacking s'éloigne le plus des études. La revue Cochrane de Bjelakovic et al. (2012) a regroupé des essais sur les antioxydants (bêta-carotène, vitamines A, C, E, sélénium) : elle ne trouve pas de preuve qu'ils préviennent le décès chez des personnes en bonne santé, et conclut que le bêta-carotène et la vitamine E semblent augmenter la mortalité, comme peut-être de fortes doses de vitamine A. Cette conclusion a été discutée, notamment pour la vitamine E.</p>
+  <p>Le groupe de travail américain USPSTF (<em>JAMA</em>, 2022) déconseille le bêta-carotène et la vitamine E pour prévenir les maladies cardiovasculaires et les cancers chez l'adulte, et juge les preuves insuffisantes pour les multivitamines et la plupart des autres compléments pris seuls. « Insuffisantes » ne veut pas dire « inutiles » : cela veut dire qu'on ne sait pas.</p>
+</section>
+
+<section class="page">
+  <h2>Avant d'acheter un complément</h2>
+  <p>Cinq questions à se poser, à discuter avec un médecin ou un pharmacien :</p>
+  <ul>
+    <li>Quel problème précis est-ce que je veux traiter ?</li>
+    <li>Une analyse a-t-elle montré une carence ?</li>
+    <li>Quelle étude, chez l'humain, soutient l'effet ? Porte-t-elle sur un critère de santé ou seulement sur un marqueur ?</li>
+    <li>Que contient l'étiquette, à quelle dose, et y a-t-il des interactions avec mes médicaments ?</li>
+    <li>Comment vais-je vérifier que quelque chose a changé ?</li>
+  </ul>
+  <div class="box"><strong class="t">Un exemple chiffré à lire avec recul</strong>L'article <a href="https://montre-de-vie.com/blog/2026/05/07/moringa-longevite-science/">Moringa et longévité</a> montre le même schéma sur un cas précis : peu d'essais, des effets non confirmés, aucune étude humaine sur la durée de vie.</div>
+
+  <h2 style="margin-top:7mm">4. Les erreurs qui reviennent</h2>
+  <ul>
+    <li><strong>Empiler des compléments sans bilan ni indication.</strong> Le risque est réel pour certains, l'intérêt n'est pas démontré pour la plupart.</li>
+    <li><strong>Changer plusieurs choses en même temps.</strong> Si tu modifies sommeil, entraînement et alimentation la même semaine, tu ne sauras pas ce qui a joué. Un changement à la fois, quelques semaines : repère de pratique, pas protocole validé.</li>
+    <li><strong>Prendre l'estimation d'une montre pour une mesure de laboratoire.</strong> Voir la page suivante.</li>
+    <li><strong>Courir après un score de sommeil.</strong> Une série de cas décrit des patients qui passaient plus de temps au lit pour améliorer leur score ; les auteurs ont appelé cela l'« orthosomnie » (Baron et al., 2017).</li>
+    <li><strong>Lire une valeur de prise de sang seule, ou s'automédiquer.</strong> Une valeur se lit avec le reste du bilan, l'âge et l'histoire de la personne.</li>
+  </ul>
+</section>
+
+<section class="page">
+  <h2>5. Mesurer en trois niveaux</h2>
+  <table>
+    <thead><tr><th>Niveau</th><th>Que suivre</th><th>Limite</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Papier</strong></td><td>Heures de coucher et de lever, énergie de 1 à 5, séances, un repère alimentaire, une fois par semaine</td><td>Déclaratif : une coïncidence, pas une cause</td></tr>
+      <tr><td><strong>Montre</strong></td><td>VO₂max, fréquence cardiaque au repos, sommeil, en tendance</td><td>Estimations, à lire sur plusieurs mois</td></tr>
+      <tr><td><strong>Prise de sang</strong></td><td>Les analyses que ton médecin juge utiles</td><td>Un instantané, à interpréter avec lui</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Niveau 2 : la montre</h3>
+  <p>Une méta-analyse de 14 études (Molina-Garcia et al., <em>Sports Medicine</em>, 2022) trouve que les montres qui estiment le VO₂max à partir de données de repos le surestiment en moyenne de 2,2 ml/kg/min, avec une dispersion large (de −13 à +17). Celles qui s'appuient sur des données d'effort ont une erreur moyenne proche de zéro, mais une dispersion d'environ ±10. Pour le sommeil, Chinoy et al. (<em>Sleep</em>, 2021) ont testé 34 jeunes adultes en laboratoire : les appareils détectaient bien le sommeil mais mal les périodes d'éveil, avec des résultats mitigés sur les stades, et faisaient moins bien les nuits perturbées.</p>
+  <p>Le VO₂max est fortement associé à la mortalité dans les études d'observation (Kodama et al., 2009 ; Mandsager et al., 2018). La tendance sur plusieurs mois dit plus qu'une valeur isolée.</p>
+  <div class="box"><strong class="t">Mes chiffres, à titre d'exemple</strong>Ma montre Coros Apex 4 estime mon VO₂max à 54 ml/kg/min, et ma fréquence cardiaque au repos tourne entre 45 et 47 battements par minute. Ce sont mes valeurs, pas des normes à viser. Pour situer un VO₂max par âge : <a href="https://montre-de-vie.com/blog/2026/06/24/vo2max-selon-l-age-tableau-normes-et-comment-progresser/">VO₂max par âge</a>.</div>
+</section>
+
+<section class="page">
+  <h3 style="margin-top:0">Niveau 3 : la prise de sang</h3>
+  <p>C'est ton médecin qui décide des analyses utiles, selon ton âge, ton histoire et ta pratique sportive. Ce que mesure un bilan courant est décrit dans <a href="https://montre-de-vie.com/blog/biomarqueurs-age-biologique/">Biomarqueurs et âge biologique</a>.</p>
+  <h3>Questions à poser avant la prise de sang</h3>
+  <ul>
+    <li>Quelles analyses sont utiles pour moi, à mon âge et avec ma pratique ?</li>
+    <li>Dois-je être à jeun ?</li>
+    <li>Combien de temps après un effort intense faut-il attendre ?</li>
+    <li>Est-ce utile de refaire l'analyse dans le même laboratoire pour comparer d'une année à l'autre ?</li>
+  </ul>
+  <p>Sur run-nature.com, je conseille d'attendre 2 à 3 jours de repos après un effort intense avant une prise de sang, parce qu'un effort long peut faire varier certains marqueurs. C'est un repère de pratique que je ne source pas dans ce guide : demande à ton médecin ou à ton laboratoire.</p>
+
+  <div class="box"><strong class="t">Mes bilans de 2024 et 2026, à titre d'exemple</strong>CRP inférieure à 1 mg/L en 2026 (1 mg/L en 2024) · hémoglobine 16 g/dL · ferritine 261 ng/mL en 2026 (330 en 2024) · glycémie 85 mg/dL · cholestérol total 178 mg/dL · vitamine D 21,1 ng/mL en 2024 (non dosée en 2026). Le détail est dans <a href="https://run-nature.com/2026/05/03/trail-a-47-ans-comment-rester-performant-et-en-bonne-sante/">mon article sur run-nature.com</a>. Ce sont mes valeurs, pas des normes à viser : une valeur se lit avec le reste du bilan et avec un médecin, et l'évolution d'une année à l'autre dit plus qu'un chiffre isolé.</div>
+
+  <h3>Relier ces chiffres à ton profil</h3>
+  <p>La <a href="https://montre-de-vie.com/montre/">Montre de Vie</a> accepte tes valeurs exactes (fréquence cardiaque au repos, tension, glycémie, HbA1c, LDL, HDL) dans le mode complet, avec conversion d'unités. L'écart d'âge qui en sort est une estimation indicative, dont les années par classe sont des règles de l'outil (<a href="https://montre-de-vie.com/methodologie/">Méthodologie</a>).</p>
+</section>
+
+<section class="page">
+  <h2>6. Feuille de suivi hebdomadaire</h2>
+  <p class="small" style="margin-bottom:2mm">À imprimer, une feuille par semaine. Remplis-la le matin ou le soir, en deux minutes.</p>
+  <table class="sheet">
+    <thead><tr><th>Jour</th><th>Coucher</th><th>Lever</th><th>Énergie (1–5)</th><th>Séance (type, durée)</th><th>FC repos</th></tr></thead>
+    <tbody>
+      <tr><td>Lundi</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Mardi</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Mercredi</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Jeudi</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Vendredi</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Samedi</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Dimanche</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <h3>Repère alimentaire de la semaine</h3>
+  <div class="write">Nombre de repas conformes au profil que je veux tenir : ____ / ____</div>
+  <h3>Le seul changement que je teste</h3>
+  <div class="write">Ce que je change :</div>
+  <div class="write">Depuis le (date) :                Ce que je vérifie :</div>
+  <div class="write">Ce que je constate après quelques semaines :</div>
+</section>
+
+<section class="page">
+  <h2>7. Aller plus loin</h2>
+  <ul>
+    <li><a href="https://montre-de-vie.com/montre/">Le calculateur Montre de Vie</a> : espérance de vie et âge biologique, gratuit, sans compte.</li>
+    <li><a href="https://montre-de-vie.com/blog/2026/11/12/biohacking-longevite-ce-qui-est-etaye-et-comment-mesurer/">Biohacking et longévité : ce qui est étayé</a> : la version en article de ce guide.</li>
+    <li><a href="https://montre-de-vie.com/methodologie/">Méthodologie</a> et <a href="https://montre-de-vie.com/sources/">Sources</a> : comment l'outil calcule, et d'où viennent les études.</li>
+    <li><a href="https://montre-de-vie.com/blog/age-biologique/">Âge biologique : définition, calcul et ce que disent les études</a>.</li>
+    <li><a href="https://run-nature.com/">run-nature.com</a> : mon blog de trail au Luxembourg.</li>
+  </ul>
+  <h2 style="margin-top:4mm">Sources</h2>
+  <ol class="src">
+    <li>Cappuccio F.P. et al., <em>Sleep duration and all-cause mortality</em>, Sleep, 2010. doi:10.1093/sleep/33.5.585</li>
+    <li>Windred D.P. et al., <em>Sleep regularity is a stronger predictor of mortality risk than sleep duration</em>, Sleep, 2024. doi:10.1093/sleep/zsad253</li>
+    <li>Aune D. et al., <em>Resting heart rate and the risk of cardiovascular disease, total cancer, and all-cause mortality</em>, Nutr Metab Cardiovasc Dis, 2017. doi:10.1016/j.numecd.2017.04.004</li>
+    <li>Bjelakovic G. et al., <em>Antioxidant supplements for prevention of mortality in healthy participants and patients with various diseases</em>, Cochrane Database Syst Rev, 2012. doi:10.1002/14651858.CD007176.pub2</li>
+    <li>US Preventive Services Task Force, <em>Vitamin, Mineral, and Multivitamin Supplementation to Prevent Cardiovascular Disease and Cancer</em>, JAMA, 2022. doi:10.1001/jama.2022.8970</li>
+    <li>Molina-Garcia P. et al., <em>Validity of Estimating the Maximal Oxygen Consumption by Consumer Wearables</em>, Sports Med, 2022. doi:10.1007/s40279-021-01639-y</li>
+    <li>Chinoy E.D. et al., <em>Performance of seven consumer sleep-tracking devices compared with polysomnography</em>, Sleep, 2021. doi:10.1093/sleep/zsaa291</li>
+    <li>Baron K.G. et al., <em>Orthosomnia: Are Some Patients Taking the Quantified Self Too Far?</em>, J Clin Sleep Med, 2017. doi:10.5664/jcsm.6472</li>
+    <li>Kodama S. et al., <em>Cardiorespiratory fitness as a quantitative predictor of all-cause mortality and cardiovascular events</em>, JAMA, 2009. doi:10.1001/jama.2009.681</li>
+    <li>Mandsager K. et al., <em>Association of cardiorespiratory fitness with long-term mortality among adults undergoing exercise treadmill testing</em>, JAMA Netw Open, 2018. doi:10.1001/jamanetworkopen.2018.3605</li>
+  </ol>
+  <p class="foot">Ce guide ne constitue pas un avis de santé. © 2026 Sébastien Salomon · Guide gratuit, partage libre en conservant les liens · <a href="https://montre-de-vie.com/guide-longevite/">montre-de-vie.com/guide-longevite</a></p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<aside class="support-box" aria-label="Soutenir le site et obtenir ton plan d'action">
+  <h2 class="support-title">Si cet article t'a servi</h2>
+  <p class="support-intro">Montre de Vie est gratuit et, pour l'instant, sans publicité.</p>
+  <div class="support-actions">
+    <div class="support-col">
+      <strong>Ton plan d'action</strong>
+      <span>Fais le calcul de ton âge biologique, puis laisse ton e-mail (facultatif) pour télécharger un plan d'action personnalisé.</span>
+      <a class="support-btn" href="/montre/">Lancer le calculateur</a>
+    </div>
+    {% if site.paypal_url and site.paypal_url != "" %}
+    <div class="support-col">
+      <strong>Soutenir le site</strong>
+      <span>Un don libre aide à financer le temps de recherche et de rédaction des prochains articles.</span>
+      <a class="support-btn support-btn-alt" href="{{ site.paypal_url }}" target="_blank" rel="noopener">Faire un don (PayPal)</a>
+    </div>
+    {% endif %}
+  </div>
+</aside>

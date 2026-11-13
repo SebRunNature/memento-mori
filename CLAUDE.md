@@ -64,11 +64,12 @@ Gabarit de référence : `_posts/2026-11-04-montre-de-vie-vs-cleage.html`.
 3. Introduction (2 paragraphes max), puis sections `<h2>`
 4. `<div class="cta-montre">` avant les lectures complémentaires
 5. `<div class="further-reading">` (liens internes)
-6. `<h2>❓ Questions fréquentes</h2>` avec 3 à 4 `faq-item` (`faq-q` / `faq-a`) qui répondent à de vraies questions de recherche
-7. `<div class="disclaimer">` puis `<div class="sources">`
-8. `<style>` propre à l'article (pour un tableau comparatif : classe `vs-table-wrap{N}` avec N incrémenté, le dernier utilisé est 7)
+6. `{% include support-box.html %}` (encart « Si cet article t'a servi » : plan d'action + don), placé juste avant la FAQ
+7. `<h2>❓ Questions fréquentes</h2>` avec 3 à 4 `faq-item` (`faq-q` / `faq-a`) qui répondent à de vraies questions de recherche
+8. `<div class="disclaimer">` puis `<div class="sources">`
+9. `<style>` propre à l'article (pour un tableau comparatif : classe `vs-table-wrap{N}` avec N incrémenté, le dernier utilisé est 7)
 
-**Composants disponibles :** `callout`, `cta-montre`, `further-reading`, `faq-item`, `disclaimer`, `sources`. Pas de nouvelle classe sans raison.
+**Composants disponibles :** `callout`, `cta-montre`, `support-box` (via l'include), `further-reading`, `faq-item`, `disclaimer`, `sources`. Pas de nouvelle classe sans raison.
 
 **Lecture :** temps de lecture estimé réaliste (environ 200 mots par minute).
 

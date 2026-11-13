@@ -1720,10 +1720,13 @@ function buildRecos(factors) {
     { l:'Stress chronique',v:0.1 },
     { l:'Liens sociaux',   v:0.1 },
   ];
+  // Une reco générique n'est proposée que si le facteur n'a pas été renseigné : sinon on
+  // conseillerait par exemple de « démarrer le cardio » à quelqu'un qui a saisi un VO₂max de 54.
+  const evaluated = l => factors.some(f => f.l === l || (l === 'VO₂max (estimé)' && f.l === 'VO₂max'));
   let gi = 0;
   while (sorted.length < 3 && gi < generics.length) {
     const g = generics[gi++];
-    if (!sorted.find(f => f.l === g.l)) sorted.push(g);
+    if (!sorted.find(f => f.l === g.l) && !evaluated(g.l)) sorted.push(g);
   }
 
   _lastRecos = sorted;

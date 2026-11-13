@@ -22,6 +22,7 @@ layout: default
 </div>
 {% endif %}
 
-{% unless page.support == false %}
+{% comment %}Articles sans section FAQ : encart en fin de page. Les autres l'incluent eux-mêmes avant la FAQ.{% endcomment %}
+{% unless page.support == false or content contains 'Questions fréquentes' %}
 {% include support-box.html %}
 {% endunless %}

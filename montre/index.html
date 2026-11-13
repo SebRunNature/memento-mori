@@ -818,6 +818,8 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
 </footer>
 <script>
 'use strict';
+// Nombre avec une décimale, virgule française (les âges et écarts sont affichés en français).
+const fr1 = x => x.toFixed(1).replace('.', ',');
 const D = {};
 let _mode = 'express'; // 'express' | 'complet'
 
@@ -1359,7 +1361,7 @@ function afficherResultats(age, bio, chrono) {
 
   document.getElementById('r-bio-age').textContent = bio.bioAge;
   const d = bio.delta;
-  const dStr = (d >= 0 ? '+' : '') + d.toFixed(1) + ' ans';
+  const dStr = (d >= 0 ? '+' : '') + fr1(d) + ' ans';
   let dClass = 'neu', dLabel = dStr + ' — corps aligné';
   if (d < -2)  { dClass='young'; dLabel = dStr + ' — corps plus jeune ✓'; }
   else if (d > 2) { dClass='old'; dLabel = dStr + ' — corps plus vieux'; }
@@ -1494,8 +1496,8 @@ function buildDonut(age, chrono, bio) {
   const gEl=document.getElementById("donut-gain");
   const gAEl=document.getElementById("donut-gain-ans");
   const gDEl=document.getElementById("donut-gain-dot");
-  if(gainAns>0){gEl.textContent="+"+gainSem+" sem.";gEl.style.color="var(--green-lt)";gAEl.textContent="soit +"+gainAns.toFixed(1)+" ans gagnés ✓";gDEl.style.background="#009862";}
-  else if(gainAns<0){gEl.textContent=gainSem+" sem. perdues";gEl.style.color="#dc2626";gAEl.textContent="soit "+gainAns.toFixed(1)+" ans";gDEl.style.background="#e05555";}
+  if(gainAns>0){gEl.textContent="+"+gainSem+" sem.";gEl.style.color="var(--green-lt)";gAEl.textContent="soit +"+fr1(gainAns)+" ans gagnés ✓";gDEl.style.background="#009862";}
+  else if(gainAns<0){gEl.textContent=gainSem+" sem. perdues";gEl.style.color="#dc2626";gAEl.textContent="soit "+fr1(gainAns)+" ans";gDEl.style.background="#e05555";}
   else{gEl.textContent="Neutre";gEl.style.color="var(--muted)";gAEl.textContent="âge bio = âge chrono";gDEl.style.background="#d4d4d8";}
   document.getElementById("donut-esperance").textContent=chrono.totalLife+" ans";
   const wrap=canvas.parentElement;
@@ -1569,7 +1571,7 @@ function renderHistory(history) {
     const curr = history[0];
     const prev = history[1];
     const diffDelta = curr.delta - prev.delta;
-    const diffAbs   = Math.abs(diffDelta).toFixed(1);
+    const diffAbs   = fr1(Math.abs(diffDelta));
     const daysBetween = Math.round((new Date(curr.date) - new Date(prev.date)) / (1000*60*60*24));
 
     msgEl.className = diffDelta <= -0.5
@@ -1599,7 +1601,7 @@ function renderHistory(history) {
       <span class="histo-row-date">${dateStr}</span>
       <span class="histo-row-age">${e.age} ans</span>
       <span class="histo-row-bio ${dClass}">${e.bioAge} ans bio</span>
-      <span class="histo-row-delta ${dClass}">${dSign}${e.delta.toFixed(1)} ans</span>
+      <span class="histo-row-delta ${dClass}">${dSign}${fr1(e.delta)} ans</span>
     `;
     listEl.appendChild(row);
   });
@@ -1945,7 +1947,7 @@ function drawShareCanvas() {
   const dColor = bio.delta < 0 ? '#047857' : bio.delta > 0 ? '#dc2626' : '#71717a';
   ctx.fillStyle = dColor; ctx.font = '700 22px Inter, system-ui, sans-serif';
   ctx.textAlign = 'left';
-  const dLabel = dSign + bio.delta.toFixed(1) + ' ans — ' + (bio.delta < 0 ? 'corps plus jeune ✓' : bio.delta > 0 ? 'corps plus vieux' : 'aligné');
+  const dLabel = dSign + fr1(bio.delta) + ' ans — ' + (bio.delta < 0 ? 'corps plus jeune ✓' : bio.delta > 0 ? 'corps plus vieux' : 'aligné');
   ctx.fillText(dLabel, rx, ry);
 
   // ── FOOTER ──
@@ -2009,7 +2011,7 @@ function downloadShareImage() {
 function copyShareText() {
   if (!_resultState) return;
   const { age, bio, chrono } = _resultState;
-  const txt = `🕐 Montre de Vie\n\nÂge chronologique : ${age} ans\nEspérance estimée : ${chrono.totalLife} ans\nAnnées restantes : ~${chrono.yearsLeft} ans\n\nÂge biologique : ${bio.bioAge} ans (${bio.delta >= 0 ? '+' : ''}${bio.delta.toFixed(1)} ans)\n\nmontre-de-vie.com`;
+  const txt = `🕐 Montre de Vie\n\nÂge chronologique : ${age} ans\nEspérance estimée : ${chrono.totalLife} ans\nAnnées restantes : ~${chrono.yearsLeft} ans\n\nÂge biologique : ${bio.bioAge} ans (${bio.delta >= 0 ? '+' : ''}${fr1(bio.delta)} ans)\n\nmontre-de-vie.com`;
   navigator.clipboard.writeText(txt).then(() => showToast('✓ Texte copié'));
 }
 
@@ -2085,7 +2087,7 @@ function saveResultPDF() {
   const dSign = bio.delta >= 0 ? '+' : '';
   doc.setFont('helvetica','bold');
   if (bio.delta < 0) doc.setTextColor(0,152,98); else if (bio.delta > 0) doc.setTextColor(180,60,60);
-  doc.text(dSign+bio.delta.toFixed(1)+' ans', 100, y); doc.setTextColor(40,40,40); y+=14;
+  doc.text(dSign+fr1(bio.delta)+' ans', 100, y); doc.setTextColor(40,40,40); y+=14;
   doc.setFont('helvetica','italic'); doc.setFontSize(9); doc.setTextColor(100,100,100);
   const interp = bio.delta < -2 ? 'Ton corps est plus jeune que ton âge réel. Continue.'
     : bio.delta > 2 ? 'Ton corps vieillit plus vite que prévu. Des leviers sont à activer.'
@@ -2249,7 +2251,7 @@ function saveResultPDFPremium() {
       ? 'Ton corps vieillit plus vite que ton calendrier. Bonne nouvelle : c\'est en grande partie réversible, et c\'est précisément l\'objet de ce plan.'
       : 'Ton âge biologique est proche de ton âge réel : quelques leviers ciblés peuvent te faire passer du bon côté.';
   font('normal', 10, INK);
-  const sumL = wrap('Espérance de vie estimée : ' + chrono.totalLife + ' ans. Écart entre âge biologique et âge réel : ' + dSign + delta.toFixed(1) + ' an(s). ' + interp, CW);
+  const sumL = wrap('Espérance de vie estimée : ' + chrono.totalLife + ' ans. Écart entre âge biologique et âge réel : ' + dSign + fr1(delta) + ' an(s). ' + interp, CW);
   doc.text(sumL, M, y); y += sumL.length * LH(10) + 8;
 
   const heading = txt => {
@@ -2260,10 +2262,11 @@ function saveResultPDFPremium() {
 
   // ── Priorités ──
   const recos = (_lastRecos && _lastRecos.length ? _lastRecos : []).filter(f => RECO_DB[f.l]).slice(0, 3);
-  heading('Tes ' + (recos.length || 3) + ' priorités');
+  heading(recos.length === 1 ? 'Ta priorité' : recos.length ? 'Tes ' + recos.length + ' priorités' : 'Tes priorités');
   if (recos.length === 0) {
     font('normal', 10, MUTED);
-    T('Pas assez de données pour un plan personnalisé. Relance le calcul en mode Complet.', M, y); y += 10;
+    const noL = wrap('Aucun facteur de tes réponses n\'ajoute d\'années à ton âge biologique dans les règles de l\'outil, donc pas de levier prioritaire à proposer. Garde tes habitudes et refais le test dans 4 à 6 semaines.', CW);
+    doc.text(noL, M, y); y += noL.length * LH(10) + 6;
   } else {
     font('normal', 9.5, MUTED);
     const introL = wrap('Classées par impact estimé sur ton âge biologique. Une à la fois : la régularité compte plus que l\'intensité.', CW);
@@ -2477,7 +2480,7 @@ function updateBioLive() {
   document.getElementById('blc-age').textContent = bio.bioAge;
   const d = bio.delta;
   const dEl = document.getElementById('blc-delta');
-  const dStr = (d >= 0 ? '+' : '') + d.toFixed(1) + ' ans';
+  const dStr = (d >= 0 ? '+' : '') + fr1(d) + ' ans';
   dEl.textContent = dStr;
   dEl.className = 'bio-live-delta ' + (d < -1 ? 'young' : d > 1 ? 'old' : 'neu');
 

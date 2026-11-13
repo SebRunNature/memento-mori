@@ -21,3 +21,7 @@ layout: default
   <a href="https://x.com/intent/post?text={{ page.retenir | url_encode }}&amp;url={{ site.url | append: page.url | url_encode }}&amp;via=Montredevie" target="_blank" rel="noopener" style="display:block;width:fit-content;margin-top:10px;font-weight:700;color:var(--amber-lt)">Poster cette idée sur X →</a>
 </div>
 {% endif %}
+
+{% unless page.support == false %}
+{% include support-box.html %}
+{% endunless %}

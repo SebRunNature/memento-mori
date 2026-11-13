@@ -29,3 +29,6 @@ exclude:
   - seo-data
   - Gemfile
   - Gemfile.lock
+
+# Don libre (PayPal). Laisser vide pour masquer le bouton de don dans l'encart de fin d'article.
+paypal_url: ""

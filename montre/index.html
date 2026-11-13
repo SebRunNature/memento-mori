@@ -710,7 +710,7 @@ body.embed-mode .embed-attribution{display:flex;align-items:center;justify-conte
       <button type="submit" class="newsletter-submit">S'abonner</button>
       <label class="newsletter-consent">
         <input type="checkbox" id="newsletterConsent" required>
-        J'accepte de recevoir des emails de Run Nature.
+        J'accepte de recevoir des e-mails de Montre de Vie sur les nouveaux articles et outils. Je peux me désinscrire à tout moment via le lien présent dans chaque e-mail.
       </label>
     </form>
   </div>
@@ -2137,7 +2137,7 @@ function initNewsletterForm() {
     const fd = new FormData();
     fd.append('name', nameEl.value);
     fd.append('email', emailEl.value);
-    fd.append('consent', 'oui — recevoir des emails de Run Nature');
+    fd.append('consent', 'oui — recevoir des e-mails de Montre de Vie (nouveaux articles et outils)');
     fd.append('source', 'Montre de Vie — plan d\'action personnalisé');
     fetch(NEWSLETTER_ENDPOINT, {
       method: 'POST',

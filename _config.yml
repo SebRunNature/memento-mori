@@ -31,4 +31,4 @@ exclude:
   - Gemfile.lock
 
 # Don libre (PayPal). Laisser vide pour masquer le bouton de don dans l'encart de fin d'article.
-paypal_url: ""
+paypal_url: "https://www.paypal.com/donate/?hosted_button_id=X5VXKN5DES2Z6"

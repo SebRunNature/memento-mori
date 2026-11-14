@@ -227,7 +227,7 @@ last_modified_at: 2026-11-11
 
   <blockquote>
     <p>« Je ne cours pas pour vivre plus longtemps. Je cours pour que les années que je vis aient du poids. »</p>
-    <footer style="font-size:.75rem;color:var(--muted);margin-top:8px;font-weight:700;">— Sébastien, Run Nature · Luxembourg</footer>
+    <footer style="font-size:.75rem;color:var(--muted);margin-top:8px;font-weight:700;">— Run Nature · Luxembourg</footer>
   </blockquote>
 
   <h2>Pourquoi un décompte en secondes</h2>

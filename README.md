@@ -92,7 +92,7 @@ layout: default
 title: "Ton titre ici"
 description: "Ta description SEO ici (160 caractères max)"
 date: 2026-05-05
-author: Sébastien Salomon
+author: Montre de Vie
 ---
 ```
 

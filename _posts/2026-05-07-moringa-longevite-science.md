@@ -5,7 +5,7 @@ description: "Le moringa fait-il vivre plus longtemps ? Ce que montrent les essa
 excerpt: "Les superlatifs ne manquent pas autour du moringa. Les essais randomisés de 2025 ne retrouvent pas d'effet net sur la glycémie ni le LDL, et aucune étude humaine ne mesure son effet sur la durée de vie."
 date: 2026-05-07
 last_modified_at: 2026-11-11
-author: Sébastien Salomon
+author: Montre de Vie
 retenir: "Aucune étude humaine ne montre que le moringa allonge la vie, et la méta-analyse d'essais randomisés de 2025 ne retrouve pas d'effet net sur la glycémie ni sur le LDL."
 ---
 
@@ -37,7 +37,7 @@ retenir: "Aucune étude humaine ne montre que le moringa allonge la vie, et la m
 
 <article>
   <h1>Moringa et longévité : ce que disent les études en <em>2026</em></h1>
-  <div class="post-meta"><time datetime="2026-05-07">7 mai 2026</time> &nbsp;·&nbsp; mis à jour en novembre 2026 &nbsp;·&nbsp; Sébastien Salomon &nbsp;·&nbsp; 6 min de lecture</div>
+  <div class="post-meta"><time datetime="2026-05-07">7 mai 2026</time> &nbsp;·&nbsp; mis à jour en novembre 2026 &nbsp;·&nbsp; 6 min de lecture</div>
 
   <p>Le moringa, on en entend parler partout : « superaliment », « arbre miraculeux ». Je l'utilise depuis deux ans. La première version de cet article, publiée en mai, présentait la glycémie et le cholestérol comme des effets établis. Les publications de 2025 et 2026 consultées en novembre ne soutiennent pas ce niveau de confiance, et le texte est corrigé en conséquence.</p>
 

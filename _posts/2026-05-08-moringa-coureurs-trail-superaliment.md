@@ -5,7 +5,7 @@ description: "Le moringa aide-t-il les coureurs d'endurance ? Ce que montrent le
 excerpt: "Le moringa est souvent présenté comme un complément idéal pour les coureurs d'endurance. Voici ce que montrent les rares essais sur la performance, ce qu'il faut savoir sur le fer, et pourquoi aucune dose n'est établie."
 date: 2026-05-08
 last_modified_at: 2026-11-11
-author: Sébastien Salomon
+author: Montre de Vie
 retenir: "Un seul petit essai pilote suggère un effet du moringa sur des tests d'effort chez de jeunes hommes ; pour le fer, la biodisponibilité des feuilles est rapportée très faible."
 ---
 
@@ -34,7 +34,7 @@ retenir: "Un seul petit essai pilote suggère un effet du moringa sur des tests 
 
 <article>
   <h1>Moringa pour les coureurs : promesses et <em>preuves</em></h1>
-  <div class="post-meta"><time datetime="2026-05-08">8 mai 2026</time> &nbsp;·&nbsp; mis à jour en novembre 2026 &nbsp;·&nbsp; Sébastien Salomon &nbsp;·&nbsp; 5 min de lecture</div>
+  <div class="post-meta"><time datetime="2026-05-08">8 mai 2026</time> &nbsp;·&nbsp; mis à jour en novembre 2026 &nbsp;·&nbsp; 5 min de lecture</div>
 
   <p>
     Il y a deux ans, j'ai intégré le moringa dans ma routine trail. La première version de cet article le présentait comme un complément « particulièrement intéressant » pour les coureurs d'endurance, avec des affirmations sur le fer, le magnésium ou la récupération que je n'ai pas pu rattacher à des sources. Elle est corrigée ici d'après les publications consultées en novembre 2026.

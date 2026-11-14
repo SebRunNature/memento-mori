@@ -268,7 +268,7 @@
     "dateModified": "{% if page.last_modified_at %}{{ page.last_modified_at | date: '%Y-%m-%d' }}{% else %}{{ page.date | date: '%Y-%m-%d' }}{% endif %}",
     "author": {
       "@type": "Person",
-      "name": {% if page.author %}{{ page.author | jsonify }}{% else %}"Sébastien Salomon"{% endif %},
+      "name": {% if page.author %}{{ page.author | jsonify }}{% else %}"Montre de Vie"{% endif %},
       "url": "{{ site.url }}/blog/"
     },
     "publisher": {
@@ -345,7 +345,7 @@
     </nav>
     <p class="footer-copy">
       Outil indicatif — pas un conseil médical ·
-      © {{ 'now' | date: '%Y' }} Sébastien Salomon — Montre de Vie
+      © {{ 'now' | date: '%Y' }} Montre de Vie
     </p>
   </div>
 </footer>

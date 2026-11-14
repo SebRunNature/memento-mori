@@ -5,7 +5,7 @@ description: "La Tikker Watch affiche un décompte de vie au poignet. Ce que dis
 excerpt: "La Tikker Watch est une montre qui affiche un décompte de l'espérance de vie. Voici ce que la presse en disait en 2013-2014, ce qu'affichait son site en novembre 2026, et en quoi la Montre de Vie diffère, avec les limites de chacune."
 date: 2026-05-06
 last_modified_at: 2026-11-11
-author: Sébastien Salomon
+author: Montre de Vie
 retenir: "La Tikker Watch est une montre-décompte dont le site affichait « Store unavailable » en novembre 2026 ; la Montre de Vie est un calculateur en ligne gratuit, avec ses propres limites."
 ---
 
@@ -33,7 +33,7 @@ retenir: "La Tikker Watch est une montre-décompte dont le site affichait « Sto
 
 <article>
   <h1>Tikker Watch : la montre du décompte, et une <em>alternative en ligne</em></h1>
-  <div class="post-meta"><time datetime="2026-05-06">6 mai 2026</time> &nbsp;·&nbsp; mis à jour en novembre 2026 &nbsp;·&nbsp; Sébastien Salomon &nbsp;·&nbsp; 5 min de lecture</div>
+  <div class="post-meta"><time datetime="2026-05-06">6 mai 2026</time> &nbsp;·&nbsp; mis à jour en novembre 2026 &nbsp;·&nbsp; 5 min de lecture</div>
 
   <p>
     La Tikker Watch est une montre qui affiche un décompte de ta durée de vie estimée. Elle a fait parler d'elle dans la presse en 2013 et 2014. Cet article compare sa démarche à celle de la Montre de Vie, le calculateur de ce site, à partir de ce qui est observable. Le produit lui-même n'a pas pu être analysé : d'après le site mytikker.com, consulté en novembre 2026, la boutique affiche « Store unavailable » (boutique Shopify indisponible). Ce qui est dit de la montre vient donc de la presse de l'époque, et peut avoir changé.

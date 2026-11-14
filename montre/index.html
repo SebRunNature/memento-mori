@@ -2072,7 +2072,7 @@ function saveResultPDF() {
   doc.setFont('helvetica','normal'); doc.setFontSize(11);
   doc.text('Âge actuel :', 20, y); doc.setFont('helvetica','bold'); doc.text(age+' ans', 100, y); y+=7;
   doc.setFont('helvetica','normal'); doc.text('Espérance estimée :', 20, y);
-  doc.setFont('helvetica','bold'); doc.setTextColor(245,158,11); doc.text(chrono.totalLife+' ans', 100, y); doc.setTextColor(40,40,40); y+=7;
+  doc.setFont('helvetica','bold'); doc.setTextColor(180,83,9); doc.text(chrono.totalLife+' ans', 100, y); doc.setTextColor(40,40,40); y+=7;
   doc.setFont('helvetica','normal'); doc.text('Années restantes :', 20, y);
   doc.setFont('helvetica','bold'); doc.text('~'+chrono.yearsLeft+' ans', 100, y); y+=14;
   doc.setFont('helvetica','bold'); doc.setFontSize(13);

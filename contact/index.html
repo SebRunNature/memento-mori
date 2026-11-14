@@ -35,7 +35,7 @@ last_modified_at: 2026-11-11
 
 <div class="contact-card">
   <div class="label">Écrire à l'éditeur</div>
-  <div class="contact-mail" id="mail-visible">sebrunnature [at] gmail [dot] com</div>
+  <div class="contact-mail" id="mail-visible">montredevie [at] proton [dot] me</div>
   <div class="contact-actions">
     <a class="contact-btn primary" id="mail-open" href="#" role="button">Écrire un email</a>
     <button class="contact-btn" id="mail-copy" type="button">Copier l'adresse</button>
@@ -56,7 +56,7 @@ last_modified_at: 2026-11-11
 <script>
 (function () {
   // L'adresse n'existe jamais en clair dans le HTML : elle est assemblée au clic.
-  var u = ['sebrunnature'], d = ['gmail', 'com'];
+  var u = ['montredevie'], d = ['proton', 'me'];
   function addr() { return u.join('') + String.fromCharCode(64) + d.join('.'); }
   var open = document.getElementById('mail-open');
   var copy = document.getElementById('mail-copy');

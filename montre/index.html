@@ -2331,7 +2331,7 @@ function saveResultPDFPremium() {
     y += 5;
     heading('Ton calendrier sur 4 semaines');
     rows.forEach((r, i) => {
-      doc.setFillColor(AMBER[0], AMBER[1], AMBER[2]); doc.roundedRect(M, y - 4.2, 23, 6.4, 3.2, 3.2, 'F');
+      doc.setFillColor(AMBER_DK[0], AMBER_DK[1], AMBER_DK[2]); doc.roundedRect(M, y - 4.2, 23, 6.4, 3.2, 3.2, 'F');
       font('bold', 7, [255, 255, 255]); T(r[0], M + 11.5, y, { align: 'center' });
       font('normal', 9.5, INK); doc.text(rowL[i], M + 28, y);
       y += Math.max(1, rowL[i].length) * LH(9.5) + 4.5;

@@ -5,6 +5,7 @@ description: "Memento Mori : ça veut dire quoi exactement ? Origines romaines, 
 date: 2026-05-06
 author: Montre de Vie
 last_modified_at: 2026-11-11
+retenir: "Memento mori, « souviens-toi que tu vas mourir », n'est ni un souhait de mort ni une invitation à la tristesse : c'est une invitation à vivre pleinement maintenant, parce que le temps est fini."
 ---
 
 <style>

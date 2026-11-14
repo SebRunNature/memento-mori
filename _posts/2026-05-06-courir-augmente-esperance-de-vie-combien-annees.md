@@ -5,7 +5,7 @@ description: "Courir est associé à environ 3 ans d'espérance de vie en plus d
 excerpt: "Les études associent la course à pied à environ trois ans d'espérance de vie en plus par rapport aux non-coureurs. Voici d'où vient ce chiffre, ce qu'il mesure et ce qu'il ne prouve pas."
 date: 2026-05-06
 last_modified_at: 2026-11-11
-author: Sébastien Salomon
+author: Montre de Vie
 retenir: "Dans les études d'observation, les coureurs vivent en moyenne environ trois ans de plus que les non-coureurs. C'est une association entre groupes, pas un gain garanti pour toi."
 ---
 
@@ -59,7 +59,7 @@ retenir: "Dans les études d'observation, les coureurs vivent en moyenne environ
 
 <article>
   <h1>Courir augmente l'espérance de vie : de <em>combien d'années</em> ?</h1>
-  <div class="post-meta"><time datetime="2026-05-06">6 mai 2026</time> &nbsp;·&nbsp; mis à jour en novembre 2026 &nbsp;·&nbsp; Sébastien Salomon &nbsp;·&nbsp; 7 min de lecture</div>
+  <div class="post-meta"><time datetime="2026-05-06">6 mai 2026</time> &nbsp;·&nbsp; mis à jour en novembre 2026 &nbsp;·&nbsp; 7 min de lecture</div>
 
   <p>
     Les études d'observation associent la course à pied à environ trois ans d'espérance de vie en plus, par rapport aux personnes qui ne courent pas. Ce chiffre revient partout, avec des variantes spectaculaires comme « une heure de course, sept heures de vie ». La version de mai de cet article les reprenait telles quelles. Elle est corrigée ici d'après les publications d'origine.

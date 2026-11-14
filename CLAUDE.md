@@ -1,6 +1,6 @@
 # Memento Mori — règles de rédaction du blog
 
-Site Jekyll (GitHub Pages) : montre-de-vie.com. Auteur des articles : Sébastien Salomon.
+Site Jekyll (GitHub Pages) : montre-de-vie.com. Auteur affiché : « Montre de Vie ». Le nom et le prénom de Sébastien ne doivent apparaître sur aucune page publique (articles, footer, JSON-LD, à propos, contact, guide), sauf dans `mentions-legales/`. Pour une citation signée, utiliser « Run Nature ».
 Ce fichier fixe les règles pour tout nouvel article ou toute modification de contenu éditorial.
 Les consignes explicites données pour un article précis priment sur ce fichier.
 
@@ -56,7 +56,7 @@ Gabarit de référence : `_posts/2026-11-04-montre-de-vie-vs-cleage.html`.
 
 **Fichier :** `_posts/AAAA-MM-JJ-slug.html`. L'URL est `/blog/AAAA/MM/JJ/slug/`. La date ne doit pas être dans le futur (`future: false` dans `_config.yml`).
 
-**Front matter :** `layout: post`, `title`, `description` (une phrase, environ 150 caractères), `excerpt` (2 à 3 phrases), `date`, `author: Sébastien Salomon`. Ajouter `last_modified_at` lors d'une mise à jour de fond.
+**Front matter :** `layout: post`, `title`, `description` (une phrase, environ 150 caractères), `excerpt` (2 à 3 phrases), `date`, `author: Montre de Vie`. Ajouter `last_modified_at` lors d'une mise à jour de fond.
 
 **Ordre d'un article :**
 1. `<a class="back-link" href="/blog/">← Retour au blog</a>`
@@ -70,6 +70,8 @@ Gabarit de référence : `_posts/2026-11-04-montre-de-vie-vs-cleage.html`.
 9. `<style>` propre à l'article (pour un tableau comparatif : classe `vs-table-wrap{N}` avec N incrémenté, le dernier utilisé est 7)
 
 **Composants disponibles :** `callout`, `cta-montre`, `support-box` (via l'include), `further-reading`, `faq-item`, `disclaimer`, `sources`. Pas de nouvelle classe sans raison.
+
+**Signature :** pas de nom de personne dans la ligne `post-meta` (date, temps de lecture seulement), ni dans le JSON-LD (`Organization` « Montre de Vie »).
 
 **Lecture :** temps de lecture estimé réaliste (environ 200 mots par minute).
 

@@ -3,7 +3,7 @@ layout: post
 title: "Memento Mori — signification, philosophie et pratique moderne (guide complet)"
 description: "Memento Mori : ça veut dire quoi exactement ? Origines romaines, philosophie stoïcienne, Steve Jobs, Marc Aurèle — et comment l'appliquer concrètement aujourd'hui."
 date: 2026-05-06
-author: Sébastien Salomon
+author: Montre de Vie
 last_modified_at: 2026-11-11
 ---
 
@@ -49,7 +49,7 @@ last_modified_at: 2026-11-11
 <article itemscope itemtype="https://schema.org/Article">
 
   <h1 itemprop="headline">Memento Mori — ça veut dire <em>quoi exactement</em> ?</h1>
-  <div class="post-meta" itemprop="datePublished" content="2026-05-06">6 mai 2026 &nbsp;·&nbsp; Sébastien Salomon &nbsp;·&nbsp; 7 min de lecture</div>
+  <div class="post-meta" itemprop="datePublished" content="2026-05-06">6 mai 2026 &nbsp;·&nbsp; 7 min de lecture</div>
 
   <p>
     Deux mots latins. Deux mots qui ont traversé 2 000 ans d'histoire sans prendre une ride. Deux mots que les généraux romains entendaient au moment de leur plus grande gloire, que Marc Aurèle se répétait chaque matin dans son journal, que Steve Jobs appliquait devant son miroir, et que des millions de personnes portent aujourd'hui sur un bracelet, un tatouage, ou une montre.
@@ -227,7 +227,7 @@ last_modified_at: 2026-11-11
 
   <blockquote>
     <p>« Je ne cours pas pour vivre plus longtemps. Je cours pour que les années que je vis aient du poids. »</p>
-    <footer style="font-size:.75rem;color:var(--muted);margin-top:8px;font-weight:700;">— Sébastien, Run Nature · Luxembourg</footer>
+    <footer style="font-size:.75rem;color:var(--muted);margin-top:8px;font-weight:700;">— Run Nature · Luxembourg</footer>
   </blockquote>
 
   <h2>Pourquoi un décompte en secondes</h2>
